@@ -12,6 +12,7 @@ library(ggplot2)
 library(plotly)
 library(flexdashboard)
 library(shinydashboard)
+library(scales)
 
 # ----------------------------------------------------------------------------
 # Setup loading screen and spinner

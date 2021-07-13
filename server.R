@@ -8,18 +8,21 @@ function(input, output, session) {
         scorecards_data_pivot %>% filter(LA_name == input$LA_choice,
                                          Phase == input$phase_choice)
         
-
-        
     })
     
-# Recreate that "caluclations" sheet you have, based on the user inputs
+    live_scorecard_data_england_comp  <- reactive({
+      
+      scorecards_data_pivot %>% filter(LA_name %in% c(input$LA_choice, "England"),
+                                       Phase == input$phase_choice)
+      
+    })
     
- # rv <- reactiveValues()
- # 
- # calculated_data <- live_scorecard_data %>% 
-     
+    live_scorecard_data_all_la  <- reactive({
+      
+      scorecards_data_pivot %>% filter(Phase == input$phase_choice)
+      
+    })
 
-    
         
 # Top lines -------------------------
 ## create header so users know what the data is showing
@@ -111,10 +114,7 @@ output$places_chart<- renderPlotly({
                xaxis = list(title =''),
                barmode = 'stack',
                uniformtext=list(minsize=12, mode='hide'),
-               legend = list(orientation = 'h'),
-               plot_bgcolor  = "rgba(0, 0, 0, 0)",
-               paper_bgcolor = "rgba(0, 0, 0, 0)",
-              fig_bgcolor   = "rgba(0, 0, 0, 0)")
+               legend = list(orientation = 'h'))
     
 
 })
@@ -158,5 +158,164 @@ output$forecast_1y <- renderGauge({
     
     
 })
+
+## Forecast accuracy three years ahead 
+
+#Code to go here using above template
+
+# Preference -------------------------------------------------------------
+
+# to fill in here
+
+
+
+# Quality -----------------------------------------------------------------
+
+# % of new places in good and outstanding schools - England
+
+# % of new places in good and outstanding schools - LA
+
+# % of new places in good and outstanding schools - LA Ranking
+# This one might take a bit more thinking but give it a go! 
+# the arrange() function might come in handy here to rank data items
+
+
+# Quality - charts --------------------------------------------------------
+
+#charts_reactive <- reactiveValues()
+
+
+# Bar chart comparison - Ofsted
+
+output$ofsted_chart<- renderPlotly({
+  
+  #reshape the data so it plots neatly!
+ofsted_data <- live_scorecard_data_england_comp() %>% 
+  #select only the ofsted values
+  filter(name %in% c("Qual1_N","Qual2_N","Qual3_N","Qual4_N","Qual0_N",
+                     "Qual1_E","Qual2_E","Qual3_E","Qual4_E","Qual0_E")) %>% 
+  #Create groups for "new" and "existing" places based on names
+  mutate(place_type = case_when (str_detect(name, "N") ~ "New",
+                                 str_detect(name, "E") ~ "Existing"))%>% 
+  #Create Ofsted ratings out of the names
+  mutate(rating = case_when (str_detect(name, "1") ~ "Oustanding",
+                             str_detect(name, "2") ~ "Good",
+                             str_detect(name, "3") ~ "Requires Improvement",
+                             str_detect(name, "4") ~ "Inadequate",
+                             str_detect(name, "0") ~ "No rating" )) %>% 
+  #Create new variable called places, replace 0s with NAs so it plots neatly
+  mutate(places = if_else(value==0, NA_integer_, as.integer(value)))
+
+
+p <- ofsted_data %>% 
+  filter(rating != "No rating") %>% 
+  ggplot(aes(y=value, x=place_type, 
+             fill = factor(rating, levels=c("Oustanding","Good","Requires Improvement","Inadequate")),
+             text = paste(rating, ": ", places, " places"))) + 
+  geom_bar(stat="identity", position = position_fill(reverse = TRUE))+
+
+  coord_flip() +
+  facet_wrap(~LA_name,nrow = 2) + 
+  geom_text( aes(label = scales::comma(places)),size = 3, position = position_fill(reverse = TRUE,vjust = 0.5))+
+  labs( x ="", y = "")+
+  guides(fill=guide_legend(title=""))+
+   theme_minimal()+
+  theme(legend.position="bottom")
+
+  ggplotly(p,
+           tooltip = c("text")) %>% 
+    layout(legend = list(orientation = "h",
+                         y =-0.1, x = 0.25)) })
+
+
+
+# Bar chart comparison - Progress 8
+
+# Bar chart comparison - Progress Reading
+
+output$progressreading_chart<- renderPlotly({
+  
+  #reshape the data so it plots neatly!
+  progress_reading_data <- live_scorecard_data_england_comp() %>% 
+    #select only the ofsted values
+    filter(name %in% c("KS2Read_WAA_N",	"KS2Read_AA_N",	"KS2Read_A_N", "KS2Read_BA_N", "KS2Read_WBA_N",	"KS2Read_NR_N",
+                       "KS2Read_WAA_E",	"KS2Read_AA_E",	"KS2Read_A_E", "KS2Read_BA_E", "KS2Read_WBA_E",	"KS2Read_NR_E")) %>% 
+    #Create groups for "new" and "existing" places based on names
+    mutate(place_type = case_when (str_detect(name, "N") ~ "New",
+                                   str_detect(name, "E") ~ "Existing"))%>% 
+    #Create Ofsted ratings out of the names
+    mutate(rating = case_when (str_detect(name, "_WAA_") ~ "Well above average",
+                               str_detect(name, "_A_") ~ "Average",
+                               str_detect(name, "_BA_") ~ "Below average",
+                               str_detect(name, "_WBA_") ~ "Well below average",
+                               str_detect(name, "NR") ~ "No rating" )) %>% 
+    #Create new variable called places, replace 0s with NAs so it plots neatly
+    mutate(places = if_else(value==0, NA_integer_, as.integer(value)))
+  
+  
+  p <- progress_reading_data %>% 
+    filter(rating != "No rating") %>% 
+    ggplot(aes(y=value, x=place_type, 
+               text = paste(rating, ": ", places, " places"),
+               fill = factor(rating, levels=c("Well above average","Average","Below average","Well below average")))) + 
+    geom_bar(stat="identity", position = position_fill(reverse = TRUE))+
+    
+    coord_flip() +
+    facet_wrap(~LA_name,nrow = 2) + 
+    geom_text( aes(label = scales::comma(places)),size = 3, position = position_fill(reverse = TRUE,vjust = 0.5))+
+    labs( x ="", y = "")+
+    guides(fill=guide_legend(title=""))+
+    theme_minimal()+
+    theme(legend.position="bottom")
+  
+  ggplotly(p,
+           tooltip = c("text")) %>% 
+    layout(legend = list(orientation = "h",
+                         y =-0.1, x = 0.25)) })
+
+
+# Bar chart comparison - Progress Maths
+
+
+
+
+# live_scorecard_data_england_comp <- scorecards_data_pivot %>% filter(LA_name %in% c("Doncaster", "England"),
+# Phase == "Primary")
+
+
+
+
+
+# Cost --------------------------------------------------------------------
+
+project_summary <- live_scorecard_data_england_comp %>% 
+  filter(str_detect(name,"Cost|Places")) %>% 
+  mutate(data_type = case_when (str_detect(name, "Cost") ~ "Cost",
+                                str_detect(name, "Place") ~ "Place")) %>% 
+  mutate(exp_type = case_when (str_detect(name, "EP") ~ "Permanent",
+                               str_detect(name, "ET") ~ "Temporary",
+                               str_detect(name, "NS") ~ "New school")
+         
+         ) %>% 
+  select(LA_name,data_type,exp_type,value) %>% 
+  pivot_wider(names_from = data_type, values_from = value) %>% 
+  mutate(cost_per_place = roundFiveUp(Cost/Place,0))
+  
+all_LA_cost <- live_scorecard_data_all_la %>%
+  filter(Phase == "Primary") %>% 
+  filter(str_detect(name,"Cost|Places")) %>% 
+  mutate(data_type = case_when (str_detect(name, "Cost") ~ "Cost",
+                                str_detect(name, "Place") ~ "Place")) %>% 
+  mutate(exp_type = case_when (str_detect(name, "EP") ~ "Permanent",
+                               str_detect(name, "ET") ~ "Temporary",
+                               str_detect(name, "NS") ~ "New school")
+         
+  ) %>% 
+  select(LA_name,data_type,exp_type,value) %>% 
+  pivot_wider(names_from = data_type, values_from = value) %>% 
+  mutate(cost_per_place = roundFiveUp(Cost/Place,0))
+
+
+
 
 }
