@@ -152,6 +152,7 @@ output$forecast_1y <- renderGauge({
     gauge(forecast_accuracy, 
           min = lowest_accuracy, 
           max = highest_accuracy, 
+          symbol = '%',
           sectors = gaugeSectors(success = c(high_mid_accuracy, highest_accuracy), 
                                  warning = c(low_mid_accuracy, high_mid_accuracy),
                                  danger = c(lowest_accuracy, low_mid_accuracy)))
@@ -287,33 +288,33 @@ output$progressreading_chart<- renderPlotly({
 
 
 # Cost --------------------------------------------------------------------
-
-project_summary <- live_scorecard_data_england_comp %>% 
-  filter(str_detect(name,"Cost|Places")) %>% 
-  mutate(data_type = case_when (str_detect(name, "Cost") ~ "Cost",
-                                str_detect(name, "Place") ~ "Place")) %>% 
-  mutate(exp_type = case_when (str_detect(name, "EP") ~ "Permanent",
-                               str_detect(name, "ET") ~ "Temporary",
-                               str_detect(name, "NS") ~ "New school")
-         
-         ) %>% 
-  select(LA_name,data_type,exp_type,value) %>% 
-  pivot_wider(names_from = data_type, values_from = value) %>% 
-  mutate(cost_per_place = roundFiveUp(Cost/Place,0))
-  
-all_LA_cost <- live_scorecard_data_all_la %>%
-  filter(Phase == "Primary") %>% 
-  filter(str_detect(name,"Cost|Places")) %>% 
-  mutate(data_type = case_when (str_detect(name, "Cost") ~ "Cost",
-                                str_detect(name, "Place") ~ "Place")) %>% 
-  mutate(exp_type = case_when (str_detect(name, "EP") ~ "Permanent",
-                               str_detect(name, "ET") ~ "Temporary",
-                               str_detect(name, "NS") ~ "New school")
-         
-  ) %>% 
-  select(LA_name,data_type,exp_type,value) %>% 
-  pivot_wider(names_from = data_type, values_from = value) %>% 
-  mutate(cost_per_place = roundFiveUp(Cost/Place,0))
+# 
+# project_summary <- live_scorecard_data_england_comp %>% 
+#   filter(str_detect(name,"Cost|Places")) %>% 
+#   mutate(data_type = case_when (str_detect(name, "Cost") ~ "Cost",
+#                                 str_detect(name, "Place") ~ "Place")) %>% 
+#   mutate(exp_type = case_when (str_detect(name, "EP") ~ "Permanent",
+#                                str_detect(name, "ET") ~ "Temporary",
+#                                str_detect(name, "NS") ~ "New school")
+#          
+#          ) %>% 
+#   select(LA_name,data_type,exp_type,value) %>% 
+#   pivot_wider(names_from = data_type, values_from = value) %>% 
+#   mutate(cost_per_place = roundFiveUp(Cost/Place,0))
+#   
+# all_LA_cost <- live_scorecard_data_all_la %>%
+#   filter(Phase == "Primary") %>% 
+#   filter(str_detect(name,"Cost|Places")) %>% 
+#   mutate(data_type = case_when (str_detect(name, "Cost") ~ "Cost",
+#                                 str_detect(name, "Place") ~ "Place")) %>% 
+#   mutate(exp_type = case_when (str_detect(name, "EP") ~ "Permanent",
+#                                str_detect(name, "ET") ~ "Temporary",
+#                                str_detect(name, "NS") ~ "New school")
+#          
+#   ) %>% 
+#   select(LA_name,data_type,exp_type,value) %>% 
+#   pivot_wider(names_from = data_type, values_from = value) %>% 
+#   mutate(cost_per_place = roundFiveUp(Cost/Place,0))
 
 
 
