@@ -355,9 +355,13 @@ output$cost_plot <- renderPlotly({
     ) %>%
     arrange(group_higlight)
   
-p<-ggplot(all_LA_cost, aes(x=x, y=cost_per_place, color=grouping, 
-                           text = paste(LA_name, ": £", cost_per_place, " per place"))) +
-  geom_beeswarm()+
+p<-ggplot() +
+  geom_beeswarm(data=all_LA_cost %>% filter(group_higlight==0), mapping = aes(x, cost_per_place,color = grouping,
+                                                                              text = paste(LA_name, ": £", cost_per_place, " per place")),
+                 groupOnX=TRUE, na.rm = TRUE) +
+  geom_beeswarm(data=all_LA_cost %>% filter(group_higlight==1), aes(x, cost_per_place, color = grouping,
+                                                                    text = paste(LA_name, ": £", cost_per_place, " per place")),
+                groupOnX=TRUE, na.rm = TRUE) +
   facet_grid(~factor(exp_type, levels=c('Permanent',"Temporary","New school")))+
   scale_color_manual(breaks = c( input$LA_choice, "England","Other LA"),
                      values=c( "#d95f02", "#1b9e77","#f0f0f0"))+
