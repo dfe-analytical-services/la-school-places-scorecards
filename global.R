@@ -1,4 +1,4 @@
-# ----------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 # Library calls
 # ----------------------------------------------------------------------------
 
@@ -13,6 +13,9 @@ library(plotly)
 library(flexdashboard)
 library(shinydashboard)
 library(scales)
+library(forcats)
+library(ggbeeswarm)
+
 
 # ----------------------------------------------------------------------------
 # Setup loading screen and spinner
@@ -70,4 +73,6 @@ roundFiveUp <- function(x, n){
   return(z * positiveNegative) 
 }
 
-
+# Comma separating 
+  
+cs_num <- function(x){format(x,big.mark=",", trim=TRUE)}

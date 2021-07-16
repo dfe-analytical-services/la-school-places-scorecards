@@ -3,6 +3,7 @@ function(input, output, session) {
 
 # Data calculations - reactive --------------------------------------------
 
+  # Scorecard data, filtered on user input
     live_scorecard_data  <- reactive({
 
         scorecards_data_pivot %>% filter(LA_name == input$LA_choice,
@@ -10,19 +11,25 @@ function(input, output, session) {
         
     })
     
+    # Scorecard data, filtered on user input AND including England as a comparison
     live_scorecard_data_england_comp  <- reactive({
       
       scorecards_data_pivot %>% filter(LA_name %in% c(input$LA_choice, "England"),
-                                       Phase == input$phase_choice)
+                                       Phase == input$phase_choice) %>% 
+        mutate(LA_name = as.factor(LA_name),
+               # This step just makes sure that the LA is FIRST when it comes to plots/tables
+               LA_name = relevel(LA_name, "England"),
+               LA_name = factor(LA_name, levels=rev(levels(LA_name))))
       
     })
     
+    # Scorecard data for ALL LAs, filtered only on phase choice
     live_scorecard_data_all_la  <- reactive({
-      
-      scorecards_data_pivot %>% filter(Phase == input$phase_choice)
+      scorecards_data_pivot %>% filter(Phase == input$phase_choice) 
       
     })
 
+    
         
 # Top lines -------------------------
 ## create header so users know what the data is showing
@@ -166,24 +173,35 @@ output$forecast_1y <- renderGauge({
 
 # Preference -------------------------------------------------------------
 
-# to fill in here
+# to fill in here - use the output$pupil_growth as a template :)
 
+# Box for England % preference
+
+# Box for LA % preference
+
+# Stacked bar instead of pie here for preference? 
+# Easier for users to interpret
+# can use output$ofsted_chart further down for a template
 
 
 # Quality -----------------------------------------------------------------
 
-# % of new places in good and outstanding schools - England
+# box for % of new places in good and outstanding schools - England
 
-# % of new places in good and outstanding schools - LA
+# box for % of new places in good and outstanding schools - LA
 
-# % of new places in good and outstanding schools - LA Ranking
+# box for % of new places in good and outstanding schools - LA Ranking
 # This one might take a bit more thinking but give it a go! 
 # the arrange() function might come in handy here to rank data items
+# the mutate() function will be needed to create a new column of rankings.
 
 
 # Quality - charts --------------------------------------------------------
 
-#charts_reactive <- reactiveValues()
+
+# Final step once charts are ready - making this bit reactive with a dropdown
+
+# charts_reactive <- reactiveValues()
 
 
 # Bar chart comparison - Ofsted
@@ -230,7 +248,7 @@ p <- ofsted_data %>%
 
 
 
-# Bar chart comparison - Progress 8
+# Bar chart comparison - Progress 8 -- TO ADD
 
 # Bar chart comparison - Progress Reading
 
@@ -275,48 +293,97 @@ output$progressreading_chart<- renderPlotly({
                          y =-0.1, x = 0.25)) })
 
 
-# Bar chart comparison - Progress Maths
+# Bar chart comparison - Progress Maths -- TO ADD
 
-
-
-
-# live_scorecard_data_england_comp <- scorecards_data_pivot %>% filter(LA_name %in% c("Doncaster", "England"),
-# Phase == "Primary")
 
 
 
 
 
 # Cost --------------------------------------------------------------------
-# 
-# project_summary <- live_scorecard_data_england_comp %>% 
-#   filter(str_detect(name,"Cost|Places")) %>% 
-#   mutate(data_type = case_when (str_detect(name, "Cost") ~ "Cost",
-#                                 str_detect(name, "Place") ~ "Place")) %>% 
-#   mutate(exp_type = case_when (str_detect(name, "EP") ~ "Permanent",
-#                                str_detect(name, "ET") ~ "Temporary",
-#                                str_detect(name, "NS") ~ "New school")
-#          
-#          ) %>% 
-#   select(LA_name,data_type,exp_type,value) %>% 
-#   pivot_wider(names_from = data_type, values_from = value) %>% 
-#   mutate(cost_per_place = roundFiveUp(Cost/Place,0))
-#   
-# all_LA_cost <- live_scorecard_data_all_la %>%
-#   filter(Phase == "Primary") %>% 
-#   filter(str_detect(name,"Cost|Places")) %>% 
-#   mutate(data_type = case_when (str_detect(name, "Cost") ~ "Cost",
-#                                 str_detect(name, "Place") ~ "Place")) %>% 
-#   mutate(exp_type = case_when (str_detect(name, "EP") ~ "Permanent",
-#                                str_detect(name, "ET") ~ "Temporary",
-#                                str_detect(name, "NS") ~ "New school")
-#          
-#   ) %>% 
-#   select(LA_name,data_type,exp_type,value) %>% 
-#   pivot_wider(names_from = data_type, values_from = value) %>% 
-#   mutate(cost_per_place = roundFiveUp(Cost/Place,0))
+
+# Comparison table - average cost of projects per place
+output$cost_table <- renderTable({
+  
+  live_scorecard_data_england_comp() %>%
+    #Filter for Cost, places and project data
+  filter(str_detect(name,"Cost|Places|Projects")) %>%
+    #Create new column called data_type, based on the name of the data
+  mutate(data_type = case_when (str_detect(name, "Cost") ~ "Cost",
+                                str_detect(name, "Place") ~ "Place",
+                                str_detect(name, "Project") ~ "Project")) %>%
+  mutate(exp_type = case_when (str_detect(name, "EP") ~ "Permanent",
+                               str_detect(name, "ET") ~ "Temporary",
+                               str_detect(name, "NS") ~ "New school")
+         ) %>%
+  select(LA_name,data_type,exp_type,value) %>%
+    #pivot the data wider
+  pivot_wider(names_from = data_type, values_from = value) %>%
+    #calculate cost per place
+  mutate(cost_per_place = roundFiveUp(Cost/Place,0),
+         #format it nicely with £ sign
+         cost_per_place = paste0("£",cs_num(cost_per_place))) %>% 
+  select(LA_name,Type = exp_type ,cost_per_place) %>%
+  pivot_wider(names_from = LA_name, values_from = cost_per_place)
+    
+
+})
 
 
+#Comparison charts - average cost per place
 
+output$cost_plot <- renderPlotly({
+  
+  all_LA_cost <- live_scorecard_data_all_la() %>% 
+    #live_scorecard_data_all_la() %>%
+    filter(str_detect(name,"Cost|Places|Projects")) %>%
+    mutate(data_type = case_when (str_detect(name, "Cost") ~ "Cost",
+                                  str_detect(name, "Place") ~ "Place",
+                                  str_detect(name, "Project") ~ "Project")) %>%
+    mutate(exp_type = case_when (str_detect(name, "EP") ~ "Permanent",
+                                 str_detect(name, "ET") ~ "Temporary",
+                                 str_detect(name, "NS") ~ "New school")
+           
+    ) %>%
+    select(LA_name,data_type,exp_type,value) %>%
+    pivot_wider(names_from = data_type, values_from = value) %>%
+    mutate(cost_per_place = roundFiveUp(Cost/Place,0),
+           grouping = case_when(!LA_name %in% c("England",input$LA_choice) ~ "Other LA",
+                                TRUE ~ as.character(LA_name)),
+           x = 1,
+           group_higlight = if_else(grouping =="Other LA",0,1)
+    ) %>%
+    arrange(group_higlight)
+  
+p<-ggplot(all_LA_cost, aes(x=x, y=cost_per_place, color=grouping, 
+                           text = paste(LA_name, ": £", cost_per_place, " per place"))) +
+  geom_beeswarm()+
+  facet_grid(~factor(exp_type, levels=c('Permanent',"Temporary","New school")))+
+  scale_color_manual(breaks = c( input$LA_choice, "England","Other LA"),
+                     values=c( "#d95f02", "#1b9e77","#f0f0f0"))+
+  theme(axis.line=element_blank(),
+        axis.text.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks=element_blank(),
+        axis.title.x=element_blank(),
+        axis.title.y=element_blank(),
+        panel.background=element_blank(),
+        panel.border=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        plot.background=element_blank())
+  
+
+
+ ggplotly(p,tooltip = c("text"))   %>% 
+   layout(legend = list(orientation = "h",
+                        y =-0.1, x = 0.33))
+ 
+
+})
+
+# NEED TO ADD:
+
+# Table to show number of projects - can sit under the other table in this tab?
 
 }

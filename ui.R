@@ -51,7 +51,12 @@ dashboardPage(
             ),
             tabPanel("Cost", 
                      p(strong("Local authority reported projects between 2015/16 and 2017/18, adjusted for inflation and regional variation")),
-                     p("(Not new data: see technical notes)")
+                     p("(Not new data: see technical notes)"),
+                     fluidRow(
+                         column(9,
+                                plotlyOutput("cost_plot")),
+                         column(3,
+                                tableOutput("cost_table")))
                      #Cost content to go here
                      
             )
