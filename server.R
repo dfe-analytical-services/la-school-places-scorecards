@@ -171,6 +171,46 @@ output$forecast_1y <- renderGauge({
 
 #Code to go here using above template
 
+output$forecast_3y <- renderGauge({
+  #live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
+  
+  forecast_accuracy <- live_scorecard_data() %>% 
+    filter(name == "For_3") %>% 
+    pull(value)%>% 
+    roundFiveUp(.,3)*100
+  
+  lowest_accuracy <- scorecards_data_pivot %>% 
+    filter(name == "For_3",
+           Phase == input$phase_choice) %>% 
+    slice(which.min(value)) %>% 
+    pull(value)%>% 
+    roundFiveUp(.,3)*100
+  
+  highest_accuracy <- scorecards_data_pivot %>% 
+    filter(name == "For_3",
+           Phase == input$phase_choice) %>% 
+    slice(which.max(value)) %>% 
+    pull(value)%>% 
+    roundFiveUp(.,3)*100
+  
+  #Get medians/quartiles to set the sectors in the gauge
+  mid_accuracy <-  median(c(highest_accuracy,lowest_accuracy))
+  low_mid_accuracy <-  median(c(mid_accuracy,lowest_accuracy))
+  high_mid_accuracy <-  median(c(mid_accuracy,highest_accuracy))
+  
+  
+  gauge(forecast_accuracy, 
+        min = lowest_accuracy, 
+        max = highest_accuracy, 
+        symbol = '%',
+        sectors = gaugeSectors(success = c(high_mid_accuracy, highest_accuracy), 
+                               warning = c(low_mid_accuracy, high_mid_accuracy),
+                               danger = c(lowest_accuracy, low_mid_accuracy)))
+  
+  
+})
+
+
 # Preference -------------------------------------------------------------
 
 # to fill in here - use the output$pupil_growth as a template :)
