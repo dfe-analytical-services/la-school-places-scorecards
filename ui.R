@@ -34,8 +34,12 @@ dashboardPage(
                 column(6,
                        p("Forecast accuracy one year ahead"),
                        br(),
-                       gaugeOutput("forecast_1y")
-                ))),
+                       gaugeOutput("forecast_1y"),
+                       column(12,
+                              p("Forecast accuracy three year ahead"),
+                              br(),
+                              gaugeOutput("forecast_3y")
+                )))),
             tabPanel("Preference", 
                      p(strong("Proportion of applicants who received an offer of one of their top three preferences for September 2019 entry")),
                      #preference content to go here
