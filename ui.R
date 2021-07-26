@@ -35,7 +35,7 @@ dashboardPage(
                        p("Forecast accuracy one year ahead"),
                        br(),
                        gaugeOutput("forecast_1y"),
-                column(12,
+                column(25,
                        p("Forecast accuracy three years ahead"),
                        br(),
                        gaugeOutput("forecast_3y"))
