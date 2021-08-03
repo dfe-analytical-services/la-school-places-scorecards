@@ -19,7 +19,9 @@ dashboardPage(
         h2(textOutput("data_description")),
            fluidRow(
                valueBoxOutput("total_funding_box"),
-               valueBoxOutput("pupil_growth")
+               valueBoxOutput("pupil_growth"),
+               valueBoxOutput("estimated_additional_places"),
+               valueBoxOutput("estimated_spare_places")
            ),
         br(),
         
@@ -40,12 +42,14 @@ dashboardPage(
                        br(),
                        gaugeOutput("forecast_3y")
                               
-                ))),
+                )))),
             tabPanel("Preference", 
-                     p(strong("Proportion of applicants who received an offer of one of their top three preferences for September 2019 entry"))
+                     p(strong("Proportion of applicants who received an offer of one of their top three preferences for September 2019 entry")),
                      #preference content to go here
+                     fluidRow(
+                         valueBoxOutput("PrefT3_LA")
                      
-                     ),
+                     )),
             tabPanel("Quality", 
                      p(strong("Quality of places created between 2017/18 and 2018/19")),
                      fluidRow(
@@ -72,4 +76,4 @@ dashboardPage(
             
         )#end of tabset
         )#end of dashboard body
-    ))
+    )

@@ -92,14 +92,46 @@ output$pupil_growth <- renderValueBox({
 
 # Quantity ----------------------------------------------------------------
 
-## Estimated additional places
+## Estimated additional places - use QUAN_P_RP and QUAN_S_RP
 
-# Box to go here (use pupil growth as template)
+# Box to go here (use pupil growth as template) 
 
+output$estimated_additional_places <- renderValueBox({
+
+  #Take filtered data, search for growth rate, pull the value and tidy the number up
+  additional_places_perc <- live_scorecard_data() %>%
+    filter(name=="QuanRP") %>%
+    pull(value)
+
+  #Put value into box to plug into app
+  shinydashboard::valueBox(
+    paste0(additional_places_perc),
+    paste0("Estimated number of additional " , str_to_lower(input$phase_choice), " places required to meet demand in 2021/22"),
+    icon = icon("fas fa-bacon"),
+    color = "red"
+  )
+})
 
 ## Estimated spare places
 
 # Box to go here (use pupil growth as template)
+
+output$estimated_spare_places <- renderValueBox({
+
+  #Take filtered data, search for growth rate, pull the value and tidy the number up
+  spare_places_per <- live_scorecard_data() %>%
+    filter(name=="QuanSu") %>%
+    pull(value) %>%
+    roundFiveUp(.,2)*100
+
+  #Put value into box to plug into app
+  shinydashboard::valueBox(
+    paste0(spare_places_per, "%"),
+    paste0("Estimated percentage of spare ", str_to_lower(input$phase_choice)," places in 2021/22"),
+    icon = icon("fas fa-dumpster-fire"),
+    color = "orange"
+  )
+})
 
 ## Places stacked bar
 
@@ -217,7 +249,42 @@ output$forecast_3y <- renderGauge({
 
 # Box for England % preference
 
+# output$prefT3_ENG <- renderValueBox({
+# 
+#   #Take filtered data, search for growth rate, pull the value and tidy the number up
+#   PrefT3_E <- live_scorecard_data() %>%
+#     filter(name=="PrefT3") %>%
+#     filter(LA_name=="England") %>%
+#     pull(value) %>%
+#     roundFiveUp(.,2)
+# 
+#   #Put value into box to plug into app
+#   shinydashboard::valueBox(
+#     paste0(PrefT3_E, "%"),
+#     paste0("Growth in ", str_to_lower(input$phase_choice)," pupil numbers 2009/10 to 2021/22"),
+#     icon = icon("fas fa-chart-line"),
+#     color = "blue"
+#   )
+# })
+
 # Box for LA % preference
+
+output$PrefT3_LA <- renderValueBox({
+
+  #Take filtered data, search for growth rate, pull the value and tidy the number up
+  PrefT3 <- live_scorecard_data() %>%
+    filter(name=="PrefT3") %>%
+    pull(value) %>%
+    roundFiveUp(.,2)
+
+  #Put value into box to plug into app
+  shinydashboard::valueBox(
+    paste0(PrefT3, "%"),
+    paste0("Growth in ", str_to_lower(input$phase_choice)," pupil numbers 2009/10 to 2021/22"),
+    icon = icon("fas fa-trophy"),
+    color = "green"
+  )
+})
 
 # Stacked bar instead of pie here for preference? 
 # Easier for users to interpret
