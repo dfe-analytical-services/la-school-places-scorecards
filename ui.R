@@ -54,7 +54,13 @@ dashboardPage(
                      p(strong("Quality of places created between 2017/18 and 2018/19")),
                      fluidRow(
                      column(12,
-                            plotlyOutput("ofsted_chart")))
+                            plotlyOutput("ofsted_chart")),
+                     column(6,
+                            plotlyOutput("progressmaths_chart")),
+                     column(6, 
+                            plotlyOutput("progressreading_chart")),
+                     column(12,
+                            plotlyOutput("progress8_chart")))
                      #Quality content to go here
                      
             ),

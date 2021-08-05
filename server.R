@@ -107,7 +107,7 @@ output$estimated_additional_places <- renderValueBox({
   shinydashboard::valueBox(
     paste0(additional_places_perc),
     paste0("Estimated number of additional " , str_to_lower(input$phase_choice), " places required to meet demand in 2021/22"),
-    icon = icon("fas fa-bacon"),
+    icon = icon("fas fa-signal"),
     color = "red"
   )
 })
@@ -229,22 +229,17 @@ output$forecast_3y <- renderGauge({
   mid_accuracy <-  median(c(highest_accuracy,lowest_accuracy))
   low_mid_accuracy <-  median(c(mid_accuracy,lowest_accuracy))
   high_mid_accuracy <-  median(c(mid_accuracy,highest_accuracy))
-  mid_low_accuracy <- median(c(mid_accuracy,low_mid_accuracy))
-  mid_high_accuracy <- median(c(mid_accuracy,High_mid_accuracy))
-  
-  
+ 
   
   
   gauge(forecast_accuracy, 
         min = lowest_accuracy, 
         max = highest_accuracy, 
         symbol = '%',
-        sectors = gaugeSectors(
-          success = c(20, 80),
-          warning = c(10, 90),
-          danger = c(0, 100)
-        )
-  )
+        sectors = gaugeSectors(success = c(high_mid_accuracy, highest_accuracy), 
+                               warning = c(low_mid_accuracy, high_mid_accuracy),
+                               danger = c(lowest_accuracy, low_mid_accuracy)))
+  
   
 })
 
@@ -364,13 +359,54 @@ p <- ofsted_data %>%
 
 # Bar chart comparison - Progress 8 -- TO ADD
 
+output$progress8_chart<- renderPlotly({
+  
+  #reshape the data so it plots neatly!
+  progress_8_data <- live_scorecard_data_england_comp() %>% 
+    #select only the progress 8 values
+    filter(name %in% c("KS4_WAA_N",	"KS4_AA_N",	"KS4_A_N", "KS4_BA_N", "KS4_WBA_N",	"KS4_NR_N",
+                       "KS4_WAA_E",	"KS4_AA_E",	"KS4_A_E", "KS4_BA_E", "KS4_WBA_E",	"KS4_NR_E")) %>% 
+    #Create groups for "new" and "existing" places based on names
+    mutate(place_type = case_when (str_detect(name, "N") ~ "New",
+                                   str_detect(name, "E") ~ "Existing"))%>% 
+    #Create Ofsted ratings out of the names
+    mutate(rating = case_when (str_detect(name, "_WAA_") ~ "Well above average",
+                               str_detect(name, "_A_") ~ "Average",
+                               str_detect(name, "_BA_") ~ "Below average",
+                               str_detect(name, "_WBA_") ~ "Well below average",
+                               str_detect(name, "NR") ~ "No rating" )) %>% 
+    #Create new variable called places, replace 0s with NAs so it plots neatly
+    mutate(places = if_else(value==0, NA_integer_, as.integer(value)))
+  
+  
+  p <- progress_8_data %>% 
+    filter(rating != "No rating") %>% 
+    ggplot(aes(y=value, x=place_type, 
+               text = paste(rating, ": ", places, " places"),
+               fill = factor(rating, levels=c("Well above average","Average","Below average","Well below average")))) + 
+    geom_bar(stat="identity", position = position_fill(reverse = TRUE))+
+    
+    coord_flip() +
+    facet_wrap(~LA_name,nrow = 2) + 
+    geom_text( aes(label = scales::comma(places)),size = 3, position = position_fill(reverse = TRUE,vjust = 0.5))+
+    labs( x ="", y = "")+
+    guides(fill=guide_legend(title=""))+
+    theme_minimal()+
+    theme(legend.position="bottom")
+  
+  ggplotly(p,
+           tooltip = c("text")) %>% 
+    layout(legend = list(orientation = "h",
+                         y =-0.1, x = 0.25)) })
+
+
 # Bar chart comparison - Progress Reading
 
 output$progressreading_chart<- renderPlotly({
   
   #reshape the data so it plots neatly!
   progress_reading_data <- live_scorecard_data_england_comp() %>% 
-    #select only the ofsted values
+    #select only the reading values
     filter(name %in% c("KS2Read_WAA_N",	"KS2Read_AA_N",	"KS2Read_A_N", "KS2Read_BA_N", "KS2Read_WBA_N",	"KS2Read_NR_N",
                        "KS2Read_WAA_E",	"KS2Read_AA_E",	"KS2Read_A_E", "KS2Read_BA_E", "KS2Read_WBA_E",	"KS2Read_NR_E")) %>% 
     #Create groups for "new" and "existing" places based on names
@@ -409,7 +445,45 @@ output$progressreading_chart<- renderPlotly({
 
 # Bar chart comparison - Progress Maths -- TO ADD
 
-
+output$progressmaths_chart<- renderPlotly({
+  
+  #reshape the data so it plots neatly!
+  progress_maths_data <- live_scorecard_data_england_comp() %>% 
+    #select only the maths values
+    filter(name %in% c("KS2Mat_WAA_N",	"KS2Mat_AA_N",	"KS2Mat_A_N", "KS2Mat_BA_N", "KS2Mat_WBA_N",	"KS2Mat_NR_N",
+                       "KS2Mat_WAA_E",	"KS2Mat_AA_E",	"KS2Mat_A_E", "KS2Mat_BA_E", "KS2Mat_WBA_E",	"KS2Mat_NR_E")) %>% 
+    #Create groups for "new" and "existing" places based on names
+    mutate(place_type = case_when (str_detect(name, "N") ~ "New",
+                                   str_detect(name, "E") ~ "Existing"))%>% 
+    #Create Ofsted ratings out of the names
+    mutate(rating = case_when (str_detect(name, "_WAA_") ~ "Well above average",
+                               str_detect(name, "_A_") ~ "Average",
+                               str_detect(name, "_BA_") ~ "Below average",
+                               str_detect(name, "_WBA_") ~ "Well below average",
+                               str_detect(name, "NR") ~ "No rating" )) %>% 
+    #Create new variable called places, replace 0s with NAs so it plots neatly
+    mutate(places = if_else(value==0, NA_integer_, as.integer(value)))
+  
+  
+  p <- progress_maths_data %>% 
+    filter(rating != "No rating") %>% 
+    ggplot(aes(y=value, x=place_type, 
+               text = paste(rating, ": ", places, " places"),
+               fill = factor(rating, levels=c("Well above average","Average","Below average","Well below average")))) + 
+    geom_bar(stat="identity", position = position_fill(reverse = TRUE))+
+    
+    coord_flip() +
+    facet_wrap(~LA_name,nrow = 2) + 
+    geom_text( aes(label = scales::comma(places)),size = 3, position = position_fill(reverse = TRUE,vjust = 0.5))+
+    labs( x ="", y = "")+
+    guides(fill=guide_legend(title=""))+
+    theme_minimal()+
+    theme(legend.position="bottom")
+  
+  ggplotly(p,
+           tooltip = c("text")) %>% 
+    layout(legend = list(orientation = "h",
+                         y =-0.1, x = 0.25)) })
 
 
 
