@@ -229,16 +229,22 @@ output$forecast_3y <- renderGauge({
   mid_accuracy <-  median(c(highest_accuracy,lowest_accuracy))
   low_mid_accuracy <-  median(c(mid_accuracy,lowest_accuracy))
   high_mid_accuracy <-  median(c(mid_accuracy,highest_accuracy))
+  mid_low_accuracy <- median(c(mid_accuracy,low_mid_accuracy))
+  mid_high_accuracy <- median(c(mid_accuracy,High_mid_accuracy))
+  
+  
   
   
   gauge(forecast_accuracy, 
         min = lowest_accuracy, 
         max = highest_accuracy, 
         symbol = '%',
-        sectors = gaugeSectors(success = c(high_mid_accuracy, highest_accuracy), 
-                               warning = c(low_mid_accuracy, high_mid_accuracy),
-                               danger = c(lowest_accuracy, low_mid_accuracy)))
-  
+        sectors = gaugeSectors(
+          success = c(20, 80),
+          warning = c(10, 90),
+          danger = c(0, 100)
+        )
+  )
   
 })
 
@@ -280,7 +286,7 @@ output$PrefT3_LA <- renderValueBox({
   #Put value into box to plug into app
   shinydashboard::valueBox(
     paste0(PrefT3, "%"),
-    paste0("Growth in ", str_to_lower(input$phase_choice)," pupil numbers 2009/10 to 2021/22"),
+    paste0("Percentage of ", str_to_lower(input$phase_choice)," pupils who recieved an offer of one of their top three preferences"),
     icon = icon("fas fa-trophy"),
     color = "green"
   )
@@ -296,6 +302,7 @@ output$PrefT3_LA <- renderValueBox({
 # box for % of new places in good and outstanding schools - England
 
 # box for % of new places in good and outstanding schools - LA
+
 
 # box for % of new places in good and outstanding schools - LA Ranking
 # This one might take a bit more thinking but give it a go! 
