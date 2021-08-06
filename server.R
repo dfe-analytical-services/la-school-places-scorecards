@@ -92,14 +92,46 @@ output$pupil_growth <- renderValueBox({
 
 # Quantity ----------------------------------------------------------------
 
-## Estimated additional places
+## Estimated additional places - use QUAN_P_RP and QUAN_S_RP
 
-# Box to go here (use pupil growth as template)
+# Box to go here (use pupil growth as template) 
 
+output$estimated_additional_places <- renderValueBox({
+
+  #Take filtered data, search for growth rate, pull the value and tidy the number up
+  additional_places_perc <- live_scorecard_data() %>%
+    filter(name=="QuanRP") %>%
+    pull(value)
+
+  #Put value into box to plug into app
+  shinydashboard::valueBox(
+    paste0(additional_places_perc),
+    paste0("Estimated number of additional " , str_to_lower(input$phase_choice), " places required to meet demand in 2021/22"),
+    icon = icon("fas fa-signal"),
+    color = "red"
+  )
+})
 
 ## Estimated spare places
 
 # Box to go here (use pupil growth as template)
+
+output$estimated_spare_places <- renderValueBox({
+
+  #Take filtered data, search for growth rate, pull the value and tidy the number up
+  spare_places_per <- live_scorecard_data() %>%
+    filter(name=="QuanSu") %>%
+    pull(value) %>%
+    roundFiveUp(.,2)*100
+
+  #Put value into box to plug into app
+  shinydashboard::valueBox(
+    paste0(spare_places_per, "%"),
+    paste0("Estimated percentage of spare ", str_to_lower(input$phase_choice)," places in 2021/22"),
+    icon = icon("fas fa-school"),
+    color = "orange"
+  )
+})
 
 ## Places stacked bar
 
@@ -154,15 +186,17 @@ output$forecast_1y <- renderGauge({
     mid_accuracy <-  median(c(highest_accuracy,lowest_accuracy))
     low_mid_accuracy <-  median(c(mid_accuracy,lowest_accuracy))
     high_mid_accuracy <-  median(c(mid_accuracy,highest_accuracy))
+    mid_low_accuracy <- median(c(low_mid_accuracy, lowest_accuracy))
+    mid_high_accuracy <- median(c(high_mid_accuracy, highest_accuracy))
         
     
     gauge(forecast_accuracy, 
           min = lowest_accuracy, 
           max = highest_accuracy, 
           symbol = '%',
-          sectors = gaugeSectors(success = c(high_mid_accuracy, highest_accuracy), 
-                                 warning = c(low_mid_accuracy, high_mid_accuracy),
-                                 danger = c(lowest_accuracy, low_mid_accuracy)))
+          sectors = gaugeSectors(success = c(low_mid_accuracy, high_mid_accuracy), 
+                                 warning = c(mid_low_accuracy, mid_high_accuracy),
+                                 danger = c(lowest_accuracy, highest_accuracy)))
     
     
 })
@@ -171,13 +205,101 @@ output$forecast_1y <- renderGauge({
 
 #Code to go here using above template
 
+output$forecast_3y <- renderGauge({
+  #live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
+  
+  forecast_accuracy <- live_scorecard_data() %>% 
+    filter(name == "For_3") %>% 
+    pull(value)%>% 
+    roundFiveUp(.,3)*100
+  
+  lowest_accuracy <- scorecards_data_pivot %>% 
+    filter(name == "For_3",
+           Phase == input$phase_choice) %>% 
+    slice(which.min(value)) %>% 
+    pull(value)%>% 
+    roundFiveUp(.,3)*100
+  
+  highest_accuracy <- scorecards_data_pivot %>% 
+    filter(name == "For_3",
+           Phase == input$phase_choice) %>% 
+    slice(which.max(value)) %>% 
+    pull(value)%>% 
+    roundFiveUp(.,3)*100
+  
+  #Get medians/quartiles to set the sectors in the gauge
+  mid_accuracy <-  median(c(highest_accuracy,lowest_accuracy))
+  low_mid_accuracy <-  median(c(mid_accuracy,lowest_accuracy))
+  high_mid_accuracy <-  median(c(mid_accuracy,highest_accuracy))
+  mid_low_accuracy <- median(c(low_mid_accuracy, lowest_accuracy))
+  mid_high_accuracy <- median(c(high_mid_accuracy, highest_accuracy))
+ 
+  
+  
+  gauge(forecast_accuracy, 
+        min = lowest_accuracy, 
+        max = highest_accuracy, 
+        symbol = '%',
+        sectors = gaugeSectors(success = c(low_mid_accuracy, high_mid_accuracy), 
+                               warning = c(mid_low_accuracy, mid_high_accuracy),
+                               danger = c(lowest_accuracy, highest_accuracy)))
+  
+  
+})
+
+
 # Preference -------------------------------------------------------------
 
 # to fill in here - use the output$pupil_growth as a template :)
 
 # Box for England % preference
 
+output$prefT3_ENG <- renderValueBox({
+
+  #Take filtered data, search for growth rate, pull the value and tidy the number up
+  PrefT3_E <- live_scorecard_data_all_la() %>%
+    filter(name=="PrefT3") %>%
+    filter(LA_name=="England") %>%
+    pull(value) %>%
+    roundFiveUp(.,2)
+
+  #Put value into box to plug into app
+  shinydashboard::valueBox(
+    paste0(PrefT3_E, "%"),
+    paste0("Percentage of ", str_to_lower(input$phase_choice)," pupils who recieved an offer of one of their top three preferences in England"),
+    icon = icon("fas fa-chart-line"),
+    color = "blue"
+  )
+})
+
 # Box for LA % preference
+
+output$PrefT3_LA <- renderValueBox({
+
+  #Take filtered data, search for growth rate, pull the value and tidy the number up
+  PrefT3 <- live_scorecard_data() %>%
+    filter(name=="PrefT3") %>%
+    pull(value) %>%
+    roundFiveUp(.,2)
+
+  if (input$LA_choice =="England") {
+    shinydashboard::valueBox(
+      paste0("-"),
+      paste0("Percentage of ", str_to_lower(input$phase_choice)," pupils who recieved an offer of one of their top three preferences in England"),
+      icon = icon("fas fa-sort-amount-up"),
+      color = "green"
+    )
+    
+  } else {
+  
+  #Put value into box to plug into app
+  shinydashboard::valueBox(
+    paste0(PrefT3, "%"),
+    paste0("Percentage of ", str_to_lower(input$phase_choice)," pupils who recieved an offer of one of their top three preferences in " , str_to_lower(input$LA_choice)),
+    icon = icon("fas fa-sort-amount-up"),
+    color = "green"
+  )}
+})
 
 # Stacked bar instead of pie here for preference? 
 # Easier for users to interpret
@@ -189,6 +311,7 @@ output$forecast_1y <- renderGauge({
 # box for % of new places in good and outstanding schools - England
 
 # box for % of new places in good and outstanding schools - LA
+
 
 # box for % of new places in good and outstanding schools - LA Ranking
 # This one might take a bit more thinking but give it a go! 
@@ -202,7 +325,6 @@ output$forecast_1y <- renderGauge({
 # Final step once charts are ready - making this bit reactive with a dropdown
 
 # charts_reactive <- reactiveValues()
-
 
 # Bar chart comparison - Ofsted
 
@@ -250,13 +372,56 @@ p <- ofsted_data %>%
 
 # Bar chart comparison - Progress 8 -- TO ADD
 
+
+output$progress8_chart<- renderPlotly({
+  
+  #reshape the data so it plots neatly!
+  progress_8_data <- live_scorecard_data_england_comp() %>% 
+    #select only the progress 8 values
+    filter(name %in% c("KS4_WAA_N",	"KS4_AA_N",	"KS4_A_N", "KS4_BA_N", "KS4_WBA_N",	"KS4_NR_N",
+                       "KS4_WAA_E",	"KS4_AA_E",	"KS4_A_E", "KS4_BA_E", "KS4_WBA_E",	"KS4_NR_E")) %>% 
+    #Create groups for "new" and "existing" places based on names
+    mutate(place_type = case_when (str_detect(name, "N") ~ "New",
+                                   str_detect(name, "E") ~ "Existing"))%>% 
+    #Create Ofsted ratings out of the names
+    mutate(rating = case_when (str_detect(name, "_WAA_") ~ "Well above average",
+                               str_detect(name, "_A_") ~ "Average",
+                               str_detect(name, "_BA_") ~ "Below average",
+                               str_detect(name, "_WBA_") ~ "Well below average",
+                               str_detect(name, "NR") ~ "No rating" )) %>% 
+    #Create new variable called places, replace 0s with NAs so it plots neatly
+    mutate(places = if_else(value==0, NA_integer_, as.integer(value)))
+  
+  
+  p <- progress_8_data %>% 
+    filter(rating != "No rating") %>% 
+    ggplot(aes(y=value, x=place_type, 
+               text = paste(rating, ": ", places, " places"),
+               fill = factor(rating, levels=c("Well above average","Average","Below average","Well below average")))) + 
+    geom_bar(stat="identity", position = position_fill(reverse = TRUE))+
+    
+    coord_flip() +
+    facet_wrap(~LA_name,nrow = 2) + 
+    geom_text( aes(label = scales::comma(places)),size = 3, position = position_fill(reverse = TRUE,vjust = 0.5))+
+    labs( x ="", y = "")+
+    guides(fill=guide_legend(title=""))+
+    theme_minimal()+
+    theme(legend.position="bottom")
+  
+  ggplotly(p,
+           tooltip = c("text")) %>% 
+    layout(legend = list(orientation = "h",
+                         y =-0.1, x = 0.25)) })
+
+
+
 # Bar chart comparison - Progress Reading
 
 output$progressreading_chart<- renderPlotly({
   
   #reshape the data so it plots neatly!
   progress_reading_data <- live_scorecard_data_england_comp() %>% 
-    #select only the ofsted values
+    #select only the reading values
     filter(name %in% c("KS2Read_WAA_N",	"KS2Read_AA_N",	"KS2Read_A_N", "KS2Read_BA_N", "KS2Read_WBA_N",	"KS2Read_NR_N",
                        "KS2Read_WAA_E",	"KS2Read_AA_E",	"KS2Read_A_E", "KS2Read_BA_E", "KS2Read_WBA_E",	"KS2Read_NR_E")) %>% 
     #Create groups for "new" and "existing" places based on names
@@ -295,9 +460,45 @@ output$progressreading_chart<- renderPlotly({
 
 # Bar chart comparison - Progress Maths -- TO ADD
 
-
-
-
+output$progressmaths_chart<- renderPlotly({
+  
+  #reshape the data so it plots neatly!
+  progress_maths_data <- live_scorecard_data_england_comp() %>% 
+    #select only the maths values
+    filter(name %in% c("KS2Mat_WAA_N",	"KS2Mat_AA_N",	"KS2Mat_A_N", "KS2Mat_BA_N", "KS2Mat_WBA_N",	"KS2Mat_NR_N",
+                       "KS2Mat_WAA_E",	"KS2Mat_AA_E",	"KS2Mat_A_E", "KS2Mat_BA_E", "KS2Mat_WBA_E",	"KS2Mat_NR_E")) %>% 
+    #Create groups for "new" and "existing" places based on names
+    mutate(place_type = case_when (str_detect(name, "N") ~ "New",
+                                   str_detect(name, "E") ~ "Existing"))%>% 
+    #Create Ofsted ratings out of the names
+    mutate(rating = case_when (str_detect(name, "_WAA_") ~ "Well above average",
+                               str_detect(name, "_A_") ~ "Average",
+                               str_detect(name, "_BA_") ~ "Below average",
+                               str_detect(name, "_WBA_") ~ "Well below average",
+                               str_detect(name, "NR") ~ "No rating" )) %>% 
+    #Create new variable called places, replace 0s with NAs so it plots neatly
+    mutate(places = if_else(value==0, NA_integer_, as.integer(value)))
+  
+  
+  p <- progress_maths_data %>% 
+    filter(rating != "No rating") %>% 
+    ggplot(aes(y=value, x=place_type, 
+               text = paste(rating, ": ", places, " places"),
+               fill = factor(rating, levels=c("Well above average","Average","Below average","Well below average")))) + 
+    geom_bar(stat="identity", position = position_fill(reverse = TRUE))+
+    
+    coord_flip() +
+    facet_wrap(~LA_name,nrow = 2) + 
+    geom_text( aes(label = scales::comma(places)),size = 3, position = position_fill(reverse = TRUE,vjust = 0.5))+
+    labs( x ="", y = "")+
+    guides(fill=guide_legend(title=""))+
+    theme_minimal()+
+    theme(legend.position="bottom")
+  
+  ggplotly(p,
+           tooltip = c("text")) %>% 
+    layout(legend = list(orientation = "h",
+                         y =-0.1, x = 0.25)) })
 
 
 # Cost --------------------------------------------------------------------
@@ -389,5 +590,8 @@ p<-ggplot() +
 # NEED TO ADD:
 
 # Table to show number of projects - can sit under the other table in this tab?
+
+
+#change 
 
 }
