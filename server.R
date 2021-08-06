@@ -128,7 +128,7 @@ output$estimated_spare_places <- renderValueBox({
   shinydashboard::valueBox(
     paste0(spare_places_per, "%"),
     paste0("Estimated percentage of spare ", str_to_lower(input$phase_choice)," places in 2021/22"),
-    icon = icon("fas fa-dumpster-fire"),
+    icon = icon("fas fa-school"),
     color = "orange"
   )
 })
@@ -186,15 +186,17 @@ output$forecast_1y <- renderGauge({
     mid_accuracy <-  median(c(highest_accuracy,lowest_accuracy))
     low_mid_accuracy <-  median(c(mid_accuracy,lowest_accuracy))
     high_mid_accuracy <-  median(c(mid_accuracy,highest_accuracy))
+    mid_low_accuracy <- median(c(low_mid_accuracy, lowest_accuracy))
+    mid_high_accuracy <- median(c(high_mid_accuracy, highest_accuracy))
         
     
     gauge(forecast_accuracy, 
           min = lowest_accuracy, 
           max = highest_accuracy, 
           symbol = '%',
-          sectors = gaugeSectors(success = c(high_mid_accuracy, highest_accuracy), 
-                                 warning = c(low_mid_accuracy, high_mid_accuracy),
-                                 danger = c(lowest_accuracy, low_mid_accuracy)))
+          sectors = gaugeSectors(success = c(low_mid_accuracy, high_mid_accuracy), 
+                                 warning = c(mid_low_accuracy, mid_high_accuracy),
+                                 danger = c(lowest_accuracy, highest_accuracy)))
     
     
 })
@@ -229,6 +231,8 @@ output$forecast_3y <- renderGauge({
   mid_accuracy <-  median(c(highest_accuracy,lowest_accuracy))
   low_mid_accuracy <-  median(c(mid_accuracy,lowest_accuracy))
   high_mid_accuracy <-  median(c(mid_accuracy,highest_accuracy))
+  mid_low_accuracy <- median(c(low_mid_accuracy, lowest_accuracy))
+  mid_high_accuracy <- median(c(high_mid_accuracy, highest_accuracy))
  
   
   
@@ -236,9 +240,9 @@ output$forecast_3y <- renderGauge({
         min = lowest_accuracy, 
         max = highest_accuracy, 
         symbol = '%',
-        sectors = gaugeSectors(success = c(high_mid_accuracy, highest_accuracy), 
-                               warning = c(low_mid_accuracy, high_mid_accuracy),
-                               danger = c(lowest_accuracy, low_mid_accuracy)))
+        sectors = gaugeSectors(success = c(low_mid_accuracy, high_mid_accuracy), 
+                               warning = c(mid_low_accuracy, mid_high_accuracy),
+                               danger = c(lowest_accuracy, highest_accuracy)))
   
   
 })
@@ -282,7 +286,7 @@ output$PrefT3_LA <- renderValueBox({
   shinydashboard::valueBox(
     paste0(PrefT3, "%"),
     paste0("Percentage of ", str_to_lower(input$phase_choice)," pupils who recieved an offer of one of their top three preferences"),
-    icon = icon("fas fa-trophy"),
+    icon = icon("fas fa-sort-amount-up"),
     color = "green"
   )
 })
@@ -311,7 +315,6 @@ output$PrefT3_LA <- renderValueBox({
 # Final step once charts are ready - making this bit reactive with a dropdown
 
 # charts_reactive <- reactiveValues()
-
 
 # Bar chart comparison - Ofsted
 
@@ -359,6 +362,7 @@ p <- ofsted_data %>%
 
 # Bar chart comparison - Progress 8 -- TO ADD
 
+
 output$progress8_chart<- renderPlotly({
   
   #reshape the data so it plots neatly!
@@ -398,6 +402,7 @@ output$progress8_chart<- renderPlotly({
            tooltip = c("text")) %>% 
     layout(legend = list(orientation = "h",
                          y =-0.1, x = 0.25)) })
+
 
 
 # Bar chart comparison - Progress Reading
@@ -484,8 +489,6 @@ output$progressmaths_chart<- renderPlotly({
            tooltip = c("text")) %>% 
     layout(legend = list(orientation = "h",
                          y =-0.1, x = 0.25)) })
-
-
 
 
 # Cost --------------------------------------------------------------------
@@ -577,6 +580,30 @@ p<-ggplot() +
 # NEED TO ADD:
 
 # Table to show number of projects - can sit under the other table in this tab?
+# output$projects_table <- renderTable({
+# 
+#   live_scorecard_data_england_comp() %>%
+#     #Filter for Cost, places and project data
+#     filter(str_detect(name,"Projects")) %>%
+#     #Create new column called data_type, based on the name of the data
+#     mutate(data_type = count (
+#                                   str_detect(name, "Project") ~ "Project")) %>%
+#     mutate(exp_type = case_when (str_detect(name, "EP") ~ "Permanent",
+#                                  str_detect(name, "ET") ~ "Temporary",
+#                                  str_detect(name, "NS") ~ "New school")
+#     ) %>%
+#     select(LA_name,data_type,exp_type,value) %>%
+#     #pivot the data wider
+#     pivot_wider(names_from = data_type, values_from = value) %>%
+#     #calculate cost per place
+#     mutate(cost_per_place = roundFiveUp(Cost/Place,0),
+#            #format it nicely with £ sign
+#            num_projects = paste0(cs_num(cost_per_place))) %>%
+#     select(LA_name,Type = exp_type ,num_projects) %>%
+#     pivot_wider(names_from = LA_name, values_from = num_projects)
+# 
+# 
+# })
 
 #change 
 
