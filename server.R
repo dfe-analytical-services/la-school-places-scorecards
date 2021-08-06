@@ -29,7 +29,17 @@ function(input, output, session) {
       
     })
 
+    # Options for chart choice - dependent on phase choice
     
+    chart_options <- reactive({
+      if(input$phase_choice == "Primary"){c("Ofsted","Reading Progress", "Maths Progress")}
+      else {c("Ofsted","Progress 8")}
+    })
+    
+    observe({
+      updateSelectInput(session, "chart_choice",
+                        choices = chart_options()
+      )})
         
 # Top lines -------------------------
 ## create header so users know what the data is showing
@@ -295,7 +305,7 @@ output$PrefT3_LA <- renderValueBox({
   #Put value into box to plug into app
   shinydashboard::valueBox(
     paste0(PrefT3, "%"),
-    paste0("Percentage of ", str_to_lower(input$phase_choice)," pupils who recieved an offer of one of their top three preferences in " , str_to_lower(input$LA_choice)),
+    paste0("Percentage of ", str_to_lower(input$phase_choice)," pupils who recieved an offer of one of their top three preferences in " , (input$LA_choice)),
     icon = icon("fas fa-sort-amount-up"),
     color = "green"
   )}
@@ -324,12 +334,23 @@ output$PrefT3_LA <- renderValueBox({
 
 # Final step once charts are ready - making this bit reactive with a dropdown
 
-# charts_reactive <- reactiveValues()
+rv <- reactiveValues()
 
+output$quality_chart <- renderPlotly({
+  
+  ggplotly(rv$quality_chart_choice,
+           tooltip = c("text")) %>% 
+    layout(legend = list(orientation = "h",
+                         y =-0.1, x = 0.25))
+  
+  
+})
+
+
+observe({
+  
 # Bar chart comparison - Ofsted
 
-output$ofsted_chart<- renderPlotly({
-  
   #reshape the data so it plots neatly!
 ofsted_data <- live_scorecard_data_england_comp() %>% 
   #select only the ofsted values
@@ -348,7 +369,7 @@ ofsted_data <- live_scorecard_data_england_comp() %>%
   mutate(places = if_else(value==0, NA_integer_, as.integer(value)))
 
 
-p <- ofsted_data %>% 
+ofsted_p <- ofsted_data %>% 
   filter(rating != "No rating") %>% 
   ggplot(aes(y=value, x=place_type, 
              fill = factor(rating, levels=c("Oustanding","Good","Requires Improvement","Inadequate")),
@@ -363,18 +384,9 @@ p <- ofsted_data %>%
    theme_minimal()+
   theme(legend.position="bottom")
 
-  ggplotly(p,
-           tooltip = c("text")) %>% 
-    layout(legend = list(orientation = "h",
-                         y =-0.1, x = 0.25)) })
 
+# Bar chart comparison - Progress 8 
 
-
-# Bar chart comparison - Progress 8 -- TO ADD
-
-
-output$progress8_chart<- renderPlotly({
-  
   #reshape the data so it plots neatly!
   progress_8_data <- live_scorecard_data_england_comp() %>% 
     #select only the progress 8 values
@@ -393,7 +405,7 @@ output$progress8_chart<- renderPlotly({
     mutate(places = if_else(value==0, NA_integer_, as.integer(value)))
   
   
-  p <- progress_8_data %>% 
+ progress_8_p <- progress_8_data %>% 
     filter(rating != "No rating") %>% 
     ggplot(aes(y=value, x=place_type, 
                text = paste(rating, ": ", places, " places"),
@@ -408,17 +420,10 @@ output$progress8_chart<- renderPlotly({
     theme_minimal()+
     theme(legend.position="bottom")
   
-  ggplotly(p,
-           tooltip = c("text")) %>% 
-    layout(legend = list(orientation = "h",
-                         y =-0.1, x = 0.25)) })
-
 
 
 # Bar chart comparison - Progress Reading
 
-output$progressreading_chart<- renderPlotly({
-  
   #reshape the data so it plots neatly!
   progress_reading_data <- live_scorecard_data_england_comp() %>% 
     #select only the reading values
@@ -437,7 +442,7 @@ output$progressreading_chart<- renderPlotly({
     mutate(places = if_else(value==0, NA_integer_, as.integer(value)))
   
   
-  p <- progress_reading_data %>% 
+  progress_reading_p <- progress_reading_data %>% 
     filter(rating != "No rating") %>% 
     ggplot(aes(y=value, x=place_type, 
                text = paste(rating, ": ", places, " places"),
@@ -451,16 +456,9 @@ output$progressreading_chart<- renderPlotly({
     guides(fill=guide_legend(title=""))+
     theme_minimal()+
     theme(legend.position="bottom")
-  
-  ggplotly(p,
-           tooltip = c("text")) %>% 
-    layout(legend = list(orientation = "h",
-                         y =-0.1, x = 0.25)) })
 
 
-# Bar chart comparison - Progress Maths -- TO ADD
-
-output$progressmaths_chart<- renderPlotly({
+# Bar chart comparison - Progress Maths 
   
   #reshape the data so it plots neatly!
   progress_maths_data <- live_scorecard_data_england_comp() %>% 
@@ -480,7 +478,7 @@ output$progressmaths_chart<- renderPlotly({
     mutate(places = if_else(value==0, NA_integer_, as.integer(value)))
   
   
-  p <- progress_maths_data %>% 
+  progress_maths_p <- progress_maths_data %>% 
     filter(rating != "No rating") %>% 
     ggplot(aes(y=value, x=place_type, 
                text = paste(rating, ": ", places, " places"),
@@ -495,10 +493,17 @@ output$progressmaths_chart<- renderPlotly({
     theme_minimal()+
     theme(legend.position="bottom")
   
-  ggplotly(p,
-           tooltip = c("text")) %>% 
-    layout(legend = list(orientation = "h",
-                         y =-0.1, x = 0.25)) })
+  # Pick chart to plot based on user input
+  if(input$chart_choice =="Ofsted"){
+    rv$quality_chart_choice <- ofsted_p
+  } else if (input$chart_choice =="Reading Progress"){
+    rv$quality_chart_choice <- progress_reading_p
+  } else if (input$chart_choice =="Maths Progress"){
+    rv$quality_chart_choice <- progress_maths_p
+  } else if (input$chart_choice =="Progress 8"){
+    rv$quality_chart_choice <- progress_8_p}
+  
+   })
 
 
 # Cost --------------------------------------------------------------------

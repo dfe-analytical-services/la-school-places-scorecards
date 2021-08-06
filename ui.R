@@ -19,9 +19,7 @@ dashboardPage(
         h2(textOutput("data_description")),
            fluidRow(
                valueBoxOutput("total_funding_box"),
-               valueBoxOutput("pupil_growth"),
-               valueBoxOutput("estimated_additional_places"),
-               valueBoxOutput("estimated_spare_places")
+               valueBoxOutput("pupil_growth")
            ),
         br(),
         
@@ -30,6 +28,8 @@ dashboardPage(
             id = "tabs", width ="12",
             tabPanel("Quantity", 
                p(strong("Places created since 2009/10, places planned to 2021/22 and estimated place pressure in 2021/22")),
+               valueBoxOutput("estimated_additional_places", width = 6),
+               valueBoxOutput("estimated_spare_places", width = 6),
                      fluidRow(
                 column(6,
                        plotlyOutput("places_chart")),
@@ -53,16 +53,14 @@ dashboardPage(
                      )),
             tabPanel("Quality", 
                      p(strong("Quality of places created between 2017/18 and 2018/19")),
+                     selectInput("chart_choice",
+                                 label = p(strong("Choose a quality measure")),
+                                 choices =  c("Ofsted","Reading Progress", "Maths Progress")
+                     ),
                      fluidRow(
                      column(12,
-                            plotlyOutput("ofsted_chart")),
-                     column(6,
-                            plotlyOutput("progressmaths_chart")),
-                     column(6, 
-                            plotlyOutput("progressreading_chart")),
-                     column(12,
-                            plotlyOutput("progress8_chart")))
-                     #Quality content to go here
+                            plotlyOutput("quality_chart"))
+                     )
                      
             ),
             tabPanel("Cost", 
