@@ -19,7 +19,9 @@ dashboardPage(
         h2(textOutput("data_description")),
            fluidRow(
                valueBoxOutput("total_funding_box"),
-               valueBoxOutput("pupil_growth")
+               valueBoxOutput("pupil_growth"),
+               valueBoxOutput("estimated_additional_places"),
+               valueBoxOutput("estimated_spare_places")
            ),
         br(),
         
@@ -34,18 +36,32 @@ dashboardPage(
                 column(6,
                        p("Forecast accuracy one year ahead"),
                        br(),
-                       gaugeOutput("forecast_1y")
-                ))),
+                       gaugeOutput("forecast_1y"),
+                column(12,
+                       p("Forecast accuracy three years ahead"),
+                       br(),
+                       gaugeOutput("forecast_3y")
+                              
+                )))),
             tabPanel("Preference", 
                      p(strong("Proportion of applicants who received an offer of one of their top three preferences for September 2019 entry")),
                      #preference content to go here
+                     fluidRow(
+                         valueBoxOutput("PrefT3_LA"),
+                         valueBoxOutput("prefT3_ENG")
                      
-                     ),
+                     )),
             tabPanel("Quality", 
                      p(strong("Quality of places created between 2017/18 and 2018/19")),
                      fluidRow(
                      column(12,
-                            plotlyOutput("ofsted_chart")))
+                            plotlyOutput("ofsted_chart")),
+                     column(6,
+                            plotlyOutput("progressmaths_chart")),
+                     column(6, 
+                            plotlyOutput("progressreading_chart")),
+                     column(12,
+                            plotlyOutput("progress8_chart")))
                      #Quality content to go here
                      
             ),
