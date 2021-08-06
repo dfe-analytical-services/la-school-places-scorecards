@@ -254,23 +254,23 @@ output$forecast_3y <- renderGauge({
 
 # Box for England % preference
 
-# output$prefT3_ENG <- renderValueBox({
-# 
-#   #Take filtered data, search for growth rate, pull the value and tidy the number up
-#   PrefT3_E <- live_scorecard_data() %>%
-#     filter(name=="PrefT3") %>%
-#     filter(LA_name=="England") %>%
-#     pull(value) %>%
-#     roundFiveUp(.,2)
-# 
-#   #Put value into box to plug into app
-#   shinydashboard::valueBox(
-#     paste0(PrefT3_E, "%"),
-#     paste0("Growth in ", str_to_lower(input$phase_choice)," pupil numbers 2009/10 to 2021/22"),
-#     icon = icon("fas fa-chart-line"),
-#     color = "blue"
-#   )
-# })
+output$prefT3_ENG <- renderValueBox({
+
+  #Take filtered data, search for growth rate, pull the value and tidy the number up
+  PrefT3_E <- live_scorecard_data_all_la() %>%
+    filter(name=="PrefT3") %>%
+    filter(LA_name=="England") %>%
+    pull(value) %>%
+    roundFiveUp(.,2)
+
+  #Put value into box to plug into app
+  shinydashboard::valueBox(
+    paste0(PrefT3_E, "%"),
+    paste0("Percentage of ", str_to_lower(input$phase_choice)," pupils who recieved an offer of one of their top three preferences in England"),
+    icon = icon("fas fa-chart-line"),
+    color = "blue"
+  )
+})
 
 # Box for LA % preference
 
@@ -285,7 +285,7 @@ output$PrefT3_LA <- renderValueBox({
   if (input$LA_choice =="England") {
     shinydashboard::valueBox(
       paste0("-"),
-      paste0("Percentage of ", str_to_lower(input$phase_choice)," pupils who recieved an offer of one of their top three preferences"),
+      paste0("Percentage of ", str_to_lower(input$phase_choice)," pupils who recieved an offer of one of their top three preferences in England"),
       icon = icon("fas fa-sort-amount-up"),
       color = "green"
     )
@@ -295,7 +295,7 @@ output$PrefT3_LA <- renderValueBox({
   #Put value into box to plug into app
   shinydashboard::valueBox(
     paste0(PrefT3, "%"),
-    paste0("Percentage of ", str_to_lower(input$phase_choice)," pupils who recieved an offer of one of their top three preferences"),
+    paste0("Percentage of ", str_to_lower(input$phase_choice)," pupils who recieved an offer of one of their top three preferences in " , str_to_lower(input$LA_choice)),
     icon = icon("fas fa-sort-amount-up"),
     color = "green"
   )}

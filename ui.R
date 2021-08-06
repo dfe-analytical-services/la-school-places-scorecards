@@ -47,7 +47,8 @@ dashboardPage(
                      p(strong("Proportion of applicants who received an offer of one of their top three preferences for September 2019 entry")),
                      #preference content to go here
                      fluidRow(
-                         valueBoxOutput("PrefT3_LA")
+                         valueBoxOutput("PrefT3_LA"),
+                         valueBoxOutput("prefT3_ENG")
                      
                      )),
             tabPanel("Quality", 
