@@ -376,7 +376,8 @@ function(input, output, session) {
                                  str_detect(name, "4") ~ "Inadequate",
                                  str_detect(name, "0") ~ "No rating" )) %>% 
       #Create new variable called places, replace 0s with NAs so it plots neatly
-      mutate(places = if_else(value==0, NA_integer_, as.integer(value)))
+      mutate(
+        places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0))))
     
     
     ofsted_p <- ofsted_data %>% 
@@ -420,7 +421,7 @@ function(input, output, session) {
                                  str_detect(name, "_WBA_") ~ "Well below average",
                                  str_detect(name, "NR") ~ "No rating" )) %>% 
       #Create new variable called places, replace 0s with NAs so it plots neatly
-      mutate(places = if_else(value==0, NA_integer_, as.integer(value)))
+      mutate(places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0))))
     
     
     progress_8_p <- progress_8_data %>% 
@@ -464,7 +465,7 @@ function(input, output, session) {
                                  str_detect(name, "_WBA_") ~ "Well below average",
                                  str_detect(name, "NR") ~ "No rating" )) %>% 
       #Create new variable called places, replace 0s with NAs so it plots neatly
-      mutate(places = if_else(value==0, NA_integer_, as.integer(value)))
+      mutate(places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0))))
     
     
     progress_reading_p <- progress_reading_data %>% 
@@ -509,7 +510,7 @@ function(input, output, session) {
                                  str_detect(name, "_WBA_") ~ "Well below average",
                                  str_detect(name, "NR") ~ "No rating" )) %>% 
       #Create new variable called places, replace 0s with NAs so it plots neatly
-      mutate(places = if_else(value==0, NA_integer_, as.integer(value)))
+      mutate(places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0))))
     
     
     progress_maths_p <- progress_maths_data %>% 
