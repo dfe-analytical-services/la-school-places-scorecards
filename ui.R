@@ -1,4 +1,4 @@
-
+source("0_variable_change.R")
 
 
 dashboardPage(
@@ -27,7 +27,7 @@ dashboardPage(
             title = "",        
             id = "tabs", width ="12",
             tabPanel("Quantity", 
-               p(strong("Places created since 2009/10, places planned to 2021/22 and estimated place pressure in 2021/22")),
+               p(strong(paste0("Places created since 2009/10, places planned to ", plan_year," and estimated place pressure in ",plan_year))),
                valueBoxOutput("estimated_additional_places", width = 6),
                valueBoxOutput("estimated_spare_places", width = 6),
                      fluidRow(
@@ -44,7 +44,7 @@ dashboardPage(
                               
                 )))),
             tabPanel("Preference", 
-                     p(strong("Proportion of applicants who received an offer of one of their top three preferences for September 2019 entry")),
+                     p(strong(paste0("Proportion of applicants who received an offer of one of their top three preferences for September ", preference_year," entry"))),
                      #preference content to go here
                      fluidRow(
                          valueBoxOutput("PrefT3_LA"),
@@ -52,7 +52,7 @@ dashboardPage(
                      
                      )),
             tabPanel("Quality", 
-                     p(strong("Quality of places created between 2017/18 and 2018/19")),
+                     p(strong(paste0("Quality of places created between ", last_year," and ",this_year))),
                      selectInput("chart_choice",
                                  label = p(strong("Choose a quality measure")),
                                  choices =  c("Ofsted","Reading Progress", "Maths Progress")
@@ -60,11 +60,12 @@ dashboardPage(
                      fluidRow(
                      column(12,
                             plotlyOutput("quality_chart"))
-                     )
+                     ),
+                     textOutput("no_rating_line")
                      
             ),
             tabPanel("Cost", 
-                     p(strong("Local authority reported projects between 2015/16 and 2017/18, adjusted for inflation and regional variation")),
+                     p(strong(paste0("Local authority reported projects between ", last_year_1," and ", last_year,", adjusted for inflation and regional variation"))),
                      p("(Not new data: see technical notes)"),
                      fluidRow(
                          column(9,
