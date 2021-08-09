@@ -2,6 +2,11 @@ function(input, output, session) {
   
   # Data calculations - reactive --------------------------------------------
   
+  #LA options - reordered
+  LA_options <- sort(unique(scorecards_data$LA_name)) %>% 
+    as.factor() %>% 
+    relevel("England") 
+  
   # Scorecard data, filtered on user input
   live_scorecard_data  <- reactive({
     

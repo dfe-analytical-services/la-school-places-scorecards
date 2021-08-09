@@ -7,7 +7,7 @@ dashboardPage(
         sidebarMenu(
         selectInput("LA_choice",
                     label = p(strong("Choose a geography")),
-                    choices = unique(scorecards_data$LA_name)),
+                    choices = levels(LA_options)),
         br(),
         selectInput("phase_choice",
                     label = p(strong("Choose a phase")),
