@@ -59,7 +59,7 @@ dashboardPage(
                      ),
                      fluidRow(
                      column(12,
-                            plotlyOutput("quality_chart"))
+                            plotlyOutput("quality_chart")%>% withSpinner())
                      ),
                      textOutput("no_rating_line")
                      

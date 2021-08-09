@@ -42,7 +42,8 @@ function(input, output, session) {
   
   observe({
     updateSelectInput(session, "chart_choice",
-                      choices = chart_options()
+                      choices = chart_options(),
+                      selected = "Ofsted"
     )})
   
   # Top lines -------------------------
