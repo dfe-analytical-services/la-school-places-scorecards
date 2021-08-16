@@ -11,7 +11,12 @@ dashboardPage(
         br(),
         selectInput("phase_choice",
                     label = p(strong("Choose a phase")),
-                    choices = c("Primary","Secondary"))
+                    choices = c("Primary","Secondary")),
+        br(),
+        selectInput("chart_choice",
+                    label = p(strong("Choose a quality measure")),
+                    choices =  c("Ofsted","Reading Progress", "Maths Progress")
+        )
 
     )
     ),
@@ -37,13 +42,11 @@ dashboardPage(
                        p("Forecast accuracy one year ahead"),
                        br(),
                        gaugeOutput("forecast_1y"),
-
                 column(12,
                        p("Forecast accuracy three years ahead"),
                        br(),
                        gaugeOutput("forecast_3y")
                               
-
                 )))),
             tabPanel("Preference", 
                      p(strong(paste0("Proportion of applicants who received an offer of one of their top three preferences for September ", preference_year," entry"))),
@@ -55,22 +58,14 @@ dashboardPage(
                      )),
             tabPanel("Quality", 
                      p(strong(paste0("Quality of places created between ", last_year," and ",this_year))),
-                     selectInput("chart_choice",
-                                 label = p(strong("Choose a quality measure")),
-                                 choices =  c("Ofsted","Reading Progress", "Maths Progress")
-                     ),
+                     valueBoxOutput("LA_GO_places", width = 6),
+                     valueBoxOutput("England_GO_places",width = 6),
                      fluidRow(
                      column(12,
                             plotlyOutput("quality_chart")%>% withSpinner())
                      ),
                      textOutput("no_rating_line")
-                     column(12,
-                            valueBoxOutput("LA_GO_places")),
-                     column(12,
-                            valueBoxOutput("England_GO_places")))
-                     #Quality content to go here
 
-                     
             ),
             tabPanel("Cost", 
                      p(strong(paste0("Local authority reported projects between ", last_year_1," and ", last_year,", adjusted for inflation and regional variation"))),
