@@ -37,11 +37,13 @@ dashboardPage(
                        p("Forecast accuracy one year ahead"),
                        br(),
                        gaugeOutput("forecast_1y"),
+
                 column(12,
                        p("Forecast accuracy three years ahead"),
                        br(),
                        gaugeOutput("forecast_3y")
                               
+
                 )))),
             tabPanel("Preference", 
                      p(strong(paste0("Proportion of applicants who received an offer of one of their top three preferences for September ", preference_year," entry"))),
@@ -62,6 +64,12 @@ dashboardPage(
                             plotlyOutput("quality_chart")%>% withSpinner())
                      ),
                      textOutput("no_rating_line")
+                     column(12,
+                            valueBoxOutput("LA_GO_places")),
+                     column(12,
+                            valueBoxOutput("England_GO_places")))
+                     #Quality content to go here
+
                      
             ),
             tabPanel("Cost", 
