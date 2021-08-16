@@ -60,6 +60,12 @@ scorecards_data <- fread("data/scorecards_data.csv")
   name =  str_replace_all(name,"_P$","")
   )
   
+  
+  #LA options - reordered
+  LA_options <- sort(unique(scorecards_data$LA_name)) %>% 
+    as.factor() %>% 
+    relevel("England") 
+  
 # Functions ---------------------------------------------------------------
 
 #Create rounding function as baseR one rounds fives down
