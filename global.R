@@ -76,5 +76,3 @@ roundFiveUp <- function(x, n){
 # Comma separating 
   
 cs_num <- function(x){format(x,big.mark=",", trim=TRUE)}
-
-#natalie comment here
