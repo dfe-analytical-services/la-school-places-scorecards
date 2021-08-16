@@ -61,7 +61,11 @@ dashboardPage(
                      column(6, 
                             plotlyOutput("progressreading_chart")),
                      column(12,
-                            plotlyOutput("progress8_chart")))
+                            plotlyOutput("progress8_chart")),
+                     column(12,
+                            valueBoxOutput("LA_GO_places")),
+                     column(12,
+                            valueBoxOutput("England_GO_places")))
                      #Quality content to go here
                      
             ),

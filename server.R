@@ -308,10 +308,44 @@ output$PrefT3_LA <- renderValueBox({
 
 # Quality -----------------------------------------------------------------
 
-# box for % of new places in good and outstanding schools - England
-
 # box for % of new places in good and outstanding schools - LA
 
+output$LA_GO_places <- renderValueBox({
+  
+  #Take filtered data, search for growth rate, pull the value and tidy the number up
+  LA_GO_per <- live_scorecard_data() %>%
+    filter(name=="QualProp") %>%
+    pull(value) %>%
+    roundFiveUp(.,2)*100
+  
+  #Put value into box to plug into app
+  shinydashboard::valueBox(
+    paste0(LA_GO_per, "%"),
+    paste0("Percentage of new places in good and outstanding ", str_to_lower(input$phase_choice)," schools"),
+    icon = icon("fas fa-boxes"),
+    color = "aqua"
+  )
+})
+
+# box for % of new places in good and outstanding schools - England
+
+output$England_GO_places <- renderValueBox({
+  
+  #Take filtered data, search for growth rate, pull the value and tidy the number up
+  England_GO_per <- live_scorecard_data_all_la() %>%
+    filter(name=="QualProp") %>%
+    filter(LA_name=="England") %>%
+    pull(value) %>%
+    roundFiveUp(.,2)*100
+  
+  #Put value into box to plug into app
+  shinydashboard::valueBox(
+    paste0(England_GO_per, "%"),
+    paste0("Percentage of new places in good and outstanding ", str_to_lower(input$phase_choice)," schools"),
+    icon = icon("fas fa-equals"),
+    color = "maroon"
+  )
+})
 
 # box for % of new places in good and outstanding schools - LA Ranking
 # This one might take a bit more thinking but give it a go! 
