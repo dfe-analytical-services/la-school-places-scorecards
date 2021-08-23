@@ -58,8 +58,9 @@ dashboardPage(
                      )),
             tabPanel("Quality", 
                      p(strong(paste0("Quality of places created between ", last_year," and ",this_year))),
-                     valueBoxOutput("LA_GO_places", width = 6),
-                     valueBoxOutput("England_GO_places",width = 6),
+                     valueBoxOutput("LA_GO_places", width = 4),
+                     valueBoxOutput("England_GO_places",width = 4),
+                     valueBoxOutput("LA_GO_ran",width = 4),
                      fluidRow(
                      column(12,
                             plotlyOutput("quality_chart")%>% withSpinner())
@@ -71,7 +72,7 @@ dashboardPage(
                      p(strong(paste0("Local authority reported projects between ", last_year_1," and ", last_year,", adjusted for inflation and regional variation"))),
                      p("(Not new data: see technical notes)"),
                      fluidRow(
-                         column(9,
+                         column(6,
                                 plotlyOutput("cost_plot")),
                          column(3,
                                 tableOutput("cost_table")))

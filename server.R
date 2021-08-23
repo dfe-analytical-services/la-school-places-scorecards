@@ -361,10 +361,22 @@ function(input, output, session) {
   })
   
   # box for % of new places in good and outstanding schools - LA Ranking
-  # This one might take a bit more thinking but give it a go! 
-  # the arrange() function might come in handy here to rank data items
-  # the mutate() function will be needed to create a new column of rankings.
-  
+
+  output$LA_GO_ran <- renderValueBox({
+    
+    #Take filtered data, search for growth rate, pull the value and tidy the number up
+    LA_GO_rank <- live_scorecard_data() %>%
+      filter(name=="QualPropranks") %>%
+      pull(value) 
+    
+    #Put value into box to plug into app
+    shinydashboard::valueBox(
+      paste0(LA_GO_rank),
+      paste0("LA Rank out of 120") ,
+      icon = icon("fas fa-bars"),
+      color = "fuchsia"
+    )
+  })
   
   # Quality - charts --------------------------------------------------------
   
@@ -681,6 +693,29 @@ function(input, output, session) {
   # NEED TO ADD:
   
   # Table to show number of projects - can sit under the other table in this tab?
+  
+  # output$projects_table <- renderTable({
+  # 
+  #   live_scorecard_data_england_comp() %>%
+  #     #Filter for Cost, places and project data
+  #     filter(str_detect(name,"Places|Projects")) %>%
+  #     #Create new column called data_type, based on the name of the data
+  #     mutate(data_type = case_when (
+  #                                   str_detect(name, "Place") ~ "Place",
+  #                                   str_detect(name, "Project") ~ "Project")) %>%
+  #     mutate(exp_type = case_when (str_detect(name, "EP") ~ "Permanent",
+  #                                  str_detect(name, "ET") ~ "Temporary",
+  #                                  str_detect(name, "NS") ~ "New school")
+  #     ) %>%
+  #     select(LA_name,data_type,exp_type,value) %>%
+  #     #pivot the data wider
+  #     pivot_wider(names_from = data_type, values_from = value)
+
+
+
+
+
+  # })
   
   
   #change 
