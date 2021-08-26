@@ -53,10 +53,9 @@ dashboardPage(
                      #preference content to go here
                      fluidRow(
                          column(6,
-                         valueBoxOutput("PrefT3_LA"),
-                         valueBoxOutput("prefT3_ENG")),
-    
-                        column(6,
+                         valueBoxOutput("PrefT3_LA", width = 6),
+                         valueBoxOutput("prefT3_ENG", width = 6)),
+                         column(6,
                         plotlyOutput("preference_p"))
                     ))     
                      
