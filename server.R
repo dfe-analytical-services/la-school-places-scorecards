@@ -320,6 +320,40 @@ function(input, output, session) {
   # Easier for users to interpret
   # can use output$ofsted_chart further down for a template
   
+  output$preference_p<- renderPlotly({  
+   
+   
+    #reshape the data so it plots neatly!
+    preference_data <- live_scorecard_data_england_comp() %>% 
+      #select only the ofsted values
+      filter(name %in% c("Pref1","Pref2","Pref3")) %>% 
+
+      #Create Ofsted ratings out of the names
+      mutate(rating = case_when (str_detect(name, "1") ~ "First",
+                                 str_detect(name, "2") ~ "Second",
+                                 str_detect(name, "3") ~ "Third" )) %>% 
+      #Create new variable called places, replace 0s with NAs so it plots neatly
+      mutate(
+        places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0))))
+    
+    
+    preference_p <- preference_data %>% 
+       
+      ggplot(aes(y=value, x="", 
+                 fill = factor(rating, levels=c("First","Second","Third")),
+                 text = paste(rating, ": ", places, " places"))) + 
+      geom_bar(stat="identity", position = position_fill(reverse = TRUE))+
+      
+      coord_flip() +
+      facet_wrap(~LA_name,nrow = 2) + 
+      geom_text( aes(label = scales::comma(places)),size = 3, position = position_fill(reverse = TRUE,vjust = 0.5))+
+      labs( x ="", y = "")+
+      guides(fill=guide_legend(title=""))+
+      theme_minimal()+
+      theme(legend.position="bottom")
+    
+
+})
   
   # Quality -----------------------------------------------------------------
   
@@ -694,28 +728,6 @@ function(input, output, session) {
   
   # Table to show number of projects - can sit under the other table in this tab?
   
-  # output$projects_table <- renderTable({
-  # 
-  #   live_scorecard_data_england_comp() %>%
-  #     #Filter for Cost, places and project data
-  #     filter(str_detect(name,"Places|Projects")) %>%
-  #     #Create new column called data_type, based on the name of the data
-  #     mutate(data_type = case_when (
-  #                                   str_detect(name, "Place") ~ "Place",
-  #                                   str_detect(name, "Project") ~ "Project")) %>%
-  #     mutate(exp_type = case_when (str_detect(name, "EP") ~ "Permanent",
-  #                                  str_detect(name, "ET") ~ "Temporary",
-  #                                  str_detect(name, "NS") ~ "New school")
-  #     ) %>%
-  #     select(LA_name,data_type,exp_type,value) %>%
-  #     #pivot the data wider
-  #     pivot_wider(names_from = data_type, values_from = value)
-
-
-
-
-
-  # })
   
   
   #change 

@@ -52,10 +52,15 @@ dashboardPage(
                      p(strong(paste0("Proportion of applicants who received an offer of one of their top three preferences for September ", preference_year," entry"))),
                      #preference content to go here
                      fluidRow(
+                         column(6,
                          valueBoxOutput("PrefT3_LA"),
-                         valueBoxOutput("prefT3_ENG")
+                         valueBoxOutput("prefT3_ENG")),
+    
+                        column(6,
+                        plotlyOutput("preference_p"))
+                    ))     
                      
-                     )),
+                     ,
             tabPanel("Quality", 
                      p(strong(paste0("Quality of places created between ", last_year," and ",this_year))),
                      valueBoxOutput("LA_GO_places", width = 4),
