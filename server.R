@@ -46,6 +46,10 @@ function(input, output, session) {
                       selected = "Ofsted"
     )})
   
+  
+
+  
+  
   # Top lines -------------------------
   ## create header so users know what the data is showing
   
@@ -357,7 +361,15 @@ function(input, output, session) {
   
   # Quality -----------------------------------------------------------------
   
-  # box for % of new places in good and outstanding schools - England
+  # Change name of what "better than average" is depending on chart choice:
+  school_description <- reactive({
+    if(input$chart_choice =="Ofsted"){"good and outstanding "}
+    else {"well above and above average "}
+    
+  })
+  
+  
+  # box for % of new places in good and outstanding schools
   output$LA_GO_places <- renderValueBox({
     
     #Take filtered data, search for growth rate, pull the value and tidy the number up
@@ -369,44 +381,136 @@ function(input, output, session) {
     #Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(LA_GO_per, "%"),
-      paste0("Percentage of new places in good and outstanding ", str_to_lower(input$phase_choice)," schools"),
+      paste0("Percentage of new places in ", school_description(), str_to_lower(input$phase_choice)," schools in ", input$LA_choice),
       icon = icon("fas fa-boxes"),
       color = "aqua"
     )
   })
   
-  # box for % of new places in good and outstanding schools - LA
+# Calculate England comparator depending on chart choice:
+  england_comp <- reactive({
+    
+    if(input$chart_choice =="Ofsted"){
+      numerator<- live_scorecard_data_all_la() %>% 
+        filter(LA_name=="England" &
+                 name %in% c("Qual1_N", "Qual2_N")) %>%
+        summarise(sum(value)) %>%
+        as.numeric()
+      
+      denominator<-live_scorecard_data_all_la() %>% 
+        filter(LA_name=="England" &
+                 name %in% c("Qual1_N", "Qual2_N","Qual3_N","Qual4_N")) %>%
+        summarise(sum(value)) %>%
+        as.numeric()
+      
+      #calculate percentage
+      roundFiveUp(numerator/denominator*100,1)}
+    
+    else if (input$chart_choice =="Progress 8"){
+      numerator<- live_scorecard_data_all_la() %>% 
+        filter(LA_name=="England" &
+                 name %in% c("KS4_WAA_N", "KS4_AA_N")) %>%
+        summarise(sum(value)) %>%
+        as.numeric()
+      
+      denominator<-live_scorecard_data_all_la() %>% 
+        filter(LA_name=="England" &
+                 name %in% c("KS4_WAA_N", "KS4_AA_N","KS4_A_N","KS4_BA_N","KS4_WBA_N")) %>%
+        summarise(sum(value)) %>%
+        as.numeric()
+      
+      #calculate percentage
+      roundFiveUp(numerator/denominator*100,1)}
+      
+    else if (input$chart_choice =="Reading Progress"){
+      numerator<- live_scorecard_data_all_la() %>% 
+        filter(LA_name=="England" &
+                 name %in% c("KS2Read_WAA_N", "KS2Read_AA_N")) %>%
+        summarise(sum(value)) %>%
+        as.numeric()
+      
+      denominator<-live_scorecard_data_all_la() %>% 
+        filter(LA_name=="England" &
+                 name %in% c("KS2Read_WAA_N", "KS2Read_AA_N","KS2Read_A_N","KS2Read_BA_N","KS2Read_WBA_N")) %>%
+        summarise(sum(value)) %>%
+        as.numeric()
+      
+      #calculate percentage
+      roundFiveUp(numerator/denominator*100,1)}
+    
+    else if (input$chart_choice =="Maths Progress"){
+      numerator<- live_scorecard_data_all_la() %>% 
+        filter(LA_name=="England" &
+                 name %in% c("KS2Mat_WAA_N", "KS2Mat_AA_N")) %>%
+        summarise(sum(value)) %>%
+        as.numeric()
+      
+      denominator<-live_scorecard_data_all_la() %>% 
+        filter(LA_name=="England" &
+                 name %in% c("KS2Mat_WAA_N", "KS2Mat_AA_N","KS2Mat_A_N","KS2Mat_BA_N","KS2Mat_WBA_N")) %>%
+        summarise(sum(value)) %>%
+        as.numeric()
+      
+      #calculate percentage
+      roundFiveUp(numerator/denominator*100,1)}
+    
+  })
+  
+  
+  
+  # box for % of new places in top schools - England
   output$England_GO_places <- renderValueBox({
-    
-    #Take filtered data, search for growth rate, pull the value and tidy the number up
-    England_GO_per <- live_scorecard_data_all_la() %>%
-      filter(name=="QualProp") %>%
-      filter(LA_name=="England") %>%
-      pull(value) %>%
-      roundFiveUp(.,2)*100
-    
+
     #Put value into box to plug into app
     shinydashboard::valueBox(
-      paste0(England_GO_per, "%"),
-      paste0("Percentage of new places in good and outstanding ", str_to_lower(input$phase_choice)," schools"),
+      paste0(england_comp(), "%"),
+      paste0("Percentage of new places in ",school_description(), str_to_lower(input$phase_choice)," schools in England"),
       icon = icon("fas fa-equals"),
       color = "maroon"
     )
   })
   
-  # box for % of new places in good and outstanding schools - LA Ranking
+  
+  # Calculate % ranking depending on chart choice:
+  LA_ranking <- reactive({
+    
+    if(input$chart_choice =="Ofsted"){
+      
+       live_scorecard_data() %>%
+        filter(name=="QualPropranks") %>%
+        pull(value) 
+    
+    }else if (input$chart_choice =="Progress 8"){
+      
+      live_scorecard_data() %>%
+        filter(name=="Qual_KS4_Proprank") %>%
+        pull(value) 
+
+    }else if (input$chart_choice =="Reading Progress"){
+   
+      live_scorecard_data() %>%
+        filter(name=="Qual_KS2Read_Propranks") %>%
+        pull(value) 
+    
+    }else if (input$chart_choice =="Maths Progress"){
+      
+      live_scorecard_data() %>%
+        filter(name=="Qual_KS2Mat_Propranks") %>%
+        pull(value) 
+      
+      }
+    
+  })
+  
+  
+  # box for % of new places in top schools - LA Ranking
 
   output$LA_GO_ran <- renderValueBox({
-    
-    #Take filtered data, search for growth rate, pull the value and tidy the number up
-    LA_GO_rank <- live_scorecard_data() %>%
-      filter(name=="QualPropranks") %>%
-      pull(value) 
-    
+
     #Put value into box to plug into app
     shinydashboard::valueBox(
-      paste0(LA_GO_rank),
-      paste0("LA Rank out of 120") ,
+      LA_ranking(),
+      paste0("LA Rank out of ", nrow(live_scorecard_data_all_la() %>% filter(name=="QualPropranks"  & !is.na(value)))) ,
       icon = icon("fas fa-bars"),
       color = "fuchsia"
     )
