@@ -15,7 +15,9 @@ library(shinydashboard)
 library(scales)
 library(forcats)
 library(ggbeeswarm)
-
+library(shinyjs)
+library(openxlsx)
+library(kableExtra)
 
 # ----------------------------------------------------------------------------
 # Setup loading screen and spinner
@@ -82,3 +84,28 @@ roundFiveUp <- function(x, n){
 # Comma separating 
   
 cs_num <- function(x){format(x,big.mark=",", trim=TRUE)}
+
+
+# Notes tables----------------------------------
+
+notesTable <- read.xlsx(
+  xlsxFile="data/tech_guidance.xlsx",
+  sheet="Overall")# %>% 
+  #fill(everything()) #collapse_Rows currently broken in kable. When fixed we can add back in.
+
+notesTableQuant <- read.xlsx(
+  xlsxFile="data/tech_guidance.xlsx",
+  sheet="Quantity")
+
+notesTablePref <- read.xlsx(
+  xlsxFile="data/tech_guidance.xlsx",
+  sheet="Preference")
+
+notesTableQual <- read.xlsx(
+  xlsxFile="data/tech_guidance.xlsx",
+  sheet="Quality")
+
+notesTableCost <- read.xlsx(
+  xlsxFile="data/tech_guidance.xlsx",
+  sheet="Cost")
+

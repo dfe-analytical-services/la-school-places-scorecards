@@ -1,4 +1,8 @@
 function(input, output, session) {
+  #Define font family for charts
+  font_choice <- list(
+    family = "Arial",
+    size = 14)
   
   # Data calculations - reactive --------------------------------------------
   
@@ -74,7 +78,7 @@ function(input, output, session) {
     if(input$LA_choice =="England") {
       shinydashboard::valueBox(
         paste0("£", total_funding, "bn"), 
-        paste0("Total primary and secondary basic need funding ",plan_year),
+        paste0("Total primary and secondary basic need funding ",funding_year),
         #get different icons for background here: https://fontawesome.com/v5.15/icons?d=gallery&p=2
         icon = icon("fas fa-pound-sign"),
         color = "purple"
@@ -82,7 +86,7 @@ function(input, output, session) {
     } else {
       shinydashboard::valueBox(
         paste0("£", total_funding, "m"),
-        paste0("Total primary and secondary basic need funding ",plan_year),
+        paste0("Total primary and secondary basic need funding ",funding_year),
         icon = icon("fas fa-pound-sign"),
         color = "purple"
       )
@@ -172,11 +176,42 @@ function(input, output, session) {
              xaxis = list(title =''),
              barmode = 'stack',
              uniformtext=list(minsize=12, mode='hide'),
-             legend = list(orientation = 'h'))
+             legend = list(orientation = 'h'),
+             font = font_choice)
     
     
   })
   
+  
+  
+  ## Forecast accuracy labels
+  
+  label_estimate_y1 <- reactive({
+    
+    forecast_accuracy <- live_scorecard_data() %>% 
+      filter(name == "For_1") %>% 
+      pull(value)
+    
+    case_when(forecast_accuracy > 0 ~ "Overestimate",
+              forecast_accuracy < 0 ~ "Underestimate",
+              TRUE ~ NA_character_)
+    
+  })
+  
+  
+  label_estimate_y3 <- reactive({
+    
+    forecast_accuracy <- live_scorecard_data()%>% 
+      filter(name == "For_3") %>% 
+      pull(value)
+    
+    case_when(forecast_accuracy > 0 ~ "Overestimate",
+              forecast_accuracy < 0 ~ "Underestimate",
+              TRUE ~ NA_character_)
+    
+  })
+  
+
   ## Forecast accuracy one year ahead
   
   output$forecast_1y <- renderGauge({
@@ -202,18 +237,16 @@ function(input, output, session) {
       roundFiveUp(.,3)*100
     
     #Get medians/quartiles to set the sectors in the gauge
-    mid_accuracy <-  median(c(highest_accuracy,lowest_accuracy))
-    low_mid_accuracy <-  median(c(mid_accuracy,lowest_accuracy))
-    high_mid_accuracy <-  median(c(mid_accuracy,highest_accuracy))
-    mid_low_accuracy <- median(c(low_mid_accuracy, lowest_accuracy))
-    mid_high_accuracy <- median(c(high_mid_accuracy, highest_accuracy))
-    
-    
+  
+    mid_low_accuracy <- median(c(-1, lowest_accuracy))
+    mid_high_accuracy <- median(c(1, highest_accuracy))
+
     gauge(forecast_accuracy, 
           min = lowest_accuracy, 
           max = highest_accuracy, 
           symbol = '%',
-          sectors = gaugeSectors(success = c(low_mid_accuracy, high_mid_accuracy), 
+          label = label_estimate_y1(),
+          sectors = gaugeSectors(success = c(-1, 1), 
                                  warning = c(mid_low_accuracy, mid_high_accuracy),
                                  danger = c(lowest_accuracy, highest_accuracy)))
     
@@ -226,6 +259,8 @@ function(input, output, session) {
   
   output$forecast_3y <- renderGauge({
     #live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
+    
+    req(label_estimate_y3_wait())
     
     forecast_accuracy <- live_scorecard_data() %>% 
       filter(name == "For_3") %>% 
@@ -247,19 +282,16 @@ function(input, output, session) {
       roundFiveUp(.,3)*100
     
     #Get medians/quartiles to set the sectors in the gauge
-    mid_accuracy <-  median(c(highest_accuracy,lowest_accuracy))
-    low_mid_accuracy <-  median(c(mid_accuracy,lowest_accuracy))
-    high_mid_accuracy <-  median(c(mid_accuracy,highest_accuracy))
-    mid_low_accuracy <- median(c(low_mid_accuracy, lowest_accuracy))
-    mid_high_accuracy <- median(c(high_mid_accuracy, highest_accuracy))
     
-    
-    
+    mid_low_accuracy <- median(c(-1, lowest_accuracy))
+    mid_high_accuracy <- median(c(1, highest_accuracy))
+
     gauge(forecast_accuracy, 
           min = lowest_accuracy, 
           max = highest_accuracy, 
           symbol = '%',
-          sectors = gaugeSectors(success = c(low_mid_accuracy, high_mid_accuracy), 
+          label = label_estimate_y3(),
+          sectors = gaugeSectors(success = c(-1, 1), 
                                  warning = c(mid_low_accuracy, mid_high_accuracy),
                                  danger = c(lowest_accuracy, highest_accuracy)))
     
@@ -301,60 +333,71 @@ function(input, output, session) {
       pull(value) %>%
       roundFiveUp(.,2)
     
-    if (input$LA_choice =="England") {
-      shinydashboard::valueBox(
-        paste0("-"),
-        paste0("Percentage of ", str_to_lower(input$phase_choice)," pupils who recieved an offer of one of their top three preferences in England"),
-        icon = icon("fas fa-sort-amount-up"),
-        color = "green"
-      )
-      
-    } else {
-      
       #Put value into box to plug into app
       shinydashboard::valueBox(
         paste0(PrefT3, "%"),
         paste0("Percentage of ", str_to_lower(input$phase_choice)," pupils who recieved an offer of one of their top three preferences in " , (input$LA_choice)),
         icon = icon("fas fa-sort-amount-up"),
-        color = "green"
-      )}
+        color = "green")
+
   })
   
   # Stacked bar instead of pie here for preference? 
   # Easier for users to interpret
-  # can use output$ofsted_chart further down for a template
-  
   output$preference_p<- renderPlotly({  
    
    
     #reshape the data so it plots neatly!
     preference_data <- live_scorecard_data_england_comp() %>% 
-      #select only the ofsted values
+      #select only preference values
       filter(name %in% c("Pref1","Pref2","Pref3")) %>% 
 
-      #Create Ofsted ratings out of the names
+      #Create ratings out of the names
       mutate(rating = case_when (str_detect(name, "1") ~ "First",
                                  str_detect(name, "2") ~ "Second",
-                                 str_detect(name, "3") ~ "Third" )) %>% 
-      #Create new variable called places, replace 0s with NAs so it plots neatly
-      mutate(
-        places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0))))
+                                 str_detect(name, "3") ~ "Third" ))
+    
+    #Get % not getting 1st 2nd or 3rd preference
+    preference_data_sum <- preference_data %>% 
+      group_by(LA_name,LANumber,Phase) %>% 
+      summarise(value = 100- sum(value)) %>% 
+      mutate(rating = "Other")
+    
+    
+    preference_data <- preference_data %>% 
+      select(-name) %>% 
+      bind_rows(preference_data_sum) %>% 
+      #sort levels out so plots in correct order
+      mutate(rating=factor(rating, levels=c("First","Second","Third","Other")),
+      #Neaten up percs
+      value = as.numeric(roundFiveUp(value,1)),
+      value_label = if_else(value > 2, paste0(value,"%"), NA_character_))
+      
     
     
     preference_p <- preference_data %>% 
        
       ggplot(aes(y=value, x="", 
-                 fill = factor(rating, levels=c("First","Second","Third")),
-                 text = paste(rating, ": ", places, " places"))) + 
+                 fill = factor(rating),
+                 text = paste(rating, ": ", value, "%"))) + 
       geom_bar(stat="identity", position = position_fill(reverse = TRUE))+
       
       coord_flip() +
       facet_wrap(~LA_name,nrow = 2) + 
-      geom_text( aes(label = scales::comma(places)),size = 3, position = position_fill(reverse = TRUE,vjust = 0.5))+
+      geom_text( aes(label = value_label),size = 4, position = position_fill(reverse = TRUE,vjust = 0.5))+
       labs( x ="", y = "")+
       guides(fill=guide_legend(title=""))+
       theme_minimal()+
-      theme(legend.position="bottom")
+      theme(legend.position="bottom",
+            text=element_text(size=14,  family="Arial"))
+    
+    
+    ggplotly(preference_p,
+             tooltip = c("text")) %>% 
+      layout(  uniformtext=list(minsize=12, mode='hide'),
+               legend = list(orientation = "h",
+                           y =-0.1, x = 0.33,
+               font = font_choice))
     
 
 })
@@ -368,19 +411,49 @@ function(input, output, session) {
     
   })
   
+  # Calculate LA % depending on chart choice:
+  LA_comp <- reactive({
+    
+    if(input$chart_choice =="Ofsted"){
+   
+      live_scorecard_data() %>% 
+        filter(name=="QualProp") %>%
+        pull(value) %>%
+        roundFiveUp(.,2)*100
+      
+    }else if (input$chart_choice =="Progress 8"){
+
+      live_scorecard_data() %>% 
+        filter(name=="Qual_KS4_Prop") %>%
+        pull(value) %>%
+        roundFiveUp(.,2)*100
+      
+       }
+    
+    else if (input$chart_choice =="Reading Progress"){
+      live_scorecard_data() %>% 
+        filter(name=="Qual_KS2Read_Prop") %>%
+        pull(value) %>%
+        roundFiveUp(.,2)*100
+      }
+    
+    else if (input$chart_choice =="Maths Progress"){
+      live_scorecard_data() %>% 
+        filter(name=="Qual_KS2Mat_Prop") %>%
+        pull(value) %>%
+        roundFiveUp(.,2)*100
+      }
+    
+  })
+  
+  
   
   # box for % of new places in good and outstanding schools
   output$LA_GO_places <- renderValueBox({
-    
-    #Take filtered data, search for growth rate, pull the value and tidy the number up
-    LA_GO_per <- live_scorecard_data() %>%
-      filter(name=="QualProp") %>%
-      pull(value) %>%
-      roundFiveUp(.,2)*100
-    
+ 
     #Put value into box to plug into app
     shinydashboard::valueBox(
-      paste0(LA_GO_per, "%"),
+      paste0(LA_comp(), "%"),
       paste0("Percentage of new places in ", school_description(), str_to_lower(input$phase_choice)," schools in ", input$LA_choice),
       icon = icon("fas fa-boxes"),
       color = "aqua"
@@ -483,7 +556,7 @@ function(input, output, session) {
     }else if (input$chart_choice =="Progress 8"){
       
       live_scorecard_data() %>%
-        filter(name=="Qual_KS4_Proprank") %>%
+        filter(name=="Qual_KS4_Propranks") %>%
         pull(value) 
 
     }else if (input$chart_choice =="Reading Progress"){
@@ -503,6 +576,39 @@ function(input, output, session) {
   })
   
   
+  
+  # Calculate ranking denominator depending on chart choice:
+  LA_denom <- reactive({
+    
+    if(input$chart_choice =="Ofsted"){
+      
+      live_scorecard_data_all_la() %>% 
+      filter(name=="QualPropranks"  & !is.na(value)) %>% 
+      nrow()
+      
+    }else if (input$chart_choice =="Progress 8"){
+      
+      live_scorecard_data_all_la() %>% 
+        filter(name=="Qual_KS4_Propranks"  & !is.na(value)) %>% 
+      nrow()
+
+      
+    }else if (input$chart_choice =="Reading Progress"){
+      
+      live_scorecard_data_all_la() %>% 
+        filter(name=="Qual_KS2Read_Propranks"  & !is.na(value)) %>% 
+      nrow()
+      
+    }else if (input$chart_choice =="Maths Progress"){
+      
+      live_scorecard_data_all_la() %>% 
+        filter(name=="Qual_KS2Mat_Propranks"  & !is.na(value)) %>% 
+      nrow()
+      
+    }
+    
+  })
+  
   # box for % of new places in top schools - LA Ranking
 
   output$LA_GO_ran <- renderValueBox({
@@ -510,7 +616,7 @@ function(input, output, session) {
     #Put value into box to plug into app
     shinydashboard::valueBox(
       LA_ranking(),
-      paste0("LA Rank out of ", nrow(live_scorecard_data_all_la() %>% filter(name=="QualPropranks"  & !is.na(value)))) ,
+      paste0("LA Rank out of ", LA_denom()) ,
       icon = icon("fas fa-bars"),
       color = "fuchsia"
     )
@@ -528,7 +634,8 @@ function(input, output, session) {
     ggplotly(rv$quality_chart_choice,
              tooltip = c("text")) %>% 
       layout(legend = list(orientation = "h",
-                           y =-0.1, x = 0.33))
+                           y =-0.1, x = 0.33,
+                           font = font_choice))
     
     
   })
@@ -572,11 +679,12 @@ function(input, output, session) {
       
       coord_flip() +
       facet_wrap(~LA_name,nrow = 2) + 
-      geom_text( aes(label = scales::comma(places)),size = 3, position = position_fill(reverse = TRUE,vjust = 0.5))+
+      geom_text( aes(label = scales::comma(places)),size = 4, position = position_fill(reverse = TRUE,vjust = 0.5))+
       labs( x ="", y = "")+
       guides(fill=guide_legend(title=""))+
       theme_minimal()+
-      theme(legend.position="bottom")
+      theme(legend.position="bottom",
+            text=element_text(size=14,  family="Arial"))
 
     if(input$LA_choice =="England" & input$chart_choice =="Ofsted"){
       ofsted_no_rating <- ofsted_data %>%
@@ -599,10 +707,12 @@ function(input, output, session) {
                                      str_detect(name, "E$") ~ "Existing"))%>% 
       #Create Ofsted ratings out of the names
       mutate(rating = case_when (str_detect(name, "_WAA_") ~ "Well above average",
+                                 str_detect(name, "_AA_") ~ "Above average",
                                  str_detect(name, "_A_") ~ "Average",
                                  str_detect(name, "_BA_") ~ "Below average",
                                  str_detect(name, "_WBA_") ~ "Well below average",
                                  str_detect(name, "NR") ~ "No rating" )) %>% 
+      mutate(rating = factor(rating, levels=c("Well above average","Above average","Average","Below average","Well below average"))) %>% 
       #Create new variable called places, replace 0s with NAs so it plots neatly
       mutate(places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0))))
     
@@ -611,16 +721,18 @@ function(input, output, session) {
       filter(rating != "No rating") %>% 
       ggplot(aes(y=value, x=place_type, 
                  text = paste(rating, ": ", places, " places"),
-                 fill = factor(rating, levels=c("Well above average","Average","Below average","Well below average")))) + 
+                 group = rating,
+                 fill = rating)) + 
       geom_bar(stat="identity", position = position_fill(reverse = TRUE))+
       
       coord_flip() +
       facet_wrap(~LA_name,nrow = 2) + 
-      geom_text( aes(label = scales::comma(places)),size = 3, position = position_fill(reverse = TRUE,vjust = 0.5))+
+      geom_text( aes(label = scales::comma(places)),size = 4, position = position_fill(reverse = TRUE,vjust = 0.5))+
       labs( x ="", y = "")+
       guides(fill=guide_legend(title=""))+
       theme_minimal()+
-      theme(legend.position="bottom")
+      theme(legend.position="bottom",
+            text=element_text(size=14,  family="Arial"))
     
     if(input$LA_choice =="England" & input$chart_choice =="Progress 8"){
       progress_8_no_rating <- progress_8_data %>%
@@ -643,10 +755,12 @@ function(input, output, session) {
                                      str_detect(name, "E$") ~ "Existing"))%>% 
       #Create Ofsted ratings out of the names
       mutate(rating = case_when (str_detect(name, "_WAA_") ~ "Well above average",
+                                 str_detect(name, "_AA_") ~ "Above average",
                                  str_detect(name, "_A_") ~ "Average",
                                  str_detect(name, "_BA_") ~ "Below average",
                                  str_detect(name, "_WBA_") ~ "Well below average",
                                  str_detect(name, "NR") ~ "No rating" )) %>% 
+      mutate(rating = factor(rating, levels=c("Well above average","Above average","Average","Below average","Well below average"))) %>% 
       #Create new variable called places, replace 0s with NAs so it plots neatly
       mutate(places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0))))
     
@@ -655,16 +769,18 @@ function(input, output, session) {
       filter(rating != "No rating") %>% 
       ggplot(aes(y=value, x=place_type, 
                  text = paste(rating, ": ", places, " places"),
-                 fill = factor(rating, levels=c("Well above average","Average","Below average","Well below average")))) + 
+                 group = rating,
+                 fill = rating)) + 
       geom_bar(stat="identity", position = position_fill(reverse = TRUE))+
       
       coord_flip() +
       facet_wrap(~LA_name,nrow = 2) + 
-      geom_text( aes(label = scales::comma(places)),size = 3, position = position_fill(reverse = TRUE,vjust = 0.5))+
+      geom_text( aes(label = scales::comma(places)),size = 4, position = position_fill(reverse = TRUE,vjust = 0.5))+
       labs( x ="", y = "")+
       guides(fill=guide_legend(title=""))+
       theme_minimal()+
-      theme(legend.position="bottom")
+      theme(legend.position="bottom",
+            text=element_text(size=14,  family="Arial"))
     
     
     if(input$LA_choice =="England"& input$chart_choice =="Reading Progress"){
@@ -688,10 +804,12 @@ function(input, output, session) {
                                      str_detect(name, "E$") ~ "Existing"))%>% 
       #Create Ofsted ratings out of the names
       mutate(rating = case_when (str_detect(name, "_WAA_") ~ "Well above average",
+                                 str_detect(name, "_AA_") ~ "Above average",
                                  str_detect(name, "_A_") ~ "Average",
                                  str_detect(name, "_BA_") ~ "Below average",
                                  str_detect(name, "_WBA_") ~ "Well below average",
                                  str_detect(name, "NR") ~ "No rating" )) %>% 
+      mutate(rating = factor(rating, levels=c("Well above average","Above average","Average","Below average","Well below average"))) %>% 
       #Create new variable called places, replace 0s with NAs so it plots neatly
       mutate(places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0))))
     
@@ -700,16 +818,18 @@ function(input, output, session) {
       filter(rating != "No rating") %>% 
       ggplot(aes(y=value, x=place_type, 
                  text = paste(rating, ": ", places, " places"),
-                 fill = factor(rating, levels=c("Well above average","Average","Below average","Well below average")))) + 
+                 group = rating,
+                 fill = rating)) + 
       geom_bar(stat="identity", position = position_fill(reverse = TRUE))+
       
       coord_flip() +
       facet_wrap(~LA_name,nrow = 2) + 
-      geom_text( aes(label = scales::comma(places)),size = 3, position = position_fill(reverse = TRUE,vjust = 0.5))+
+      geom_text( aes(label = scales::comma(places)),size = 4, position = position_fill(reverse = TRUE,vjust = 0.5))+
       labs( x ="", y = "")+
       guides(fill=guide_legend(title=""))+
       theme_minimal()+
-      theme(legend.position="bottom")
+      theme(legend.position="bottom",
+            text=element_text(size=14,  family="Arial"))
     
     if(input$LA_choice =="England" & input$chart_choice =="Maths Progress"){
       progress_maths_no_rating <- progress_maths_data %>%
@@ -777,7 +897,6 @@ function(input, output, session) {
   output$cost_plot <- renderPlotly({
     
     all_LA_cost <- live_scorecard_data_all_la() %>% 
-      #live_scorecard_data_all_la() %>%
       filter(str_detect(name,"Cost|Places|Projects")) %>%
       mutate(data_type = case_when (str_detect(name, "Cost") ~ "Cost",
                                     str_detect(name, "Place") ~ "Place",
@@ -813,27 +932,187 @@ function(input, output, session) {
             axis.ticks=element_blank(),
             axis.title.x=element_blank(),
             axis.title.y=element_blank(),
+            legend.title = element_blank(),
             panel.background=element_blank(),
             panel.border=element_blank(),
             panel.grid.major=element_blank(),
             panel.grid.minor=element_blank(),
-            plot.background=element_blank())
+            plot.background=element_blank(),
+            text=element_text(size=14,  family="Arial"))
     
     
     
     ggplotly(p,tooltip = c("text"))   %>% 
       layout(legend = list(orientation = "h",
-                           y =-0.1, x = 0.33))
+                           y =-0.1, x = 0.33,
+                           font = font_choice))
     
     
   })
   
-  # NEED TO ADD:
+  # Comparison boxes - number of projects
+  output$perm_box <- renderValueBox({
+    
+    perm_fig <- live_scorecard_data()%>%
+      #Filter for Cost, places and project data
+      filter(str_detect(name,"Cost|Places|Projects")) %>%
+      #Create new column called data_type, based on the name of the data
+      mutate(data_type = case_when (str_detect(name, "Cost") ~ "Cost",
+                                    str_detect(name, "Place") ~ "Place",
+                                    str_detect(name, "Project") ~ "Project")) %>%
+      mutate(exp_type = case_when (str_detect(name, "EP") ~ "Permanent",
+                                   str_detect(name, "ET") ~ "Temporary",
+                                   str_detect(name, "NS") ~ "New school")
+      ) %>%
+      select(LA_name,data_type,exp_type,value) %>%
+      filter(data_type=="Project" & exp_type=="Permanent") %>%
+      pull(value)
+    
+    
+    shinydashboard::valueBox(
+      paste0( perm_fig, " project(s)"),
+      paste0("Permanent expansion projects in ", input$LA_choice),
+      icon = icon("fas fa-school"),
+      color = "green"
+    )
+    
+})
   
-  # Table to show number of projects - can sit under the other table in this tab?
+  output$temp_box <- renderValueBox({
+    
+    temp_fig <- live_scorecard_data()%>%
+      #Filter for Cost, places and project data
+      filter(str_detect(name,"Cost|Places|Projects")) %>%
+      #Create new column called data_type, based on the name of the data
+      mutate(data_type = case_when (str_detect(name, "Cost") ~ "Cost",
+                                    str_detect(name, "Place") ~ "Place",
+                                    str_detect(name, "Project") ~ "Project")) %>%
+      mutate(exp_type = case_when (str_detect(name, "EP") ~ "Permanent",
+                                   str_detect(name, "ET") ~ "Temporary",
+                                   str_detect(name, "NS") ~ "New school")
+      ) %>%
+      select(LA_name,data_type,exp_type,value) %>%
+      filter(data_type=="Project" & exp_type=="Temporary") %>%
+      pull(value)
+    
+    
+    shinydashboard::valueBox(
+      paste0( temp_fig, " project(s)"),
+      paste0("Temporary projects in ", input$LA_choice),
+      icon = icon("fas fa-campground"),
+      color = "blue"
+    )
+    
+  })
+
+  
+  output$new_box <- renderValueBox({
+    
+    new_fig <- live_scorecard_data()%>%
+      #Filter for Cost, places and project data
+      filter(str_detect(name,"Cost|Places|Projects")) %>%
+      #Create new column called data_type, based on the name of the data
+      mutate(data_type = case_when (str_detect(name, "Cost") ~ "Cost",
+                                    str_detect(name, "Place") ~ "Place",
+                                    str_detect(name, "Project") ~ "Project")) %>%
+      mutate(exp_type = case_when (str_detect(name, "EP") ~ "Permanent",
+                                   str_detect(name, "ET") ~ "Temporary",
+                                   str_detect(name, "NS") ~ "New school")
+      ) %>%
+      select(LA_name,data_type,exp_type,value) %>%
+      filter(data_type=="Project" & exp_type=="New school") %>%
+      pull(value)
+    
+    
+    shinydashboard::valueBox(
+      paste0( new_fig, " project(s)"),
+      paste0("New schools projects in ", input$LA_choice),
+      icon = icon("fas fa-plus"),
+      color = "purple"
+    )
+    
+  })
+    
+
+# Tech guidance tables ----------------------------------------------------
+
+  output$notesTable<- function(){
+  
+    notesTable[is.na(notesTable)] <- " "
+    
+  kable(notesTable, "html", align = "l",escape=FALSE) %>%
+    kable_styling(full_width = F) %>%
+    #collapse_rows(columns = 1:2) %>%
+    column_spec(1, bold = T, width = "20em",  extra_css = 'vertical-align: top !important;')%>% 
+    column_spec(2,  width = "20em")
+  }
+  
+  output$notesTableQuant<- function(){
+    
+    notesTableQuant[is.na(notesTableQuant)] <- " "
+    
+    kable(notesTableQuant, "html", align = "l",escape=FALSE) %>%
+      kable_styling(full_width = F) %>%
+      #collapse_rows(columns = 1:2) %>%
+      column_spec(1, bold = T, extra_css = 'vertical-align: top !important;')%>% 
+      column_spec(2,  width_min = "20em") %>% 
+      column_spec(5,  width_max = "40em")
+  }
+  
+  output$notesTablePref<- function(){
+    
+    notesTablePref[is.na(notesTablePref)] <- " "
+    
+    kable(notesTablePref, "html", align = "l",escape=FALSE) %>%
+      kable_styling(full_width = F) %>%
+      #collapse_rows(columns = 1:2) %>%
+      column_spec(1, bold = T,width = "20em",  extra_css = 'vertical-align: top !important;')%>% 
+      column_spec(2,  width = "20em")
+  }
+  
+  output$notesTableQual<- function(){
+    
+    notesTableQual[is.na(notesTableQual)] <- " "
+    
+    kable(notesTableQual, "html", align = "l",escape=FALSE) %>%
+      kable_styling(full_width = F) %>%
+      #collapse_rows(columns = 1:2) %>%
+      column_spec(1, bold = T, width = "20em",  extra_css = 'vertical-align: top !important;')%>% 
+      column_spec(2,  width = "20em")
+  }
+  
+  output$notesTableCost<- function(){
+    
+    notesTableCost[is.na(notesTableCost)] <- " "
+    
+    kable(notesTableCost, "html", align = "l",escape=FALSE) %>%
+      kable_styling(full_width = F) %>%
+      #collapse_rows(columns = 1:2) %>%
+      column_spec(1, bold = T,  width = "20em", extra_css = 'vertical-align: top !important;') %>% 
+     column_spec(2,  width = "20em")
+  }
   
   
   
-  #change 
+  # Hide details if Eng--------
+  observe({
+    if (input$LA_choice =="England") {
+      shinyjs::hide("LA_GO_places")
+      shinyjs::hide("LA_GO_ran")
+      shinyjs::hide("PrefT3_LA")
+      shinyjs::hide("new_box")
+      shinyjs::hide("temp_box")
+      shinyjs::hide("perm_box")
+    }
+    
+    else {
+      shinyjs::show("LA_GO_places")
+      shinyjs::show("LA_GO_ran")
+      shinyjs::show("PrefT3_LA")
+      shinyjs::show("new_box")
+      shinyjs::show("temp_box")
+      shinyjs::show("perm_box")
+    }
+  })
   
 }
