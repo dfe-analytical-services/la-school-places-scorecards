@@ -109,3 +109,22 @@ notesTableCost <- read.xlsx(
   xlsxFile="data/tech_guidance.xlsx",
   sheet="Cost")
 
+
+# File download -----------------------------------------------------------
+
+metadata <- fread("data/metadata.csv")
+
+#Create clean versions of the file for download--------------
+
+scorecards_data_clean<-scorecards_data %>% dplyr::rename(`LA Name` = LA_name)
+
+# this line renames the columns of the old dataset using the lookup table
+scorecards_data_clean<-data.table::setnames(scorecards_data_clean, old=metadata$programmer_friendly_names,new=metadata$user_friendly_name,skip_absent = TRUE)
+
+#Primary data
+primary_data_clean <- scorecards_data_clean %>% 
+  select(`LA Name`, `LA Number`, contains(c("primary","Primary")))
+
+#Secondary data
+secondary_data_clean <- scorecards_data_clean %>% 
+  select(`LA Name`, `LA Number`, contains(c("secondary","Secondary")))

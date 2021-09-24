@@ -1039,7 +1039,36 @@ function(input, output, session) {
     
   })
     
-
+# Files for download ------------------------------------------------------
+  
+  filename_choice <- reactive({
+    
+    if(input$phase_choice =="Primary"){
+      "Primary_scorecards_data.csv"}else{ "Secondary_scorecards_data.csv" }
+    
+  })
+  
+  file_choice <- reactive({
+    
+    if(input$phase_choice =="Primary"){
+      primary_data_clean} else{ secondary_data_clean }
+    
+  })
+  
+  
+  output$download_ud <- downloadHandler(
+    
+    
+   filename = function() {
+     filename_choice()
+    },
+    content = function(file) {
+      write.csv(file_choice() , file, row.names = FALSE)
+    }
+)
+   
+    
+    
 # Tech guidance tables ----------------------------------------------------
 
   output$notesTable<- function(){
@@ -1121,4 +1150,5 @@ function(input, output, session) {
     }
   })
   
+
 }

@@ -5,6 +5,7 @@ source("0_variable_change.R")##
         tags$link(rel = "stylesheet", type = "text/css", href = "shiny_gov_style.css")
 )
     
+    
 #sidebar---------------------
 sidebar<- dashboardSidebar(
         sidebarMenu(
@@ -21,9 +22,12 @@ sidebar<- dashboardSidebar(
                     choices =  c("Ofsted","Reading Progress", "Maths Progress")
         ),
         menuItem("LA scorecards", tabName = "scorecards", icon = icon("fas fa-bookmark")),
-        menuItem("Technical notes", tabName = "cover", icon = icon("book-open"))
+        menuItem("Technical notes", tabName = "cover", icon = icon("book-open")),
+        downloadButton("download_ud",
+                  "Download data",
+          style = "padding: 5px 14px 5px 14px;margin: 20px 5px 5px 40px; ")
+        
 
-       
 
     )# end of sidebar menu
     )
@@ -116,7 +120,7 @@ sidebar<- dashboardSidebar(
                         
                         
                     ),#end of tabset
-                    
+
                     br(),
                     br(),
                     img(src = "Department_for_Education.png", height = 100, width = 150),

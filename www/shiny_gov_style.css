@@ -27,7 +27,14 @@ body {
     font-weight: bold;
 }
 
-
+.skin-blue .sidebar a {
+    color: #fff;
+}
+.btn-default {
+    background-color: #1e282c;
+    color: #444;
+    border-color: #0b0c0c;
+}
 
 .govuk-link {
     font-family: nta, Arial, sans-serif;
