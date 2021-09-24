@@ -64,12 +64,12 @@ sidebar<- dashboardSidebar(
                                             plotlyOutput("places_chart")%>% withSpinner()),
                                      column(6,
                                             p(strong("Forecast accuracy - values closer to 0 are more accurate.")),
-                                            p("One year ahead"),
+                                            htmlOutput("label_estimate_y1"),
                                             br(),
                                             gaugeOutput("forecast_1y"),
-                                                   p("Three years ahead"),
-                                                   br(),
-                                                   gaugeOutput("forecast_3y")
+                                            htmlOutput("label_estimate_y3"),
+                                            br(),
+                                            gaugeOutput("forecast_3y")
                                                    
                                             ))),
                         tabPanel("Preference", 

@@ -186,29 +186,35 @@ function(input, output, session) {
   
   ## Forecast accuracy labels
   
-  label_estimate_y1 <- reactive({
+  output$label_estimate_y1 <- renderText({
     
     forecast_accuracy <- live_scorecard_data() %>% 
       filter(name == "For_1") %>% 
-      pull(value)
+      pull(value)%>% 
+      roundFiveUp(.,3)*100
     
-    case_when(forecast_accuracy > 0 ~ "Overestimate",
+ label<- case_when(forecast_accuracy > 0 ~ "Overestimate",
               forecast_accuracy < 0 ~ "Underestimate",
-              TRUE ~ NA_character_)
+              TRUE ~ "Accurate")
+  
+  paste("<b>One year ahead :</b>", label)
+
     
   })
   
   
-  label_estimate_y3 <- reactive({
+  output$label_estimate_y3 <- renderText({
     
     forecast_accuracy <- live_scorecard_data()%>% 
       filter(name == "For_3") %>% 
-      pull(value)
+      pull(value)%>% 
+      roundFiveUp(.,3)*100
     
-    case_when(forecast_accuracy > 0 ~ "Overestimate",
-              forecast_accuracy < 0 ~ "Underestimate",
-              TRUE ~ NA_character_)
+    label<- case_when(forecast_accuracy > 0 ~ "Overestimate",
+                      forecast_accuracy < 0 ~ "Underestimate",
+                      TRUE ~ "Accurate")
     
+    paste("<b>Three years ahead :</b>", label)
   })
   
 
@@ -245,7 +251,6 @@ function(input, output, session) {
           min = lowest_accuracy, 
           max = highest_accuracy, 
           symbol = '%',
-          label = label_estimate_y1(),
           sectors = gaugeSectors(success = c(-1, 1), 
                                  warning = c(mid_low_accuracy, mid_high_accuracy),
                                  danger = c(lowest_accuracy, highest_accuracy)))
@@ -257,10 +262,12 @@ function(input, output, session) {
   
   #Code to go here using above template
   
-  output$forecast_3y <- renderGauge({
+  output$forecast_3y <- 
+    
+    
+    renderGauge({
     #live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
     
-    req(label_estimate_y3_wait())
     
     forecast_accuracy <- live_scorecard_data() %>% 
       filter(name == "For_3") %>% 
@@ -290,7 +297,6 @@ function(input, output, session) {
           min = lowest_accuracy, 
           max = highest_accuracy, 
           symbol = '%',
-          label = label_estimate_y3(),
           sectors = gaugeSectors(success = c(-1, 1), 
                                  warning = c(mid_low_accuracy, mid_high_accuracy),
                                  danger = c(lowest_accuracy, highest_accuracy)))
