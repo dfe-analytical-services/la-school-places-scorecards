@@ -1,10 +1,5 @@
 source("0_variable_change.R")##
 
-
-    tags$head(
-        tags$link(rel = "stylesheet", type = "text/css", href = "shiny_gov_style.css")
-)
-    
     
 #sidebar---------------------
 sidebar<- dashboardSidebar(
@@ -38,10 +33,12 @@ sidebar<- dashboardSidebar(
             tags$head(
                 tags$link(rel = "stylesheet", type = "text/css", href = "shiny_gov_style.css")
             ),
+            # 
+            #  tags$style(".small-box.bg-purple {
+            # background-color: #d53880 !important
+            #     }"),
             useShinyjs(),
-           # theme = "shiny_gov_style.css",
-            #tags$head(tags$style('.selectize-dropdown {z-index: 10000}')),
-          
+
             
             tabItems(
             # scorecards tab --------------------------------------------------------------

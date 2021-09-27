@@ -85,6 +85,14 @@ roundFiveUp <- function(x, n){
   
 cs_num <- function(x){format(x,big.mark=",", trim=TRUE)}
 
+# Create colour palette
+
+dfe_colours <- c(
+  `blue`        = "#1d70b8",
+  `orange`      = "#f47738",
+  `pink`       = "#d53880",
+  `turquoise`     = "#28a197",
+  `light-pink`     = "#f499be")
 
 # Notes tables----------------------------------
 
