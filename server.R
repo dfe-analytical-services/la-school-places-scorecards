@@ -1004,7 +1004,7 @@ function(input, output, session) {
     
     shinydashboard::valueBox(
       paste0( perm_fig, " project(s)"),
-      paste0("Permanent expansion projects in ", input$LA_choice),
+      paste0("Permanent " ,str_to_lower(input$phase_choice), " expansion projects in ", input$LA_choice),
       icon = icon("fas fa-school"),
       color = "blue"
     )
@@ -1031,7 +1031,7 @@ function(input, output, session) {
     
     shinydashboard::valueBox(
       paste0( temp_fig, " project(s)"),
-      paste0("Temporary projects in ", input$LA_choice),
+      paste0("Temporary ",str_to_lower(input$phase_choice)," projects in ", input$LA_choice),
       icon = icon("fas fa-campground"),
       color = "green"
     )
@@ -1059,7 +1059,7 @@ function(input, output, session) {
     
     shinydashboard::valueBox(
       paste0( new_fig, " project(s)"),
-      paste0("New schools projects in ", input$LA_choice),
+      paste0("New ",str_to_lower(input$phase_choice), " schools projects in ", input$LA_choice),
       icon = icon("fas fa-plus"),
       color = "purple"
     )
