@@ -131,7 +131,7 @@ function(input, output, session) {
       paste0(scales::comma(additional_places_perc)),
       paste0("Estimated additional " , str_to_lower(input$phase_choice), " places required to meet demand in ",plan_year),
       icon = icon("fas fa-signal"),
-      color = "red"
+      color = "blue"
     )
   })
   
@@ -152,7 +152,7 @@ function(input, output, session) {
       paste0(spare_places_per, "%"),
       paste0("Estimated percentage of spare ", str_to_lower(input$phase_choice)," places in ",plan_year),
       icon = icon("fas fa-school"),
-      color = "orange"
+      color = "green"
     )
   })
   
@@ -168,10 +168,12 @@ function(input, output, session) {
     
     #create interactive stacked bar chart
     plot_ly(
-      places_chart_data, x = ~LA_name, y = ~QuanIn, type = 'bar', name = paste0("Total places created between 2009/10 and ", this_year),
-      text = ~scales::comma(QuanIn), textposition = 'inside') %>%
-      add_trace(y = ~QuanPP, name = paste0('New places planned for delivery between ', next_year,' and ', plan_year), text = ~scales::comma(QuanPP), textposition = 'inside') %>% 
-      add_trace(y = ~QuanRP, name = paste0('Estimated additional places needed to meet demand in ', plan_year), text = ~scales::comma(QuanRP), textposition = 'inside') %>% 
+      places_chart_data, x = ~LA_name, y = ~QuanIn,
+      marker = list( color = c("#1d70b8")),
+      type = 'bar', name = paste0("Total places created between 2009/10 and ", this_year),
+      text = ~scales::comma(QuanIn), textposition = 'inside', textfont = list(color = '#FFF')) %>%
+      add_trace(y = ~QuanPP,  marker = list( color = c("#f47738")),name = paste0('New places planned for delivery between ', next_year,' and ', plan_year), text = ~scales::comma(QuanPP), textposition = 'inside') %>% 
+      add_trace(y = ~QuanRP,  marker = list( color = c("#28a197")),name = paste0('Estimated additional places needed to meet demand in ', plan_year), text = ~scales::comma(QuanRP), textposition = 'inside') %>% 
       layout(yaxis = list(title = ''),
              xaxis = list(title =''),
              barmode = 'stack',
@@ -253,7 +255,8 @@ function(input, output, session) {
           symbol = '%',
           sectors = gaugeSectors(success = c(-1, 1), 
                                  warning = c(mid_low_accuracy, mid_high_accuracy),
-                                 danger = c(lowest_accuracy, highest_accuracy)))
+                                 danger = c(lowest_accuracy, highest_accuracy),
+          colors = c("#00703c",	"#ffdd00", "#d4351c")))
     
     
   })
@@ -299,7 +302,8 @@ function(input, output, session) {
           symbol = '%',
           sectors = gaugeSectors(success = c(-1, 1), 
                                  warning = c(mid_low_accuracy, mid_high_accuracy),
-                                 danger = c(lowest_accuracy, highest_accuracy)))
+                                 danger = c(lowest_accuracy, highest_accuracy),
+          colors = c("#00703c",	"#ffdd00", "#d4351c")))
     
     
   })
@@ -390,9 +394,10 @@ function(input, output, session) {
       
       coord_flip() +
       facet_wrap(~LA_name,nrow = 2) + 
-      geom_text( aes(label = value_label),size = 4, position = position_fill(reverse = TRUE,vjust = 0.5))+
+      geom_text( aes(label = value_label),colour ="#ffffff",size = 4, position = position_fill(reverse = TRUE,vjust = 0.5))+
       labs( x ="", y = "")+
       guides(fill=guide_legend(title=""))+
+      scale_fill_manual(values = dfe_colours)+
       theme_minimal()+
       theme(legend.position="bottom",
             text=element_text(size=14,  family="Arial"))
@@ -462,7 +467,7 @@ function(input, output, session) {
       paste0(LA_comp(), "%"),
       paste0("Percentage of new places in ", school_description(), str_to_lower(input$phase_choice)," schools in ", input$LA_choice),
       icon = icon("fas fa-boxes"),
-      color = "aqua"
+      color = "green"
     )
   })
   
@@ -545,7 +550,7 @@ function(input, output, session) {
       paste0(england_comp(), "%"),
       paste0("Percentage of new places in ",school_description(), str_to_lower(input$phase_choice)," schools in England"),
       icon = icon("fas fa-equals"),
-      color = "maroon"
+      color = "blue"
     )
   })
   
@@ -624,7 +629,7 @@ function(input, output, session) {
       LA_ranking(),
       paste0("LA Rank out of ", LA_denom()) ,
       icon = icon("fas fa-bars"),
-      color = "fuchsia"
+      color = "purple"
     )
   })
   
@@ -672,8 +677,14 @@ function(input, output, session) {
                                  str_detect(name, "4") ~ "Inadequate",
                                  str_detect(name, "0") ~ "No rating" )) %>% 
       #Create new variable called places, replace 0s with NAs so it plots neatly
-      mutate(
-        places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0))))
+        mutate(
+          places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0)))) %>% 
+          #Give NA for label if it's too small
+        group_by(LA_name,place_type) %>% 
+        mutate(places_perc = places/sum(places,na.rm=TRUE),
+          value_label = if_else(places_perc > 0.02, places, NA_integer_))
+      
+      
     
     
     ofsted_p <- ofsted_data %>% 
@@ -682,12 +693,12 @@ function(input, output, session) {
                  fill = factor(rating, levels=c("Oustanding","Good","Requires Improvement","Inadequate")),
                  text = paste(rating, ": ", places, " places"))) + 
       geom_bar(stat="identity", position = position_fill(reverse = TRUE))+
-      
       coord_flip() +
       facet_wrap(~LA_name,nrow = 2) + 
-      geom_text( aes(label = scales::comma(places)),size = 4, position = position_fill(reverse = TRUE,vjust = 0.5))+
+      geom_text( aes(label = scales::comma(value_label)),size = 4,colour = "#FFFFFF", position = position_fill(reverse = TRUE,vjust = 0.5))+
       labs( x ="", y = "")+
       guides(fill=guide_legend(title=""))+
+      scale_fill_manual(values = dfe_colours)+
       theme_minimal()+
       theme(legend.position="bottom",
             text=element_text(size=14,  family="Arial"))
@@ -720,7 +731,12 @@ function(input, output, session) {
                                  str_detect(name, "NR") ~ "No rating" )) %>% 
       mutate(rating = factor(rating, levels=c("Well above average","Above average","Average","Below average","Well below average"))) %>% 
       #Create new variable called places, replace 0s with NAs so it plots neatly
-      mutate(places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0))))
+      mutate(places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0)))) %>% 
+    #Give NA for label if it's too small
+    group_by(LA_name,place_type) %>% 
+      mutate(places_perc = places/sum(places,na.rm=TRUE),
+             value_label = if_else(places_perc > 0.02, places, NA_integer_))
+    
     
     
     progress_8_p <- progress_8_data %>% 
@@ -733,9 +749,10 @@ function(input, output, session) {
       
       coord_flip() +
       facet_wrap(~LA_name,nrow = 2) + 
-      geom_text( aes(label = scales::comma(places)),size = 4, position = position_fill(reverse = TRUE,vjust = 0.5))+
+      geom_text( aes(label = scales::comma(value_label)),size = 4,colour = "#FFFFFF", position = position_fill(reverse = TRUE,vjust = 0.5))+
       labs( x ="", y = "")+
       guides(fill=guide_legend(title=""))+
+      scale_fill_manual(values = dfe_colours)+
       theme_minimal()+
       theme(legend.position="bottom",
             text=element_text(size=14,  family="Arial"))
@@ -768,7 +785,11 @@ function(input, output, session) {
                                  str_detect(name, "NR") ~ "No rating" )) %>% 
       mutate(rating = factor(rating, levels=c("Well above average","Above average","Average","Below average","Well below average"))) %>% 
       #Create new variable called places, replace 0s with NAs so it plots neatly
-      mutate(places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0))))
+      mutate(places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0))))%>% 
+      #Give NA for label if it's too small
+      group_by(LA_name,place_type) %>% 
+      mutate(places_perc = places/sum(places,na.rm=TRUE),
+             value_label = if_else(places_perc > 0.02, places, NA_integer_))
     
     
     progress_reading_p <- progress_reading_data %>% 
@@ -781,9 +802,10 @@ function(input, output, session) {
       
       coord_flip() +
       facet_wrap(~LA_name,nrow = 2) + 
-      geom_text( aes(label = scales::comma(places)),size = 4, position = position_fill(reverse = TRUE,vjust = 0.5))+
+      geom_text( aes(label = scales::comma(value_label)),size = 4,colour = "#FFFFFF", position = position_fill(reverse = TRUE,vjust = 0.5))+
       labs( x ="", y = "")+
       guides(fill=guide_legend(title=""))+
+      scale_fill_manual(values = dfe_colours)+
       theme_minimal()+
       theme(legend.position="bottom",
             text=element_text(size=14,  family="Arial"))
@@ -817,7 +839,11 @@ function(input, output, session) {
                                  str_detect(name, "NR") ~ "No rating" )) %>% 
       mutate(rating = factor(rating, levels=c("Well above average","Above average","Average","Below average","Well below average"))) %>% 
       #Create new variable called places, replace 0s with NAs so it plots neatly
-      mutate(places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0))))
+      mutate(places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0)))) %>% 
+      #Give NA for label if it's too small
+      group_by(LA_name,place_type) %>% 
+      mutate(places_perc = places/sum(places,na.rm=TRUE),
+             value_label = if_else(places_perc > 0.02, places, NA_integer_))
     
     
     progress_maths_p <- progress_maths_data %>% 
@@ -830,9 +856,10 @@ function(input, output, session) {
       
       coord_flip() +
       facet_wrap(~LA_name,nrow = 2) + 
-      geom_text( aes(label = scales::comma(places)),size = 4, position = position_fill(reverse = TRUE,vjust = 0.5))+
+      geom_text( aes(label = scales::comma(value_label)),size = 4,colour = "#FFFFFF", position = position_fill(reverse = TRUE,vjust = 0.5))+
       labs( x ="", y = "")+
       guides(fill=guide_legend(title=""))+
+      scale_fill_manual(values = dfe_colours)+
       theme_minimal()+
       theme(legend.position="bottom",
             text=element_text(size=14,  family="Arial"))
@@ -931,7 +958,7 @@ function(input, output, session) {
                     groupOnX=TRUE, na.rm = TRUE) +
       facet_grid(~factor(exp_type, levels=c('Permanent',"Temporary","New school")))+
       scale_color_manual(breaks = c( input$LA_choice, "England","Other LA"),
-                         values=c( "#d95f02", "#1b9e77","#f0f0f0"))+
+                         values=c( "#f47738", "#1d70b8","#f3f2f1"))+
       theme(axis.line=element_blank(),
             axis.text.x=element_blank(),
             axis.text.y=element_blank(),
@@ -979,7 +1006,7 @@ function(input, output, session) {
       paste0( perm_fig, " project(s)"),
       paste0("Permanent expansion projects in ", input$LA_choice),
       icon = icon("fas fa-school"),
-      color = "green"
+      color = "blue"
     )
     
 })
@@ -1006,7 +1033,7 @@ function(input, output, session) {
       paste0( temp_fig, " project(s)"),
       paste0("Temporary projects in ", input$LA_choice),
       icon = icon("fas fa-campground"),
-      color = "blue"
+      color = "green"
     )
     
   })

@@ -19,6 +19,7 @@ library(shinyjs)
 library(openxlsx)
 library(kableExtra)
 
+
 # ----------------------------------------------------------------------------
 # Setup loading screen and spinner
 # ----------------------------------------------------------------------------
@@ -68,6 +69,7 @@ scorecards_data <- fread("data/scorecards_data.csv")
     as.factor() %>% 
     relevel("England") 
   
+  
 # Functions ---------------------------------------------------------------
 
 #Create rounding function as baseR one rounds fives down
@@ -88,11 +90,12 @@ cs_num <- function(x){format(x,big.mark=",", trim=TRUE)}
 # Create colour palette
 
 dfe_colours <- c(
-  `blue`        = "#1d70b8",
-  `orange`      = "#f47738",
-  `pink`       = "#d53880",
-  `turquoise`     = "#28a197",
-  `light-pink`     = "#f499be")
+  "#1d70b8", #`blue`
+  "#f47738",#`orange`       
+  "#28a197",#`turquoise`   
+  "#d53880",#`pink`       
+  "#6f72af"#`light-purple` 
+  )
 
 # Notes tables----------------------------------
 

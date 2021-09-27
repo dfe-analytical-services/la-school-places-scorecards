@@ -44,7 +44,21 @@ body {
      background-color: #1d70b8 !important; 
 }
 
+.small-box.bg-orange{
+     background-color: #f47738 !important; 
+}
 
+.small-box.bg-red{
+     background-color: #f499be !important; 
+}
+
+.small-box.bg-green{
+     background-color: #28a197 !important; 
+}
+
+.nav-tabs-custom>.nav-tabs>li.active {
+    border-top-color: #5694ca;
+}
 
 
 

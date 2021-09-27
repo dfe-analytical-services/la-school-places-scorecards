@@ -30,13 +30,7 @@ sidebar<- dashboardSidebar(
     
  #body--------------------   
         body<-dashboardBody(
-            tags$head(
-                tags$link(rel = "stylesheet", type = "text/css", href = "shiny_gov_style.css")
-            ),
-            # 
-            #  tags$style(".small-box.bg-purple {
-            # background-color: #d53880 !important
-            #     }"),
+            includeCSS("www/shiny_gov_style.css"),
             useShinyjs(),
 
             
@@ -104,7 +98,7 @@ sidebar<- dashboardSidebar(
                                  valueBoxOutput("temp_box", width = 4),
                                  valueBoxOutput("new_box", width = 4),
                                  fluidRow(
-                                     column(6,
+                                     column(9,
                                             plotlyOutput("cost_plot")%>% withSpinner()),
                                      column(3,
                                             tableOutput("cost_table")))
