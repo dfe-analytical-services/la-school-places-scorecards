@@ -19,6 +19,7 @@ library(shinyjs)
 library(openxlsx)
 library(kableExtra)
 library(metathis)
+library(shinyWidgets)
 
 # ----------------------------------------------------------------------------
 # Setup loading screen and spinner

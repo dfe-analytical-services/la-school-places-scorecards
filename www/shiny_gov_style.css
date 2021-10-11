@@ -1,25 +1,34 @@
-.main-header .logo {
-    font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
-  font-weight: bold;
-  font-size: 24px;
-
-}
-
-
-.skin-blue .main-header .logo {
-    background-color: #0b0c0c;
-    color: #fff;
-    border-bottom: 0 solid transparent;
-}
 
 .skin-blue .main-header .navbar {
     background-color: #0b0c0c;
+}
+
+.navbar-default {
+    background-color: #0b0c0c;
+    border-color: #0b0c0c;
+}
+
+.navbar-default .navbar-brand {
+    color: 	#ffffff;
+    font-size: 30px;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: 	#ffffff;
+     font-size: 20px;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+    color: #ffffff;
+    background-color:	#505a5f;
+     font-size: 20px;
 }
 
 
 body {
    font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
   font-size: 14px;
+   background-color: #f3f2f1
   
 }
 
@@ -28,14 +37,7 @@ body {
     font-weight: bold;
 }
 
-.skin-blue .sidebar a {
-    color: #fff;
-}
-.btn-default {
-    background-color: #1e282c;
-    color: #444;
-    border-color: #0b0c0c;
-}
+
 
 .small-box.bg-purple {
     background-color: #d53880 !important;
