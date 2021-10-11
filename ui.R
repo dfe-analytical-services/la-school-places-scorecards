@@ -32,8 +32,20 @@ sidebar<- dashboardSidebar(
         body<-dashboardBody(
             includeCSS("www/shiny_gov_style.css"),
             useShinyjs(),
-
+            tags$html(lang="en"),
             
+            
+            meta_general(
+                application_name = "LA scorecards",
+                description = "Scorecards for school places by local authority in England",
+                robots = "index,follow",
+                generator = "R-Shiny",
+                subject = "School places in England",
+                rating = "General",
+                referrer = "no-referrer"
+            ),
+
+
             tabItems(
             # scorecards tab --------------------------------------------------------------
             
@@ -114,7 +126,7 @@ sidebar<- dashboardSidebar(
 
                     br(),
                     br(),
-                    img(src = "Department_for_Education.png", height = 100, width = 150),
+                    img(src = "dfe_logo.svg", height = 100, width = 150, alt ="Department for Education logo"),
                     br(),
                     br(),
                     p("This is a development of our excel-based scorecards - if you would like to provide feedback on this tool please contact ",a(href="mailto:SCAP.PPP@education.gov.uk","SCAP.PPP@education.gov.uk"))
@@ -163,7 +175,7 @@ sidebar<- dashboardSidebar(
                         
 br(),
 br(),
-img(src = "Department_for_Education.png", height = 100, width = 150),
+img(src = "dfe_logo.svg", height = 100, width = 150, alt ="Department for Education logo"),
 br(),
 br(),
 p("This is a development of our excel-based scorecards - if you would like to provide feedback on this tool please contact ",a(href="mailto:SCAP.PPP@education.gov.uk","SCAP.PPP@education.gov.uk"))
@@ -177,7 +189,6 @@ p("This is a development of our excel-based scorecards - if you would like to pr
 #build page -------------------
 
 dashboardPage(
-    
     dashboardHeader(title = "LA scorecards"),
     sidebar,
     body

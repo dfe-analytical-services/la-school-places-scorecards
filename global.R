@@ -18,7 +18,7 @@ library(ggbeeswarm)
 library(shinyjs)
 library(openxlsx)
 library(kableExtra)
-
+library(metathis)
 
 # ----------------------------------------------------------------------------
 # Setup loading screen and spinner

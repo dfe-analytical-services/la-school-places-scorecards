@@ -5,6 +5,7 @@
 
 }
 
+
 .skin-blue .main-header .logo {
     background-color: #0b0c0c;
     color: #fff;
@@ -60,8 +61,9 @@ body {
     border-top-color: #5694ca;
 }
 
-
-
+a {
+    color: #1d70b8;
+}
 
 
 
