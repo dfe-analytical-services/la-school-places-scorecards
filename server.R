@@ -729,7 +729,7 @@ function(input, output, session) {
                                  str_detect(name, "_BA_") ~ "Below average",
                                  str_detect(name, "_WBA_") ~ "Well below average",
                                  str_detect(name, "NR") ~ "No rating" )) %>% 
-      mutate(rating = factor(rating, levels=c("Well above average","Above average","Average","Below average","Well below average"))) %>% 
+      mutate(rating = factor(rating, levels=c("Well above average","Above average","Average","Below average","Well below average","No rating"))) %>% 
       #Create new variable called places, replace 0s with NAs so it plots neatly
       mutate(places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0)))) %>% 
     #Give NA for label if it's too small
@@ -782,8 +782,8 @@ function(input, output, session) {
                                  str_detect(name, "_A_") ~ "Average",
                                  str_detect(name, "_BA_") ~ "Below average",
                                  str_detect(name, "_WBA_") ~ "Well below average",
-                                 str_detect(name, "NR") ~ "No rating" )) %>% 
-      mutate(rating = factor(rating, levels=c("Well above average","Above average","Average","Below average","Well below average"))) %>% 
+                                 str_detect(name, "_NR_") ~ "No rating" )) %>% 
+      mutate(rating = factor(rating, levels=c("Well above average","Above average","Average","Below average","Well below average","No rating"))) %>% 
       #Create new variable called places, replace 0s with NAs so it plots neatly
       mutate(places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0))))%>% 
       #Give NA for label if it's too small
@@ -837,7 +837,7 @@ function(input, output, session) {
                                  str_detect(name, "_BA_") ~ "Below average",
                                  str_detect(name, "_WBA_") ~ "Well below average",
                                  str_detect(name, "NR") ~ "No rating" )) %>% 
-      mutate(rating = factor(rating, levels=c("Well above average","Above average","Average","Below average","Well below average"))) %>% 
+      mutate(rating = factor(rating, levels=c("Well above average","Above average","Average","Below average","Well below average","No rating"))) %>% 
       #Create new variable called places, replace 0s with NAs so it plots neatly
       mutate(places = if_else(value==0, NA_integer_, as.integer(roundFiveUp(value,0)))) %>% 
       #Give NA for label if it's too small
