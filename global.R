@@ -91,11 +91,11 @@ cs_num <- function(x){format(x,big.mark=",", trim=TRUE)}
 # Create colour palette
 
 dfe_colours <- c(
-  "#1d70b8", #`blue`
+  "#12436D", #`blue`
   "#f47738",#`orange`       
-  "#00703c",#`green`   
-  "#912b88",#`purple`       
-  "#6f72af"#`light-purple` 
+  "#801650",#`bright purple`   
+  "#28A197",#`turquoise`       
+  "#4C2C92"#`light-purple` 
   )
 
 # Notes tables----------------------------------

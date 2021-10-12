@@ -54,7 +54,7 @@ navbarPage(title = "LA scorecards",
                                    title = "",        
                                    id = "tabs", width ="12",
                                    tabPanel("Quantity", 
-                                            p(strong(paste0("Places created since 2009/10, places planned to ", plan_year," and estimated place pressure in ",plan_year))),
+                                            p(strong(paste0("Places created since 2009-10, places planned to ", plan_year," and estimated place pressure in ",plan_year))),
                                             valueBoxOutput("estimated_additional_places", width = 6),
                                             valueBoxOutput("estimated_spare_places", width = 6),
                                             fluidRow(

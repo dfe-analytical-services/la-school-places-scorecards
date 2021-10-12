@@ -129,7 +129,7 @@ function(input, output, session) {
     #Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(scales::comma(additional_places_perc)),
-      paste0("Estimated additional " , str_to_lower(input$phase_choice), " places required to meet demand in ",plan_year),
+      paste0("Estimated additional " , str_to_lower(input$phase_choice), " places to meet demand in ",plan_year),
       icon = icon("fas fa-signal"),
       color = "blue"
     )
@@ -169,11 +169,11 @@ function(input, output, session) {
     #create interactive stacked bar chart
     plot_ly(
       places_chart_data, x = ~LA_name, y = ~QuanIn,
-      marker = list( color = c("#1d70b8")),
+      marker = list( color = c("#12436D")),
       type = 'bar', name = paste0("Total places created between 2009/10 and ", this_year),
       text = ~scales::comma(QuanIn), textposition = 'inside', textfont = list(color = '#FFF')) %>%
-      add_trace(y = ~QuanPP,  marker = list( color = c("#f47738")),name = paste0('New places planned for delivery between ', next_year,' and ', plan_year), text = ~scales::comma(QuanPP), textposition = 'inside') %>% 
-      add_trace(y = ~QuanRP,  marker = list( color = c("#00703c")),name = paste0('Estimated additional places needed to meet demand in ', plan_year), text = ~scales::comma(QuanRP), textposition = 'inside') %>% 
+      add_trace(y = ~QuanPP,  marker = list( color = c("#F46A25")),name = paste0('New places planned for delivery between ', next_year,' and ', plan_year), text = ~scales::comma(QuanPP), textposition = 'inside') %>% 
+      add_trace(y = ~QuanRP,  marker = list( color = c("#801650")),name = paste0('Estimated additional places needed to meet demand in ', plan_year), text = ~scales::comma(QuanRP), textposition = 'inside') %>% 
       layout(yaxis = list(title = ''),
              xaxis = list(title =''),
              barmode = 'stack',
