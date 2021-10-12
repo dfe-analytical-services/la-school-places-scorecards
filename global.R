@@ -93,8 +93,8 @@ cs_num <- function(x){format(x,big.mark=",", trim=TRUE)}
 dfe_colours <- c(
   "#1d70b8", #`blue`
   "#f47738",#`orange`       
-  "#28a197",#`turquoise`   
-  "#d53880",#`pink`       
+  "#00703c",#`green`   
+  "#912b88",#`purple`       
   "#6f72af"#`light-purple` 
   )
 

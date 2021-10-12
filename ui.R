@@ -2,11 +2,9 @@ source("0_variable_change.R")##
 
 
 
-navbarPage("",
+navbarPage(title = "LA scorecards",
         
-         
-         
-           tabPanel("LA scorecards",
+           tabPanel("Scorecards",
                     includeCSS("www/shiny_gov_style.css"),
                     useShinyjs(),
                     useShinydashboard(),
@@ -36,9 +34,9 @@ navbarPage("",
                                     label = p(strong("Choose a quality measure")),
                                     choices =  c("Ofsted","Reading Progress", "Maths Progress")),
                         br(),
+                        br(),
                         downloadButton("download_ud",
-                                       "Download data",
-                                       style = "padding: 5px 14px 5px 14px;margin: 20px 5px 5px 40px; ")
+                                       "Download data")
                         ),#end of panel
 
 

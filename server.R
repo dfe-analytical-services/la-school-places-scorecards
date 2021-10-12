@@ -87,7 +87,7 @@ function(input, output, session) {
       shinydashboard::valueBox(
         paste0("£", total_funding, "m"),
         paste0("Total primary and secondary basic need funding ",funding_year),
-        icon = icon("fas fa-pound-sign"),
+       # icon = icon("fas fa-pound-sign"),
         color = "purple"
       )
     }
@@ -173,7 +173,7 @@ function(input, output, session) {
       type = 'bar', name = paste0("Total places created between 2009/10 and ", this_year),
       text = ~scales::comma(QuanIn), textposition = 'inside', textfont = list(color = '#FFF')) %>%
       add_trace(y = ~QuanPP,  marker = list( color = c("#f47738")),name = paste0('New places planned for delivery between ', next_year,' and ', plan_year), text = ~scales::comma(QuanPP), textposition = 'inside') %>% 
-      add_trace(y = ~QuanRP,  marker = list( color = c("#28a197")),name = paste0('Estimated additional places needed to meet demand in ', plan_year), text = ~scales::comma(QuanRP), textposition = 'inside') %>% 
+      add_trace(y = ~QuanRP,  marker = list( color = c("#00703c")),name = paste0('Estimated additional places needed to meet demand in ', plan_year), text = ~scales::comma(QuanRP), textposition = 'inside') %>% 
       layout(yaxis = list(title = ''),
              xaxis = list(title =''),
              barmode = 'stack',
@@ -381,7 +381,7 @@ function(input, output, session) {
       mutate(rating=factor(rating, levels=c("First","Second","Third","Other")),
       #Neaten up percs
       value = as.numeric(roundFiveUp(value,1)),
-      value_label = if_else(value > 2, paste0(value,"%"), NA_character_))
+      value_label = if_else(value > 3, paste0(value,"%"), NA_character_))
       
     
     
@@ -645,7 +645,7 @@ function(input, output, session) {
     ggplotly(rv$quality_chart_choice,
              tooltip = c("text")) %>% 
       layout(legend = list(orientation = "h",
-                           y =-0.1, x = 0.33,
+                           y =-0.1, x = 0.2,
                            font = font_choice))
     
     
@@ -682,7 +682,7 @@ function(input, output, session) {
           #Give NA for label if it's too small
         group_by(LA_name,place_type) %>% 
         mutate(places_perc = places/sum(places,na.rm=TRUE),
-          value_label = if_else(places_perc > 0.02, places, NA_integer_))
+          value_label = if_else(places_perc > 0.04, places, NA_integer_))
       
       
     
@@ -735,7 +735,7 @@ function(input, output, session) {
     #Give NA for label if it's too small
     group_by(LA_name,place_type) %>% 
       mutate(places_perc = places/sum(places,na.rm=TRUE),
-             value_label = if_else(places_perc > 0.02, places, NA_integer_))
+             value_label = if_else(places_perc > 0.04, places, NA_integer_))
     
     
     
@@ -789,7 +789,7 @@ function(input, output, session) {
       #Give NA for label if it's too small
       group_by(LA_name,place_type) %>% 
       mutate(places_perc = places/sum(places,na.rm=TRUE),
-             value_label = if_else(places_perc > 0.02, places, NA_integer_))
+             value_label = if_else(places_perc > 0.04, places, NA_integer_))
     
     
     progress_reading_p <- progress_reading_data %>% 
@@ -843,7 +843,7 @@ function(input, output, session) {
       #Give NA for label if it's too small
       group_by(LA_name,place_type) %>% 
       mutate(places_perc = places/sum(places,na.rm=TRUE),
-             value_label = if_else(places_perc > 0.02, places, NA_integer_))
+             value_label = if_else(places_perc > 0.04, places, NA_integer_))
     
     
     progress_maths_p <- progress_maths_data %>% 

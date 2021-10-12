@@ -9,13 +9,17 @@
 }
 
 .navbar-default .navbar-brand {
-    color: 	#ffffff;
-    font-size: 30px;
+    color: #ffffff;
+    font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
+    font-weight: bold;
+    font-size: 24px;
 }
 
 .navbar-default .navbar-nav>li>a {
     color: 	#ffffff;
-     font-size: 20px;
+    font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
+    font-weight: bold;
+     font-size: 18px;
 }
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
@@ -25,10 +29,27 @@
 }
 
 
+.well {
+    min-height: 100vh;
+    padding: 19px;
+    margin-bottom: 20px;
+    background-color: #222d32;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 5%);
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 5%);
+}
+
 body {
    font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
   font-size: 14px;
    background-color: #f3f2f1
+  
+}
+
+
+.control-label{
+  color: #fff;
   
 }
 
@@ -40,23 +61,28 @@ body {
 
 
 .small-box.bg-purple {
-    background-color: #d53880 !important;
+    background-color: 	#912b88 !important;
+    color: #ffffff;
 }
 
 .small-box.bg-blue{
      background-color: #1d70b8 !important; 
+     color: #ffffff;
 }
 
 .small-box.bg-orange{
      background-color: #f47738 !important; 
+     color: #ffffff;
 }
 
 .small-box.bg-red{
      background-color: #f499be !important; 
+     color: #ffffff;
 }
 
 .small-box.bg-green{
-     background-color: #28a197 !important; 
+     background-color: 	#00703c !important; 
+     color: #ffffff;
 }
 
 .nav-tabs-custom>.nav-tabs>li.active {
