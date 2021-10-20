@@ -87,7 +87,7 @@ function(input, output, session) {
       shinydashboard::valueBox(
         paste0("£", total_funding, "m"),
         paste0("Total primary and secondary basic need funding ",funding_year),
-       # icon = icon("fas fa-pound-sign"),
+        icon = icon("fas fa-pound-sign"),
         color = "purple"
       )
     }
@@ -179,7 +179,8 @@ function(input, output, session) {
              barmode = 'stack',
              uniformtext=list(minsize=12, mode='hide'),
              legend = list(orientation = 'h'),
-             font = font_choice)
+             font = font_choice) %>%
+      config(displayModeBar = FALSE)
     
     
   })
@@ -408,7 +409,8 @@ function(input, output, session) {
       layout(  uniformtext=list(minsize=12, mode='hide'),
                legend = list(orientation = "h",
                            y =-0.1, x = 0.33,
-               font = font_choice))
+               font = font_choice)) %>%
+      config(displayModeBar = FALSE)
     
 
 })
@@ -646,7 +648,8 @@ function(input, output, session) {
              tooltip = c("text")) %>% 
       layout(legend = list(orientation = "h",
                            y =-0.1, x = 0.2,
-                           font = font_choice))
+                           font = font_choice)) %>%
+      config(displayModeBar = FALSE)
     
     
   })
@@ -978,7 +981,8 @@ function(input, output, session) {
     ggplotly(p,tooltip = c("text"))   %>% 
       layout(legend = list(orientation = "h",
                            y =-0.1, x = 0.33,
-                           font = font_choice))
+                           font = font_choice)) %>%
+      config(displayModeBar = FALSE)
     
     
   })

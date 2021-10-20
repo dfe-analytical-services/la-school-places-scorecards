@@ -3,7 +3,7 @@ source("0_variable_change.R")##
 
 
 navbarPage(title = "LA scorecards",
-        
+
            tabPanel("Scorecards",
                     includeCSS("www/shiny_gov_style.css"),
                     useShinyjs(),
@@ -42,6 +42,7 @@ navbarPage(title = "LA scorecards",
 
 # Create the main content-----------------
                     mainPanel(
+                      use_tota11y(),
                         width = 10,
                         h2(textOutput("data_description")),
                                fluidRow(
