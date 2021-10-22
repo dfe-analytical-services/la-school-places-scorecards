@@ -179,7 +179,9 @@ function(input, output, session) {
              barmode = 'stack',
              uniformtext=list(minsize=12, mode='hide'),
              legend = list(orientation = 'h'),
-             font = font_choice) %>%
+             font = font_choice,
+             title = list(text = "Chart showing total places created, new places planned for delivery and estimated additional places needed to meet demand, by Local Authority compared to England",
+                          font = list(color = "#ffffff" ))) %>%
       config(displayModeBar = FALSE)
     
     
@@ -196,11 +198,12 @@ function(input, output, session) {
       pull(value)%>% 
       roundFiveUp(.,3)*100
     
- label<- case_when(forecast_accuracy > 0 ~ "Overestimate",
-              forecast_accuracy < 0 ~ "Underestimate",
+ label<- case_when(forecast_accuracy > 0 ~ "overestimate",
+              forecast_accuracy < 0 ~ "underestimate",
               TRUE ~ "Accurate")
   
-  paste("<b>One year ahead :</b>", label)
+ if(label != "accurate"){paste("<b>One year ahead : </b>", forecast_accuracy, "% ", label)}
+ else{paste("<b>One year ahead : </b>", label)}
 
     
   })
@@ -213,11 +216,12 @@ function(input, output, session) {
       pull(value)%>% 
       roundFiveUp(.,3)*100
     
-    label<- case_when(forecast_accuracy > 0 ~ "Overestimate",
-                      forecast_accuracy < 0 ~ "Underestimate",
+    label<- case_when(forecast_accuracy > 0 ~ "overestimate",
+                      forecast_accuracy < 0 ~ "underestimate",
                       TRUE ~ "Accurate")
     
-    paste("<b>Three years ahead :</b>", label)
+    if(label != "accurate"){paste("<b>Three years ahead : </b>", forecast_accuracy, "% ", label)}
+    else{paste("<b>Three years ahead : </b>", label)}
   })
   
 
@@ -409,7 +413,9 @@ function(input, output, session) {
       layout(  uniformtext=list(minsize=12, mode='hide'),
                legend = list(orientation = "h",
                            y =-0.1, x = 0.33,
-               font = font_choice)) %>%
+               font = font_choice),
+               title = list(text = "Chart showing percentage of pupils recieving an offer from their first, second, third or other place schools, by Local Authority compared to England",
+                            font = list(color = "#ffffff" ))) %>%
       config(displayModeBar = FALSE)
     
 
@@ -648,7 +654,9 @@ function(input, output, session) {
              tooltip = c("text")) %>% 
       layout(legend = list(orientation = "h",
                            y =-0.1, x = 0.2,
-                           font = font_choice)) %>%
+                           font = font_choice),
+             title = list(text = "Chart showing the quality of new and existing school places and estimated additional places, by Local Authority compared to England",
+                          font = list(color = "#ffffff" ))) %>%
       config(displayModeBar = FALSE)
     
     
@@ -981,7 +989,9 @@ function(input, output, session) {
     ggplotly(p,tooltip = c("text"))   %>% 
       layout(legend = list(orientation = "h",
                            y =-0.1, x = 0.33,
-                           font = font_choice)) %>%
+                           font = font_choice),
+             title = list(text = "Chart showing the cost of permanent, temporary and new school projects by local authority",
+                          font = list(color = "#d9d9d9" , size = 1)))%>%
       config(displayModeBar = FALSE)
     
     
@@ -1007,7 +1017,7 @@ function(input, output, session) {
     
     
     shinydashboard::valueBox(
-      paste0( perm_fig, " project(s)"),
+      paste0( perm_fig),
       paste0("Permanent " ,str_to_lower(input$phase_choice), " expansion projects in ", input$LA_choice),
       #icon = icon("fas fa-school"),
       color = "blue"
@@ -1034,7 +1044,7 @@ function(input, output, session) {
     
     
     shinydashboard::valueBox(
-      paste0( temp_fig, " project(s)"),
+      paste0( temp_fig),
       paste0("Temporary ",str_to_lower(input$phase_choice)," projects in ", input$LA_choice),
       #icon = icon("fas fa-campground"),
       color = "green"
@@ -1062,7 +1072,7 @@ function(input, output, session) {
     
     
     shinydashboard::valueBox(
-      paste0( new_fig, " project(s)"),
+      paste0( new_fig),
       paste0("New ",str_to_lower(input$phase_choice), " schools projects in ", input$LA_choice),
       #icon = icon("fas fa-plus"),
       color = "purple"
@@ -1166,18 +1176,12 @@ function(input, output, session) {
       shinyjs::hide("LA_GO_places")
       shinyjs::hide("LA_GO_ran")
       shinyjs::hide("PrefT3_LA")
-      shinyjs::hide("new_box")
-      shinyjs::hide("temp_box")
-      shinyjs::hide("perm_box")
     }
     
     else {
       shinyjs::show("LA_GO_places")
       shinyjs::show("LA_GO_ran")
       shinyjs::show("PrefT3_LA")
-      shinyjs::show("new_box")
-      shinyjs::show("temp_box")
-      shinyjs::show("perm_box")
     }
   })
   
