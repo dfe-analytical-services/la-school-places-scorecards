@@ -80,14 +80,14 @@ function(input, output, session) {
         paste0("£", total_funding, "bn"), 
         paste0("Total primary and secondary basic need funding ",funding_year),
         #get different icons for background here: https://fontawesome.com/v5.15/icons?d=gallery&p=2
-        icon = icon("fas fa-pound-sign"),
+        #icon = icon("fas fa-pound-sign"),
         color = "purple"
       )   
     } else {
       shinydashboard::valueBox(
         paste0("£", total_funding, "m"),
         paste0("Total primary and secondary basic need funding ",funding_year),
-        icon = icon("fas fa-pound-sign"),
+        #icon = icon("fas fa-pound-sign"),
         color = "purple"
       )
     }
@@ -107,7 +107,7 @@ function(input, output, session) {
     shinydashboard::valueBox(
       paste0(growth_perc, "%"),
       paste0("Growth in ", str_to_lower(input$phase_choice)," pupil numbers 2009/10 to ", plan_year),
-      icon = icon("fas fa-chart-line"),
+      #icon = icon("fas fa-chart-line"),
       color = "blue"
     )
   })
@@ -130,7 +130,7 @@ function(input, output, session) {
     shinydashboard::valueBox(
       paste0(scales::comma(additional_places_perc)),
       paste0("Estimated additional " , str_to_lower(input$phase_choice), " places to meet demand in ",plan_year),
-      icon = icon("fas fa-signal"),
+      #icon = icon("fas fa-signal"),
       color = "blue"
     )
   })
@@ -151,7 +151,7 @@ function(input, output, session) {
     shinydashboard::valueBox(
       paste0(spare_places_per, "%"),
       paste0("Estimated percentage of spare ", str_to_lower(input$phase_choice)," places in ",plan_year),
-      icon = icon("fas fa-school"),
+      #icon = icon("fas fa-school"),
       color = "green"
     )
   })
@@ -329,7 +329,7 @@ function(input, output, session) {
     shinydashboard::valueBox(
       paste0(PrefT3_E, "%"),
       paste0("Percentage of ", str_to_lower(input$phase_choice)," pupils who recieved an offer of one of their top three preferences in England"),
-      icon = icon("fas fa-chart-line"),
+      #icon = icon("fas fa-chart-line"),
       color = "blue"
     )
   })
@@ -348,7 +348,7 @@ function(input, output, session) {
       shinydashboard::valueBox(
         paste0(PrefT3, "%"),
         paste0("Percentage of ", str_to_lower(input$phase_choice)," pupils who recieved an offer of one of their top three preferences in " , (input$LA_choice)),
-        icon = icon("fas fa-sort-amount-up"),
+        #icon = icon("fas fa-sort-amount-up"),
         color = "green")
 
   })
@@ -468,7 +468,7 @@ function(input, output, session) {
     shinydashboard::valueBox(
       paste0(LA_comp(), "%"),
       paste0("Percentage of new places in ", school_description(), str_to_lower(input$phase_choice)," schools in ", input$LA_choice),
-      icon = icon("fas fa-boxes"),
+      #icon = icon("fas fa-boxes"),
       color = "green"
     )
   })
@@ -551,7 +551,7 @@ function(input, output, session) {
     shinydashboard::valueBox(
       paste0(england_comp(), "%"),
       paste0("Percentage of new places in ",school_description(), str_to_lower(input$phase_choice)," schools in England"),
-      icon = icon("fas fa-equals"),
+      #icon = icon("fas fa-equals"),
       color = "blue"
     )
   })
@@ -630,7 +630,7 @@ function(input, output, session) {
     shinydashboard::valueBox(
       LA_ranking(),
       paste0("LA Rank out of ", LA_denom()) ,
-      icon = icon("fas fa-bars"),
+      #icon = icon("fas fa-bars"),
       color = "purple"
     )
   })
@@ -685,7 +685,7 @@ function(input, output, session) {
           #Give NA for label if it's too small
         group_by(LA_name,place_type) %>% 
         mutate(places_perc = places/sum(places,na.rm=TRUE),
-          value_label = if_else(places_perc > 0.04, places, NA_integer_))
+          value_label = if_else(places_perc > 0.05, places, NA_integer_))
       
       
     
@@ -738,7 +738,7 @@ function(input, output, session) {
     #Give NA for label if it's too small
     group_by(LA_name,place_type) %>% 
       mutate(places_perc = places/sum(places,na.rm=TRUE),
-             value_label = if_else(places_perc > 0.04, places, NA_integer_))
+             value_label = if_else(places_perc > 0.05, places, NA_integer_))
     
     
     
@@ -792,7 +792,7 @@ function(input, output, session) {
       #Give NA for label if it's too small
       group_by(LA_name,place_type) %>% 
       mutate(places_perc = places/sum(places,na.rm=TRUE),
-             value_label = if_else(places_perc > 0.04, places, NA_integer_))
+             value_label = if_else(places_perc > 0.05, places, NA_integer_))
     
     
     progress_reading_p <- progress_reading_data %>% 
@@ -846,7 +846,7 @@ function(input, output, session) {
       #Give NA for label if it's too small
       group_by(LA_name,place_type) %>% 
       mutate(places_perc = places/sum(places,na.rm=TRUE),
-             value_label = if_else(places_perc > 0.04, places, NA_integer_))
+             value_label = if_else(places_perc > 0.05, places, NA_integer_))
     
     
     progress_maths_p <- progress_maths_data %>% 
@@ -1009,7 +1009,7 @@ function(input, output, session) {
     shinydashboard::valueBox(
       paste0( perm_fig, " project(s)"),
       paste0("Permanent " ,str_to_lower(input$phase_choice), " expansion projects in ", input$LA_choice),
-      icon = icon("fas fa-school"),
+      #icon = icon("fas fa-school"),
       color = "blue"
     )
     
@@ -1036,7 +1036,7 @@ function(input, output, session) {
     shinydashboard::valueBox(
       paste0( temp_fig, " project(s)"),
       paste0("Temporary ",str_to_lower(input$phase_choice)," projects in ", input$LA_choice),
-      icon = icon("fas fa-campground"),
+      #icon = icon("fas fa-campground"),
       color = "green"
     )
     
@@ -1064,7 +1064,7 @@ function(input, output, session) {
     shinydashboard::valueBox(
       paste0( new_fig, " project(s)"),
       paste0("New ",str_to_lower(input$phase_choice), " schools projects in ", input$LA_choice),
-      icon = icon("fas fa-plus"),
+      #icon = icon("fas fa-plus"),
       color = "purple"
     )
     

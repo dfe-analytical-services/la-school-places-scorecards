@@ -140,3 +140,9 @@ primary_data_clean <- scorecards_data_clean %>%
 #Secondary data
 secondary_data_clean <- scorecards_data_clean %>% 
   select(`LA Name`, `LA Number`, contains(c("secondary","Secondary")))
+
+# Create download button without the icon
+myDownloadButton <- function(outputId, label = "Download"){
+  tags$a(id = outputId, class = "btn btn-default shiny-download-link", href = "", 
+         target = "_blank", download = NA, NULL, label)
+}
