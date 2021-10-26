@@ -192,7 +192,7 @@ tabPanel("Accessibility",
             and have actively developed this application with accessibilty in mind."),
          h3("WCAG 2.1 compliance"),
          br("We follow the reccomendations of the ", a(href = "https://www.w3.org/TR/WCAG21/", "WCAG 2.1 requirements. "),"This application has been checked using the ", a(href="https://github.com/ewenme/shinya11y","Shinya11y tool "), ", which did not detect accessibility issues.
-             This application also fully passes the accessibility audits checked by the ", a(href="https://developers.google.com/web/tools/lighthouse","Google Developer Lighthouse tool",". This means that this application:")),
+             This application also fully passes the accessibility audits checked by the ", a(href="https://developers.google.com/web/tools/lighthouse","Google Developer Lighthouse tool"),". This means that this application:"),
          tags$div(tags$ul(
            tags$li("uses colours that have sufficient contrast"),
            tags$li("allows you to zoom in up to 300% without the text spilling off the screen"),

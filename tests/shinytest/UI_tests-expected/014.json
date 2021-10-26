@@ -1,0 +1,1152 @@
+{
+  "output": {
+    "LA_GO_places": {
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>0%<\/h3>\n    <p>Percentage of new places in well above and above average primary schools in Cheshire East<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "LA_GO_ran": {
+      "html": "<div class=\"small-box bg-purple\">\n  <div class=\"inner\">\n    <h3>68<\/h3>\n    <p>LA Rank out of 116<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "no_rating_line": "New places with no rating = NA",
+    "quality_chart": {
+      "x": {
+        "data": [
+          {
+            "orientation": "h",
+            "width": [
+              0.9,
+              0.9
+            ],
+            "base": [
+              0,
+              0
+            ],
+            "x": [
+              0,
+              0.061617709386105
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Well above average :  NA  places",
+              "Well above average :  1890  places"
+            ],
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(18,67,109,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Well above average",
+            "legendgroup": "Well above average",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": [
+              0.9,
+              0.9
+            ],
+            "base": [
+              0,
+              0
+            ],
+            "x": [
+              0.11430437622469,
+              0.112630774022819
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Well above average :  3675  places",
+              "Well above average :  477667  places"
+            ],
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(18,67,109,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Well above average",
+            "legendgroup": "Well above average",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y2",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": [
+              0.9,
+              0.9
+            ],
+            "base": [
+              0,
+              0.061617709386105
+            ],
+            "x": [
+              0,
+              0.0787011378084961
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Above average :  NA  places",
+              "Above average :  2414  places"
+            ],
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(244,119,56,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Above average",
+            "legendgroup": "Above average",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": [
+              0.9,
+              0.9
+            ],
+            "base": [
+              0.11430437622469,
+              0.112630774022819
+            ],
+            "x": [
+              0.130042611427327,
+              0.153998149964195
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Above average :  4181  places",
+              "Above average :  653106  places"
+            ],
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(244,119,56,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Above average",
+            "legendgroup": "Above average",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y2",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": [
+              0.9,
+              0.9
+            ],
+            "base": [
+              0,
+              0.140318847194601
+            ],
+            "x": [
+              0.532293986636971,
+              0.602712483291494
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Average :  239  places",
+              "Average :  18487  places"
+            ],
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(128,22,80,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Average",
+            "legendgroup": "Average",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": [
+              0.9,
+              0.9
+            ],
+            "base": [
+              0.244346987652017,
+              0.266628923987013
+            ],
+            "x": [
+              0.548038941245996,
+              0.538174378253803
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Average :  17620  places",
+              "Average :  2282397  places"
+            ],
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(128,22,80,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Average",
+            "legendgroup": "Average",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y2",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": [
+              0.9,
+              0.9
+            ],
+            "base": [
+              0.532293986636971,
+              0.743031330486095
+            ],
+            "x": [
+              0.200445434298441,
+              0.163564046555603
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Below average :  90  places",
+              "Below average :  5017  places"
+            ],
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(40,161,151,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Below average",
+            "legendgroup": "Below average",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": [
+              0.9,
+              0.9
+            ],
+            "base": [
+              0.792385928898013,
+              0.804803302240816
+            ],
+            "x": [
+              0.131162327765855,
+              0.122548956036066
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Below average :  4217  places",
+              "Below average :  519730  places"
+            ],
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(40,161,151,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Below average",
+            "legendgroup": "Below average",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y2",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": [
+              0.9,
+              0.9
+            ],
+            "base": [
+              0.732739420935412,
+              0.906595377041698
+            ],
+            "x": [
+              0.267260579064588,
+              0.0934046229583021
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Well below average :  120  places",
+              "Well below average :  2865  places"
+            ],
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(76,44,146,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Well below average",
+            "legendgroup": "Well below average",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": [
+              0.9,
+              0.9
+            ],
+            "base": [
+              0.923548256663867,
+              0.927352258276882
+            ],
+            "x": [
+              0.0764517433361326,
+              0.0726477417231176
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Well below average :  2458  places",
+              "Well below average :  308099  places"
+            ],
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(76,44,146,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Well below average",
+            "legendgroup": "Well below average",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y2",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              0,
+              0.0308088546930525
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              null,
+              "1,890"
+            ],
+            "hovertext": [
+              "Well above average :  NA  places",
+              "Well above average :  1890  places"
+            ],
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Well above average",
+            "legendgroup": "Well above average",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              0.0571521881123449,
+              0.0563153870114093
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "3,675",
+              "477,667"
+            ],
+            "hovertext": [
+              "Well above average :  3675  places",
+              "Well above average :  477667  places"
+            ],
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Well above average",
+            "legendgroup": "Well above average",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y2",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              0,
+              0.100968278290353
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              null,
+              "2,414"
+            ],
+            "hovertext": [
+              "Above average :  NA  places",
+              "Above average :  2414  places"
+            ],
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Above average",
+            "legendgroup": "Above average",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              0.179325681938353,
+              0.189629849004916
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "4,181",
+              "653,106"
+            ],
+            "hovertext": [
+              "Above average :  4181  places",
+              "Above average :  653106  places"
+            ],
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Above average",
+            "legendgroup": "Above average",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y2",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              0.266146993318486,
+              0.441675088840348
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "239",
+              "18,487"
+            ],
+            "hovertext": [
+              "Average :  239  places",
+              "Average :  18487  places"
+            ],
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Average",
+            "legendgroup": "Average",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              0.518366458275015,
+              0.535716113113915
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "17,620",
+              "2,282,397"
+            ],
+            "hovertext": [
+              "Average :  17620  places",
+              "Average :  2282397  places"
+            ],
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Average",
+            "legendgroup": "Average",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y2",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              0.632516703786192,
+              0.824813353763897
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "90",
+              "5,017"
+            ],
+            "hovertext": [
+              "Below average :  90  places",
+              "Below average :  5017  places"
+            ],
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Below average",
+            "legendgroup": "Below average",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              0.85796709278094,
+              0.866077780258849
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "4,217",
+              "519,730"
+            ],
+            "hovertext": [
+              "Below average :  4217  places",
+              "Below average :  519730  places"
+            ],
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Below average",
+            "legendgroup": "Below average",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y2",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              0.866369710467706,
+              0.953297688520849
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "120",
+              "2,865"
+            ],
+            "hovertext": [
+              "Well below average :  120  places",
+              "Well below average :  2865  places"
+            ],
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Well below average",
+            "legendgroup": "Well below average",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              0.961774128331934,
+              0.963676129138441
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "2,458",
+              "308,099"
+            ],
+            "hovertext": [
+              "Well below average :  2458  places",
+              "Well below average :  308099  places"
+            ],
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Well below average",
+            "legendgroup": "Well below average",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y2",
+            "hoverinfo": "text",
+            "frame": null
+          }
+        ],
+        "layout": {
+          "margin": {
+            "t": 40.6187906461879,
+            "r": 7.30593607305936,
+            "b": 28.2717586827176,
+            "l": 70.4690743046907
+          },
+          "font": {
+            "color": "rgba(0,0,0,1)",
+            "family": "Arial",
+            "size": 18.5969281859693
+          },
+          "xaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "type": "linear",
+            "autorange": false,
+            "range": [
+              -0.05,
+              1.05
+            ],
+            "tickmode": "array",
+            "ticktext": [
+              "0.00",
+              "0.25",
+              "0.50",
+              "0.75",
+              "1.00"
+            ],
+            "tickvals": [
+              0,
+              0.25,
+              0.5,
+              0.75,
+              1
+            ],
+            "categoryorder": "array",
+            "categoryarray": [
+              "0.00",
+              "0.25",
+              "0.50",
+              "0.75",
+              "1.00"
+            ],
+            "nticks": null,
+            "ticks": "",
+            "tickcolor": null,
+            "ticklen": 3.65296803652968,
+            "tickwidth": 0,
+            "showticklabels": true,
+            "tickfont": {
+              "color": "rgba(77,77,77,1)",
+              "family": "Arial",
+              "size": 14.8775425487754
+            },
+            "tickangle": 0,
+            "showline": false,
+            "linecolor": null,
+            "linewidth": 0,
+            "showgrid": true,
+            "gridcolor": "rgba(235,235,235,1)",
+            "gridwidth": 0.66417600664176,
+            "zeroline": false,
+            "anchor": "y2",
+            "title": "",
+            "hoverformat": ".2f"
+          },
+          "yaxis": {
+            "domain": [
+              0.534661685346617,
+              1
+            ],
+            "automargin": true,
+            "type": "linear",
+            "autorange": false,
+            "range": [
+              0.4,
+              2.6
+            ],
+            "tickmode": "array",
+            "ticktext": [
+              "Existing",
+              "New"
+            ],
+            "tickvals": [
+              1,
+              2
+            ],
+            "categoryorder": "array",
+            "categoryarray": [
+              "Existing",
+              "New"
+            ],
+            "nticks": null,
+            "ticks": "",
+            "tickcolor": null,
+            "ticklen": 3.65296803652968,
+            "tickwidth": 0,
+            "showticklabels": true,
+            "tickfont": {
+              "color": "rgba(77,77,77,1)",
+              "family": "Arial",
+              "size": 14.8775425487754
+            },
+            "tickangle": 0,
+            "showline": false,
+            "linecolor": null,
+            "linewidth": 0,
+            "showgrid": true,
+            "gridcolor": "rgba(235,235,235,1)",
+            "gridwidth": 0.66417600664176,
+            "zeroline": false,
+            "anchor": "x",
+            "title": "",
+            "hoverformat": ".2f"
+          },
+          "shapes": [
+            {
+              "type": "rect",
+              "fillcolor": null,
+              "line": {
+                "color": null,
+                "width": 0,
+                "linetype": [
+
+                ]
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0,
+              "x1": 1,
+              "y0": 0.534661685346617,
+              "y1": 1
+            },
+            {
+              "type": "rect",
+              "fillcolor": null,
+              "line": {
+                "color": null,
+                "width": 0,
+                "linetype": [
+
+                ]
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0,
+              "x1": 1,
+              "y0": 0,
+              "y1": 26.5670402656704,
+              "yanchor": 1,
+              "ysizemode": "pixel"
+            },
+            {
+              "type": "rect",
+              "fillcolor": null,
+              "line": {
+                "color": null,
+                "width": 0,
+                "linetype": [
+
+                ]
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0,
+              "x1": 1,
+              "y0": 0,
+              "y1": 0.465338314653383
+            },
+            {
+              "type": "rect",
+              "fillcolor": null,
+              "line": {
+                "color": null,
+                "width": 0,
+                "linetype": [
+
+                ]
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0,
+              "x1": 1,
+              "y0": 0,
+              "y1": 26.5670402656704,
+              "yanchor": 0.465338314653383,
+              "ysizemode": "pixel"
+            }
+          ],
+          "annotations": [
+            {
+              "text": "Cheshire East",
+              "x": 0.5,
+              "y": 1,
+              "showarrow": false,
+              "ax": 0,
+              "ay": 0,
+              "font": {
+                "color": "rgba(26,26,26,1)",
+                "family": "Arial",
+                "size": 14.8775425487754
+              },
+              "xref": "paper",
+              "yref": "paper",
+              "textangle": 0,
+              "xanchor": "center",
+              "yanchor": "bottom"
+            },
+            {
+              "text": "England",
+              "x": 0.5,
+              "y": 0.465338314653383,
+              "showarrow": false,
+              "ax": 0,
+              "ay": 0,
+              "font": {
+                "color": "rgba(26,26,26,1)",
+                "family": "Arial",
+                "size": 14.8775425487754
+              },
+              "xref": "paper",
+              "yref": "paper",
+              "textangle": 0,
+              "xanchor": "center",
+              "yanchor": "bottom"
+            }
+          ],
+          "yaxis2": {
+            "type": "linear",
+            "autorange": false,
+            "range": [
+              0.4,
+              2.6
+            ],
+            "tickmode": "array",
+            "ticktext": [
+              "Existing",
+              "New"
+            ],
+            "tickvals": [
+              1,
+              2
+            ],
+            "categoryorder": "array",
+            "categoryarray": [
+              "Existing",
+              "New"
+            ],
+            "nticks": null,
+            "ticks": "",
+            "tickcolor": null,
+            "ticklen": 3.65296803652968,
+            "tickwidth": 0,
+            "showticklabels": true,
+            "tickfont": {
+              "color": "rgba(77,77,77,1)",
+              "family": "Arial",
+              "size": 14.8775425487754
+            },
+            "tickangle": 0,
+            "showline": false,
+            "linecolor": null,
+            "linewidth": 0,
+            "showgrid": true,
+            "domain": [
+              0,
+              0.465338314653383
+            ],
+            "gridcolor": "rgba(235,235,235,1)",
+            "gridwidth": 0.66417600664176,
+            "zeroline": false,
+            "anchor": "x",
+            "title": "",
+            "hoverformat": ".2f"
+          },
+          "showlegend": true,
+          "legend": {
+            "bgcolor": null,
+            "bordercolor": null,
+            "borderwidth": 0,
+            "font": {
+              "color": "rgba(0,0,0,1)",
+              "family": "Arial",
+              "size": 14
+            },
+            "y": -0.1,
+            "orientation": "h",
+            "x": 0.2
+          },
+          "hovermode": "closest",
+          "barmode": "relative",
+          "title": {
+            "text": "Chart showing the quality of new and existing school places and estimated additional places, by Local Authority compared to England",
+            "font": {
+              "color": "#ffffff"
+            }
+          }
+        },
+        "config": {
+          "doubleClick": "reset",
+          "showSendToCloud": false,
+          "displayModeBar": false
+        },
+        "source": "A",
+        "highlight": {
+          "on": "plotly_click",
+          "persistent": false,
+          "dynamic": false,
+          "selectize": false,
+          "opacityDim": 0.2,
+          "selected": {
+            "opacity": 1
+          },
+          "debounce": 0
+        },
+        "shinyEvents": [
+          "plotly_hover",
+          "plotly_click",
+          "plotly_selected",
+          "plotly_relayout",
+          "plotly_brushed",
+          "plotly_brushing",
+          "plotly_clickannotation",
+          "plotly_doubleclick",
+          "plotly_deselect",
+          "plotly_afterplot",
+          "plotly_sunburstclick"
+        ],
+        "base_url": "https://plot.ly"
+      },
+      "evals": [
+
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "setprototypeof",
+          "version": "0.1",
+          "src": {
+            "href": "setprototypeof-0.1"
+          },
+          "meta": null,
+          "script": "setprototypeof.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "typedarray",
+          "version": "0.1",
+          "src": {
+            "href": "typedarray-0.1"
+          },
+          "meta": null,
+          "script": "typedarray.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "3.5.1",
+          "src": {
+            "href": "jquery-3.5.1"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.1.1",
+          "src": {
+            "href": "crosstalk-1.1.1"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "plotly-htmlwidgets-css",
+          "version": "1.57.1",
+          "src": {
+            "href": "plotly-htmlwidgets-css-1.57.1"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "plotly-htmlwidgets.css",
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "plotly-main",
+          "version": "1.57.1",
+          "src": {
+            "href": "plotly-main-1.57.1"
+          },
+          "meta": null,
+          "script": "plotly-latest.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        }
+      ]
+    }
+  }
+}

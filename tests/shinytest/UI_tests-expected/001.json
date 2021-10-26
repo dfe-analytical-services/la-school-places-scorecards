@@ -1,0 +1,402 @@
+{
+  "input": {
+    ".clientValue-default-plotlyCrosstalkOpts": {
+      "on": "plotly_click",
+      "persistent": false,
+      "dynamic": false,
+      "selectize": false,
+      "opacityDim": 0.2,
+      "selected": {
+        "opacity": 1
+      },
+      "debounce": 0,
+      "color": [
+
+      ]
+    },
+    "chart_choice": "Ofsted",
+    "LA_choice": "England",
+    "phase_choice": "Primary",
+    "plotly_afterplot-A": "\"places_chart\"",
+    "tabs": "Quantity"
+  },
+  "output": {
+    "data_description": "Data for primary schools in England: ",
+    "estimated_additional_places": {
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>40,970<\/h3>\n    <p>Estimated additional primary places to meet demand in 2021-22<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "estimated_spare_places": {
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>10%<\/h3>\n    <p>Estimated percentage of spare primary places in 2021-22<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "forecast_1y": {
+      "x": {
+        "value": 1,
+        "min": -1.6,
+        "max": 7.5,
+        "customSectors": [
+          {
+            "lo": -1,
+            "hi": 1,
+            "color": "#00703c"
+          },
+          {
+            "lo": -1.3,
+            "hi": 4.25,
+            "color": "#ffdd00"
+          },
+          {
+            "lo": -1.6,
+            "hi": 7.5,
+            "color": "#d4351c"
+          }
+        ],
+        "symbol": "%",
+        "label": null,
+        "humanFriendly": true,
+        "humanFriendlyDecimal": 1,
+        "href": null
+      },
+      "evals": [
+
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "jquery",
+          "version": "3.6.0",
+          "src": {
+            "href": "jquery-3.6.0"
+          },
+          "meta": null,
+          "script": "jquery-3.6.0.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    },
+    "forecast_3y": {
+      "x": {
+        "value": 2.7,
+        "min": -4.7,
+        "max": 12.8,
+        "customSectors": [
+          {
+            "lo": -1,
+            "hi": 1,
+            "color": "#00703c"
+          },
+          {
+            "lo": -2.85,
+            "hi": 6.9,
+            "color": "#ffdd00"
+          },
+          {
+            "lo": -4.7,
+            "hi": 12.8,
+            "color": "#d4351c"
+          }
+        ],
+        "symbol": "%",
+        "label": null,
+        "humanFriendly": true,
+        "humanFriendlyDecimal": 1,
+        "href": null
+      },
+      "evals": [
+
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "jquery",
+          "version": "3.6.0",
+          "src": {
+            "href": "jquery-3.6.0"
+          },
+          "meta": null,
+          "script": "jquery-3.6.0.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    },
+    "label_estimate_y1": "<b>One year ahead : <\/b> 1 %  overestimate",
+    "label_estimate_y3": "<b>Three years ahead : <\/b> 2.7 %  overestimate",
+    "places_chart": {
+      "x": {
+        "layout": {
+          "margin": {
+            "b": 40,
+            "l": 60,
+            "t": 25,
+            "r": 10
+          },
+          "yaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "title": ""
+          },
+          "xaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "title": "",
+            "type": "category",
+            "categoryorder": "array",
+            "categoryarray": "England"
+          },
+          "barmode": "stack",
+          "uniformtext": {
+            "minsize": 12,
+            "mode": "hide"
+          },
+          "legend": {
+            "orientation": "h"
+          },
+          "font": {
+            "family": "Arial",
+            "size": 14
+          },
+          "title": {
+            "text": "Chart showing total places created, new places planned for delivery and estimated additional places needed to meet demand, by Local Authority compared to England",
+            "font": {
+              "color": "#ffffff"
+            }
+          },
+          "hovermode": "closest",
+          "showlegend": true
+        },
+        "source": "A",
+        "config": {
+          "showSendToCloud": false,
+          "displayModeBar": false
+        },
+        "data": [
+          {
+            "x": "England",
+            "y": 668942,
+            "marker": {
+              "color": "#12436D",
+              "line": {
+                "color": "rgba(31,119,180,1)"
+              }
+            },
+            "text": "668,942",
+            "textposition": "inside",
+            "textfont": {
+              "color": "#FFF"
+            },
+            "name": "Total places created between 2009/10 and 2018-19",
+            "type": "bar",
+            "error_y": {
+              "color": "rgba(31,119,180,1)"
+            },
+            "error_x": {
+              "color": "rgba(31,119,180,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          },
+          {
+            "x": "England",
+            "y": 66227,
+            "marker": {
+              "color": "#F46A25",
+              "line": {
+                "color": "rgba(255,127,14,1)"
+              }
+            },
+            "text": "66,227",
+            "textposition": "inside",
+            "textfont": {
+              "color": "#FFF"
+            },
+            "name": "New places planned for delivery between 2019-20 and 2021-22",
+            "type": "bar",
+            "error_y": {
+              "color": "rgba(255,127,14,1)"
+            },
+            "error_x": {
+              "color": "rgba(255,127,14,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          },
+          {
+            "x": "England",
+            "y": 40970,
+            "marker": {
+              "color": "#801650",
+              "line": {
+                "color": "rgba(44,160,44,1)"
+              }
+            },
+            "text": "40,970",
+            "textposition": "inside",
+            "textfont": {
+              "color": "#FFF"
+            },
+            "name": "Estimated additional places needed to meet demand in 2021-22",
+            "type": "bar",
+            "error_y": {
+              "color": "rgba(44,160,44,1)"
+            },
+            "error_x": {
+              "color": "rgba(44,160,44,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          }
+        ],
+        "highlight": {
+          "on": "plotly_click",
+          "persistent": false,
+          "dynamic": false,
+          "selectize": false,
+          "opacityDim": 0.2,
+          "selected": {
+            "opacity": 1
+          },
+          "debounce": 0
+        },
+        "shinyEvents": [
+          "plotly_hover",
+          "plotly_click",
+          "plotly_selected",
+          "plotly_relayout",
+          "plotly_brushed",
+          "plotly_brushing",
+          "plotly_clickannotation",
+          "plotly_doubleclick",
+          "plotly_deselect",
+          "plotly_afterplot",
+          "plotly_sunburstclick"
+        ],
+        "base_url": "https://plot.ly"
+      },
+      "evals": [
+
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "setprototypeof",
+          "version": "0.1",
+          "src": {
+            "href": "setprototypeof-0.1"
+          },
+          "meta": null,
+          "script": "setprototypeof.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "typedarray",
+          "version": "0.1",
+          "src": {
+            "href": "typedarray-0.1"
+          },
+          "meta": null,
+          "script": "typedarray.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "3.5.1",
+          "src": {
+            "href": "jquery-3.5.1"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.1.1",
+          "src": {
+            "href": "crosstalk-1.1.1"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "plotly-htmlwidgets-css",
+          "version": "1.57.1",
+          "src": {
+            "href": "plotly-htmlwidgets-css-1.57.1"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "plotly-htmlwidgets.css",
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "plotly-main",
+          "version": "1.57.1",
+          "src": {
+            "href": "plotly-main-1.57.1"
+          },
+          "meta": null,
+          "script": "plotly-latest.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        }
+      ]
+    },
+    "pupil_growth": {
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>19%<\/h3>\n    <p>Growth in primary pupil numbers 2009/10 to 2021-22<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "total_funding_box": {
+      "html": "<div class=\"small-box bg-purple\">\n  <div class=\"inner\">\n    <h3>£12.3bn<\/h3>\n    <p>Total primary and secondary basic need funding 2011-22<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    }
+  },
+  "export": {
+
+  }
+}
