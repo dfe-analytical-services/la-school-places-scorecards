@@ -59,7 +59,7 @@ Package control is handled using renv. As in the steps above, you will need to r
 
 ### Tests
 
-- Automated tests to be written and to follow.
+- UI tests have been created using shinytest that test the app loads, that content appears correctly when different inputs are selected, and that tab content displays as expected. More should be added over time as extra features are added.
 
 ### Deployment
 
@@ -69,9 +69,6 @@ Package control is handled using renv. As in the steps above, you will need to r
 
 In general all .r files will have a usable outline, so make use of that for navigation if in RStudio: `Ctrl-Shift-O`.
 
-### Code styling
-
-- Info on code styling to follow once tidy_code function used here
 
 ---
 

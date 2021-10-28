@@ -135,6 +135,7 @@ navbarPage(title = "LA scorecards",
                     br("All dates refer to the academic year."),
                     br("There is no scorecard for Dorset (838) and Bournemouth, Christchurch and Poole (839) as they are new local authorities, following changes to LA boundaries in this region in April 2019. As these two new local authorities are not directly comparable with their pre LGR 2019 local authorities, we were unable to produce complete figures for the majority of individual indictors included in the School Places Scorecard,
                            however the relevant data for these pre and post LGR 2019 local authorities are included in the England data and Summary data tabs."),
+                    br("The source code for this application can be found in our ", a(href = "https://github.com/dfe-analytical-services/la-school-places-scorecards", "GitHub repository.")),
                     br(),
                     
                     tabBox(
