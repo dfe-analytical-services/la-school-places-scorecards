@@ -15,7 +15,11 @@ library(shinydashboard)
 library(scales)
 library(forcats)
 library(ggbeeswarm)
-
+library(shinyjs)
+library(openxlsx)
+library(kableExtra)
+library(metathis)
+library(shinyWidgets)
 
 # ----------------------------------------------------------------------------
 # Setup loading screen and spinner
@@ -60,6 +64,13 @@ scorecards_data <- fread("data/scorecards_data.csv")
   name =  str_replace_all(name,"_P$","")
   )
   
+  
+  #LA options - reordered
+  LA_options <- sort(unique(scorecards_data$LA_name)) %>% 
+    as.factor() %>% 
+    relevel("England") 
+  
+  
 # Functions ---------------------------------------------------------------
 
 #Create rounding function as baseR one rounds fives down
@@ -76,3 +87,62 @@ roundFiveUp <- function(x, n){
 # Comma separating 
   
 cs_num <- function(x){format(x,big.mark=",", trim=TRUE)}
+
+# Create colour palette
+
+dfe_colours <- c(
+  "#12436D", #`blue`
+  "#f47738",#`orange`       
+  "#801650",#`bright purple`   
+  "#28A197",#`turquoise`       
+  "#4C2C92"#`light-purple` 
+  )
+
+# Notes tables----------------------------------
+
+notesTable <- read.xlsx(
+  xlsxFile="data/tech_guidance.xlsx",
+  sheet="Overall")# %>% 
+  #fill(everything()) #collapse_Rows currently broken in kable. When fixed we can add back in.
+
+notesTableQuant <- read.xlsx(
+  xlsxFile="data/tech_guidance.xlsx",
+  sheet="Quantity")
+
+notesTablePref <- read.xlsx(
+  xlsxFile="data/tech_guidance.xlsx",
+  sheet="Preference")
+
+notesTableQual <- read.xlsx(
+  xlsxFile="data/tech_guidance.xlsx",
+  sheet="Quality")
+
+notesTableCost <- read.xlsx(
+  xlsxFile="data/tech_guidance.xlsx",
+  sheet="Cost")
+
+
+# File download -----------------------------------------------------------
+
+metadata <- fread("data/metadata.csv")
+
+#Create clean versions of the file for download--------------
+
+scorecards_data_clean<-scorecards_data %>% dplyr::rename(`LA Name` = LA_name)
+
+# this line renames the columns of the old dataset using the lookup table
+scorecards_data_clean<-data.table::setnames(scorecards_data_clean, old=metadata$programmer_friendly_names,new=metadata$user_friendly_name,skip_absent = TRUE)
+
+#Primary data
+primary_data_clean <- scorecards_data_clean %>% 
+  select(`LA Name`, `LA Number`, contains(c("primary","Primary")))
+
+#Secondary data
+secondary_data_clean <- scorecards_data_clean %>% 
+  select(`LA Name`, `LA Number`, contains(c("secondary","Secondary")))
+
+# Create download button without the icon
+myDownloadButton <- function(outputId, label = "Download"){
+  tags$a(id = outputId, class = "btn btn-default shiny-download-link", href = "", 
+         target = "_blank", download = NA, NULL, label)
+}

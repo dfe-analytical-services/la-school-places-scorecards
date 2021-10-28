@@ -1,0 +1,779 @@
+{
+  "output": {
+    "preference_p": {
+      "x": {
+        "data": [
+          {
+            "orientation": "h",
+            "width": 0.9,
+            "base": 0,
+            "x": 0.746,
+            "y": 1,
+            "text": "First :  74.6 %",
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(18,67,109,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "First",
+            "legendgroup": "First",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": 0.9,
+            "base": 0,
+            "x": 0.809,
+            "y": 1,
+            "text": "First :  80.9 %",
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(18,67,109,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "First",
+            "legendgroup": "First",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y2",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": 0.9,
+            "base": 0.746,
+            "x": 0.11,
+            "y": 1,
+            "text": "Second :  11 %",
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(244,119,56,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Second",
+            "legendgroup": "Second",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": 0.9,
+            "base": 0.809,
+            "x": 0.09,
+            "y": 1,
+            "text": "Second :  9 %",
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(244,119,56,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Second",
+            "legendgroup": "Second",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y2",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": 0.9,
+            "base": 0.856,
+            "x": 0.0449999999999999,
+            "y": 1,
+            "text": "Third :  4.5 %",
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(128,22,80,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Third",
+            "legendgroup": "Third",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": 0.9,
+            "base": 0.899,
+            "x": 0.032,
+            "y": 1,
+            "text": "Third :  3.2 %",
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(128,22,80,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Third",
+            "legendgroup": "Third",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y2",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": 0.9,
+            "base": 0.901,
+            "x": 0.0990000000000001,
+            "y": 1,
+            "text": "Other :  9.9 %",
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(40,161,151,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Other",
+            "legendgroup": "Other",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": 0.9,
+            "base": 0.931,
+            "x": 0.069,
+            "y": 1,
+            "text": "Other :  6.9 %",
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(40,161,151,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Other",
+            "legendgroup": "Other",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y2",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": 0.373,
+            "y": 1,
+            "text": "74.6%",
+            "hovertext": "First :  74.6 %",
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "First",
+            "legendgroup": "First",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": 0.4045,
+            "y": 1,
+            "text": "80.9%",
+            "hovertext": "First :  80.9 %",
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "First",
+            "legendgroup": "First",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y2",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": 0.801,
+            "y": 1,
+            "text": "11%",
+            "hovertext": "Second :  11 %",
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Second",
+            "legendgroup": "Second",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": 0.854,
+            "y": 1,
+            "text": "9%",
+            "hovertext": "Second :  9 %",
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Second",
+            "legendgroup": "Second",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y2",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": 0.8785,
+            "y": 1,
+            "text": "4.5%",
+            "hovertext": "Third :  4.5 %",
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Third",
+            "legendgroup": "Third",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": 0.915,
+            "y": 1,
+            "text": "3.2%",
+            "hovertext": "Third :  3.2 %",
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Third",
+            "legendgroup": "Third",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y2",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": 0.9505,
+            "y": 1,
+            "text": "9.9%",
+            "hovertext": "Other :  9.9 %",
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Other",
+            "legendgroup": "Other",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": 0.9655,
+            "y": 1,
+            "text": "6.9%",
+            "hovertext": "Other :  6.9 %",
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Other",
+            "legendgroup": "Other",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y2",
+            "hoverinfo": "text",
+            "frame": null
+          }
+        ],
+        "layout": {
+          "margin": {
+            "t": 40.6187906461879,
+            "r": 7.30593607305936,
+            "b": 28.2717586827176,
+            "l": 10.958904109589
+          },
+          "font": {
+            "color": "rgba(0,0,0,1)",
+            "family": "Arial",
+            "size": 18.5969281859693
+          },
+          "xaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "type": "linear",
+            "autorange": false,
+            "range": [
+              -0.05,
+              1.05
+            ],
+            "tickmode": "array",
+            "ticktext": [
+              "0.00",
+              "0.25",
+              "0.50",
+              "0.75",
+              "1.00"
+            ],
+            "tickvals": [
+              0,
+              0.25,
+              0.5,
+              0.75,
+              1
+            ],
+            "categoryorder": "array",
+            "categoryarray": [
+              "0.00",
+              "0.25",
+              "0.50",
+              "0.75",
+              "1.00"
+            ],
+            "nticks": null,
+            "ticks": "",
+            "tickcolor": null,
+            "ticklen": 3.65296803652968,
+            "tickwidth": 0,
+            "showticklabels": true,
+            "tickfont": {
+              "color": "rgba(77,77,77,1)",
+              "family": "Arial",
+              "size": 14.8775425487754
+            },
+            "tickangle": 0,
+            "showline": false,
+            "linecolor": null,
+            "linewidth": 0,
+            "showgrid": true,
+            "gridcolor": "rgba(235,235,235,1)",
+            "gridwidth": 0.66417600664176,
+            "zeroline": false,
+            "anchor": "y2",
+            "title": "",
+            "hoverformat": ".2f"
+          },
+          "yaxis": {
+            "domain": [
+              0.534661685346617,
+              1
+            ],
+            "automargin": true,
+            "type": "linear",
+            "autorange": false,
+            "range": [
+              0.4,
+              1.6
+            ],
+            "tickmode": "array",
+            "ticktext": "",
+            "tickvals": 1,
+            "categoryorder": "array",
+            "categoryarray": "",
+            "nticks": null,
+            "ticks": "",
+            "tickcolor": null,
+            "ticklen": 3.65296803652968,
+            "tickwidth": 0,
+            "showticklabels": true,
+            "tickfont": {
+              "color": "rgba(77,77,77,1)",
+              "family": "Arial",
+              "size": 14.8775425487754
+            },
+            "tickangle": 0,
+            "showline": false,
+            "linecolor": null,
+            "linewidth": 0,
+            "showgrid": true,
+            "gridcolor": "rgba(235,235,235,1)",
+            "gridwidth": 0.66417600664176,
+            "zeroline": false,
+            "anchor": "x",
+            "title": "",
+            "hoverformat": ".2f"
+          },
+          "shapes": [
+            {
+              "type": "rect",
+              "fillcolor": null,
+              "line": {
+                "color": null,
+                "width": 0,
+                "linetype": [
+
+                ]
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0,
+              "x1": 1,
+              "y0": 0.534661685346617,
+              "y1": 1
+            },
+            {
+              "type": "rect",
+              "fillcolor": null,
+              "line": {
+                "color": null,
+                "width": 0,
+                "linetype": [
+
+                ]
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0,
+              "x1": 1,
+              "y0": 0,
+              "y1": 26.5670402656704,
+              "yanchor": 1,
+              "ysizemode": "pixel"
+            },
+            {
+              "type": "rect",
+              "fillcolor": null,
+              "line": {
+                "color": null,
+                "width": 0,
+                "linetype": [
+
+                ]
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0,
+              "x1": 1,
+              "y0": 0,
+              "y1": 0.465338314653383
+            },
+            {
+              "type": "rect",
+              "fillcolor": null,
+              "line": {
+                "color": null,
+                "width": 0,
+                "linetype": [
+
+                ]
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0,
+              "x1": 1,
+              "y0": 0,
+              "y1": 26.5670402656704,
+              "yanchor": 0.465338314653383,
+              "ysizemode": "pixel"
+            }
+          ],
+          "annotations": [
+            {
+              "text": "Hertfordshire",
+              "x": 0.5,
+              "y": 1,
+              "showarrow": false,
+              "ax": 0,
+              "ay": 0,
+              "font": {
+                "color": "rgba(26,26,26,1)",
+                "family": "Arial",
+                "size": 14.8775425487754
+              },
+              "xref": "paper",
+              "yref": "paper",
+              "textangle": 0,
+              "xanchor": "center",
+              "yanchor": "bottom"
+            },
+            {
+              "text": "England",
+              "x": 0.5,
+              "y": 0.465338314653383,
+              "showarrow": false,
+              "ax": 0,
+              "ay": 0,
+              "font": {
+                "color": "rgba(26,26,26,1)",
+                "family": "Arial",
+                "size": 14.8775425487754
+              },
+              "xref": "paper",
+              "yref": "paper",
+              "textangle": 0,
+              "xanchor": "center",
+              "yanchor": "bottom"
+            }
+          ],
+          "yaxis2": {
+            "type": "linear",
+            "autorange": false,
+            "range": [
+              0.4,
+              1.6
+            ],
+            "tickmode": "array",
+            "ticktext": "",
+            "tickvals": 1,
+            "categoryorder": "array",
+            "categoryarray": "",
+            "nticks": null,
+            "ticks": "",
+            "tickcolor": null,
+            "ticklen": 3.65296803652968,
+            "tickwidth": 0,
+            "showticklabels": true,
+            "tickfont": {
+              "color": "rgba(77,77,77,1)",
+              "family": "Arial",
+              "size": 14.8775425487754
+            },
+            "tickangle": 0,
+            "showline": false,
+            "linecolor": null,
+            "linewidth": 0,
+            "showgrid": true,
+            "domain": [
+              0,
+              0.465338314653383
+            ],
+            "gridcolor": "rgba(235,235,235,1)",
+            "gridwidth": 0.66417600664176,
+            "zeroline": false,
+            "anchor": "x",
+            "title": "",
+            "hoverformat": ".2f"
+          },
+          "showlegend": true,
+          "legend": {
+            "bgcolor": null,
+            "bordercolor": null,
+            "borderwidth": 0,
+            "font": {
+              "color": "rgba(0,0,0,1)",
+              "family": "Arial",
+              "size": 14
+            },
+            "y": -0.1,
+            "orientation": "h",
+            "x": 0.33
+          },
+          "hovermode": "closest",
+          "barmode": "relative",
+          "uniformtext": {
+            "minsize": 12,
+            "mode": "hide"
+          },
+          "title": {
+            "text": "Chart showing percentage of pupils recieving an offer from their first, second, third or other place schools, by Local Authority compared to England",
+            "font": {
+              "color": "#ffffff"
+            }
+          }
+        },
+        "config": {
+          "doubleClick": "reset",
+          "showSendToCloud": false,
+          "displayModeBar": false
+        },
+        "source": "A",
+        "highlight": {
+          "on": "plotly_click",
+          "persistent": false,
+          "dynamic": false,
+          "selectize": false,
+          "opacityDim": 0.2,
+          "selected": {
+            "opacity": 1
+          },
+          "debounce": 0
+        },
+        "shinyEvents": [
+          "plotly_hover",
+          "plotly_click",
+          "plotly_selected",
+          "plotly_relayout",
+          "plotly_brushed",
+          "plotly_brushing",
+          "plotly_clickannotation",
+          "plotly_doubleclick",
+          "plotly_deselect",
+          "plotly_afterplot",
+          "plotly_sunburstclick"
+        ],
+        "base_url": "https://plot.ly"
+      },
+      "evals": [
+
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "setprototypeof",
+          "version": "0.1",
+          "src": {
+            "href": "setprototypeof-0.1"
+          },
+          "meta": null,
+          "script": "setprototypeof.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "typedarray",
+          "version": "0.1",
+          "src": {
+            "href": "typedarray-0.1"
+          },
+          "meta": null,
+          "script": "typedarray.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "3.5.1",
+          "src": {
+            "href": "jquery-3.5.1"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.1.1",
+          "src": {
+            "href": "crosstalk-1.1.1"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "plotly-htmlwidgets-css",
+          "version": "1.57.1",
+          "src": {
+            "href": "plotly-htmlwidgets-css-1.57.1"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "plotly-htmlwidgets.css",
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "plotly-main",
+          "version": "1.57.1",
+          "src": {
+            "href": "plotly-main-1.57.1"
+          },
+          "meta": null,
+          "script": "plotly-latest.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        }
+      ]
+    },
+    "prefT3_ENG": {
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>93%<\/h3>\n    <p>Percentage of secondary pupils who recieved an offer of one of their top three preferences in England<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "PrefT3_LA": {
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>90.1%<\/h3>\n    <p>Percentage of secondary pupils who recieved an offer of one of their top three preferences in Hertfordshire<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    }
+  }
+}
