@@ -116,7 +116,7 @@ navbarPage(title = "LA scorecards",
                                img(src = "dfe_logo.svg", height = 100, width = 150, alt ="Department for Education logo"),
                                br(),
                                br(),
-                               p("This is a development of our excel-based scorecards - if you would like to provide feedback on this tool please contact ",a(href="mailto:SCAP.PPP@education.gov.uk","SCAP.PPP@education.gov.uk"))
+                        p("This is a development of our excel-based scorecards - if you would like to provide feedback on this dashboard, please complete our ",a(href="https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-fim2cxpeIFFus-loZuDRkhUN0ZPMlhCSDgzQjlVTjNVTFpXRTdWMlo0MC4u","online survey"))
                                ))),
 # Create the tech notes-----------------
            tabPanel("Technical notes",
@@ -171,7 +171,7 @@ navbarPage(title = "LA scorecards",
                     img(src = "dfe_logo.svg", height = 100, width = 150, alt ="Department for Education logo"),
                     br(),
                     br(),
-                    p("This is a development of our excel-based scorecards - if you would like to provide feedback on this tool please contact ",a(href="mailto:SCAP.PPP@education.gov.uk","SCAP.PPP@education.gov.uk"))
+                    p("This is a development of our excel-based scorecards - if you would like to provide feedback on this dashboard, please complete our ",a(href="https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-fim2cxpeIFFus-loZuDRkhUN0ZPMlhCSDgzQjlVTjNVTFpXRTdWMlo0MC4u","online survey"))
                     
                     ),
 
@@ -212,7 +212,7 @@ tabPanel("Accessibility",
          img(src = "dfe_logo.svg", height = 100, width = 150, alt ="Department for Education logo"),
          br(),
          br(),
-         p("This is a development of our excel-based scorecards - if you would like to provide feedback on this tool please contact ",a(href="mailto:SCAP.PPP@education.gov.uk","SCAP.PPP@education.gov.uk"))
+         p("This is a development of our excel-based scorecards - if you would like to provide feedback on this dashboard, please complete our ",a(href="https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-fim2cxpeIFFus-loZuDRkhUN0ZPMlhCSDgzQjlVTjNVTFpXRTdWMlo0MC4u","online survey"))
          
 )
 )
