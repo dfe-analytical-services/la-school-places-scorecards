@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - master
+      - main
 
 name: deployShinyApps
 
@@ -14,7 +14,7 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
-      - uses: r-lib/actions/setup-r@master
+      - uses: r-lib/actions/setup-r@main
       - name: Install Curl
         run: sudo apt install libcurl4-openssl-dev libssl-dev
         
