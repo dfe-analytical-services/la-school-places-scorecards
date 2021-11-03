@@ -21,6 +21,7 @@ library(kableExtra)
 library(metathis)
 library(shinyWidgets)
 library(styler)
+library(rsconnect)
 
 # tidy_code_function -------------------------------------------------------------------------------
 

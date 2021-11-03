@@ -478,6 +478,13 @@
       "Repository": "CRAN",
       "Hash": "f1b1ca1254ccb485dccc9c0dc65a2c36"
     },
+    "packrat": {
+      "Package": "packrat",
+      "Version": "0.7.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "95e8c3825efcaad09411799da92c0af9"
+    },
     "parsedate": {
       "Package": "parsedate",
       "Version": "1.2.1",
@@ -610,6 +617,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "249d8cd1e74a8f6a26194a91b47f21d1"
+    },
+    "rsconnect": {
+      "Package": "rsconnect",
+      "Version": "0.8.24",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "5e21fd77eb844fa1ff1d23cb04e1d753"
     },
     "rstudioapi": {
       "Package": "rstudioapi",
