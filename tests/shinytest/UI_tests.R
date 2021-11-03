@@ -24,7 +24,7 @@ app$snapshot(list(output = c("data_description","total_funding_box","pupil_growt
 
 
 # 5. Do the values stay the same when you select a different quality measure?-------------------------------
-app$setInputs(chart_choice = "Progress 8")
+app$setInputs(chart_choice = "Progress 8",wait_=FALSE, values_=FALSE)
 app$snapshot(list(output = c("data_description","total_funding_box","pupil_growth","estimated_additional_places",
                              "estimated_spare_places","places_chart","label_estimate_y1","forecast_1y",
                              "label_estimate_y3","forecast_3y","forecast_3y")))
@@ -42,7 +42,7 @@ app$setInputs(phase_choice = "Primary")
 app$snapshot(list(output = c("prefT3_ENG","PrefT3_LA","preference_p")))
 
 # 9. Does the values in the preference tab stay the same when you select a different quality measure? ------------------------------
-app$setInputs(chart_choice = "Ofsted")
+app$setInputs(chart_choice = "Ofsted",wait_=FALSE, values_=FALSE)
 app$snapshot(list(output = c("prefT3_ENG","PrefT3_LA","preference_p")))
 
 # 10. Does the quality tab load correctly? ------------------------------
@@ -50,6 +50,7 @@ app$setInputs(tabs = "Quality")
 app$snapshot(list(output = c("England_GO_places","quality_chart","no_rating_line")))
 
 # 11. Do the values in the quality tab change when you select Progress 8? ------------------------------
+app$setInputs(phase_choice = "Secondary")
 app$setInputs(chart_choice = "Progress 8")
 app$snapshot(list(output = c("England_GO_places","quality_chart","no_rating_line")))
 
@@ -78,6 +79,6 @@ app$snapshot(list(output = c("perm_box","temp_box","new_box","cost_table","cost_
 app$setInputs(phase_choice = "Secondary")
 app$snapshot(list(output = c("perm_box","temp_box","new_box","cost_table","cost_plot")))
 
-# 18. Do outputs change when you select a different quality measure?-----------------
-app$setInputs(chart_choice = "Progress 8")
+# 18. Do outputs stay the same when you select a different quality measure?-----------------
+app$setInputs(chart_choice = "Progress 8",wait_=FALSE, values_=FALSE)
 app$snapshot(list(output = c("perm_box","temp_box","new_box","cost_table","cost_plot")))
