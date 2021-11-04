@@ -157,7 +157,7 @@ navbarPage(
     br(),
     tabBox(
       title = "",
-      id = "tabs", width = "12",
+      id = "tabs_tech_notes", width = "12",
       tabPanel(
         "Overall",
         tableOutput("notesTable") # made in global.R file

@@ -18,7 +18,8 @@
     "LA_choice": "England",
     "phase_choice": "Primary",
     "plotly_afterplot-A": "\"places_chart\"",
-    "tabs": "Quantity"
+    "tabs": "Quantity",
+    "tabs_tech_notes": "Overall"
   },
   "output": {
     "data_description": "Data for primary schools in England: ",
