@@ -145,7 +145,7 @@ notesTableCost <- read.xlsx(
 
 # File download -----------------------------------------------------------
 
-metadata <- fread("data/metadata.csv")
+metadata <- fread("data/metadata.csv", encoding = "UTF-8")
 
 # Create clean versions of the file for download--------------
 
