@@ -2,7 +2,7 @@
   "output": {
     "data_description": "Data for primary schools in England: ",
     "estimated_additional_places": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>40,970<\/h3>\n    <p>Estimated additional primary places to meet demand in 2021-22<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-purple\">\n  <div class=\"inner\">\n    <h3>40,970<\/h3>\n    <p>Estimated additional primary places to meet demand in 2021-22<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]

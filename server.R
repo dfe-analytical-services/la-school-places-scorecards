@@ -141,7 +141,7 @@ function(input, output, session) {
       paste0(scales::comma(additional_places_perc)),
       paste0("Estimated additional ", str_to_lower(input$phase_choice), " places to meet demand in ", plan_year),
       # icon = icon("fas fa-signal"),
-      color = "blue"
+      color = "purple"
     )
   })
 
@@ -291,13 +291,13 @@ function(input, output, session) {
     )
   })
 
-  
+
   output$forecast_1y_proxy <- renderUI({
-    input$phase_choice#force re-render
+    input$phase_choice # force re-render
     # live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
-    gaugeOutput(outputId ="forecast_1y")
+    gaugeOutput(outputId = "forecast_1y")
   })
-  
+
   ## Forecast accuracy three years ahead
 
   # Code to go here using above template
@@ -349,11 +349,11 @@ function(input, output, session) {
     })
 
   output$forecast_3y_proxy <- renderUI({
-    input$phase_choice#force re-render
+    input$phase_choice # force re-render
     # live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
-    gaugeOutput(outputId ="forecast_3y")
+    gaugeOutput(outputId = "forecast_3y")
   })
-  
+
 
   # Preference -------------------------------------------------------------
 

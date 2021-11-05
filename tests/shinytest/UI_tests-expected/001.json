@@ -24,7 +24,7 @@
   "output": {
     "data_description": "Data for primary schools in England: ",
     "estimated_additional_places": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>40,970<\/h3>\n    <p>Estimated additional primary places to meet demand in 2021-22<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-purple\">\n  <div class=\"inner\">\n    <h3>40,970<\/h3>\n    <p>Estimated additional primary places to meet demand in 2021-22<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
@@ -85,6 +85,63 @@
         }
       ]
     },
+    "forecast_1y_proxy": {
+      "html": "<div id=\"forecast_1y\" style=\"width:100%; height:200px; \" class=\"gauge html-widget html-widget-output\"><\/div>",
+      "deps": [
+        {
+          "name": "htmlwidgets",
+          "version": "1.5.4",
+          "src": {
+            "href": "htmlwidgets-1.5.4"
+          },
+          "meta": null,
+          "script": "htmlwidgets.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "raphael",
+          "version": "2.1.4",
+          "src": {
+            "href": "raphael-2.1.4"
+          },
+          "meta": null,
+          "script": "raphael-2.1.4.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "justgage",
+          "version": "1.2.2.1",
+          "src": {
+            "href": "justgage-1.2.2.1"
+          },
+          "meta": null,
+          "script": "justgage.js",
+          "stylesheet": "justgage.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "gauge-binding",
+          "version": "0.5.2",
+          "src": {
+            "href": "gauge-binding-0.5.2"
+          },
+          "meta": null,
+          "script": "gauge.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        }
+      ]
+    },
     "forecast_3y": {
       "x": {
         "value": 2.7,
@@ -132,6 +189,63 @@
           "head": null,
           "attachment": null,
           "all_files": true
+        }
+      ]
+    },
+    "forecast_3y_proxy": {
+      "html": "<div id=\"forecast_3y\" style=\"width:100%; height:200px; \" class=\"gauge html-widget html-widget-output\"><\/div>",
+      "deps": [
+        {
+          "name": "htmlwidgets",
+          "version": "1.5.4",
+          "src": {
+            "href": "htmlwidgets-1.5.4"
+          },
+          "meta": null,
+          "script": "htmlwidgets.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "raphael",
+          "version": "2.1.4",
+          "src": {
+            "href": "raphael-2.1.4"
+          },
+          "meta": null,
+          "script": "raphael-2.1.4.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "justgage",
+          "version": "1.2.2.1",
+          "src": {
+            "href": "justgage-1.2.2.1"
+          },
+          "meta": null,
+          "script": "justgage.js",
+          "stylesheet": "justgage.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "gauge-binding",
+          "version": "0.5.2",
+          "src": {
+            "href": "gauge-binding-0.5.2"
+          },
+          "meta": null,
+          "script": "gauge.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
         }
       ]
     },
