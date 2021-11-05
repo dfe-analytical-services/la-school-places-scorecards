@@ -72,10 +72,10 @@ navbarPage(
                 p(strong("Forecast accuracy - values closer to 0 are more accurate.")),
                 htmlOutput("label_estimate_y1"),
                 br(),
-                gaugeOutput("forecast_1y"),
+                uiOutput("forecast_1y_proxy"),
                 htmlOutput("label_estimate_y3"),
                 br(),
-                gaugeOutput("forecast_3y")
+                uiOutput("forecast_3y_proxy")
               )
             )
           ),
