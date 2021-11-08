@@ -37,7 +37,7 @@ A shiny app to provide a way to view LA-level school places scorecard data and c
 
 - R at an intermediate level, [DfE R training guide](https://dfe-analytical-services.github.io/r-training-course/)
 
-  - Particularly [R Shiny](https://shiny.rstudio.com/)
+- Particularly [R Shiny](https://shiny.rstudio.com/)
   
 ---
 
@@ -59,16 +59,23 @@ Package control is handled using renv. As in the steps above, you will need to r
 
 ### Tests
 
-- UI tests have been created using shinytest that test the app loads, that content appears correctly when different inputs are selected, and that tab content displays as expected. More should be added over time as extra features are added.
+UI tests have been created using shinytest that test the app loads, that content appears correctly when different inputs are selected, and that tab content displays as expected. More should be added over time as extra features are added.
+
+GitHub Actions provide CI by running the automated tests and checks for code styling. The yaml files for these workflows can be found in the .github/workflows folder.
+
+The function run_tests_locally() is created in the Rprofile script and is available in the RStudio console at all times to run both the unit and ui tests.
 
 ### Deployment
 
-- Info  on deploying to follow here
+- The app is deployed to the department's shinyapps.io subscription using GitHub actions, to [https://department-for-education.shinyapps.io/la-school-places-scorecards](https://department-for-education.shinyapps.io/la-school-places-scorecards). The yaml file for this can be found in the .github/workflows folder.
 
 ### Navigation
 
 In general all .r files will have a usable outline, so make use of that for navigation if in RStudio: `Ctrl-Shift-O`.
 
+### Code styling 
+
+The function tidy_code() is created in the Rprofile script and therefore is always available in the RStudio console to tidy code according to tidyverse styling using the styler package. This function also helps to test the running of the code and for basic syntax errors such as missing commas and brackets.
 
 ---
 
