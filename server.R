@@ -1270,4 +1270,15 @@ function(input, output, session) {
       shinyjs::show("PrefT3_LA")
     }
   })
+
+  # Automatically bookmark every time an input changes-------------------
+  observe({
+    reactiveValuesToList(input)
+    session$doBookmark()
+  })
+  # Update the query string
+  onBookmarked(updateQueryString)
+
+  # Set bookmarking to ignore extraneous plotly options
+  setBookmarkExclude(c(".clientValue-default-plotlyCrosstalkOpts", "plotly_hover-A", "plotly_afterplot-A", "plotly_relayout-A"))
 }
