@@ -461,7 +461,7 @@ function(input, output, session) {
     ) %>%
       layout(
         uniformtext = list(minsize = 12, mode = "hide"),
-        xaxis= list(showticklabels = FALSE),
+        xaxis = list(showticklabels = FALSE),
         legend = list(
           orientation = "h",
           y = -0.1, x = 0.33,
@@ -656,7 +656,7 @@ function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       LA_ranking(),
-      paste0("LA Rank out of ", LA_denom(), " LAs that created new places between ",last_year, " and ", this_year, " (ranks can be tied)"),
+      paste0("LA Rank out of ", LA_denom(), " LAs that created new places between ", last_year, " and ", this_year, " (ranks can be tied)"),
       # icon = icon("fas fa-bars"),
       color = "purple"
     )
@@ -674,7 +674,7 @@ function(input, output, session) {
       tooltip = c("text")
     ) %>%
       layout(
-        xaxis= list(showticklabels = FALSE),
+        xaxis = list(showticklabels = FALSE),
         legend = list(
           orientation = "h",
           y = -0.1, x = 0.2,
