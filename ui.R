@@ -62,6 +62,7 @@ function(request) {
             tabPanel(
               "Quantity",
               p(strong(paste0("Places created since 2009-10, places planned to ", plan_year, " and estimated place pressure in ", plan_year))),
+              p("A local authority can have both ‘spare places’ and ‘additional places needed’ due to localised or specific year group demand"),
               valueBoxOutput("estimated_additional_places", width = 6),
               valueBoxOutput("estimated_spare_places", width = 6),
               fluidRow(
@@ -71,7 +72,7 @@ function(request) {
                 ),
                 column(
                   6,
-                  p(strong("Forecast accuracy - values closer to 0 are more accurate.")),
+                  p(strong("Forecast accuracy of pupil projections (values closer to 0 are more accurate)")),
                   htmlOutput("label_estimate_y1"),
                   br(),
                   uiOutput("forecast_1y_proxy"),
@@ -83,7 +84,7 @@ function(request) {
             ),
             tabPanel(
               "Preference",
-              p(strong(paste0("Proportion of applicants who received an offer of one of their top three preferences for September ", preference_year, " entry"))),
+              p(strong(paste0("Proportion of applicants who received an offer of one of their top three preference schools for September ", preference_year, " entry"))),
               # preference content to go here
               valueBoxOutput("prefT3_ENG", width = 6),
               valueBoxOutput("PrefT3_LA", width = 6),
@@ -110,7 +111,7 @@ function(request) {
             ),
             tabPanel(
               "Cost",
-              p(strong(paste0("Local authority reported projects between ", last_year_1, " and ", last_year, ", adjusted for inflation and regional variation"))),
+              p(strong(paste0("Average cost of additional mainstream place from local authority reported projects between ", last_year_1, " and ", last_year, ", adjusted for inflation and regional variation"))),
               p("(Not new data: see technical notes)"),
               valueBoxOutput("perm_box", width = 4),
               valueBoxOutput("temp_box", width = 4),
