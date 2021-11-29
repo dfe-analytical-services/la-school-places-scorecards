@@ -505,7 +505,7 @@
       ]
     },
     "total_funding_box": {
-      "html": "<div class=\"small-box bg-purple\">\n  <div class=\"inner\">\n    <h3>£12.3bn<\/h3>\n    <p>Total primary and secondary basic need funding 2011-22<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-purple\">\n  <div class=\"inner\">\n    <h3>£12.3 billion<\/h3>\n    <p>Total primary and secondary basic need funding 2011-22<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]

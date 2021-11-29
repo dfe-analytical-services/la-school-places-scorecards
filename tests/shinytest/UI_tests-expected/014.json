@@ -1,13 +1,13 @@
 {
   "output": {
     "LA_GO_places": {
-      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>0%<\/h3>\n    <p>Percentage of new places in well above and above average primary schools in Cheshire East<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>0%<\/h3>\n    <p>Percentage of new places created in well above and above average primary schools in Cheshire East<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "LA_GO_ran": {
-      "html": "<div class=\"small-box bg-purple\">\n  <div class=\"inner\">\n    <h3>68<\/h3>\n    <p>LA Rank out of 116<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-purple\">\n  <div class=\"inner\">\n    <h3>68<\/h3>\n    <p>LA Rank out of 116 LAs that created new places between 2017-18 and 2018-19 (ranks can be tied)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
@@ -779,7 +779,7 @@
             "tickcolor": null,
             "ticklen": 3.65296803652968,
             "tickwidth": 0,
-            "showticklabels": true,
+            "showticklabels": false,
             "tickfont": {
               "color": "rgba(77,77,77,1)",
               "family": "Arial",

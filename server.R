@@ -87,7 +87,7 @@ function(input, output, session) {
     # Create the actual output here. Use if statement so we display "bn" if it's England, "m" if not.
     if (input$LA_choice == "England") {
       shinydashboard::valueBox(
-        paste0("£", total_funding, "bn"),
+        paste0("£", total_funding, " billion"),
         paste0("Total primary and secondary basic need funding ", funding_year),
         # get different icons for background here: https://fontawesome.com/v5.15/icons?d=gallery&p=2
         # icon = icon("fas fa-pound-sign"),
@@ -95,7 +95,7 @@ function(input, output, session) {
       )
     } else {
       shinydashboard::valueBox(
-        paste0("£", total_funding, "m"),
+        paste0("£", total_funding, " million"),
         paste0("Total primary and secondary basic need funding ", funding_year),
         # icon = icon("fas fa-pound-sign"),
         color = "purple"
@@ -294,6 +294,7 @@ function(input, output, session) {
 
   output$forecast_1y_proxy <- renderUI({
     input$phase_choice # force re-render
+    input$LA_choice
     # live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
     gaugeOutput(outputId = "forecast_1y")
   })
@@ -350,6 +351,7 @@ function(input, output, session) {
 
   output$forecast_3y_proxy <- renderUI({
     input$phase_choice # force re-render
+    input$LA_choice
     # live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
     gaugeOutput(outputId = "forecast_3y")
   })
@@ -459,6 +461,7 @@ function(input, output, session) {
     ) %>%
       layout(
         uniformtext = list(minsize = 12, mode = "hide"),
+        xaxis = list(showticklabels = FALSE),
         legend = list(
           orientation = "h",
           y = -0.1, x = 0.33,
@@ -516,7 +519,7 @@ function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(LA_comp(), "%"),
-      paste0("Percentage of new places in ", school_description(), str_to_lower(input$phase_choice), " schools in ", input$LA_choice),
+      paste0("Percentage of new places created in ", school_description(), str_to_lower(input$phase_choice), " schools in ", input$LA_choice),
       # icon = icon("fas fa-boxes"),
       color = "green"
     )
@@ -653,7 +656,7 @@ function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       LA_ranking(),
-      paste0("LA Rank out of ", LA_denom()),
+      paste0("LA Rank out of ", LA_denom(), " LAs that created new places between ", last_year, " and ", this_year, " (ranks can be tied)"),
       # icon = icon("fas fa-bars"),
       color = "purple"
     )
@@ -671,6 +674,7 @@ function(input, output, session) {
       tooltip = c("text")
     ) %>%
       layout(
+        xaxis = list(showticklabels = FALSE),
         legend = list(
           orientation = "h",
           y = -0.1, x = 0.2,
