@@ -294,6 +294,7 @@ function(input, output, session) {
 
   output$forecast_1y_proxy <- renderUI({
     input$phase_choice # force re-render
+    input$LA_choice
     # live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
     gaugeOutput(outputId = "forecast_1y")
   })
@@ -350,6 +351,7 @@ function(input, output, session) {
 
   output$forecast_3y_proxy <- renderUI({
     input$phase_choice # force re-render
+    input$LA_choice
     # live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
     gaugeOutput(outputId = "forecast_3y")
   })
