@@ -87,7 +87,7 @@ function(input, output, session) {
     # Create the actual output here. Use if statement so we display "bn" if it's England, "m" if not.
     if (input$LA_choice == "England") {
       shinydashboard::valueBox(
-        paste0("£", total_funding, "billion"),
+        paste0("£", total_funding, " billion"),
         paste0("Total primary and secondary basic need funding ", funding_year),
         # get different icons for background here: https://fontawesome.com/v5.15/icons?d=gallery&p=2
         # icon = icon("fas fa-pound-sign"),
@@ -95,7 +95,7 @@ function(input, output, session) {
       )
     } else {
       shinydashboard::valueBox(
-        paste0("£", total_funding, "million"),
+        paste0("£", total_funding, " million"),
         paste0("Total primary and secondary basic need funding ", funding_year),
         # icon = icon("fas fa-pound-sign"),
         color = "purple"
