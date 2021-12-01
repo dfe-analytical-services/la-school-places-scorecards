@@ -5,15 +5,15 @@ function(request) {
 
 
   navbarPage(
-    title = "LA scorecards",
+    title = "School places scorecards",
     tabPanel(
-      "Scorecards",
+      "LA scorecards",
       includeCSS("www/shiny_gov_style.css"),
       useShinyjs(),
       useShinydashboard(),
       tags$html(lang = "en"),
       meta_general(
-        application_name = "LA scorecards",
+        application_name = "School places scorecards",
         description = "Scorecards for school places by local authority in England",
         robots = "index,follow",
         generator = "R-Shiny",

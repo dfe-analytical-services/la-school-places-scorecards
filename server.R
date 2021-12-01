@@ -184,8 +184,8 @@ function(input, output, session) {
       type = "bar", name = paste0("Total places created between 2009/10 and ", this_year),
       text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF")
     ) %>%
-      add_trace(y = ~QuanPP, marker = list(color = c("#F46A25")), name = paste0("New places planned for delivery between ", next_year, " and ", plan_year), text = ~ scales::comma(QuanPP), textposition = "inside") %>%
-      add_trace(y = ~QuanRP, marker = list(color = c("#801650")), name = paste0("Estimated additional places needed to meet demand in ", plan_year), text = ~ scales::comma(QuanRP), textposition = "inside") %>%
+      add_trace(y = ~QuanPP, marker = list(color = c("#F46A25")), name = paste0("New places already planned for delivery between ", this_year, " and ", plan_year), text = ~ scales::comma(QuanPP), textposition = "inside") %>%
+      add_trace(y = ~QuanRP, marker = list(color = c("#801650")), name = paste0("Estimated additional places still needed to meet demand in ", plan_year), text = ~ scales::comma(QuanRP), textposition = "inside") %>%
       layout(
         yaxis = list(title = ""),
         xaxis = list(title = ""),
@@ -377,7 +377,7 @@ function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(PrefT3_E, "%"),
-      paste0("Percentage of ", str_to_lower(input$phase_choice), " pupils who recieved an offer of one of their top three preferences in England"),
+      paste0("Percentage of applicants who recieved an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England"),
       # icon = icon("fas fa-chart-line"),
       color = "blue"
     )
@@ -396,7 +396,7 @@ function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(PrefT3, "%"),
-      paste0("Percentage of ", str_to_lower(input$phase_choice), " pupils who recieved an offer of one of their top three preferences in ", (input$LA_choice)),
+      paste0("Percentage of applicants who recieved an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in ", (input$LA_choice)),
       # icon = icon("fas fa-sort-amount-up"),
       color = "green"
     )

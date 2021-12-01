@@ -210,7 +210,7 @@
             "textfont": {
               "color": "#FFF"
             },
-            "name": "New places planned for delivery between 2019-20 and 2021-22",
+            "name": "New places already planned for delivery between 2018-19 and 2021-22",
             "type": "bar",
             "error_y": {
               "color": "rgba(255,127,14,1)"
@@ -236,7 +236,7 @@
             "textfont": {
               "color": "#FFF"
             },
-            "name": "Estimated additional places needed to meet demand in 2021-22",
+            "name": "Estimated additional places still needed to meet demand in 2021-22",
             "type": "bar",
             "error_y": {
               "color": "rgba(44,160,44,1)"
