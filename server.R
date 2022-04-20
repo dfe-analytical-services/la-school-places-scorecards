@@ -5,16 +5,23 @@ function(input, output, session) {
     size = 14
   )
   output$pdfDownload  <- downloadHandler(
-    # For PDF output, change this to "report.pdf"
     filename = paste0("dashboard_output.pdf"),
     content = function(file) {
-      # Knit the document, passing in the `params` list, and eval it in a
-      # child of the global environment (this isolates the code in the document
-      # from the code in this app).
-      params <- list(data   = live_scorecard_data)
-      rmarkdown::render("Rmarkdown/Summary_scorecard.Rmd", output_file = file,
-                   output_format = 'pdf_document',
-                  envir = new.env(parent = globalenv())
+      # Add a loading modal, can probably make this prettier at a later date
+      showModal(modalDialog("Preparing PDF report...", footer=NULL))
+      on.exit(removeModal())
+
+      # List of parameters to pass from shiny to the report
+      params <- list(input_la_choice = input$LA_choice,
+                     input_phase_choice = input$phase_choice,
+                     scorecards_data_pivot = scorecards_data_pivot)
+      
+      # Render the pdf file from the rmarkdown template
+      rmarkdown::render("Rmarkdown/Summary_scorecard.Rmd", 
+                        output_file = file,
+                        params = params,
+                        output_format = 'pdf_document',
+                        envir = new.env(parent = globalenv())
       )
     }
   ) 

@@ -26,12 +26,14 @@ function(request) {
           width = 2,
           selectInput("LA_choice",
             label = p(strong("Choose a geography")),
-            choices = levels(LA_options)
+            choices = levels(LA_options),
+            selected = "Darlington"
           ),
           br(),
           selectInput("phase_choice",
             label = p(strong("Choose a phase")),
-            choices = c("Primary", "Secondary")
+            choices = c("Primary", "Secondary"),
+            selected = "Primary"
           ),
           br(),
           selectInput("chart_choice",
