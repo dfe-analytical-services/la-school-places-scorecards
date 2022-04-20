@@ -4,7 +4,21 @@ function(input, output, session) {
     family = "Arial",
     size = 14
   )
-
+  output$pdfDownload  <- downloadHandler(
+    # For PDF output, change this to "report.pdf"
+    filename = paste0("dashboard_output.pdf"),
+    content = function(file) {
+      # Knit the document, passing in the `params` list, and eval it in a
+      # child of the global environment (this isolates the code in the document
+      # from the code in this app).
+      params <- list(data   = live_scorecard_data)
+      rmarkdown::render("Rmarkdown/Summary_scorecard.Rmd", output_file = file,
+                   output_format = 'pdf_document',
+                  envir = new.env(parent = globalenv())
+      )
+    }
+  ) 
+  
   # Data calculations - reactive --------------------------------------------
 
   # LA options - reordered

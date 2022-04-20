@@ -43,6 +43,10 @@ function(request) {
           myDownloadButton(
             "download_ud",
             "Download data"
+                      ),
+          myDownloadButton(
+            "pdfDownload",
+            "Download report"
           )
         ), # end of panel
 

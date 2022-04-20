@@ -1,0 +1,26 @@
+---
+title: "School Places Scorecard"
+date: "`r Sys.Date()`"
+params: 
+    data: NA
+     #output:
+     # pdf_document
+   # theme: united
+    #highlight: tango
+   # toc: true
+   # toc_float:
+      #collapsed: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+``````{r read_data, include=FALSE}
+## Pull in functions (assuming you create a readData() function in a
+## read_in_data.R script)
+#source("read_in_data.R")
+## Read in the data
+#data <- readData()
+ print(params$data)
+```
