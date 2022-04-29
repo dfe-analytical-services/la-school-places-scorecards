@@ -304,6 +304,43 @@ function(input, output, session) {
 
   # Code to go here using above template
 
+  output$forecast_1y_bar <- renderPlot({
+    forecast_accuracy <- live_scorecard_data() %>%
+      filter(name == "For_1")
+    
+    forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100    
+    
+    lowest_accuracy <- scorecards_data_pivot %>%
+      filter(
+        name == "For_1",
+        Phase == input$phase_choice
+      ) %>%
+      slice(which.min(value)) %>%
+      pull(value) %>%
+      roundFiveUp(., 3) * 100
+    
+    highest_accuracy <- scorecards_data_pivot %>%
+      filter(
+        name == "For_1",
+        Phase == input$phase_choice
+      ) %>%
+      slice(which.max(value)) %>%
+      pull(value) %>%
+      roundFiveUp(., 3) * 100
+    
+    # Get medians/quartiles to set the sectors in the gauge
+    
+    mid_low_accuracy <- median(c(-1, lowest_accuracy))
+    mid_high_accuracy <- median(c(1, highest_accuracy))
+    print(forecast_accuracy)
+    ggplot(forecast_accuracy,aes(name,value,fill=value))+
+      geom_bar(stat="identity",width=100) +
+      scale_fill_gradient2(low='red', mid='darkgreen', high='red', space='Lab',limits = c(-abs(highest_accuracy),abs(highest_accuracy))) + 
+      ylim(-highest_accuracy,highest_accuracy) + theme_minimal()+ 
+      theme(legend.position = "none",axis.text.y=element_blank(),
+            axis.ticks.y=element_blank())+labs(x = "",y="")+ coord_flip()
+    },height = 96, width = "auto")
+  
   output$forecast_3y <-
     renderGauge({
       # live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
