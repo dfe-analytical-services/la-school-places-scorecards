@@ -8,7 +8,7 @@ function(request) {
     title = "School places scorecards",
     tabPanel(
       "LA scorecards",
-      includeCSS("www/shiny_gov_style.css"),
+      includeCSS("www/dfe_shiny_gov_style.css"),
       useShinyjs(),
       useShinydashboard(),
       tags$html(lang = "en"),
@@ -234,6 +234,8 @@ function(request) {
       br(),
       br(),
       p("This is a development of our excel-based scorecards - if you would like to provide feedback on this dashboard, please complete our ", a(href = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-fim2cxpeIFFus-loZuDRkhUN0ZPMlhCSDgzQjlVTjNVTFpXRTdWMlo0MC4u", "online survey"))
-    )
+    ),
+    shinyGovstyle::footer(TRUE)
+    
   )
 }
