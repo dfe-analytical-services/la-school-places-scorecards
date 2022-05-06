@@ -198,7 +198,7 @@ function(input, output, session) {
       pivot_wider()
 
     # create interactive stacked bar chart
-    plot_ly(
+    p <- plot_ly(
       places_chart_data,
       x = ~LA_name, y = ~QuanIn,
       marker = list(color = c("#12436D")),

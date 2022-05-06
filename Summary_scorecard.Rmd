@@ -1,0 +1,487 @@
+---
+title: "School Places Scorecard"
+params: 
+    input_la_choice: England
+    input_phase_choice: Primary
+    input_quality_chart: 'Maths Progress'
+subtitle: "Data for `r params$input_phase_choice` Schools in `r params$input_la_choice`" 
+output:
+  pdf_document
+
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("global.R")
+library(webshot)
+```
+
+Places created since 2009-10, places planned to 2021-22 and estimated place pressure in 2021-22
+
+```{r quality, echo = FALSE}
+    live_scorecard_data <- scorecards_data_pivot %>% filter(
+      LA_name == params$input_la_choice,
+      Phase == params$input_phase_choice)
+
+    places_chart_data <- live_scorecard_data %>%
+      filter(name %in% c("QuanIn", "QuanPP", "QuanRP")) %>%
+      select(LA_name, name, value) %>%
+      pivot_wider()  
+   
+quality_places <- plot_ly(
+      places_chart_data,
+      x = ~LA_name, y = ~QuanIn,
+      marker = list(color = c("#12436D")),
+      type = "bar", name = paste0("Total places created between 2009/10 and ", this_year),
+      text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF")
+    ) %>%
+      add_trace(y = ~QuanPP, marker = list(color = c("#F46A25")), name = paste0("New places already planned for delivery between ", this_year, " and ", plan_year), text = ~ scales::comma(QuanPP), textposition = "inside") %>%
+      add_trace(y = ~QuanRP, marker = list(color = c("#801650")), name = paste0("Estimated additional places still needed to meet demand in ", plan_year), text = ~ scales::comma(QuanRP), textposition = "inside") %>%
+      layout(
+        yaxis = list(title = ""),
+        xaxis = list(title = ""),
+        barmode = "stack",
+        uniformtext = list(minsize = 12, mode = "hide"),
+        legend = list(orientation = "h"),
+        title = list(
+          text = "Chart showing total places created, new places planned for delivery and estimated additional places needed to meet demand, by Local Authority compared to England",
+          font = list(color = "#ffffff")
+        )
+      ) %>%
+      config(displayModeBar = FALSE)
+      htmlwidgets::saveWidget(widget = quality_places, file = "hc.html")
+      webshot(url = "hc.html", file = "hc.png", delay = 1, zoom = 4, vheight = 500)
+```
+
+Proportion of applicants who received an offer of one of their top three preference schools for September 2019 entry
+
+```{r preference, echo = FALSE, message=FALSE}
+
+  live_scorecard_data_england_comp <- scorecards_data_pivot %>%
+      filter(
+        LA_name %in% c(params$input_la_choice, "England"),
+        Phase == params$input_phase_choice
+      ) %>%
+      mutate(
+        LA_name = as.factor(LA_name),
+        # This step just makes sure that the LA is FIRST when it comes to plots/tables
+        LA_name = relevel(LA_name, "England"),
+        LA_name = factor(LA_name, levels = rev(levels(LA_name)))
+      )
+  
+   
+    preference_data <- live_scorecard_data_england_comp %>%
+      # select only preference values
+      filter(name %in% c("Pref1", "Pref2", "Pref3")) %>%
+      # Create ratings out of the names
+      mutate(rating = case_when(
+        str_detect(name, "1") ~ "First",
+        str_detect(name, "2") ~ "Second",
+        str_detect(name, "3") ~ "Third"
+      ))
+
+    # Get % not getting 1st 2nd or 3rd preference
+    preference_data_sum <- preference_data %>%
+      group_by(LA_name, LANumber, Phase) %>%
+      summarise(value = 100 - sum(value)) %>%
+      mutate(rating = "Other")
+
+
+    preference_data <- preference_data %>%
+      select(-name) %>%
+      bind_rows(preference_data_sum) %>%
+      # sort levels out so plots in correct order
+      mutate(
+        rating = factor(rating, levels = c("First", "Second", "Third", "Other")),
+        # Neaten up percs
+        value = as.numeric(roundFiveUp(value, 1)),
+        value_label = if_else(value > 3, paste0(value, "%"), NA_character_)
+      )
+
+
+
+ preference_p <- preference_data %>%
+      ggplot(aes(
+        y = value, x = "",
+        fill = factor(rating),
+        text = paste(rating, ": ", value, "%")
+      )) +
+      geom_bar(stat = "identity", position = position_fill(reverse = TRUE)) +
+      coord_flip() +
+      facet_wrap(~LA_name, nrow = 2) +
+      geom_text(aes(label = value_label), colour = "#ffffff", size = 4, position = position_fill(reverse = TRUE, vjust = 0.5)) +
+      labs(x = "", y = "") +
+      guides(fill = guide_legend(title = "")) +
+      scale_fill_manual(values = dfe_colours) +
+      theme_minimal() +
+      theme(
+        legend.position = "bottom",
+        text = element_text(size = 14, family = "Arial")
+      )
+
+
+
+    ggplotly(preference_p
+         ) %>%
+      layout(
+        uniformtext = list(minsize = 12, mode = "hide"),
+        xaxis = list(showticklabels = FALSE),
+        legend = list(
+          orientation = "h",
+          y = -0.1, x = 0.33
+                 ),
+        title = list(
+          font = list(color = "#ffffff")
+        )
+      ) %>%
+      config(displayModeBar = FALSE)
+  
+```
+
+
+Quality of places created between 2017-18 and 2018-19, based on `r params$input_quality_chart`:
+
+```{r quality Ofsted, echo = FALSE}
+
+
+  live_scorecard_data_england_comp <- scorecards_data_pivot %>%
+      filter(
+        LA_name %in% c(params$input_la_choice, "England"),
+        Phase == params$input_phase_choice
+      ) %>%
+      mutate(
+        LA_name = as.factor(LA_name),
+        # This step just makes sure that the LA is FIRST when it comes to plots/tables
+        LA_name = relevel(LA_name, "England"),
+        LA_name = factor(LA_name, levels = rev(levels(LA_name)))
+      )
+
+ ofsted_data <- live_scorecard_data_england_comp %>%
+      # select only the ofsted values
+      filter(name %in% c(
+        "Qual1_N", "Qual2_N", "Qual3_N", "Qual4_N", "Qual0_N",
+        "Qual1_E", "Qual2_E", "Qual3_E", "Qual4_E", "Qual0_E"
+      )) %>%
+      # Create groups for "new" and "existing" places based on names
+      mutate(place_type = case_when(
+        str_detect(name, "N") ~ "New",
+        str_detect(name, "E") ~ "Existing"
+      )) %>%
+      # Create Ofsted ratings out of the names
+      mutate(rating = case_when(
+        str_detect(name, "1") ~ "Oustanding",
+        str_detect(name, "2") ~ "Good",
+        str_detect(name, "3") ~ "Requires Improvement",
+        str_detect(name, "4") ~ "Inadequate",
+        str_detect(name, "0") ~ "No rating"
+      )) %>%
+      # Create new variable called places, replace 0s with NAs so it plots neatly
+      mutate(
+        places = if_else(value == 0, NA_integer_, as.integer(roundFiveUp(value, 0)))
+      ) %>%
+      # Give NA for label if it's too small
+      group_by(LA_name, place_type) %>%
+      mutate(
+        places_perc = places / sum(places, na.rm = TRUE),
+        value_label = if_else(places_perc > 0.05, places, NA_integer_)
+      )
+
+    ofsted_p <- ofsted_data %>%
+      filter(rating != "No rating") %>%
+      ggplot(aes(
+        y = value, x = place_type,
+        fill = factor(rating, levels = c("Oustanding", "Good", "Requires Improvement", "Inadequate")),
+        text = paste(rating, ": ", places, " places")
+      )) +
+      geom_bar(stat = "identity", position = position_fill(reverse = TRUE)) +
+      coord_flip() +
+      facet_wrap(~LA_name, nrow = 2) +
+      geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
+      labs(x = "", y = "") +
+      guides(fill = guide_legend(title = "")) +
+      scale_fill_manual(values = dfe_colours) +
+      theme_minimal() +
+      theme(
+        legend.position = "bottom",
+        text = element_text(size = 14, family = "Arial")
+      )
+
+    if (params$input_la_choice == "England" & params$input_quality_chart == "Ofsted") {
+      ofsted_no_rating <- ofsted_data %>%
+        filter(rating == "No rating" & place_type == "New") %>%
+        pull(places)
+    } else if (params$input_quality_chart == "Ofsted") {
+      ofsted_no_rating <- ofsted_data %>%
+        filter(LA_name != "England" & rating == "No rating" & place_type == "New") %>%
+        pull(places)
+    }
+
+    
+    # Bar chart comparison - Progress 8
+
+    # reshape the data so it plots neatly!
+    progress_8_data <- live_scorecard_data_england_comp %>%
+      # select only the progress 8 values
+      filter(name %in% c(
+        "KS4_WAA_N", "KS4_AA_N", "KS4_A_N", "KS4_BA_N", "KS4_WBA_N", "KS4_NR_N",
+        "KS4_WAA_E", "KS4_AA_E", "KS4_A_E", "KS4_BA_E", "KS4_WBA_E", "KS4_NR_E"
+      )) %>%
+      # Create groups for "new" and "existing" places based on names
+      mutate(place_type = case_when(
+        str_detect(name, "N$") ~ "New",
+        str_detect(name, "E$") ~ "Existing"
+      )) %>%
+      # Create Ofsted ratings out of the names
+      mutate(rating = case_when(
+        str_detect(name, "_WAA_") ~ "Well above average",
+        str_detect(name, "_AA_") ~ "Above average",
+        str_detect(name, "_A_") ~ "Average",
+        str_detect(name, "_BA_") ~ "Below average",
+        str_detect(name, "_WBA_") ~ "Well below average",
+        str_detect(name, "NR") ~ "No rating"
+      )) %>%
+      mutate(rating = factor(rating, levels = c("Well above average", "Above average", "Average", "Below average", "Well below average", "No rating"))) %>%
+      # Create new variable called places, replace 0s with NAs so it plots neatly
+      mutate(places = if_else(value == 0, NA_integer_, as.integer(roundFiveUp(value, 0)))) %>%
+      # Give NA for label if it's too small
+      group_by(LA_name, place_type) %>%
+      mutate(
+        places_perc = places / sum(places, na.rm = TRUE),
+        value_label = if_else(places_perc > 0.05, places, NA_integer_)
+      )
+
+
+
+    progress_8_p <- progress_8_data %>%
+      filter(rating != "No rating") %>%
+      ggplot(aes(
+        y = value, x = place_type,
+        text = paste(rating, ": ", places, " places"),
+        group = rating,
+        fill = rating
+      )) +
+      geom_bar(stat = "identity", position = position_fill(reverse = TRUE)) +
+      coord_flip() +
+      facet_wrap(~LA_name, nrow = 2) +
+      geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
+      labs(x = "", y = "") +
+      guides(fill = guide_legend(title = "")) +
+      scale_fill_manual(values = dfe_colours) +
+      theme_minimal() +
+      theme(
+        legend.position = "bottom",
+        text = element_text(size = 14, family = "Arial")
+      )
+
+    if (params$input_la_choice == "England" & params$input_quality_chart == "Progress 8") {
+      progress_8_no_rating <- progress_8_data %>%
+        filter(rating == "No rating" & place_type == "New") %>%
+        pull(places)
+    } else if (params$input_quality_chart == "Progress 8") {
+      progress_8_no_rating <- progress_8_data %>%
+        filter(LA_name != "England" & rating == "No rating" & place_type == "New") %>%
+        pull(places)
+    }
+ 
+        # Bar chart comparison - Progress Reading
+
+    # reshape the data so it plots neatly!
+    progress_reading_data <- live_scorecard_data_england_comp %>%
+      # select only the reading values
+      filter(name %in% c(
+        "KS2Read_WAA_N", "KS2Read_AA_N", "KS2Read_A_N", "KS2Read_BA_N", "KS2Read_WBA_N", "KS2Read_NR_N",
+        "KS2Read_WAA_E", "KS2Read_AA_E", "KS2Read_A_E", "KS2Read_BA_E", "KS2Read_WBA_E", "KS2Read_NR_E"
+      )) %>%
+      # Create groups for "new" and "existing" places based on names
+      mutate(place_type = case_when(
+        str_detect(name, "N$") ~ "New",
+        str_detect(name, "E$") ~ "Existing"
+      )) %>%
+      # Create Ofsted ratings out of the names
+      mutate(rating = case_when(
+        str_detect(name, "_WAA_") ~ "Well above average",
+        str_detect(name, "_AA_") ~ "Above average",
+        str_detect(name, "_A_") ~ "Average",
+        str_detect(name, "_BA_") ~ "Below average",
+        str_detect(name, "_WBA_") ~ "Well below average",
+        str_detect(name, "_NR_") ~ "No rating"
+      )) %>%
+      mutate(rating = factor(rating, levels = c("Well above average", "Above average", "Average", "Below average", "Well below average", "No rating"))) %>%
+      # Create new variable called places, replace 0s with NAs so it plots neatly
+      mutate(places = if_else(value == 0, NA_integer_, as.integer(roundFiveUp(value, 0)))) %>%
+      # Give NA for label if it's too small
+      group_by(LA_name, place_type) %>%
+      mutate(
+        places_perc = places / sum(places, na.rm = TRUE),
+        value_label = if_else(places_perc > 0.05, places, NA_integer_)
+      )
+
+
+    progress_reading_p <- progress_reading_data %>%
+      filter(rating != "No rating") %>%
+      ggplot(aes(
+        y = value, x = place_type,
+        text = paste(rating, ": ", places, " places"),
+        group = rating,
+        fill = rating
+      )) +
+      geom_bar(stat = "identity", position = position_fill(reverse = TRUE)) +
+      coord_flip() +
+      facet_wrap(~LA_name, nrow = 2) +
+      geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
+      labs(x = "", y = "") +
+      guides(fill = guide_legend(title = "")) +
+      scale_fill_manual(values = dfe_colours) +
+      theme_minimal() +
+      theme(
+        legend.position = "bottom",
+        text = element_text(size = 14, family = "Arial")
+      )
+
+
+    if (params$input_la_choice == "England" & params$input_quality_chart == "Reading Progress") {
+      progress_reading_no_rating <- progress_reading_data %>%
+        filter(rating == "No rating" & place_type == "New") %>%
+        pull(places)
+    } else if (params$input_quality_chart == "Reading Progress") {
+      progress_reading_no_rating <- progress_reading_data %>%
+        filter(LA_name != "England" & rating == "No rating" & place_type == "New") %>%
+        pull(places)
+    }
+
+    # Bar chart comparison - Progress Maths
+
+    # reshape the data so it plots neatly!
+    progress_maths_data <- live_scorecard_data_england_comp %>%
+      # select only the maths values
+      filter(name %in% c(
+        "KS2Mat_WAA_N", "KS2Mat_AA_N", "KS2Mat_A_N", "KS2Mat_BA_N", "KS2Mat_WBA_N", "KS2Mat_NR_N",
+        "KS2Mat_WAA_E", "KS2Mat_AA_E", "KS2Mat_A_E", "KS2Mat_BA_E", "KS2Mat_WBA_E", "KS2Mat_NR_E"
+      )) %>%
+      # Create groups for "new" and "existing" places based on names
+      mutate(place_type = case_when(
+        str_detect(name, "N$") ~ "New",
+        str_detect(name, "E$") ~ "Existing"
+      )) %>%
+      # Create Ofsted ratings out of the names
+      mutate(rating = case_when(
+        str_detect(name, "_WAA_") ~ "Well above average",
+        str_detect(name, "_AA_") ~ "Above average",
+        str_detect(name, "_A_") ~ "Average",
+        str_detect(name, "_BA_") ~ "Below average",
+        str_detect(name, "_WBA_") ~ "Well below average",
+        str_detect(name, "NR") ~ "No rating"
+      )) %>%
+      mutate(rating = factor(rating, levels = c("Well above average", "Above average", "Average", "Below average", "Well below average", "No rating"))) %>%
+      # Create new variable called places, replace 0s with NAs so it plots neatly
+      mutate(places = if_else(value == 0, NA_integer_, as.integer(roundFiveUp(value, 0)))) %>%
+      # Give NA for label if it's too small
+      group_by(LA_name, place_type) %>%
+      mutate(
+        places_perc = places / sum(places, na.rm = TRUE),
+        value_label = if_else(places_perc > 0.05, places, NA_integer_)
+      )
+
+
+    progress_maths_p <- progress_maths_data %>%
+      filter(rating != "No rating") %>%
+      ggplot(aes(
+        y = value, x = place_type,
+        text = paste(rating, ": ", places, " places"),
+        group = rating,
+        fill = rating
+      )) +
+      geom_bar(stat = "identity", position = position_fill(reverse = TRUE)) +
+      coord_flip() +
+      facet_wrap(~LA_name, nrow = 2) +
+      geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
+      labs(x = "", y = "") +
+      guides(fill = guide_legend(title = "")) +
+      scale_fill_manual(values = dfe_colours) +
+      theme_minimal() +
+      theme(
+        legend.position = "bottom",
+        text = element_text(size = 14, family = "Arial")
+      )
+
+    if (params$input_la_choice == "England" & params$input_quality_chart == "Maths Progress") {
+      progress_maths_no_rating <- progress_maths_data %>%
+        filter(rating == "No rating" & place_type == "New") %>%
+        pull(places)
+    } else if (params$input_quality_chart == "Maths Progress") {
+      progress_maths_no_rating <- progress_maths_data %>%
+        filter(LA_name != "England" & rating == "No rating" & place_type == "New") %>%
+        pull(places)
+    }
+    
+  
+    
+    # Pick chart to plot based on user input
+    if (params$input_quality_chart == "Ofsted") {
+      quality_chart_choice <- ofsted_p
+      no_rating <- ofsted_no_rating
+    } else if (params$input_quality_chart == "Reading Progress") {
+      quality_chart_choice <- progress_reading_p
+      no_rating <- progress_reading_no_rating
+    } else if (params$input_quality_chart == "Maths Progress") {
+      quality_chart_choice <- progress_maths_p
+      no_rating <- progress_maths_no_rating
+    } else if (params$input_quality_chart == "Progress 8") {
+      quality_chart_choice <- progress_8_p
+      no_rating <- progress_8_no_rating
+    }
+    
+
+    ggplotly(quality_chart_choice
+         ) %>%
+      layout(
+        xaxis = list(showticklabels = FALSE),
+        legend = list(
+          orientation = "h",
+          y = -0.1, x = 0.2
+                ),
+        title = list(
+          text = "Chart showing the quality of new and existing school places and estimated additional places, by Local Authority compared to England",
+          font = list(color = "#ffffff")
+        )
+      ) %>%
+      config(displayModeBar = FALSE)
+    
+```
+
+New places with no rating =  `r scales::comma(no_rating)` 
+
+
+
+
+
+```{r test_data, include=TRUE}
+    total_funding <- scorecards_data %>%
+      filter(LA_name == params$input_la_choice) %>%
+      select(Funding) %>%
+      mutate(
+        Funding =
+          ifelse(params$input_la_choice == "England", roundFiveUp(Funding / 1000000000, 2),
+            roundFiveUp(Funding / 1000000, 0)
+          )
+      ) %>%
+      as.numeric()
+
+    if (params$input_la_choice == "England") {
+      shinydashboard::valueBox(
+        paste0("£", total_funding, " billion"),
+        paste0("Total primary and secondary basic need funding ", funding_year),
+        color = "purple"
+      )
+    } else {
+      shinydashboard::valueBox(
+        paste0("£", total_funding, " million"),
+        paste0("Total primary and secondary basic need funding ", funding_year),
+        color = "purple"
+      )
+    }
+```
+
+
