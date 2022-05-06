@@ -1,7 +1,7 @@
 ---
 title: "School Places Scorecard"
 params: 
-    input_la_choice: England
+    input_la_choice: Barnet
     input_phase_choice: Primary
     input_quality_chart: 'Maths Progress'
 subtitle: "Data for `r params$input_phase_choice` Schools in `r params$input_la_choice`" 
@@ -18,10 +18,77 @@ source("global.R")
 library(webshot)
 ```
 
+
+```{r basic need funding, echo = FALSE}
+
+    total_funding <- scorecards_data %>%
+      filter(LA_name == params$input_la_choice) %>%
+      select(Funding) %>%
+      mutate(
+        Funding =
+          ifelse(params$input_la_choice == "England", roundFiveUp(Funding / 1000000000, 2),
+            roundFiveUp(Funding / 1000000, 0)
+          )
+      ) %>%
+      as.numeric()
+
+    # Create the actual output here. Use if statement so we display "bn" if it's England, "m" if not.
+    if (params$input_la_choice== "England") {
+       paste0("Total primary and secondary basic need funding ", funding_year, ": £", total_funding, " billion")
+             } else {
+         paste0("Total primary and secondary basic need funding", funding_year, ": £", total_funding, " million")
+          }
+  
+
+```
+
+```{r growth pupil numbers, echo = FALSE}
+
+  live_scorecard_data <- scorecards_data_pivot %>% filter(
+      LA_name == params$input_la_choice,
+      Phase == params$input_phase_choice
+    )
+  
+    growth_perc <- live_scorecard_data %>%
+      filter(name == "Bangro") %>%
+      pull(value) %>%
+      roundFiveUp(., 2) * 100
+
+    # Put value into box to plug into app
+   paste0("Growth in ", str_to_lower(params$input_phase_choice), " pupil numbers 2009/10 to ", plan_year, ": ", growth_perc, "%")
+  
+```
+
+
 Places created since 2009-10, places planned to 2021-22 and estimated place pressure in 2021-22
 
 ```{r quality, echo = FALSE}
-    live_scorecard_data <- scorecards_data_pivot %>% filter(
+   
+  ## Estimated places need
+
+    # Take filtered data, search for growth rate, pull the value and tidy the number up
+    additional_places_perc <- live_scorecard_data %>%
+      filter(name == "QuanRP") %>%
+      pull(value)
+
+    # Put value into box to plug into app
+           paste0("Estimated additional ", str_to_lower(params$input_phase_choice), " places to meet demand in ", plan_year, ": ", scales::comma(additional_places_perc))
+     
+  
+
+  ## Estimated spare places
+
+    # Take filtered data, search for growth rate, pull the value and tidy the number up
+    spare_places_per <- live_scorecard_data %>%
+      filter(name == "QuanSu") %>%
+      pull(value) %>%
+      roundFiveUp(., 2) * 100
+
+    # Put value into box to plug into app
+            paste0("Estimated percentage of spare ", str_to_lower(params$input_phase_choice), " places in ", plan_year, ": ", spare_places_per, "%")
+
+
+ live_scorecard_data <- scorecards_data_pivot %>% filter(
       LA_name == params$input_la_choice,
       Phase == params$input_phase_choice)
 
@@ -58,6 +125,18 @@ quality_places <- plot_ly(
 Proportion of applicants who received an offer of one of their top three preference schools for September 2019 entry
 
 ```{r preference, echo = FALSE, message=FALSE}
+
+    # Take filtered data, search for growth rate, pull the value and tidy the number up
+    PrefT3 <- live_scorecard_data %>%
+      filter(name == "PrefT3") %>%
+      pull(value) %>%
+      roundFiveUp(., 2)
+
+    # Put value into box to plug into app
+            paste0("Percentage of applicants who recieved an offer of one of their top three preferred ")
+           paste0(str_to_lower(params$input_phase_choice), " schools in ", (params$input_la_choice),": ",PrefT3, "%")
+ 
+
 
   live_scorecard_data_england_comp <- scorecards_data_pivot %>%
       filter(
