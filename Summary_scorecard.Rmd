@@ -1,7 +1,7 @@
 ---
 title: "School Places Scorecard"
 params: 
-    input_la_choice: Barnet
+    input_la_choice: England
     input_phase_choice: Primary
     input_quality_chart: 'Maths Progress'
 subtitle: "Data for `r params$input_phase_choice` Schools in `r params$input_la_choice`" 
@@ -21,6 +21,7 @@ library(webshot)
 
 ```{r basic need funding, echo = FALSE}
 
+# Take data, get total funding and divide by billion if it's England, million if it's not
     total_funding <- scorecards_data %>%
       filter(LA_name == params$input_la_choice) %>%
       select(Funding) %>%
@@ -44,6 +45,7 @@ library(webshot)
 
 ```{r growth pupil numbers, echo = FALSE}
 
+# Take filtered data, search for growth rate, pull the value and tidy the number up
   live_scorecard_data <- scorecards_data_pivot %>% filter(
       LA_name == params$input_la_choice,
       Phase == params$input_phase_choice
@@ -54,7 +56,7 @@ library(webshot)
       pull(value) %>%
       roundFiveUp(., 2) * 100
 
-    # Put value into box to plug into app
+    # PDisplay growth in pupil numbers
    paste0("Growth in ", str_to_lower(params$input_phase_choice), " pupil numbers 2009/10 to ", plan_year, ": ", growth_perc, "%")
   
 ```
@@ -62,7 +64,7 @@ library(webshot)
 
 Places created since 2009-10, places planned to 2021-22 and estimated place pressure in 2021-22
 
-```{r quality, echo = FALSE}
+```{r quantity, echo = FALSE, fig.show="hold", out.width = "80%", out.height = "100%"}
    
   ## Estimated places need
 
@@ -71,7 +73,7 @@ Places created since 2009-10, places planned to 2021-22 and estimated place pres
       filter(name == "QuanRP") %>%
       pull(value)
 
-    # Put value into box to plug into app
+    # Display value
            paste0("Estimated additional ", str_to_lower(params$input_phase_choice), " places to meet demand in ", plan_year, ": ", scales::comma(additional_places_perc))
      
   
@@ -84,7 +86,7 @@ Places created since 2009-10, places planned to 2021-22 and estimated place pres
       pull(value) %>%
       roundFiveUp(., 2) * 100
 
-    # Put value into box to plug into app
+    # Display value
             paste0("Estimated percentage of spare ", str_to_lower(params$input_phase_choice), " places in ", plan_year, ": ", spare_places_per, "%")
 
 
@@ -124,20 +126,38 @@ quality_places <- plot_ly(
 
 Proportion of applicants who received an offer of one of their top three preference schools for September 2019 entry
 
-```{r preference, echo = FALSE, message=FALSE}
+```{r preference, echo = FALSE, message=FALSE, fig.width = 8, fig.height = 6}
+
+live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$input_phase_choice)
+
 
     # Take filtered data, search for growth rate, pull the value and tidy the number up
+    PrefT3_E <- live_scorecard_data_all_la %>%
+      filter(name == "PrefT3") %>%
+      filter(LA_name == "England") %>%
+      pull(value) %>%
+      roundFiveUp(., 2)
+
+    # Display value (% offer in top 3 preference) for England
+             paste0("Percentage of applicants who recieved an offer of one of their top three preferred ") 
+             paste0(str_to_lower(params$input_phase_choice), " schools in England: ", PrefT3_E, "%")
+    
+    
+      # Take filtered data, search for growth rate, pull the value and tidy the number up
     PrefT3 <- live_scorecard_data %>%
       filter(name == "PrefT3") %>%
       pull(value) %>%
       roundFiveUp(., 2)
 
-    # Put value into box to plug into app
-            paste0("Percentage of applicants who recieved an offer of one of their top three preferred ")
-           paste0(str_to_lower(params$input_phase_choice), " schools in ", (params$input_la_choice),": ",PrefT3, "%")
+    # Display value (% offer in top 3 preference) for LA
+    if (params$input_la_choice != "England") {
+            paste0("Percentage of applicants who recieved an offer of one of their top three preferred ")}
+    
+       if (params$input_la_choice != "England") {
+           paste0(str_to_lower(params$input_phase_choice), " schools in ", (params$input_la_choice),": ",PrefT3, "%")}
  
 
-
+# Scorecard data, filtered on user input AND including England as a comparison
   live_scorecard_data_england_comp <- scorecards_data_pivot %>%
       filter(
         LA_name %in% c(params$input_la_choice, "England"),
@@ -150,7 +170,7 @@ Proportion of applicants who received an offer of one of their top three prefere
         LA_name = factor(LA_name, levels = rev(levels(LA_name)))
       )
   
-   
+    # reshape the data so it plots neatly!
     preference_data <- live_scorecard_data_england_comp %>%
       # select only preference values
       filter(name %in% c("Pref1", "Pref2", "Pref3")) %>%
@@ -180,7 +200,7 @@ Proportion of applicants who received an offer of one of their top three prefere
       )
 
 
-
+# create charts
  preference_p <- preference_data %>%
       ggplot(aes(
         y = value, x = "",
@@ -222,9 +242,175 @@ Proportion of applicants who received an offer of one of their top three prefere
 
 Quality of places created between 2017-18 and 2018-19, based on `r params$input_quality_chart`:
 
-```{r quality Ofsted, echo = FALSE}
+```{r quality, echo = FALSE}
 
 
+  # Change name of what "better than average" is depending on chart choice:
+  school_description <- 
+    if (params$input_quality_chart == "Ofsted") {
+      "good and outstanding "
+    } else {
+      "well above and above average "
+    }
+
+
+  # Calculate LA % depending on chart choice:
+  LA_comp <- 
+    if (params$input_quality_chart == "Ofsted") {
+      live_scorecard_data %>%
+        filter(name == "QualProp") %>%
+        pull(value) %>%
+        roundFiveUp(., 2) * 100
+    } else if (params$input_quality_chart == "Progress 8") {
+      live_scorecard_data %>%
+        filter(name == "Qual_KS4_Prop") %>%
+        pull(value) %>%
+        roundFiveUp(., 2) * 100
+    } else if (params$input_quality_chart == "Reading Progress") {
+      live_scorecard_data %>%
+        filter(name == "Qual_KS2Read_Prop") %>%
+        pull(value) %>%
+        roundFiveUp(., 2) * 100
+    } else if (params$input_quality_chart== "Maths Progress") {
+      live_scorecard_data %>%
+        filter(name == "Qual_KS2Mat_Prop") %>%
+        pull(value) %>%
+        roundFiveUp(., 2) * 100
+    }
+  
+# Display % for LAs
+         if (params$input_la_choice != "England") { paste0("Percentage of new places created in ", school_description, str_to_lower(params$input_phase_choice), " schools in ", params$input_la_choice, ": ", LA_comp, "%") }
+
+        
+           # Scorecard data for ALL LAs, filtered only on phase choice
+live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$input_phase_choice)
+ 
+        
+  # Calculate England comparator depending on chart choice:
+  england_comp <- 
+    if (params$input_quality_chart == "Ofsted") {
+      numerator <- live_scorecard_data_all_la %>%
+        filter(LA_name == "England" &
+          name %in% c("Qual1_N", "Qual2_N")) %>%
+        summarise(sum(value)) %>%
+        as.numeric()
+
+      denominator <- live_scorecard_data_all_la %>%
+        filter(LA_name == "England" &
+          name %in% c("Qual1_N", "Qual2_N", "Qual3_N", "Qual4_N")) %>%
+        summarise(sum(value)) %>%
+        as.numeric()
+
+      # calculate percentage
+      roundFiveUp(numerator / denominator * 100, 1)
+    } else if (params$input_quality_chart == "Progress 8") {
+      numerator <- live_scorecard_data_all_la %>%
+        filter(LA_name == "England" &
+          name %in% c("KS4_WAA_N", "KS4_AA_N")) %>%
+        summarise(sum(value)) %>%
+        as.numeric()
+
+      denominator <- live_scorecard_data_all_la %>%
+        filter(LA_name == "England" &
+          name %in% c("KS4_WAA_N", "KS4_AA_N", "KS4_A_N", "KS4_BA_N", "KS4_WBA_N")) %>%
+        summarise(sum(value)) %>%
+        as.numeric()
+
+      # calculate percentage
+      roundFiveUp(numerator / denominator * 100, 1)
+    } else if (params$input_quality_chart == "Reading Progress") {
+      numerator <- live_scorecard_data_all_la %>%
+        filter(LA_name == "England" &
+          name %in% c("KS2Read_WAA_N", "KS2Read_AA_N")) %>%
+        summarise(sum(value)) %>%
+        as.numeric()
+
+      denominator <- live_scorecard_data_all_la %>%
+        filter(LA_name == "England" &
+          name %in% c("KS2Read_WAA_N", "KS2Read_AA_N", "KS2Read_A_N", "KS2Read_BA_N", "KS2Read_WBA_N")) %>%
+        summarise(sum(value)) %>%
+        as.numeric()
+
+      # calculate percentage
+      roundFiveUp(numerator / denominator * 100, 1)
+    } else if (params$input_quality_chart == "Maths Progress") {
+      numerator <- live_scorecard_data_all_la %>%
+        filter(LA_name == "England" &
+          name %in% c("KS2Mat_WAA_N", "KS2Mat_AA_N")) %>%
+        summarise(sum(value)) %>%
+        as.numeric()
+
+      denominator <- live_scorecard_data_all_la %>%
+        filter(LA_name == "England" &
+          name %in% c("KS2Mat_WAA_N", "KS2Mat_AA_N", "KS2Mat_A_N", "KS2Mat_BA_N", "KS2Mat_WBA_N")) %>%
+        summarise(sum(value)) %>%
+        as.numeric()
+
+      # calculate percentage
+      roundFiveUp(numerator / denominator * 100, 1)
+    }
+  
+
+
+
+  # display % of new places in top schools - England
+
+           paste0("Percentage of new places in ", school_description, str_to_lower(params$input_phase_choice), " schools in England", ": ", england_comp, "%") 
+
+
+            # Calculate % ranking depending on chart choice:
+  LA_ranking <- 
+    if (params$input_quality_chart == "Ofsted") {
+      live_scorecard_data %>%
+        filter(name == "QualPropranks") %>%
+        pull(value)
+    } else if (params$input_quality_chart == "Progress 8") {
+      live_scorecard_data %>%
+        filter(name == "Qual_KS4_Propranks") %>%
+        pull(value)
+    } else if (params$input_quality_chart == "Reading Progress") {
+      live_scorecard_data %>%
+        filter(name == "Qual_KS2Read_Propranks") %>%
+        pull(value)
+    } else if (params$input_quality_chart == "Maths Progress") {
+      live_scorecard_data %>%
+        filter(name == "Qual_KS2Mat_Propranks") %>%
+        pull(value)
+    }
+ 
+
+
+
+  # Calculate ranking denominator depending on chart choice:
+  LA_denom <- 
+    if (params$input_quality_chart == "Ofsted") {
+      live_scorecard_data_all_la %>%
+        filter(name == "QualPropranks" & !is.na(value)) %>%
+        nrow()
+    } else if (params$input_quality_chart == "Progress 8") {
+      live_scorecard_data_all_la %>%
+        filter(name == "Qual_KS4_Propranks" & !is.na(value)) %>%
+        nrow()
+    } else if (params$input_quality_chart == "Reading Progress") {
+      live_scorecard_data_all_la %>%
+        filter(name == "Qual_KS2Read_Propranks" & !is.na(value)) %>%
+        nrow()
+    } else if (params$input_quality_chart == "Maths Progress") {
+      live_scorecard_data_all_la %>%
+        filter(name == "Qual_KS2Mat_Propranks" & !is.na(value)) %>%
+        nrow()
+    }
+  
+
+
+    # Display value (% of new places in top schools - LA Ranking)
+        if (params$input_la_choice != "England") { paste0("LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, " and ", this_year, " (ranks can be tied):")}
+         if (params$input_la_choice != "England") { paste0(LA_ranking) }
+
+           
+           
+
+# Scorecard data, filtered on user input AND including England as a comparison
   live_scorecard_data_england_comp <- scorecards_data_pivot %>%
       filter(
         LA_name %in% c(params$input_la_choice, "England"),
@@ -236,7 +422,10 @@ Quality of places created between 2017-18 and 2018-19, based on `r params$input_
         LA_name = relevel(LA_name, "England"),
         LA_name = factor(LA_name, levels = rev(levels(LA_name)))
       )
+  
+ # Bar chart comparison - Ofsted
 
+    # reshape the data so it plots neatly!
  ofsted_data <- live_scorecard_data_england_comp %>%
       # select only the ofsted values
       filter(name %in% c(
@@ -533,34 +722,5 @@ Quality of places created between 2017-18 and 2018-19, based on `r params$input_
 New places with no rating =  `r scales::comma(no_rating)` 
 
 
-
-
-
-```{r test_data, include=TRUE}
-    total_funding <- scorecards_data %>%
-      filter(LA_name == params$input_la_choice) %>%
-      select(Funding) %>%
-      mutate(
-        Funding =
-          ifelse(params$input_la_choice == "England", roundFiveUp(Funding / 1000000000, 2),
-            roundFiveUp(Funding / 1000000, 0)
-          )
-      ) %>%
-      as.numeric()
-
-    if (params$input_la_choice == "England") {
-      shinydashboard::valueBox(
-        paste0("£", total_funding, " billion"),
-        paste0("Total primary and secondary basic need funding ", funding_year),
-        color = "purple"
-      )
-    } else {
-      shinydashboard::valueBox(
-        paste0("£", total_funding, " million"),
-        paste0("Total primary and secondary basic need funding ", funding_year),
-        color = "purple"
-      )
-    }
-```
 
 
