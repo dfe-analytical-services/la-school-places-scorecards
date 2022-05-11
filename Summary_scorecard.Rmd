@@ -3,7 +3,7 @@ title: "School Places Scorecard"
 params: 
     input_la_choice: England
     input_phase_choice: Primary
-    input_quality_chart: 'Maths Progress'
+    input_quality_chart: 'Ofsted'
 subtitle: "Data for `r params$input_phase_choice` Schools in `r params$input_la_choice`" 
 output:
   pdf_document
@@ -126,7 +126,7 @@ quality_places <- plot_ly(
 
 Proportion of applicants who received an offer of one of their top three preference schools for September 2019 entry
 
-```{r preference, echo = FALSE, message=FALSE, fig.width = 8, fig.height = 6}
+```{r preference, echo = FALSE, message=FALSE, fig.width = 6, fig.height = 6}
 
 live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$input_phase_choice)
 
