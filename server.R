@@ -68,6 +68,13 @@ function(input, output, session) {
     paste0("Data for ", str_to_lower(input$phase_choice), " schools in ", input$LA_choice, ": ")
   })
 
+  
+  ## create guidance on picking a metric
+  output$metric_description <- renderText({
+    paste0("Choose a school places metric")
+  })
+  
+  
   ## Total funding
 
   output$total_funding_box <- renderValueBox({
@@ -234,7 +241,7 @@ function(input, output, session) {
     label <- case_when(
       forecast_accuracy > 0 ~ "overestimate",
       forecast_accuracy < 0 ~ "underestimate",
-      TRUE ~ "Accurate"
+      TRUE ~ "over/under estimate: Accurate"
     )
 
     if (label != "accurate") {
@@ -676,7 +683,7 @@ function(input, output, session) {
       tooltip = c("text")
     ) %>%
       layout(
-        xaxis = list(showticklabels = FALSE),
+        scale_y_continuous(labels = scales::percent_format(accuracy=1)),
         legend = list(
           orientation = "h",
           y = -0.1, x = 0.2,

@@ -55,19 +55,20 @@ function(request) {
             valueBoxOutput("total_funding_box", width = 6),
             valueBoxOutput("pupil_growth", width = 6)
           ),
-          br(),
+         h3(textOutput("metric_description")),
           tabBox(
             title = "",
             id = "tabs", width = "12",
             tabPanel(
               "Quantity",
-              p(strong(paste0("Places created since 2009-10, places planned to ", plan_year, " and estimated place pressure in ", plan_year))),
+              p(strong(paste0("Estimated future school place demand"))),
               p("A local authority can have both ‘spare places’ and ‘additional places needed’ due to localised or specific year group demand"),
               valueBoxOutput("estimated_additional_places", width = 6),
               valueBoxOutput("estimated_spare_places", width = 6),
               fluidRow(
                 column(
                   6,
+                  p(strong("School places created and planned, additional places still needed")),
                   plotlyOutput("places_chart") %>% withSpinner()
                 ),
                 column(
@@ -84,13 +85,14 @@ function(request) {
             ),
             tabPanel(
               "Preference",
-              p(strong(paste0("Proportion of applicants who received an offer of one of their top three preference schools for September ", preference_year, " entry"))),
+              p(strong(paste0("School applications and offers for September ", preference_year, " entry"))),
               # preference content to go here
               valueBoxOutput("prefT3_ENG", width = 6),
               valueBoxOutput("PrefT3_LA", width = 6),
               fluidRow(
                 column(
                   12,
+                  p(strong(paste0("Proportion of applicants who received an offer of a school place in their first, second and third preferences"))),
                   plotlyOutput("preference_p") %>% withSpinner()
                 )
               )
