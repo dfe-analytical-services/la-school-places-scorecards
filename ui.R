@@ -115,11 +115,12 @@ function(request) {
             ),
             tabPanel(
               "Cost",
-              p(strong(paste0("Average cost of additional mainstream school place"  ))),
+              p(strong("Average cost of additional mainstream school places")),
               p("Based on local authority reported projects between ", last_year_1, " and ", last_year, ", adjusted for inflation and regional variation", "(not new data: see technical notes)"),
               valueBoxOutput("perm_box", width = 4),
               valueBoxOutput("temp_box", width = 4),
               valueBoxOutput("new_box", width = 4),
+              p(strong("Average cost per place for permanent, temporary and new school projects")),
               fluidRow(
                 column(
                   8,

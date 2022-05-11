@@ -1055,8 +1055,10 @@ function(input, output, session) {
           text = paste(LA_name, ": £", scales::comma(cost_per_place), " per place")
         ),
         groupOnX = TRUE, na.rm = TRUE
-      ) +
-      geom_beeswarm(
+      ) + 
+      scale_y_continuous(labels=comma) +
+      labs(x="", y="Cost per place (£)") +
+            geom_beeswarm(
         data = all_LA_cost %>% filter(group_higlight == 1), aes(x, cost_per_place,
           color = grouping,
           text = paste(LA_name, ": £", scales::comma(cost_per_place), " per place")
@@ -1069,15 +1071,16 @@ function(input, output, session) {
         values = c("#f47738", "#1d70b8", "#f3f2f1")
       ) +
       theme(
-        axis.line = element_blank(),
+        axis.line.y = element_line(color="grey", size = 1),
+        axis.line.x = element_blank(),
         axis.text.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks = element_blank(),
+        axis.text.y = element_text(size=8),
+        axis.ticks.x = element_blank(),
         axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
+        axis.title.y = element_text(size=10),
         legend.title = element_blank(),
         panel.background = element_blank(),
-        panel.border = element_blank(),
+        panel.border = element_rect(color="grey",size = 1, fill=NA),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank(),
