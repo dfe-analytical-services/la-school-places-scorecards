@@ -44,16 +44,16 @@ function(input, output, session) {
 
   chart_options <- reactive({
     if (input$phase_choice == "Primary") {
-      c("Ofsted", "Reading Progress", "Maths Progress")
+      c("Ofsted Rating", "Reading Progress", "Maths Progress")
     } else {
-      c("Ofsted", "Progress 8")
+      c("Ofsted Rating", "Progress 8")
     }
   })
 
   observe({
     updateSelectInput(session, "chart_choice",
       choices = chart_options(),
-      selected = "Ofsted"
+      selected = "Ofsted Rating"
     )
   })
 
@@ -69,9 +69,10 @@ function(input, output, session) {
   })
 
   
-  ## create guidance on picking a metric
-  output$metric_description <- renderText({
-    paste0("Choose a school places metric")
+
+  ## create quality heading
+  output$quality_description <- renderText({
+    paste0("Quality of school places created between 2017-18 and 2018-19, based on ",input$chart_choice)
   })
   
   
@@ -488,7 +489,7 @@ function(input, output, session) {
 
   # Change name of what "better than average" is depending on chart choice:
   school_description <- reactive({
-    if (input$chart_choice == "Ofsted") {
+    if (input$chart_choice == "Ofsted Rating") {
       "good and outstanding "
     } else {
       "well above and above average "
@@ -497,7 +498,7 @@ function(input, output, session) {
 
   # Calculate LA % depending on chart choice:
   LA_comp <- reactive({
-    if (input$chart_choice == "Ofsted") {
+    if (input$chart_choice == "Ofsted Rating") {
       live_scorecard_data() %>%
         filter(name == "QualProp") %>%
         pull(value) %>%
@@ -536,7 +537,7 @@ function(input, output, session) {
 
   # Calculate England comparator depending on chart choice:
   england_comp <- reactive({
-    if (input$chart_choice == "Ofsted") {
+    if (input$chart_choice == "Ofsted Rating") {
       numerator <- live_scorecard_data_all_la() %>%
         filter(LA_name == "England" &
           name %in% c("Qual1_N", "Qual2_N")) %>%
@@ -607,7 +608,7 @@ function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(england_comp(), "%"),
-      paste0("Percentage of new places in ", school_description(), str_to_lower(input$phase_choice), " schools in England"),
+      paste0("Percentage of new places created in ", school_description(), str_to_lower(input$phase_choice), " schools in England"),
       # icon = icon("fas fa-equals"),
       color = "blue"
     )
@@ -616,7 +617,7 @@ function(input, output, session) {
 
   # Calculate % ranking depending on chart choice:
   LA_ranking <- reactive({
-    if (input$chart_choice == "Ofsted") {
+    if (input$chart_choice == "Ofsted Rating") {
       live_scorecard_data() %>%
         filter(name == "QualPropranks") %>%
         pull(value)
@@ -639,7 +640,7 @@ function(input, output, session) {
 
   # Calculate ranking denominator depending on chart choice:
   LA_denom <- reactive({
-    if (input$chart_choice == "Ofsted") {
+    if (input$chart_choice == "Ofsted Rating") {
       live_scorecard_data_all_la() %>%
         filter(name == "QualPropranks" & !is.na(value)) %>%
         nrow()
@@ -761,11 +762,11 @@ function(input, output, session) {
         text = element_text(size = 14, family = "Arial")
       )
 
-    if (input$LA_choice == "England" & input$chart_choice == "Ofsted") {
+    if (input$LA_choice == "England" & input$chart_choice == "Ofsted Rating") {
       ofsted_no_rating <- ofsted_data %>%
         filter(rating == "No rating" & place_type == "New") %>%
         pull(places)
-    } else if (input$chart_choice == "Ofsted") {
+    } else if (input$chart_choice == "Ofsted Rating") {
       ofsted_no_rating <- ofsted_data %>%
         filter(LA_name != "England" & rating == "No rating" & place_type == "New") %>%
         pull(places)
@@ -969,7 +970,7 @@ function(input, output, session) {
     }
 
     # Pick chart to plot based on user input
-    if (input$chart_choice == "Ofsted") {
+    if (input$chart_choice == "Ofsted Rating") {
       rv$quality_chart_choice <- ofsted_p
       rv$no_rating <- ofsted_no_rating
     } else if (input$chart_choice == "Reading Progress") {
