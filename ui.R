@@ -75,11 +75,10 @@ function(request) {
                   p(strong("Forecast accuracy of pupil projections (values closer to 0 are more accurate)")),
                   htmlOutput("label_estimate_y1"),
                   br(),
-#                  uiOutput("forecast_1y_proxy"),
                   plotOutput("forecast_1y_bar",height="96px"),
                   htmlOutput("label_estimate_y3"),
                   br(),
-                  uiOutput("forecast_3y_proxy")
+                  plotOutput("forecast_3y_bar",height="96px"),
                 )
               )
             ),

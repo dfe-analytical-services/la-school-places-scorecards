@@ -332,69 +332,56 @@ function(input, output, session) {
     
     mid_low_accuracy <- median(c(-1, lowest_accuracy))
     mid_high_accuracy <- median(c(1, highest_accuracy))
-    print(forecast_accuracy)
     ggplot(forecast_accuracy,aes(name,value,fill=value))+
       geom_bar(stat="identity",width=100) +
       scale_fill_gradient2(low='red', mid='darkgreen', high='red', space='Lab',limits = c(-abs(highest_accuracy),abs(highest_accuracy))) + 
       ylim(-highest_accuracy,highest_accuracy) + theme_minimal()+ 
       theme(legend.position = "none",axis.text.y=element_blank(),
             axis.ticks.y=element_blank())+labs(x = "",y="")+ coord_flip()
-    },height = 96, width = "auto")
+    },
+    height = 96, 
+    width = "auto"
+    )
   
-  output$forecast_3y <-
-    renderGauge({
-      # live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
+  output$forecast_3y_bar <- renderPlot({
+    forecast_accuracy <- live_scorecard_data() %>%
+      filter(name == "For_3")     
+    forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100    
 
+    lowest_accuracy <- scorecards_data_pivot %>%
+      filter(
+        name == "For_3",
+        Phase == input$phase_choice
+      ) %>%
+      slice(which.min(value)) %>%
+      pull(value) %>%
+      roundFiveUp(., 3) * 100
+    
+    highest_accuracy <- scorecards_data_pivot %>%
+      filter(
+        name == "For_3",
+        Phase == input$phase_choice
+      ) %>%
+      slice(which.max(value)) %>%
+      pull(value) %>%
+      roundFiveUp(., 3) * 100
+    
+    # Get medians/quartiles to set the sectors in the gauge
+    
+    mid_low_accuracy <- median(c(-1, lowest_accuracy))
+    mid_high_accuracy <- median(c(1, highest_accuracy))
 
-      forecast_accuracy <- live_scorecard_data() %>%
-        filter(name == "For_3") %>%
-        pull(value) %>%
-        roundFiveUp(., 3) * 100
-
-      lowest_accuracy <- scorecards_data_pivot %>%
-        filter(
-          name == "For_3",
-          Phase == input$phase_choice
-        ) %>%
-        slice(which.min(value)) %>%
-        pull(value) %>%
-        roundFiveUp(., 3) * 100
-
-      highest_accuracy <- scorecards_data_pivot %>%
-        filter(
-          name == "For_3",
-          Phase == input$phase_choice
-        ) %>%
-        slice(which.max(value)) %>%
-        pull(value) %>%
-        roundFiveUp(., 3) * 100
-
-      # Get medians/quartiles to set the sectors in the gauge
-
-      mid_low_accuracy <- median(c(-1, lowest_accuracy))
-      mid_high_accuracy <- median(c(1, highest_accuracy))
-
-      gauge(forecast_accuracy,
-        min = lowest_accuracy,
-        max = highest_accuracy,
-        symbol = "%",
-        sectors = gaugeSectors(
-          success = c(-1, 1),
-          warning = c(mid_low_accuracy, mid_high_accuracy),
-          danger = c(lowest_accuracy, highest_accuracy),
-          colors = c("#00703c", "#ffdd00", "#d4351c")
-        )
-      )
-    })
-
-  output$forecast_3y_proxy <- renderUI({
-    input$phase_choice # force re-render
-    input$LA_choice
-    input$tabs
-    # live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
-    gaugeOutput(outputId = "forecast_3y")
-  })
-
+    ggplot(forecast_accuracy,aes(name,value,fill=value))+
+      geom_bar(stat="identity",width=100) +
+      scale_fill_gradient2(low='orange', mid='green', high='orange', space='Lab',limits = c(-abs(highest_accuracy),abs(highest_accuracy))) + 
+      ylim(-highest_accuracy,highest_accuracy) + theme_minimal()+ 
+      theme(legend.position = "none",axis.text.y=element_blank(),
+            axis.ticks.y=element_blank())+labs(x = "",y="")+ coord_flip()
+  },
+  height = 96, 
+  width = "auto"
+  )
+  
 
   # Preference -------------------------------------------------------------
 
@@ -1078,10 +1065,11 @@ function(input, output, session) {
       arrange(group_higlight)
 
     p <- ggplot() +
-      geom_beeswarm(
-        data = all_LA_cost %>% filter(group_higlight == 0), mapping = aes(x, cost_per_place,
-          color = grouping,
-          text = paste(LA_name, ": £", scales::comma(cost_per_place), " per place")
+      geom_violin(
+        all_LA_cost %>% filter(group_higlight == 0),
+        aes(
+          x, cost_per_place,
+          color = grouping
         ),
         groupOnX = TRUE, na.rm = TRUE
       ) +
