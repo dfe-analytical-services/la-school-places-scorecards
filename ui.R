@@ -130,14 +130,7 @@ function(request) {
               )
               # Cost content to go here
             )
-          ), # end of tabset
-
-          br(),
-          br(),
-          img(src = "dfe_logo.svg", height = 100, width = 150, alt = "Department for Education logo"),
-          br(),
-          br(),
-          p("This is a development of our excel-based scorecards - if you would like to provide feedback on this dashboard, please complete our ", a(href = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-fim2cxpeIFFus-loZuDRkhUN0ZPMlhCSDgzQjlVTjNVTFpXRTdWMlo0MC4u", "online survey"))
+          ) # end of tabset
         )
       )
     ),
@@ -183,15 +176,8 @@ function(request) {
           "Cost",
           tableOutput("notesTableCost") # made in global.R file
         ) # end of tabPanel
-      ), # end of tabBox
+      ) # end of tabBox
 
-
-      br(),
-      br(),
-      img(src = "dfe_logo.svg", height = 100, width = 150, alt = "Department for Education logo"),
-      br(),
-      br(),
-      p("This is a development of our excel-based scorecards - if you would like to provide feedback on this dashboard, please complete our ", a(href = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-fim2cxpeIFFus-loZuDRkhUN0ZPMlhCSDgzQjlVTjNVTFpXRTdWMlo0MC4u", "online survey"))
     ),
 
     # Create the accessibility statement-----------------
@@ -230,12 +216,7 @@ function(request) {
       br(
         "If you have any feedback on how we could further improve the accessibility of this application, please contact us at",
         a(href = "mailto:SCAP.PPP@education.gov.uk", "SCAP.PPP@education.gov.uk")
-      ),
-      br(),
-      img(src = "dfe_logo.svg", height = 100, width = 150, alt = "Department for Education logo"),
-      br(),
-      br(),
-      p("This is a development of our excel-based scorecards - if you would like to provide feedback on this dashboard, please complete our ", a(href = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-fim2cxpeIFFus-loZuDRkhUN0ZPMlhCSDgzQjlVTjNVTFpXRTdWMlo0MC4u", "online survey"))
+      )
     ),
     shinyGovstyle::footer(TRUE)
     
