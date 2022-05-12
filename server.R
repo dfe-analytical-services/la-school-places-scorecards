@@ -304,84 +304,96 @@ function(input, output, session) {
 
   # Code to go here using above template
 
-  output$forecast_1y_bar <- renderPlot({
-    forecast_accuracy <- live_scorecard_data() %>%
-      filter(name == "For_1")
-    
-    forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100    
-    
-    lowest_accuracy <- scorecards_data_pivot %>%
-      filter(
-        name == "For_1",
-        Phase == input$phase_choice
-      ) %>%
-      slice(which.min(value)) %>%
-      pull(value) %>%
-      roundFiveUp(., 3) * 100
-    
-    highest_accuracy <- scorecards_data_pivot %>%
-      filter(
-        name == "For_1",
-        Phase == input$phase_choice
-      ) %>%
-      slice(which.max(value)) %>%
-      pull(value) %>%
-      roundFiveUp(., 3) * 100
-    
-    # Get medians/quartiles to set the sectors in the gauge
-    
-    mid_low_accuracy <- median(c(-1, lowest_accuracy))
-    mid_high_accuracy <- median(c(1, highest_accuracy))
-    ggplot(forecast_accuracy,aes(name,value,fill=value))+
-      geom_bar(stat="identity",width=100) +
-      scale_fill_gradient2(low='red', mid='darkgreen', high='red', space='Lab',limits = c(-abs(highest_accuracy),abs(highest_accuracy))) + 
-      ylim(-highest_accuracy,highest_accuracy) + theme_minimal()+ 
-      theme(legend.position = "none",axis.text.y=element_blank(),
-            axis.ticks.y=element_blank())+labs(x = "",y="")+ coord_flip()
+  output$forecast_1y_bar <- renderPlot(
+    {
+      forecast_accuracy <- live_scorecard_data() %>%
+        filter(name == "For_1")
+
+      forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
+
+      lowest_accuracy <- scorecards_data_pivot %>%
+        filter(
+          name == "For_1",
+          Phase == input$phase_choice
+        ) %>%
+        slice(which.min(value)) %>%
+        pull(value) %>%
+        roundFiveUp(., 3) * 100
+
+      highest_accuracy <- scorecards_data_pivot %>%
+        filter(
+          name == "For_1",
+          Phase == input$phase_choice
+        ) %>%
+        slice(which.max(value)) %>%
+        pull(value) %>%
+        roundFiveUp(., 3) * 100
+
+      # Get medians/quartiles to set the sectors in the gauge
+
+      mid_low_accuracy <- median(c(-1, lowest_accuracy))
+      mid_high_accuracy <- median(c(1, highest_accuracy))
+      ggplot(forecast_accuracy, aes(name, value, fill = value)) +
+        geom_bar(stat = "identity", width = 100) +
+        scale_fill_gradient2(low = "red", mid = "darkgreen", high = "red", space = "Lab", limits = c(-abs(highest_accuracy), abs(highest_accuracy))) +
+        ylim(-highest_accuracy, highest_accuracy) +
+        theme_minimal() +
+        theme(
+          legend.position = "none", axis.text.y = element_blank(),
+          axis.ticks.y = element_blank()
+        ) +
+        labs(x = "", y = "") +
+        coord_flip()
     },
-    height = 96, 
+    height = 96,
     width = "auto"
-    )
-  
-  output$forecast_3y_bar <- renderPlot({
-    forecast_accuracy <- live_scorecard_data() %>%
-      filter(name == "For_3")     
-    forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100    
-
-    lowest_accuracy <- scorecards_data_pivot %>%
-      filter(
-        name == "For_3",
-        Phase == input$phase_choice
-      ) %>%
-      slice(which.min(value)) %>%
-      pull(value) %>%
-      roundFiveUp(., 3) * 100
-    
-    highest_accuracy <- scorecards_data_pivot %>%
-      filter(
-        name == "For_3",
-        Phase == input$phase_choice
-      ) %>%
-      slice(which.max(value)) %>%
-      pull(value) %>%
-      roundFiveUp(., 3) * 100
-    
-    # Get medians/quartiles to set the sectors in the gauge
-    
-    mid_low_accuracy <- median(c(-1, lowest_accuracy))
-    mid_high_accuracy <- median(c(1, highest_accuracy))
-
-    ggplot(forecast_accuracy,aes(name,value,fill=value))+
-      geom_bar(stat="identity",width=100) +
-      scale_fill_gradient2(low='orange', mid='green', high='orange', space='Lab',limits = c(-abs(highest_accuracy),abs(highest_accuracy))) + 
-      ylim(-highest_accuracy,highest_accuracy) + theme_minimal()+ 
-      theme(legend.position = "none",axis.text.y=element_blank(),
-            axis.ticks.y=element_blank())+labs(x = "",y="")+ coord_flip()
-  },
-  height = 96, 
-  width = "auto"
   )
-  
+
+  output$forecast_3y_bar <- renderPlot(
+    {
+      forecast_accuracy <- live_scorecard_data() %>%
+        filter(name == "For_3")
+      forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
+
+      lowest_accuracy <- scorecards_data_pivot %>%
+        filter(
+          name == "For_3",
+          Phase == input$phase_choice
+        ) %>%
+        slice(which.min(value)) %>%
+        pull(value) %>%
+        roundFiveUp(., 3) * 100
+
+      highest_accuracy <- scorecards_data_pivot %>%
+        filter(
+          name == "For_3",
+          Phase == input$phase_choice
+        ) %>%
+        slice(which.max(value)) %>%
+        pull(value) %>%
+        roundFiveUp(., 3) * 100
+
+      # Get medians/quartiles to set the sectors in the gauge
+
+      mid_low_accuracy <- median(c(-1, lowest_accuracy))
+      mid_high_accuracy <- median(c(1, highest_accuracy))
+
+      ggplot(forecast_accuracy, aes(name, value, fill = value)) +
+        geom_bar(stat = "identity", width = 100) +
+        scale_fill_gradient2(low = "orange", mid = "green", high = "orange", space = "Lab", limits = c(-abs(highest_accuracy), abs(highest_accuracy))) +
+        ylim(-highest_accuracy, highest_accuracy) +
+        theme_minimal() +
+        theme(
+          legend.position = "none", axis.text.y = element_blank(),
+          axis.ticks.y = element_blank()
+        ) +
+        labs(x = "", y = "") +
+        coord_flip()
+    },
+    height = 96,
+    width = "auto"
+  )
+
 
   # Preference -------------------------------------------------------------
 
@@ -1068,20 +1080,26 @@ function(input, output, session) {
       all_LA_cost %>% filter(group_higlight == 0),
       aes(
         x, cost_per_place,
-        color = grouping
-      )) +
+        color = grouping,
+        fill = grouping
+      )
+    ) +
       geom_violin() +
       geom_beeswarm(
         data = all_LA_cost %>% filter(group_higlight == 1), aes(x, cost_per_place,
           color = grouping,
           text = paste(LA_name, ": £", scales::comma(cost_per_place), " per place")
         ),
-        groupOnX = TRUE, na.rm = TRUE
+        groupOnX = TRUE, na.rm = TRUE, size = 3.2
       ) +
       facet_grid(~ factor(exp_type, levels = c("Permanent", "Temporary", "New school"))) +
+      scale_fill_manual(
+        breaks = c("Other LA", input$LA_choice, "England"),
+        values = c("#BFBFBF", "#f47738", "#1d70b8")
+      ) +
       scale_color_manual(
-        breaks = c(input$LA_choice, "England", "Other LA"),
-        values = c("#f47738", "#1d70b8", "#f3f2f1")
+        breaks = c("Other LA", input$LA_choice, "England"),
+        values = c("#BFBFBF", "#f47738", "#1d70b8")
       ) +
       theme(
         axis.line = element_blank(),

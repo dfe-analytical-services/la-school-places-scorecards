@@ -75,10 +75,10 @@ function(request) {
                   p(strong("Forecast accuracy of pupil projections (values closer to 0 are more accurate)")),
                   htmlOutput("label_estimate_y1"),
                   br(),
-                  plotOutput("forecast_1y_bar",height="96px"),
+                  plotOutput("forecast_1y_bar", height = "96px"),
                   htmlOutput("label_estimate_y3"),
                   br(),
-                  plotOutput("forecast_3y_bar",height="96px"),
+                  plotOutput("forecast_3y_bar", height = "96px"),
                 )
               )
             ),
@@ -119,6 +119,8 @@ function(request) {
               fluidRow(
                 column(
                   8,
+                  h5("How to read these plots"),
+                  p("These violin plots show the position of a given LA (blue marker) within the distribution of English LAs. The vertical position represents cost and the width of the shaded region denotes the number of LAs with a given cost."),
                   plotlyOutput("cost_plot") %>% withSpinner()
                 ),
                 column(
