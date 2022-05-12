@@ -91,14 +91,14 @@ function(input, output, session) {
         paste0("Total primary and secondary basic need funding ", funding_year),
         # get different icons for background here: https://fontawesome.com/v5.15/icons?d=gallery&p=2
         # icon = icon("fas fa-pound-sign"),
-        color = "purple"
+        color = "light-blue"
       )
     } else {
       shinydashboard::valueBox(
         paste0("£", total_funding, " million"),
         paste0("Total primary and secondary basic need funding ", funding_year),
         # icon = icon("fas fa-pound-sign"),
-        color = "purple"
+        color = "light-blue"
       )
     }
   })
@@ -118,7 +118,7 @@ function(input, output, session) {
       paste0(growth_perc, "%"),
       paste0("Growth in ", str_to_lower(input$phase_choice), " pupil numbers 2009/10 to ", plan_year),
       # icon = icon("fas fa-chart-line"),
-      color = "blue"
+      color = "light-blue"
     )
   })
 
@@ -141,7 +141,7 @@ function(input, output, session) {
       paste0(scales::comma(additional_places_perc)),
       paste0("Estimated additional ", str_to_lower(input$phase_choice), " places to meet demand in ", plan_year),
       # icon = icon("fas fa-signal"),
-      color = "purple"
+      color = "light-blue"
     )
   })
 
@@ -162,7 +162,7 @@ function(input, output, session) {
       paste0(spare_places_per, "%"),
       paste0("Estimated percentage of spare ", str_to_lower(input$phase_choice), " places in ", plan_year),
       # icon = icon("fas fa-school"),
-      color = "green"
+      color = "light-blue"
     )
   })
 
@@ -335,7 +335,7 @@ function(input, output, session) {
       mid_high_accuracy <- median(c(1, highest_accuracy))
       ggplot(forecast_accuracy, aes(name, value, fill = value)) +
         geom_bar(stat = "identity", width = 100) +
-        scale_fill_gradient2(low = "red", mid = "darkgreen", high = "red", space = "Lab", limits = c(-abs(highest_accuracy), abs(highest_accuracy))) +
+        scale_fill_gradient2(low = "#e34a33", mid = "#fee8c8", high = "#e34a33", space = "Lab", limits = c(-abs(highest_accuracy), abs(highest_accuracy))) +
         ylim(-highest_accuracy, highest_accuracy) +
         theme_minimal() +
         theme(
@@ -380,7 +380,7 @@ function(input, output, session) {
 
       ggplot(forecast_accuracy, aes(name, value, fill = value)) +
         geom_bar(stat = "identity", width = 100) +
-        scale_fill_gradient2(low = "orange", mid = "green", high = "orange", space = "Lab", limits = c(-abs(highest_accuracy), abs(highest_accuracy))) +
+        scale_fill_gradient2(low = "#43a2ca", mid = "#e0f3db", high = "#43a2ca", space = "Lab", limits = c(-abs(highest_accuracy), abs(highest_accuracy))) +
         ylim(-highest_accuracy, highest_accuracy) +
         theme_minimal() +
         theme(
@@ -1086,7 +1086,8 @@ function(input, output, session) {
     ) +
       geom_violin() +
       geom_beeswarm(
-        data = all_LA_cost %>% filter(group_higlight == 1), aes(x, cost_per_place,
+        data = all_LA_cost %>% filter(group_higlight == 1), 
+        aes(x, cost_per_place,
           color = grouping,
           text = paste(LA_name, ": £", scales::comma(cost_per_place), " per place")
         ),
@@ -1102,20 +1103,22 @@ function(input, output, session) {
         values = c("#BFBFBF", "#f47738", "#1d70b8")
       ) +
       theme(
-        axis.line = element_blank(),
+        panel.border = element_rect(colour = "black", fill=NA, size=1),
+#        axis.line = element_blank(),
         axis.text.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks = element_blank(),
+#        axis.text.y = element_blank(),
+#        axis.ticks = element_blank(),
         axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
+        axis.title.y = element_text(size = 14, family = "Arial"),
         legend.title = element_blank(),
         panel.background = element_blank(),
-        panel.border = element_blank(),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
+#        panel.border = element_blank(),
+        # panel.grid.major = element_blank(),
+        # panel.grid.minor = element_blank(),
         plot.background = element_blank(),
         text = element_text(size = 14, family = "Arial")
-      )
+      ) +
+      labs(y='Cost per place (£)')
 
 
 
@@ -1159,7 +1162,7 @@ function(input, output, session) {
       paste0(perm_fig),
       paste0("Permanent ", str_to_lower(input$phase_choice), " expansion projects in ", input$LA_choice),
       # icon = icon("fas fa-school"),
-      color = "blue"
+      color = "light-blue"
     )
   })
 
@@ -1187,7 +1190,7 @@ function(input, output, session) {
       paste0(temp_fig),
       paste0("Temporary ", str_to_lower(input$phase_choice), " projects in ", input$LA_choice),
       # icon = icon("fas fa-campground"),
-      color = "green"
+      color = "light-blue"
     )
   })
 
@@ -1216,7 +1219,7 @@ function(input, output, session) {
       paste0(new_fig),
       paste0("New ", str_to_lower(input$phase_choice), " schools projects in ", input$LA_choice),
       # icon = icon("fas fa-plus"),
-      color = "purple"
+      color = "light-blue"
     )
   })
 
