@@ -1064,15 +1064,13 @@ function(input, output, session) {
       ) %>%
       arrange(group_higlight)
 
-    p <- ggplot() +
-      geom_violin(
-        all_LA_cost %>% filter(group_higlight == 0),
-        aes(
-          x, cost_per_place,
-          color = grouping
-        ),
-        groupOnX = TRUE, na.rm = TRUE
-      ) +
+    p <- ggplot(
+      all_LA_cost %>% filter(group_higlight == 0),
+      aes(
+        x, cost_per_place,
+        color = grouping
+      )) +
+      geom_violin() +
       geom_beeswarm(
         data = all_LA_cost %>% filter(group_higlight == 1), aes(x, cost_per_place,
           color = grouping,
