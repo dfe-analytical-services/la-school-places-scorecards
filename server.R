@@ -1061,21 +1061,23 @@ function(input, output, session) {
         values = c("#f47738", "#1d70b8", "#f3f2f1")
       ) +
       theme(
-        axis.line = element_blank(),
+        panel.border = element_rect(colour = "black", fill=NA, size=1),
+        #        axis.line = element_blank(),
         axis.text.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks = element_blank(),
+        #        axis.text.y = element_blank(),
+        #        axis.ticks = element_blank(),
         axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
+        axis.title.y = element_text(size = 14, family = "Arial"),
         legend.title = element_blank(),
         panel.background = element_blank(),
-        panel.border = element_blank(),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
+        #        panel.border = element_blank(),
+        # panel.grid.major = element_blank(),
+        # panel.grid.minor = element_blank(),
         plot.background = element_blank(),
         text = element_text(size = 14, family = "Arial")
-      )
-
+      ) +
+      labs(y='Cost per place (£)')
+    
 
 
     ggplotly(p, tooltip = c("text")) %>%
