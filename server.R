@@ -72,7 +72,7 @@ function(input, output, session) {
 
   ## create quality heading
   output$quality_description <- renderText({
-    paste0("Quality of school places created between 2017-18 and 2018-19, based on ",input$chart_choice)
+    paste0("Quality of school places created between 2017/18 and 2018/19, based on ",input$chart_choice)
   })
   
   
