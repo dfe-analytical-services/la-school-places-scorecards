@@ -4,19 +4,29 @@ params:
     input_la_choice: England
     input_phase_choice: Primary
     input_quality_chart: 'Ofsted'
-subtitle: "Data for `r params$input_phase_choice` Schools in `r params$input_la_choice`" 
+header-includes:
+   - \usepackage{expl3}
+   - \usepackage{xparse}
+   - \usepackage{tcolorbox}
+   - \usepackage{amsmath,amsfonts,amsthm}
+   - \usepackage{wrapfig}
+   - \definecolor{gssmidblue}{RGB}{32, 115, 188}
+
 output:
   pdf_document
 
 ---
 
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 source("global.R")
 library(webshot)
+library(kableExtra)
+
 ```
+
+# Data for `r params$input_phase_choice` Schools in `r params$input_la_choice`
 
 
 ```{r basic need funding, echo = FALSE}
@@ -33,18 +43,6 @@ library(webshot)
       ) %>%
       as.numeric()
 
-    # Create the actual output here. Use if statement so we display "bn" if it's England, "m" if not.
-    if (params$input_la_choice== "England") {
-       paste0("Total primary and secondary basic need funding ", funding_year, ": £", total_funding, " billion")
-             } else {
-         paste0("Total primary and secondary basic need funding", funding_year, ": £", total_funding, " million")
-          }
-  
-
-```
-
-```{r growth pupil numbers, echo = FALSE}
-
 # Take filtered data, search for growth rate, pull the value and tidy the number up
   live_scorecard_data <- scorecards_data_pivot %>% filter(
       LA_name == params$input_la_choice,
@@ -57,14 +55,60 @@ library(webshot)
       roundFiveUp(., 2) * 100
 
     # PDisplay growth in pupil numbers
-   paste0("Growth in ", str_to_lower(params$input_phase_choice), " pupil numbers 2009/10 to ", plan_year, ": ", growth_perc, "%")
-  
+   textTopLineGrowth <- paste0("Growth in ", str_to_lower(params$input_phase_choice), " pupil numbers 2009/10 to ", plan_year, ": ", growth_perc, "%")
+   
+   dfTopLine <- data.frame(funding=ifelse(params$input_la_choice== "England",
+                                          paste0(total_funding, "billion"),
+                                          paste0(total_funding, "million")),
+                           empty='',
+                           growth=paste0(growth_perc,"%"))
+   colnames(dfTopLine) <- c(paste0("Total primary and secondary basic need funding ",funding_year),' ',
+                            paste0("Growth in",str_to_lower(params$input_phase_choice), "pupil numbers 2009/10 ",plan_year)
+   )
+
 ```
 
 
+\makebox[0.96\linewidth]{
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.5cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\large \bfseries},
+ fontlower={\Huge \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.4\linewidth,
+ boxrule=0pt 
+ ]
+Total primary and secondary basic need funding `r funding_year`
+\tcblower
+£`r ifelse(params$input_la_choice== "England",paste0(total_funding, "billion"),paste0(total_funding, "million"))`
+\end{tcolorbox}
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.5cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\large \bfseries},
+ fontlower={\Huge \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.4\linewidth,
+ boxrule=0pt 
+ ]
+Growth in `r str_to_lower(params$input_phase_choice)`, pupil numbers 2009/10 to `r plan_year`
+\tcblower
+`r growth_perc`\%
+\end{tcolorbox}
+}
+
+  
+  
+## Quantity
+
 Places created since 2009-10, places planned to 2021-22 and estimated place pressure in 2021-22
 
-```{r quantity, echo = FALSE, fig.show="hold", out.width = "80%", out.height = "100%"}
+```{r quantity, echo = FALSE, fig.show="hold", out.width = "50%", out.height = "100%"}
    
   ## Estimated places need
 
@@ -74,7 +118,7 @@ Places created since 2009-10, places planned to 2021-22 and estimated place pres
       pull(value)
 
     # Display value
-           paste0("Estimated additional ", str_to_lower(params$input_phase_choice), " places to meet demand in ", plan_year, ": ", scales::comma(additional_places_perc))
+           x <- paste0("Estimated additional ", str_to_lower(params$input_phase_choice), " places to meet demand in ", plan_year, ": ", scales::comma(additional_places_perc))
      
   
 
@@ -87,7 +131,7 @@ Places created since 2009-10, places planned to 2021-22 and estimated place pres
       roundFiveUp(., 2) * 100
 
     # Display value
-            paste0("Estimated percentage of spare ", str_to_lower(params$input_phase_choice), " places in ", plan_year, ": ", spare_places_per, "%")
+            x1 <- paste0("Estimated percentage of spare ", str_to_lower(params$input_phase_choice), " places in ", plan_year, ": ", spare_places_per, "%")
 
 
  live_scorecard_data <- scorecards_data_pivot %>% filter(
