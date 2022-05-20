@@ -1056,7 +1056,7 @@ function(input, output, session) {
         ),
         groupOnX = TRUE, na.rm = TRUE
       ) + 
-      scale_y_continuous(labels=comma) +
+       scale_y_continuous(labels=comma) +
       labs(x="", y="Cost per place (£)") +
             geom_beeswarm(
         data = all_LA_cost %>% filter(group_higlight == 1), aes(x, cost_per_place,
@@ -1068,7 +1068,7 @@ function(input, output, session) {
       facet_grid(~ factor(exp_type, levels = c("Permanent", "Temporary", "New school"))) +
       scale_color_manual(
         breaks = c(input$LA_choice, "England", "Other LA"),
-        values = c("#f47738", "#1d70b8", "#f3f2f1")
+        values = c("#f2590d", "#1c6bb0", "#dcd9d6")
       ) +
       theme(
         axis.line.y = element_line(color="grey", size = 1),
@@ -1077,7 +1077,7 @@ function(input, output, session) {
         axis.text.y = element_text(size=8),
         axis.ticks.x = element_blank(),
         axis.title.x = element_blank(),
-        axis.title.y = element_text(size=10),
+        axis.title.y = element_text(margin = margin(r = 70)),
         legend.title = element_blank(),
         panel.background = element_blank(),
         panel.border = element_rect(color="grey",size = 1, fill=NA),
@@ -1098,7 +1098,7 @@ function(input, output, session) {
         ),
         title = list(
           text = "Chart showing the cost of permanent, temporary and new school projects by local authority",
-          font = list(color = "#d9d9d9", size = 1)
+          font = list(color = "#c8c8c8", size = 1)
         )
       ) %>%
       config(displayModeBar = FALSE)
