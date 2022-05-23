@@ -385,7 +385,7 @@ function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(PrefT3_E, "%"),
-      paste0("Percentage of applicants who recieved an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England"),
+      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England"),
       # icon = icon("fas fa-chart-line"),
       color = "blue"
     )
