@@ -1126,9 +1126,9 @@ function(input, output, session) {
 
 
     shinydashboard::valueBox(
-      paste0(perm_fig),
-      paste0("Permanent ", str_to_lower(input$phase_choice), " expansion projects in ", input$LA_choice),
-      # icon = icon("fas fa-school"),
+      paste0(scales::comma(perm_fig)),
+      paste0("Permanent ",str_to_lower(input$phase_choice), " expansion projects in ", input$LA_choice),
+       # icon = icon("fas fa-school"),
       color = "blue"
     )
   })
