@@ -1084,7 +1084,7 @@ function(input, output, session) {
         fill = grouping
       )
     ) +
-      geom_violin() +
+      geom_beeswarm() +
       geom_beeswarm(
         data = all_LA_cost %>% filter(group_higlight == 1), 
         aes(x, cost_per_place,
