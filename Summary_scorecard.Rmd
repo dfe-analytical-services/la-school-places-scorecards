@@ -1,7 +1,7 @@
 ---
 title: "School Places Scorecard"
 params: 
-    input_la_choice: England
+    input_la_choice: Durham
     input_phase_choice: Primary
     input_quality_chart: 'Ofsted'
 header-includes:
@@ -14,7 +14,6 @@ header-includes:
 
 output:
   pdf_document
-
 ---
 
 
@@ -69,36 +68,41 @@ library(kableExtra)
 ```
 
 
-\makebox[0.96\linewidth]{
+\makebox[1.00\linewidth]{
+\centering
+
+
 \begin{tcolorbox}[colback=gssmidblue, 
- leftright skip=0.5cm,
+ leftright skip=0.1cm,
  coltext=white, 
  halign=left, 
- fontupper={\large \bfseries},
- fontlower={\Huge \bfseries},
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
  sharp corners, 
  colframe=gssmidblue,
- width=0.4\linewidth,
+ width=0.49\linewidth,
  boxrule=0pt 
  ]
-Total primary and secondary basic need funding `r funding_year`
-\tcblower
 £`r ifelse(params$input_la_choice== "England",paste0(total_funding, "billion"),paste0(total_funding, "million"))`
+\tcblower
+Total primary and secondary basic need funding `r funding_year`
 \end{tcolorbox}
+
+
 \begin{tcolorbox}[colback=gssmidblue, 
- leftright skip=0.5cm,
+ leftright skip=0.1cm,
  coltext=white, 
  halign=left, 
- fontupper={\large \bfseries},
- fontlower={\Huge \bfseries},
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
  sharp corners, 
  colframe=gssmidblue,
- width=0.4\linewidth,
+ width=0.49\linewidth,
  boxrule=0pt 
  ]
-Growth in `r str_to_lower(params$input_phase_choice)`, pupil numbers 2009/10 to `r plan_year`
-\tcblower
 `r growth_perc`\%
+\tcblower
+Growth in `r str_to_lower(params$input_phase_choice)`, pupil numbers 2009/10 to `r plan_year`
 \end{tcolorbox}
 }
 
@@ -106,9 +110,11 @@ Growth in `r str_to_lower(params$input_phase_choice)`, pupil numbers 2009/10 to 
   
 ## Quantity
 
-Places created since 2009-10, places planned to 2021-22 and estimated place pressure in 2021-22
+### Places created since 2009-10, places planned to 2021-22 and estimated place pressure in 2021-22
 
-```{r quantity, echo = FALSE, fig.show="hold", out.width = "50%", out.height = "100%"}
+A local authority can have both ‘spare places’ and ‘additional places needed’ due to localised or specific year group demand
+
+```{r quantity, echo = FALSE}
    
   ## Estimated places need
 
@@ -129,11 +135,44 @@ Places created since 2009-10, places planned to 2021-22 and estimated place pres
       filter(name == "QuanSu") %>%
       pull(value) %>%
       roundFiveUp(., 2) * 100
+```            
 
-    # Display value
-            x1 <- paste0("Estimated percentage of spare ", str_to_lower(params$input_phase_choice), " places in ", plan_year, ": ", spare_places_per, "%")
+\makebox[1.0\linewidth]{
+\centering
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.49\linewidth,
+ boxrule=0pt 
+ ]
+`r scales::comma(additional_places_perc)`
+\tcblower
+Estimated additional `r str_to_lower(params$input_phase_choice)` places to meet demand in `r plan_year` 
+\end{tcolorbox}
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.49\linewidth,
+ boxrule=0pt 
+ ]
+`r spare_places_per`\%
+\tcblower
+Estimated percentage of spare `r str_to_lower(params$input_phase_choice)` places in `r plan_year`
+\end{tcolorbox}
+}
 
-
+            
+``` {r quantity_b, echo = FALSE, fig.show="hold", out.width = "100%", out.height = "100%"}
  live_scorecard_data <- scorecards_data_pivot %>% filter(
       LA_name == params$input_la_choice,
       Phase == params$input_phase_choice)
@@ -145,6 +184,7 @@ Places created since 2009-10, places planned to 2021-22 and estimated place pres
    
 quality_places <- plot_ly(
       places_chart_data,
+      width = 420, height = 560,
       x = ~LA_name, y = ~QuanIn,
       marker = list(color = c("#12436D")),
       type = "bar", name = paste0("Total places created between 2009/10 and ", this_year),
@@ -168,9 +208,11 @@ quality_places <- plot_ly(
       webshot(url = "hc.html", file = "hc.png", delay = 1, zoom = 4, vheight = 500)
 ```
 
-Proportion of applicants who received an offer of one of their top three preference schools for September 2019 entry
+## Preference
 
-```{r preference, echo = FALSE, message=FALSE, fig.width = 6, fig.height = 6}
+### Proportion of applicants who received an offer of one of their top three preference schools for September 2019 entry
+
+```{r preference_text, echo = FALSE, message=FALSE}
 
 live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$input_phase_choice)
 
@@ -182,25 +224,53 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
       pull(value) %>%
       roundFiveUp(., 2)
 
-    # Display value (% offer in top 3 preference) for England
-             paste0("Percentage of applicants who recieved an offer of one of their top three preferred ") 
-             paste0(str_to_lower(params$input_phase_choice), " schools in England: ", PrefT3_E, "%")
-    
-    
       # Take filtered data, search for growth rate, pull the value and tidy the number up
     PrefT3 <- live_scorecard_data %>%
       filter(name == "PrefT3") %>%
       pull(value) %>%
       roundFiveUp(., 2)
+```
 
-    # Display value (% offer in top 3 preference) for LA
+\makebox[1.0\linewidth]{
+\centering
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.49\linewidth,
+ boxrule=0pt 
+ ]
+`r PrefT3_E`\%
+\tcblower
+Percentage of applicants who recieved an offer of one of their top three preferred `r str_to_lower(params$input_phase_choice)` schools in England
+\end{tcolorbox}
+``` {r echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
     if (params$input_la_choice != "England") {
-            paste0("Percentage of applicants who recieved an offer of one of their top three preferred ")}
-    
-       if (params$input_la_choice != "England") {
-           paste0(str_to_lower(params$input_phase_choice), " schools in ", (params$input_la_choice),": ",PrefT3, "%")}
- 
+cat(paste("\\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\\Huge \\bfseries},
+ fontlower={\\large \\bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.49\\linewidth,
+ boxrule=0pt 
+ ]
+",PrefT3,"\\%
+\\tcblower
+Percentage of applicants who recieved an offer of one of their top three preferred ", str_to_lower(params$input_phase_choice)," places in ",plan_year," in ",params$input_la_choice,"
+\\end{tcolorbox}")
+)
+      }
+```
+}
 
+```{r preference_barchart, echo = FALSE, message=FALSE, out.width="130%"}
 # Scorecard data, filtered on user input AND including England as a comparison
   live_scorecard_data_england_comp <- scorecards_data_pivot %>%
       filter(
@@ -220,9 +290,9 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
       filter(name %in% c("Pref1", "Pref2", "Pref3")) %>%
       # Create ratings out of the names
       mutate(rating = case_when(
-        str_detect(name, "1") ~ "First",
-        str_detect(name, "2") ~ "Second",
-        str_detect(name, "3") ~ "Third"
+        str_detect(name, "1") ~ "First choice",
+        str_detect(name, "2") ~ "Second choice",
+        str_detect(name, "3") ~ "Third choice"
       ))
 
     # Get % not getting 1st 2nd or 3rd preference
@@ -237,7 +307,7 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
       bind_rows(preference_data_sum) %>%
       # sort levels out so plots in correct order
       mutate(
-        rating = factor(rating, levels = c("First", "Second", "Third", "Other")),
+        rating = factor(rating, levels = c("First choice", "Second choice", "Third choice", "Other")),
         # Neaten up percs
         value = as.numeric(roundFiveUp(value, 1)),
         value_label = if_else(value > 3, paste0(value, "%"), NA_character_)
@@ -254,7 +324,8 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
       geom_bar(stat = "identity", position = position_fill(reverse = TRUE)) +
       coord_flip() +
       facet_wrap(~LA_name, nrow = 2) +
-      geom_text(aes(label = value_label), colour = "#ffffff", size = 4, position = position_fill(reverse = TRUE, vjust = 0.5)) +
+      geom_text(aes(label = value_label), colour = "#ffffff", size = 4, 
+                position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
       scale_fill_manual(values = dfe_colours) +
@@ -263,17 +334,15 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
         legend.position = "bottom",
         text = element_text(size = 14, family = "Arial")
       )
-
-
-
-    ggplotly(preference_p
+    ggplotly(preference_p,
+             width=800,height=320
          ) %>%
       layout(
         uniformtext = list(minsize = 12, mode = "hide"),
         xaxis = list(showticklabels = FALSE),
         legend = list(
           orientation = "h",
-          y = -0.1, x = 0.33
+          y = -0.1, x = 0.
                  ),
         title = list(
           font = list(color = "#ffffff")
@@ -283,8 +352,9 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
   
 ```
 
+## Quality
 
-Quality of places created between 2017-18 and 2018-19, based on `r params$input_quality_chart`:
+### Quality of places created between 2017-18 and 2018-19, based on `r params$input_quality_chart`:
 
 ```{r quality, echo = FALSE}
 
@@ -451,9 +521,63 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
         if (params$input_la_choice != "England") { paste0("LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, " and ", this_year, " (ranks can be tied):")}
          if (params$input_la_choice != "England") { paste0(LA_ranking) }
 
-           
-           
+```           
 
+`r "\\makebox[1.0\\linewidth]{"`
+\centering
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ `r ifelse(params$input_la_choice != "England","width=0.32\\linewidth","width=0.49\\linewidth")`,
+ boxrule=0pt 
+ ]
+`r PrefT3_E`\%
+\tcblower
+Percentage of applicants who recieved an offer of one of their top three preferred `r str_to_lower(params$input_phase_choice)` schools in England
+\end{tcolorbox}
+``` {r echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
+    if (params$input_la_choice != "England") {
+cat(paste("\\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\\Huge \\bfseries},
+ fontlower={\\large \\bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.32\\linewidth,
+ boxrule=0pt 
+ ]
+",PrefT3,"\\%
+\\tcblower
+Percentage of applicants who recieved an offer of one of their top three preferred ", str_to_lower(params$input_phase_choice)," places in ",plan_year," in ",params$input_la_choice,"
+\\end{tcolorbox}")
+)
+cat(paste("\\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\\Huge \\bfseries},
+ fontlower={\\large \\bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.32\\linewidth,
+ boxrule=0pt 
+ ]
+",PrefT3,"\\%
+\\tcblower
+Percentage of applicants who recieved an offer of one of their top three preferred ", str_to_lower(params$input_phase_choice)," places in ",plan_year," in ",params$input_la_choice,"
+\\end{tcolorbox}")
+)
+      }
+```
+
+``` {r quality_chart}           
 # Scorecard data, filtered on user input AND including England as a comparison
   live_scorecard_data_england_comp <- scorecards_data_pivot %>%
       filter(
@@ -765,6 +889,6 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
 
 New places with no rating =  `r scales::comma(no_rating)` 
 
-
+## Cost
 
 
