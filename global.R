@@ -22,6 +22,7 @@ library(metathis)
 library(shinyWidgets)
 library(styler)
 library(rsconnect)
+library(shinyGovstyle)
 
 # tidy_code_function -------------------------------------------------------------------------------
 
