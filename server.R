@@ -65,7 +65,7 @@ function(input, output, session) {
   ## create header so users know what the data is showing
 
   output$data_description <- renderText({
-    paste0("Data for ", str_to_lower(input$phase_choice), " schools in ", input$LA_choice, ": ")
+    paste0("Data for ", str_to_lower(input$phase_choice), " state-funded school places in ", input$LA_choice, ": ")
   })
 
   
