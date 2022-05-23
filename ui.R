@@ -42,7 +42,7 @@ function(request) {
           br(),
           myDownloadButton(
             "download_ud",
-            "Download data"
+            "Download all data"
           )
         ), # end of panel
 
