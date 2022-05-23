@@ -5,7 +5,8 @@ function(request) {
 
 
   navbarPage(
-    title = "School places scorecards",
+    title = "",
+    tabPanel("Homepage"),
     tabPanel(
       "LA scorecards",
       includeCSS("www/shiny_gov_style.css"),
@@ -24,6 +25,8 @@ function(request) {
       sidebarLayout(
         sidebarPanel(
           width = 2,
+          p("View a LA School Places Scorecard using the drop downs below."),
+          p("Switch between different school place metrics using the tabs on the right."),
           selectInput("LA_choice",
             label = p(strong("Choose a geography")),
             choices = levels(LA_options)
@@ -40,23 +43,25 @@ function(request) {
           ),
           br(),
           br(),
+          p("Download data for all geographies and phases using the button below."),
           myDownloadButton(
             "download_ud",
             "Download data"
           )
         ), # end of panel
 
-
+       # fluidRow(
+         # valueBoxOutput("total_funding_box", width = 6),
+         # valueBoxOutput("pupil_growth", width = 6)
+       # ),
+        
+        
         # Create the main content-----------------
         mainPanel(
           width = 10,
           h2(textOutput("data_description")),
-          fluidRow(
-            valueBoxOutput("total_funding_box", width = 6),
-            valueBoxOutput("pupil_growth", width = 6)
-          ),
-          p(strong(paste0("Choose a school places metric"))),
-          tabBox(
+          br(),
+                         tabBox(
             title = "",
             id = "tabs", width = "12",
             tabPanel(
@@ -73,16 +78,23 @@ function(request) {
                 ),
                 column(
                   6,
-                  p(strong("Forecast accuracy of pupil projections (values closer to 0 are more accurate)")),
-                  htmlOutput("label_estimate_y1"),
-                  br(),
-                  uiOutput("forecast_1y_proxy"),
-                  htmlOutput("label_estimate_y3"),
-                  br(),
-                  uiOutput("forecast_3y_proxy")
-                )
-              )
-            ),
+                  p(strong("Funding allocated for creation of new places")),
+                  valueBoxOutput("total_funding_box", width = 12),
+                  p(strong("Anticipated increase in pupils")),
+                  valueBoxOutput("pupil_growth", width = 12)
+                ))),
+           tabPanel(
+             "Pupil forecast accuracy",
+               p(strong("Forecast accuracy of pupil projections (values closer to 0 are more accurate)")),
+                htmlOutput("label_estimate_y1"),
+                br(),
+                uiOutput("forecast_1y_proxy"),
+                htmlOutput("label_estimate_y3"),
+                br(),
+                uiOutput("forecast_3y_proxy")
+                ),
+             
+           
             tabPanel(
               "Preference",
               p(strong(paste0("School applications and offers for September ", preference_year, " entry"))),
@@ -116,11 +128,23 @@ function(request) {
             tabPanel(
               "Cost",
               p(strong("Average cost of additional mainstream school places")),
-              p("Based on local authority reported projects between ", last_year_1, " and ", last_year, ", adjusted for inflation and regional variation", "(not new data: see technical notes)"),
+              p("Based on local authority reported projects between ", last_year_1, " and ", last_year, ", adjusted for inflation and regional variation"),
+              p("Not new data: see technical notes"),
               valueBoxOutput("perm_box", width = 4),
               valueBoxOutput("temp_box", width = 4),
               valueBoxOutput("new_box", width = 4),
               p(strong("Average cost per place for permanent, temporary and new school projects")),
+              details(
+                inputId = "costhelp",
+                label = "How to read these charts",
+                help_text = "These interactive beeswarm plots show the position of a given LA (blue marker) within the distribution of English LAs (grey dots).
+                The vertical position represents cost and the width of the shaded region denotes the number of LAs with a given cost.
+                Hover your curser over each marker to view the average cost per place for an LA or the England average cost per place (orange marker)."
+                                          ),
+             #h5("How to read these plots"),
+             # p("These interactive beeswarm plots show the position of a given LA (blue marker) within the distribution of English LAs (grey dots)."), 
+             # p("The vertical position represents cost and the width of the shaded region denotes the number of LAs with a given cost."),
+             # p("Hover your curser over each marker to view the average cost per place for an LA or the England average cost per place (orange marker)"),
               fluidRow(
                 column(
                   8,
@@ -239,6 +263,8 @@ function(request) {
       br(),
       br(),
       p("This is a development of our excel-based scorecards - if you would like to provide feedback on this dashboard, please complete our ", a(href = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-fim2cxpeIFFus-loZuDRkhUN0ZPMlhCSDgzQjlVTjNVTFpXRTdWMlo0MC4u", "online survey"))
-    )
+    ),
+    tabPanel(
+      "Support and feedback")
   )
 }
