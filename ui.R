@@ -177,7 +177,6 @@ function(request) {
           tableOutput("notesTableCost") # made in global.R file
         ) # end of tabPanel
       ) # end of tabBox
-
     ),
 
     # Create the accessibility statement-----------------
@@ -219,6 +218,5 @@ function(request) {
       )
     ),
     shinyGovstyle::footer(TRUE)
-    
   )
 }

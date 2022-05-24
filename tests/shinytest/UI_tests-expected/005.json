@@ -2,115 +2,15 @@
   "output": {
     "data_description": "Data for secondary schools in Hertfordshire: ",
     "estimated_additional_places": {
-      "html": "<div class=\"small-box bg-purple\">\n  <div class=\"inner\">\n    <h3>1,090<\/h3>\n    <p>Estimated additional secondary places to meet demand in 2021-22<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>1,090<\/h3>\n    <p>Estimated additional secondary places to meet demand in 2021-22<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "estimated_spare_places": {
-      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>12%<\/h3>\n    <p>Estimated percentage of spare secondary places in 2021-22<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>12%<\/h3>\n    <p>Estimated percentage of spare secondary places in 2021-22<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
-      ]
-    },
-    "forecast_1y": {
-      "x": {
-        "value": 1,
-        "min": -1.8,
-        "max": 5.4,
-        "customSectors": [
-          {
-            "lo": -1,
-            "hi": 1,
-            "color": "#00703c"
-          },
-          {
-            "lo": -1.4,
-            "hi": 3.2,
-            "color": "#ffdd00"
-          },
-          {
-            "lo": -1.8,
-            "hi": 5.4,
-            "color": "#d4351c"
-          }
-        ],
-        "symbol": "%",
-        "label": null,
-        "humanFriendly": true,
-        "humanFriendlyDecimal": 1,
-        "href": null
-      },
-      "evals": [
-
-      ],
-      "jsHooks": [
-
-      ],
-      "deps": [
-        {
-          "name": "jquery",
-          "version": "3.6.0",
-          "src": {
-            "href": "jquery-3.6.0"
-          },
-          "meta": null,
-          "script": "jquery-3.6.0.min.js",
-          "stylesheet": null,
-          "head": null,
-          "attachment": null,
-          "all_files": true
-        }
-      ]
-    },
-    "forecast_3y": {
-      "x": {
-        "value": 3.1,
-        "min": -7.7,
-        "max": 15.8,
-        "customSectors": [
-          {
-            "lo": -1,
-            "hi": 1,
-            "color": "#00703c"
-          },
-          {
-            "lo": -4.35,
-            "hi": 8.4,
-            "color": "#ffdd00"
-          },
-          {
-            "lo": -7.7,
-            "hi": 15.8,
-            "color": "#d4351c"
-          }
-        ],
-        "symbol": "%",
-        "label": null,
-        "humanFriendly": true,
-        "humanFriendlyDecimal": 1,
-        "href": null
-      },
-      "evals": [
-
-      ],
-      "jsHooks": [
-
-      ],
-      "deps": [
-        {
-          "name": "jquery",
-          "version": "3.6.0",
-          "src": {
-            "href": "jquery-3.6.0"
-          },
-          "meta": null,
-          "script": "jquery-3.6.0.min.js",
-          "stylesheet": null,
-          "head": null,
-          "attachment": null,
-          "all_files": true
-        }
       ]
     },
     "label_estimate_y1": "<b>One year ahead : <\/b> 1 %  overestimate",
@@ -363,13 +263,13 @@
       ]
     },
     "pupil_growth": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>19%<\/h3>\n    <p>Growth in secondary pupil numbers 2009/10 to 2021-22<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>19%<\/h3>\n    <p>Growth in secondary pupil numbers 2009/10 to 2021-22<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "total_funding_box": {
-      "html": "<div class=\"small-box bg-purple\">\n  <div class=\"inner\">\n    <h3>£284 million<\/h3>\n    <p>Total primary and secondary basic need funding 2011-22<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>£284 million<\/h3>\n    <p>Total primary and secondary basic need funding 2011-22<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]

@@ -1086,7 +1086,7 @@ function(input, output, session) {
     ) +
       geom_beeswarm() +
       geom_beeswarm(
-        data = all_LA_cost %>% filter(group_higlight == 1), 
+        data = all_LA_cost %>% filter(group_higlight == 1),
         aes(x, cost_per_place,
           color = grouping,
           text = paste(LA_name, ": £", scales::comma(cost_per_place), " per place")
@@ -1103,22 +1103,22 @@ function(input, output, session) {
         values = c("#BFBFBF", "#f47738", "#1d70b8")
       ) +
       theme(
-        panel.border = element_rect(colour = "black", fill=NA, size=1),
-#        axis.line = element_blank(),
+        panel.border = element_rect(colour = "black", fill = NA, size = 1),
+        #        axis.line = element_blank(),
         axis.text.x = element_blank(),
-#        axis.text.y = element_blank(),
-#        axis.ticks = element_blank(),
+        #        axis.text.y = element_blank(),
+        #        axis.ticks = element_blank(),
         axis.title.x = element_blank(),
         axis.title.y = element_text(size = 14, family = "Arial"),
         legend.title = element_blank(),
         panel.background = element_blank(),
-#        panel.border = element_blank(),
+        #        panel.border = element_blank(),
         # panel.grid.major = element_blank(),
         # panel.grid.minor = element_blank(),
         plot.background = element_blank(),
         text = element_text(size = 14, family = "Arial")
       ) +
-      labs(y='Cost per place (£)')
+      labs(y = "Cost per place (£)")
 
 
 
