@@ -86,13 +86,20 @@ function(request) {
            tabPanel(
              "Pupil forecast accuracy",
                p(strong("Forecast accuracy of pupil projections (values closer to 0 are more accurate)")),
+             details(
+               inputId = "faccuracyhelp",
+               label = "How to read these charts",
+               help_text = "xxx."),
+             fluidRow(
+               column(
+                 6,
                 htmlOutput("label_estimate_y1"),
                 br(),
-                uiOutput("forecast_1y_proxy"),
+                uiOutput("forecast_1y_proxy",  width = 6),
                 htmlOutput("label_estimate_y3"),
                 br(),
-                uiOutput("forecast_3y_proxy")
-                ),
+                uiOutput("forecast_3y_proxy",  width = 6)
+                ))),
              
            
             tabPanel(
