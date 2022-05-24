@@ -287,8 +287,8 @@ function(input, output, session) {
     mid_high_accuracy <- median(c(1, highest_accuracy))
 
     gauge(forecast_accuracy,
-      min = -highest_accuracy,
-      max = highest_accuracy,
+      min = -12.8,
+      max = 12.8,
       symbol = "%",
       sectors = gaugeSectors(
         success = c(-1, 1),

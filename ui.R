@@ -66,10 +66,6 @@ function(request) {
             id = "tabs", width = "12",
             tabPanel(
               "Quantity",
-              p(strong(paste0("Estimated future school place demand"))),
-              p("A local authority can have both ‘spare places’ and ‘additional places needed’ due to localised or specific year group demand"),
-              valueBoxOutput("estimated_additional_places", width = 6),
-              valueBoxOutput("estimated_spare_places", width = 6),
               fluidRow(
                 column(
                   6,
@@ -78,10 +74,14 @@ function(request) {
                 ),
                 column(
                   6,
-                  p(strong("Funding allocated for creation of new places")),
-                  valueBoxOutput("total_funding_box", width = 12),
+                p(strong(paste0("Estimated future school place demand"))),
+                p("A local authority can have both ‘spare places’ and ‘additional places needed’ due to localised or specific year group demand"),
+                valueBoxOutput("estimated_additional_places", width = 6),
+                valueBoxOutput("estimated_spare_places", width = 6),
+                      p(strong("Funding allocated for creation of new places")),
+                  valueBoxOutput("total_funding_box", width = 6),
                   p(strong("Anticipated increase in pupils")),
-                  valueBoxOutput("pupil_growth", width = 12)
+                  valueBoxOutput("pupil_growth", width = 6)
                 ))),
            tabPanel(
              "Pupil forecast accuracy",
