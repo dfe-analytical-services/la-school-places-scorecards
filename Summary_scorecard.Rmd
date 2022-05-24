@@ -19,6 +19,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
 source("global.R")
 library(webshot)
 library(kableExtra)
@@ -249,7 +250,7 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
 Percentage of applicants who recieved an offer of one of their top three preferred `r str_to_lower(params$input_phase_choice)` schools in England
 \end{tcolorbox}
 ``` {r echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
-    if (params$input_la_choice != "England") {
+if (params$input_la_choice != "England") {
 cat(paste("\\begin{tcolorbox}[colback=gssmidblue, 
  leftright skip=0.1cm,
  coltext=white, 
@@ -264,13 +265,17 @@ cat(paste("\\begin{tcolorbox}[colback=gssmidblue,
 ",PrefT3,"\\%
 \\tcblower
 Percentage of applicants who recieved an offer of one of their top three preferred ", str_to_lower(params$input_phase_choice)," places in ",plan_year," in ",params$input_la_choice,"
-\\end{tcolorbox}")
-)
+\\end{tcolorbox}
+}
+"))
+    } else {
+paste("        
+}
+")
       }
 ```
-}
 
-```{r preference_barchart, echo = FALSE, message=FALSE, out.width="130%"}
+```{r preference_barchart, echo = FALSE, message=FALSE, out.width="1600px", crop=TRUE}
 # Scorecard data, filtered on user input AND including England as a comparison
   live_scorecard_data_england_comp <- scorecards_data_pivot %>%
       filter(
@@ -335,7 +340,7 @@ Percentage of applicants who recieved an offer of one of their top three preferr
         text = element_text(size = 14, family = "Arial")
       )
     ggplotly(preference_p,
-             width=800,height=320
+             width=960,height=480
          ) %>%
       layout(
         uniformtext = list(minsize = 12, mode = "hide"),
@@ -352,13 +357,12 @@ Percentage of applicants who recieved an offer of one of their top three preferr
   
 ```
 
+\newpage
 ## Quality
 
 ### Quality of places created between 2017-18 and 2018-19, based on `r params$input_quality_chart`:
 
 ```{r quality, echo = FALSE}
-
-
   # Change name of what "better than average" is depending on chart choice:
   school_description <- 
     if (params$input_quality_chart == "Ofsted") {
@@ -392,11 +396,7 @@ Percentage of applicants who recieved an offer of one of their top three preferr
         roundFiveUp(., 2) * 100
     }
   
-# Display % for LAs
-         if (params$input_la_choice != "England") { paste0("Percentage of new places created in ", school_description, str_to_lower(params$input_phase_choice), " schools in ", params$input_la_choice, ": ", LA_comp, "%") }
-
-        
-           # Scorecard data for ALL LAs, filtered only on phase choice
+             # Scorecard data for ALL LAs, filtered only on phase choice
 live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$input_phase_choice)
  
         
@@ -463,14 +463,6 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
       # calculate percentage
       roundFiveUp(numerator / denominator * 100, 1)
     }
-  
-
-
-
-  # display % of new places in top schools - England
-
-           paste0("Percentage of new places in ", school_description, str_to_lower(params$input_phase_choice), " schools in England", ": ", england_comp, "%") 
-
 
             # Calculate % ranking depending on chart choice:
   LA_ranking <- 
@@ -491,11 +483,8 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
         filter(name == "Qual_KS2Mat_Propranks") %>%
         pull(value)
     }
- 
 
-
-
-  # Calculate ranking denominator depending on chart choice:
+    # Calculate ranking denominator depending on chart choice:
   LA_denom <- 
     if (params$input_quality_chart == "Ofsted") {
       live_scorecard_data_all_la %>%
@@ -514,16 +503,9 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
         filter(name == "Qual_KS2Mat_Propranks" & !is.na(value)) %>%
         nrow()
     }
-  
-
-
-    # Display value (% of new places in top schools - LA Ranking)
-        if (params$input_la_choice != "England") { paste0("LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, " and ", this_year, " (ranks can be tied):")}
-         if (params$input_la_choice != "England") { paste0(LA_ranking) }
-
 ```           
 
-`r "\\makebox[1.0\\linewidth]{"`
+\makebox[1.0\linewidth]{
 \centering
 \begin{tcolorbox}[colback=gssmidblue, 
  leftright skip=0.1cm,
@@ -536,9 +518,9 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
  `r ifelse(params$input_la_choice != "England","width=0.32\\linewidth","width=0.49\\linewidth")`,
  boxrule=0pt 
  ]
-`r PrefT3_E`\%
+`r england_comp`\%
 \tcblower
-Percentage of applicants who recieved an offer of one of their top three preferred `r str_to_lower(params$input_phase_choice)` schools in England
+Percentage of new places created in `r paste(school_description, str_to_lower(params$input_phase_choice))` schools in England
 \end{tcolorbox}
 ``` {r echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
     if (params$input_la_choice != "England") {
@@ -553,10 +535,11 @@ cat(paste("\\begin{tcolorbox}[colback=gssmidblue,
  width=0.32\\linewidth,
  boxrule=0pt 
  ]
-",PrefT3,"\\%
+",LA_comp,"\\%
 \\tcblower
-Percentage of applicants who recieved an offer of one of their top three preferred ", str_to_lower(params$input_phase_choice)," places in ",plan_year," in ",params$input_la_choice,"
-\\end{tcolorbox}")
+Percentage of new places created in ", school_description, str_to_lower(params$input_phase_choice), " schools in ", params$input_la_choice,"
+\\end{tcolorbox}
+")
 )
 cat(paste("\\begin{tcolorbox}[colback=gssmidblue, 
  leftright skip=0.1cm,
@@ -569,15 +552,17 @@ cat(paste("\\begin{tcolorbox}[colback=gssmidblue,
  width=0.32\\linewidth,
  boxrule=0pt 
  ]
-",PrefT3,"\\%
+",LA_ranking,"
 \\tcblower
-Percentage of applicants who recieved an offer of one of their top three preferred ", str_to_lower(params$input_phase_choice)," places in ",plan_year," in ",params$input_la_choice,"
+LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, " and ", this_year, " (ranks can be tied)
 \\end{tcolorbox}")
 )
       }
 ```
+}
 
-``` {r quality_chart}           
+
+``` {r quality_chart, out.width="1600px", crop=TRUE}           
 # Scorecard data, filtered on user input AND including England as a comparison
   live_scorecard_data_england_comp <- scorecards_data_pivot %>%
       filter(
@@ -870,7 +855,8 @@ Percentage of applicants who recieved an offer of one of their top three preferr
     }
     
 
-    ggplotly(quality_chart_choice
+    ggplotly(quality_chart_choice,
+             width=900, height=480,
          ) %>%
       layout(
         xaxis = list(showticklabels = FALSE),
@@ -888,6 +874,7 @@ Percentage of applicants who recieved an offer of one of their top three preferr
 ```
 
 New places with no rating =  `r scales::comma(no_rating)` 
+
 
 ## Cost
 

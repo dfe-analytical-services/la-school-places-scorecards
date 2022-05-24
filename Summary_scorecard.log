@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7200 64-bit) (preloaded format=pdflatex 2021.12.7)  20 MAY 2022 16:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7200 64-bit) (preloaded format=pdflatex 2021.12.7)  24 MAY 2022 11:15
 entering extended mode
 **./Summary_scorecard.tex
 (Summary_scorecard.tex
@@ -1097,8 +1097,7 @@ File: bkm-pdftex.def 2019/06/04 v1.27 bookmark driver for pdfTeX (HO)
 \BKM@id=\count319
 )) (C:\Users\RBIELBY\AppData\Roaming\MiKTeX\2.9\tex/latex/xurl\xurl.sty
 Package: xurl 2020/12/30 v 0.09a modify URL breaks
-)
-No file Summary_scorecard.aux.
+) (Summary_scorecard.aux)
 \openout1 = `Summary_scorecard.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 89.
@@ -1267,8 +1266,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 177--177
 []\T1/lmr/bx/n/12 (+20) Estimated ad-di-tional pri-mary
  []
 
-<Summary_scorecard_files/figure-latex/quantity_b-1.png, id=6, 2987.16pt x 1686.
-3pt>
+<Summary_scorecard_files/figure-latex/quantity_b-1.png, id=6, 1991.44pt x 1124.
+2pt>
 File: Summary_scorecard_files/figure-latex/quantity_b-1.png Graphic file (type 
 png)
 <use Summary_scorecard_files/figure-latex/quantity_b-1.png>
@@ -1279,47 +1278,69 @@ Package pdftex.def Info: Summary_scorecard_files/figure-latex/quantity_b-1.png
 
 {C:/Users/RBIELBY/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./Summary
 _scorecard_files/figure-latex/quantity_b-1.png>]
-<Summary_scorecard_files/figure-latex/preference_barchart-1.pdf, id=25, 803.0pt
- x 321.2pt>
+<Summary_scorecard_files/figure-latex/preference_barchart-1.pdf, id=25, 434.623
+75pt x 225.84375pt>
 File: Summary_scorecard_files/figure-latex/preference_barchart-1.pdf Graphic fi
 le (type pdf)
 <use Summary_scorecard_files/figure-latex/preference_barchart-1.pdf>
 Package pdftex.def Info: Summary_scorecard_files/figure-latex/preference_barcha
 rt-1.pdf  used on input line 223.
-(pdftex.def)             Requested size: 610.72745pt x 244.29097pt.
-
-Overfull \hbox (140.97243pt too wide) in paragraph at lines 223--224
-[][] 
- []
-
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-33.
-("C:\Program Files\MiKTeX 2.9\tex/latex/lm\t1lmtt.fd"
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 234--234
-[]\T1/lmtt/m/n/10 ## [1] "Percentage of new places created in good and outstand
-ing primary schools in Durham: 100%" 
+(pdftex.def)             Requested size: 434.6492pt x 225.85696pt.
+[2 <./Summary_scorecard_files/figure-latex/preference_barchart-1.pdf>]
+Underfull \hbox (badness 1924) in paragraph at lines 282--282
+[]\T1/lmr/bx/n/12 (+20) Percentage of new
  []
 
 
-Overfull \hbox (76.2434pt too wide) in paragraph at lines 242--242
-[]\T1/lmtt/m/n/10 ## [1] "LA Rank out of 120 LAs that created new places betwee
-n 2017-18 and 2018-19 (ranks can be tied):" 
+Underfull \hbox (badness 10000) in paragraph at lines 282--282
+\T1/lmr/bx/n/12 (+20) places cre-ated in
  []
 
-! Missing number, treated as zero.
-<to be read again> 
-                   {
-l.249 \textbackslash makebox{[}1.0\linewidth{
-                                             ]}\{ \centering 
+
+Underfull \hbox (badness 1924) in paragraph at lines 282--282
+[]\T1/lmr/bx/n/12 (+20) Percentage of new
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 282--282
+\T1/lmr/bx/n/12 (+20) places cre-ated in
+ []
+
+
+Underfull \hbox (badness 6284) in paragraph at lines 282--282
+[]\T1/lmr/bx/n/12 (+20) LA Rank out of
+ []
+
+<Summary_scorecard_files/figure-latex/quality_chart-1.pdf, id=45, 448.67625pt x
+ 233.87375pt>
+File: Summary_scorecard_files/figure-latex/quality_chart-1.pdf Graphic file (ty
+pe pdf)
+<use Summary_scorecard_files/figure-latex/quality_chart-1.pdf>
+Package pdftex.def Info: Summary_scorecard_files/figure-latex/quality_chart-1.p
+df  used on input line 284.
+(pdftex.def)             Requested size: 448.6957pt x 233.88385pt.
+[3 <./Summary_scorecard_files/figure-latex/quality_chart-1.pdf>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 291.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 291.
+(Summary_scorecard.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 291.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 291.
+ ) 
 Here is how much of TeX's memory you used:
- 35860 strings out of 492452
- 662653 string characters out of 3129802
- 721485 words of memory out of 3000000
- 39674 multiletter control sequences out of 15000+200000
- 512481 words of font info for 86 fonts, out of 3000000 for 9000
+ 35857 strings out of 492452
+ 663369 string characters out of 3129802
+ 722118 words of memory out of 3000000
+ 39658 multiletter control sequences out of 15000+200000
+ 512259 words of font info for 86 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,6n,62p,1016b,920s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 57i,6n,62p,1403b,920s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Program Files/M
+iKTeX 2.9/fonts/type1/public/lm/lmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
+ype1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lm
+r10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb>
+Output written on Summary_scorecard.pdf (3 pages, 218444 bytes).
+PDF statistics:
+ 113 PDF objects out of 1000 (max. 8388607)
+ 20 named destinations out of 1000 (max. 500000)
+ 24668 words of extra memory for PDF output out of 24883 (max. 10000000)
 
-!  ==> Fatal error occurred, no output PDF file produced!
