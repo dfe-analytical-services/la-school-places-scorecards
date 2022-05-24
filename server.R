@@ -415,7 +415,7 @@ function(input, output, session) {
       paste0(PrefT3_E, "%"),
       paste0("Percentage of applicants who recieved an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England"),
       # icon = icon("fas fa-chart-line"),
-      color = "blue"
+      color = "light-blue"
     )
   })
 
@@ -434,7 +434,7 @@ function(input, output, session) {
       paste0(PrefT3, "%"),
       paste0("Percentage of applicants who recieved an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in ", (input$LA_choice)),
       # icon = icon("fas fa-sort-amount-up"),
-      color = "green"
+      color = "light-blue"
     )
   })
 
@@ -559,7 +559,7 @@ function(input, output, session) {
       paste0(LA_comp(), "%"),
       paste0("Percentage of new places created in ", school_description(), str_to_lower(input$phase_choice), " schools in ", input$LA_choice),
       # icon = icon("fas fa-boxes"),
-      color = "green"
+      color = "light-blue"
     )
   })
 
@@ -638,7 +638,7 @@ function(input, output, session) {
       paste0(england_comp(), "%"),
       paste0("Percentage of new places in ", school_description(), str_to_lower(input$phase_choice), " schools in England"),
       # icon = icon("fas fa-equals"),
-      color = "blue"
+      color = "light-blue"
     )
   })
 
@@ -696,7 +696,7 @@ function(input, output, session) {
       LA_ranking(),
       paste0("LA Rank out of ", LA_denom(), " LAs that created new places between ", last_year, " and ", this_year, " (ranks can be tied)"),
       # icon = icon("fas fa-bars"),
-      color = "purple"
+      color = "light-blue"
     )
   })
 
