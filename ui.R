@@ -42,7 +42,7 @@ function(request) {
           br(),
           myDownloadButton(
             "download_ud",
-            "Download all data"
+            "Download data"
           )
         ), # end of panel
 
@@ -180,7 +180,7 @@ function(request) {
         ), # end of tabPanel
         tabPanel(
           "Quality",
-          tableOutput("notesTableQual") # made in global.R file
+          tableOutput("notesTableQual") # made in global.R file 
         ), # end of tabPanel
         tabPanel(
           "Cost",
