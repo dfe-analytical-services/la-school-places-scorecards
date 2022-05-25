@@ -218,11 +218,24 @@ function(input, output, session) {
       filter(name == "For_1") %>%
       pull(value) %>%
       roundFiveUp(., 3) * 100
+    
+ 
+    Foracc1year <- scorecards_data_pivot %>%
+      filter(
+        name == "For_1",
+        Phase == input$phase_choice)  %>%
+            pull(value) %>%
+      roundFiveUp(., 3) * 100
+    
+    medianaccuracy1 <- median(Foracc1year, na.rm = TRUE) 
 
     label <- case_when(
-      forecast_accuracy > 0 ~ "overestimate",
-      forecast_accuracy < 0 ~ "underestimate",
-      TRUE ~ "Accurate"
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy > medianaccuracy1 ~ "overestimate, which is higher in comparison to the median LA one year forecast accuracy",
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < medianaccuracy1 ~ "overestimate, which is lower in comparison to the median LA one year forecast accuracy",
+      input$LA_choice != "England" & forecast_accuracy < 0 ~ "underestimate, the median LA one year forecast accuracy is an overstimate",
+      input$LA_choice == "England" &  forecast_accuracy > 0  ~ "overestimate",
+      input$LA_choice == "England" &  forecast_accuracy < 0  ~ "underestimate",
+      TRUE ~ "overestimate/underestimate therefore accurate"
     )
 
     if (label != "accurate") {
@@ -239,10 +252,22 @@ function(input, output, session) {
       pull(value) %>%
       roundFiveUp(., 3) * 100
 
+    Foracc3year <- scorecards_data_pivot %>%
+      filter(
+        name == "For_3",
+        Phase == input$phase_choice)  %>%
+      pull(value) %>%
+      roundFiveUp(., 3) * 100
+    
+    medianaccuracy2 <- median(Foracc3year, na.rm = TRUE) 
+    
     label <- case_when(
-      forecast_accuracy > 0 ~ "overestimate",
-      forecast_accuracy < 0 ~ "underestimate",
-      TRUE ~ "over/under estimate: Accurate"
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy > medianaccuracy2 ~ "overestimate, which is higher in comparison to the median LA three year forecast accuracy",
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < medianaccuracy2 ~ "overestimate, which is lower in comparison to the median LA three year forecast accuracy",
+      input$LA_choice != "England" & forecast_accuracy < 0 ~ "underestimate, the median LA three year forecast accuracy is an overstimate",
+      input$LA_choice == "England" &  forecast_accuracy > 0  ~ "overestimate",
+      input$LA_choice == "England" &  forecast_accuracy < 0  ~ "underestimate",
+      TRUE ~ "overestimate/underestimate therefore accurate"
     )
 
     if (label != "accurate") {
@@ -299,6 +324,91 @@ function(input, output, session) {
     )
   })
 
+
+  
+  output$for1year_table <- renderTable({
+    scorecards_data_pivot %>%
+      filter(
+        name == "For_1",
+        Phase == input$phase_choice
+      ) %>%
+      mutate(
+        median_accuracy  = median(value, na.rm = TRUE),
+        median_accuracy =  roundFiveUp(median_accuracy,3) * 100,
+        median_accuracy =   paste0(median_accuracy, "%"),
+        twentyfifth_percentile = quantile(value,0.25, na.rm = TRUE),
+        twentyfifth_percentile =  roundFiveUp(twentyfifth_percentile,3) * 100,
+        twentyfifth_percentile =   paste0( twentyfifth_percentile, "%"),
+        seventyfifth_percentile = quantile(value,0.75, na.rm = TRUE),
+        seventyfifth_percentile =  roundFiveUp(seventyfifth_percentile,3) * 100,
+        seventyfifth_percentile =   paste0(seventyfifth_percentile, "%"),
+        min_accuracy = min(value, na.rm = TRUE),
+        min_accuracy =  roundFiveUp(min_accuracy,3) * 100,
+        min_accuracy =   paste0(min_accuracy, "%"),
+        max_accuracy = max(value, na.rm = TRUE),
+        max_accuracy =  roundFiveUp(max_accuracy,3) * 100,
+        max_accuracy =   paste0(max_accuracy, "%")
+       ) %>%
+      filter(
+               LA_name == "England"
+      ) %>%
+    select(min_accuracy, twentyfifth_percentile, median_accuracy,  seventyfifth_percentile, max_accuracy)
+  }
+  )
+  
+  output$for3year_table <- renderTable({
+    scorecards_data_pivot %>%
+      filter(
+        name == "For_3",
+        Phase == input$phase_choice
+      ) %>%
+      mutate(
+        median_accuracy  = median(value, na.rm = TRUE),
+        median_accuracy =  roundFiveUp(median_accuracy,3) * 100,
+        median_accuracy =   paste0(median_accuracy, "%"),
+        twentyfifth_percentile = quantile(value,0.25, na.rm = TRUE),
+        twentyfifth_percentile =  roundFiveUp(twentyfifth_percentile,3) * 100,
+        twentyfifth_percentile =   paste0( twentyfifth_percentile, "%"),
+        seventyfifth_percentile = quantile(value,0.75, na.rm = TRUE),
+        seventyfifth_percentile =  roundFiveUp(seventyfifth_percentile,3) * 100,
+        seventyfifth_percentile =   paste0(seventyfifth_percentile, "%"),
+        min_accuracy = min(value, na.rm = TRUE),
+        min_accuracy =  roundFiveUp(min_accuracy,3) * 100,
+        min_accuracy =   paste0(min_accuracy, "%"),
+        max_accuracy = max(value, na.rm = TRUE),
+        max_accuracy =  roundFiveUp(max_accuracy,3) * 100,
+        max_accuracy =   paste0(max_accuracy, "%")
+      ) %>%
+      filter(
+        LA_name == "England"
+      ) %>%
+      select(min_accuracy, twentyfifth_percentile, median_accuracy,  seventyfifth_percentile, max_accuracy)
+  }
+  )
+  
+    
+        # format it nicely with £ sign
+      
+              #lowest_accuracy <- scorecards_data_pivot %>%
+      #filter(
+        #name == "For_1",
+       # Phase == input$phase_choice
+      #) %>%
+     # slice(which.min(value)) %>%
+     # pull(value) %>%
+     # roundFiveUp(., 3) * 100
+    
+   # highest_accuracy <- scorecards_data_pivot %>%
+     # filter(
+       # name == "For_1",
+      #  Phase == input$phase_choice
+     # ) %>%
+     # slice(which.max(value)) %>%
+     # pull(value) %>%
+     # roundFiveUp(., 3) * 100
+    
+
+  
 
   output$forecast_1y_proxy <- renderUI({
     input$phase_choice # force re-render

@@ -99,9 +99,20 @@ function(request) {
                 htmlOutput("label_estimate_y3"),
                 br(),
                 uiOutput("forecast_3y_proxy",  width = 6)
-                ))),
-             
-           
+                ),
+               column(
+                 4,
+                 tableOutput("for1year_table"),
+                 br(),
+                 br(),
+                 br(),
+                 br(),
+                 br(),
+                 br(),
+                 br(),
+                 br(),
+             tableOutput("for3year_table"))),
+             ),
             tabPanel(
               "Preference",
               p(strong(paste0("School applications and offers for September ", preference_year, " entry"))),
