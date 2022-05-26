@@ -22,7 +22,7 @@ Qual_P_2_E,Primary existing places in Good schools
 Qual_P_3_E,Primary existing places in Requires improvement schools
 Qual_P_4_E,Primary existing places in Inadequate schools
 Qual_P_0_E,Primary existing places in schools with no rating
-Qual_P_Prop,LA Rank Primary percentage places added in Outstanding/good schools 
+Qual_P_Prop,LA Rank Primary percentage places added in Outstanding/good schools
 Qual_P_Propranks,Primary percentage places added in Outstanding/good schools
 Qual_S_1_N,Secondary places added in Outstanding schools
 Qual_S_2_N,Secondary places added in Good schools
@@ -34,7 +34,7 @@ Qual_S_2_E,Secondary existing places in Good schools
 Qual_S_3_E,Secondary existing places in requires improvement schools
 Qual_S_4_E,Secondary existing places in inadequate schools
 Qual_S_0_E,Secondary existing places in schools with no rating
-Qual_S_Prop,Secondary percentage places added in Outstanding/good schools 
+Qual_S_Prop,Secondary percentage places added in Outstanding/good schools
 Qual_S_Propranks,LA Rank Secondary percentage places added in Outstanding/good schools
 KS4_WAA_N,Secondary places added in Well Above Average Schools (Progress 8)
 KS4_AA_N,Secondary places added in Above Average Schools (Progress 8)
@@ -104,7 +104,7 @@ Cost_S_NS,Secondary New School total costs
 Places_S_NS,Secondary New Schools places created
 Ban_P_gro,Primary Actual/Forecast growth in pupil numbers 09/10 to 21/22
 Ban_S_gro,Secondary Actual/Forecast growth in pupil numbers 09/10 to 21/22
-Funding,Total basic need allocation 2011-22 (£)
+Funding,Total basic need allocation 2011-22 (Â£)
 Pref_P_1,Primary Preference 1st choice
 Pref_P_2,Primary Preference 2nd choice
 Pref_P_3,Primary Preference 3rd choice
