@@ -1,0 +1,115 @@
+programmer_friendly_names,user_friendly_names
+LANumber,LA Number
+For_3_P,Primary forecast accuracy 3yr ahead
+For_1_P,Primary forecast accuracy 1yr ahead
+For_3_S,Secondary forecast accuracy 3yr ahead
+For_1_S,Secondary forecast accuracy 1yr ahead
+Quan_P_In,Primary places created between 09/10-18/19
+Quan_S_In,Secondary places created between 09/10-18/19
+Quan_P_RP,Estimated number of primary places needed to meet demand in 21/22
+Quan_S_RP,Estimated number of secondary places needed to meet demand in 21/22
+Quan_P_Su,Estimated percentage of spare primary places in 21/22
+Quan_S_Su,Estimated percentage of spare secondary places In 21/22
+Quan_P_PP,New primary places planned for delivery for 21/22
+Quan_S_PP,New secondary places planned for delivery for 21/22
+Qual_P_1_N,Primary places added in Outstanding schools
+Qual_P_2_N,Primary places added in Good schools
+Qual_P_3_N,Primary places added in Requires improvement schools
+Qual_P_4_N,Primary places added in Inadequate schools
+Qual_P_0_N,Primary places added in schools with no rating
+Qual_P_1_E,Primary existing places in Outstanding schools
+Qual_P_2_E,Primary existing places in Good schools
+Qual_P_3_E,Primary existing places in Requires improvement schools
+Qual_P_4_E,Primary existing places in Inadequate schools
+Qual_P_0_E,Primary existing places in schools with no rating
+Qual_P_Prop,LA Rank Primary percentage places added in Outstanding/good schools
+Qual_P_Propranks,Primary percentage places added in Outstanding/good schools
+Qual_S_1_N,Secondary places added in Outstanding schools
+Qual_S_2_N,Secondary places added in Good schools
+Qual_S_3_N,Secondary places added in Requires improvement schools
+Qual_S_4_N,Secondary places added in Inadequate schools
+Qual_S_0_N,Secondary places added in schools with no rating
+Qual_S_1_E,Secondary existing places in Outstanding schools
+Qual_S_2_E,Secondary existing places in Good schools
+Qual_S_3_E,Secondary existing places in requires improvement schools
+Qual_S_4_E,Secondary existing places in inadequate schools
+Qual_S_0_E,Secondary existing places in schools with no rating
+Qual_S_Prop,Secondary percentage places added in Outstanding/good schools
+Qual_S_Propranks,LA Rank Secondary percentage places added in Outstanding/good schools
+KS4_WAA_N,Secondary places added in Well Above Average Schools (Progress 8)
+KS4_AA_N,Secondary places added in Above Average Schools (Progress 8)
+KS4_A_N,Secondary places added in Average schools (Progress 8)
+KS4_BA_N,Secondary places added in Below Average schools  (Progress 8)
+KS4_WBA_N,Secondary places added in Well Below Average schools  (Progress 8)
+KS4_NR_N,Secondary places added in schools with no rating  (Progress 8)
+Qual_KS4_Prop,Secondary percentage places added in Well Above and Above Average Schools  (Progress 8)
+Qual_KS4_Propranks,LA Rank Secondary percentage places added in Well Above and Above Average School  (Progress 8)
+KS4_WAA_E,Secondary existing places in Well Above Average Schools  (Progress 8)
+KS4_AA_E,Secondary existing places in Above Average Schools  (Progress 8)
+KS4_A_E,Secondary existing places in Average Schools  (Progress 8)
+KS4_BA_E,Secondary existing places in below average schools  (Progress 8)
+KS4_WBA_E,Secondary existing places in Well Below Average schools  (Progress 8)
+KS4_NR_E,Secondary existing places in schools with no rating  (Progress 8)
+KS2Mat_WAA_N,Primary places added in Well Above Average Schools  (Maths progress)
+KS2Mat_AA_N,Primary places added in Above Average Schools  (Maths progress)
+KS2Mat_A_N,Primary places added in Average schools  (Maths progress)
+KS2Mat_BA_N,Primary places added in Below Average schools  (Maths progress)
+KS2Mat_WBA_N,Primary places added in Well Below Average schools  (Maths progress)
+KS2Mat_NR_N,Primary places added in schools with no rating (Maths progress)
+Qual_KS2Mat_Prop,Primary percentage places added in Well Above and Above Average Schools (Maths progress)
+Qual_KS2Mat_Propranks,LA Rank Primary percentage places added in Well Above and Above Average Schools  (Maths progress)
+KS2Mat_WAA_E,Primary existing places in Well Above Average Schools (Maths progress)
+KS2Mat_AA_E,Primary existing places in Above Average Schools (Maths progress)
+KS2Mat_A_E,Primary existing places in Average Schools (Maths progress)
+KS2Mat_BA_E,Primary existing places in below average schools  (Maths progress)
+KS2Mat_WBA_E,Primary existing places in Well Below Average schools  (Maths progress)
+KS2Mat_NR_E,Primary existing places in schools with no rating  (Maths progress)
+KS2Read_WAA_N,Primary places added in Well Above Average Schools  (Reading progress)
+KS2Read_AA_N,Primary places added in Above Average Schools  (Reading progress)
+KS2Read_A_N,Primary places added in Average schools  (Reading progress)
+KS2Read_BA_N,Primary places added in Below Average schools  (Reading progress)
+KS2Read_WBA_N,Primary places added in Well Below Average schools  (Reading progress)
+KS2Read_NR_N,Primary places added in schools with no rating (Reading progress)
+Qual_KS2Read_Prop,Primary percentage places added in Well Above and Above Average Schools (Reading progress)
+Qual_KS2Read_Propranks,LA Rank Primary percentage places added in Well Above and Above Average Schools  (Reading progress)
+KS2Read_WAA_E,Primary existing places in Well Above Average Schools (Reading progress)
+KS2Read_AA_E,Primary existing places in Above Average Schools (Reading progress)
+KS2Read_A_E,Primary existing places in Average Schools (Reading progress)
+KS2Read_BA_E,Primary existing places in below average schools  (Reading progress)
+KS2Read_WBA_E,Primary existing places in Well Below Average schools  (Reading progress)
+KS2Read_NR_E,Primary existing places in schools with no rating  (Reading progress)
+CPP_P_EP,Primary Permanent Expansion cost per place
+CPP_P_ET,Primary Temporary Expansion cost per place
+CPP_P_NS,Primary New School cost per place
+CPP_S_EP,Secondary Permanent Expansion cost per place
+CPP_S_ET,Secondary Temporary Expansion cost per place
+CPP_S_NS,Secondary New School cost per place
+Projects_P_EP,Primary Number of Permanent Expansion
+Projects_P_Et,Primary Number of Temporary Expansion
+Projects_P_NS,Primary Number of New Schools
+Projects_S_EP,Secondary Number of Permanent Expansion
+Projects_S_ET,Secondary Number of Temporary Expansion
+Projects_S_NS,Secondary Number of New Schools
+Cost_P_EP,Primary Permanent Expansion total costs
+Places_P_EP,Primary Permanent Expansion places created
+Cost_P_ET,Primary Temporary Expansion total costs
+Places_P_ET,Primary Temporary Expansion places created
+Cost_P_NS,Primary New School total costs
+Places_P_NS,Primary New Schools places created
+Cost_S_EP,Secondary Permanent Expansion total costs
+Places_S_EP,Secondary Permanent Expansion places created
+Cost_S_ET,Secondary Temporary Expansion total costs
+Places_S_ET,Secondary Temporary Expansion places created
+Cost_S_NS,Secondary New School total costs
+Places_S_NS,Secondary New Schools places created
+Ban_P_gro,Primary Actual/Forecast growth in pupil numbers 09/10 to 21/22
+Ban_S_gro,Secondary Actual/Forecast growth in pupil numbers 09/10 to 21/22
+Funding,Total basic need allocation 2011-22 (£)
+Pref_P_1,Primary Preference 1st choice
+Pref_P_2,Primary Preference 2nd choice
+Pref_P_3,Primary Preference 3rd choice
+Pref_S_1,Secondary Preference 1st choice
+Pref_S_2,Secondary Preference 2nd choice
+Pref_S_3,Secondary Preference 3rd choice
+Pref_P_T3,Primary Preference 1-3 choice total
+Pref_S_T3,Secondary Preference 1-3 choice total

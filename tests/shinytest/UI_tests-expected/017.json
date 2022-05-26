@@ -1,0 +1,909 @@
+{
+  "output": {
+    "cost_plot": {
+      "x": {
+        "data": [
+          {
+            "x": [
+              0.991519074460246,
+              1,
+              0.99013264534179,
+              1,
+              1.01101849978368,
+              1,
+              1,
+              1,
+              1,
+              1.01748866495295,
+              0.990801682458073,
+              1.02707664476361,
+              0.986931978318263,
+              0.992453345465034,
+              1.00985469579377,
+              0.975070877612706,
+              0.990630540443523,
+              0.976393191715644,
+              1,
+              0.991338509666126,
+              1.00953979608427,
+              0.990498838848009,
+              1.00999850588967,
+              1.01688109245443,
+              1,
+              0.984117482108961,
+              1,
+              1.00876309566507,
+              0.994117456691181,
+              1,
+              1.01901262866701,
+              1,
+              1.00647483570062,
+              1.00970463003949,
+              1,
+              0.982519677019746,
+              1.02585372945886,
+              1,
+              0.995272779783706,
+              1,
+              1.00993794631828,
+              0.980836813820138,
+              1.00921425414099,
+              0.973430326986249,
+              1,
+              1,
+              1.0176630196575,
+              0.986347536066215,
+              1.00942415932869,
+              1.00780989329086,
+              1.01745883599438,
+              1,
+              1.00390369990511,
+              1,
+              1.01985706120869,
+              1
+            ],
+            "y": [
+              25167,
+              15732,
+              20781,
+              22397,
+              29417,
+              34664,
+              24462,
+              55656,
+              12577,
+              13868,
+              27779,
+              14246,
+              29888,
+              7581,
+              22623,
+              14223,
+              22862,
+              19254,
+              9663,
+              17974,
+              16131,
+              16147,
+              20588,
+              8099,
+              74166,
+              13656,
+              136863,
+              13218,
+              13653,
+              27257,
+              27964,
+              20565,
+              47023,
+              5585,
+              5264,
+              7734,
+              19302,
+              102004,
+              29154,
+              17309,
+              27405,
+              16490,
+              17826,
+              17384,
+              37751,
+              19026,
+              16907,
+              19127,
+              24907,
+              7539,
+              18579,
+              6708,
+              28482,
+              46009,
+              20811,
+              33015
+            ],
+            "text": "",
+            "type": "scatter",
+            "mode": "markers",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(191,191,191,1)",
+              "opacity": 1,
+              "size": 5.66929133858268,
+              "symbol": "circle",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "rgba(191,191,191,1)"
+              }
+            },
+            "hoveron": "points",
+            "name": "Other LA",
+            "legendgroup": "Other LA",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              1,
+              0.994720252876151,
+              1,
+              1,
+              1.00991707390185,
+              1.00912602791887,
+              1.00952790252568,
+              1.00607428921378,
+              0.999080297531191,
+              1,
+              1.00998324131018,
+              0.9904415122812,
+              1,
+              1.0013679509811,
+              0.991668953719038,
+              0.990989179987971,
+              1
+            ],
+            "y": [
+              10337,
+              11467,
+              22317,
+              3806,
+              8342,
+              5866,
+              10741,
+              13635,
+              14586,
+              24092,
+              3883,
+              8562,
+              5322,
+              12461,
+              12785,
+              4383,
+              8171
+            ],
+            "text": "",
+            "type": "scatter",
+            "mode": "markers",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(191,191,191,1)",
+              "opacity": 1,
+              "size": 5.66929133858268,
+              "symbol": "circle",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "rgba(191,191,191,1)"
+              }
+            },
+            "hoveron": "points",
+            "name": "Other LA",
+            "legendgroup": "Other LA",
+            "showlegend": false,
+            "xaxis": "x2",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              1,
+              1,
+              1.00483101043087,
+              1,
+              1.00999997458222,
+              1,
+              1.0097776908346,
+              1,
+              1,
+              1.00997339175727,
+              1
+            ],
+            "y": [
+              24175,
+              16703,
+              27258,
+              31675,
+              18176,
+              18173,
+              31954,
+              51973,
+              20884,
+              20981,
+              26093
+            ],
+            "text": "",
+            "type": "scatter",
+            "mode": "markers",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(191,191,191,1)",
+              "opacity": 1,
+              "size": 5.66929133858268,
+              "symbol": "circle",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "rgba(191,191,191,1)"
+              }
+            },
+            "hoveron": "points",
+            "name": "Other LA",
+            "legendgroup": "Other LA",
+            "showlegend": false,
+            "xaxis": "x3",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": 1,
+            "y": 23775,
+            "text": "England : £ 23,775  per place",
+            "type": "scatter",
+            "mode": "markers",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(244,119,56,1)",
+              "opacity": 1,
+              "size": 12.0944881889764,
+              "symbol": "circle",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "rgba(244,119,56,1)"
+              }
+            },
+            "hoveron": "points",
+            "name": "England",
+            "legendgroup": "England",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": 1,
+            "y": 9248,
+            "text": "England : £ 9,248  per place",
+            "type": "scatter",
+            "mode": "markers",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(244,119,56,1)",
+              "opacity": 1,
+              "size": 12.0944881889764,
+              "symbol": "circle",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "rgba(244,119,56,1)"
+              }
+            },
+            "hoveron": "points",
+            "name": "England",
+            "legendgroup": "England",
+            "showlegend": false,
+            "xaxis": "x2",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": 1,
+            "y": 24929,
+            "text": "England : £ 24,929  per place",
+            "type": "scatter",
+            "mode": "markers",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(244,119,56,1)",
+              "opacity": 1,
+              "size": 12.0944881889764,
+              "symbol": "circle",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "rgba(244,119,56,1)"
+              }
+            },
+            "hoveron": "points",
+            "name": "England",
+            "legendgroup": "England",
+            "showlegend": false,
+            "xaxis": "x3",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          }
+        ],
+        "layout": {
+          "margin": {
+            "t": 40.6187906461879,
+            "r": 22.1834786218348,
+            "b": 13.3942161339422,
+            "l": 66.7496886674969
+          },
+          "font": {
+            "color": "rgba(0,0,0,1)",
+            "family": "Arial",
+            "size": 18.5969281859693
+          },
+          "xaxis": {
+            "domain": [
+              0,
+              0.324771689497717
+            ],
+            "automargin": true,
+            "type": "linear",
+            "autorange": false,
+            "range": [
+              0.970748011097381,
+              1.02975896065248
+            ],
+            "tickmode": "array",
+            "ticktext": [
+              "0.98",
+              "0.99",
+              "1.00",
+              "1.01",
+              "1.02"
+            ],
+            "tickvals": [
+              0.98,
+              0.99,
+              1,
+              1.01,
+              1.02
+            ],
+            "categoryorder": "array",
+            "categoryarray": [
+              "0.98",
+              "0.99",
+              "1.00",
+              "1.01",
+              "1.02"
+            ],
+            "nticks": null,
+            "ticks": "outside",
+            "tickcolor": "rgba(51,51,51,1)",
+            "ticklen": 3.65296803652968,
+            "tickwidth": 0.66417600664176,
+            "showticklabels": false,
+            "tickfont": {
+              "color": null,
+              "family": null,
+              "size": 0
+            },
+            "tickangle": 0,
+            "showline": false,
+            "linecolor": null,
+            "linewidth": 0,
+            "showgrid": true,
+            "gridcolor": "rgba(255,255,255,1)",
+            "gridwidth": 0.66417600664176,
+            "zeroline": false,
+            "anchor": "y",
+            "title": "",
+            "hoverformat": ".2f"
+          },
+          "yaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "type": "linear",
+            "autorange": false,
+            "range": [
+              -2846.85,
+              143515.85
+            ],
+            "tickmode": "array",
+            "ticktext": [
+              "0e+00",
+              "5e+04",
+              "1e+05"
+            ],
+            "tickvals": [
+              0,
+              50000,
+              100000
+            ],
+            "categoryorder": "array",
+            "categoryarray": [
+              "0e+00",
+              "5e+04",
+              "1e+05"
+            ],
+            "nticks": null,
+            "ticks": "outside",
+            "tickcolor": "rgba(51,51,51,1)",
+            "ticklen": 3.65296803652968,
+            "tickwidth": 0.66417600664176,
+            "showticklabels": true,
+            "tickfont": {
+              "color": "rgba(77,77,77,1)",
+              "family": "Arial",
+              "size": 14.8775425487754
+            },
+            "tickangle": 0,
+            "showline": false,
+            "linecolor": null,
+            "linewidth": 0,
+            "showgrid": true,
+            "gridcolor": "rgba(255,255,255,1)",
+            "gridwidth": 0.66417600664176,
+            "zeroline": false,
+            "anchor": "x",
+            "title": "",
+            "hoverformat": ".2f"
+          },
+          "annotations": [
+            {
+              "text": "Cost per place (£)",
+              "x": -0.0587640099626401,
+              "y": 0.5,
+              "showarrow": false,
+              "ax": 0,
+              "ay": 0,
+              "font": {
+                "color": "rgba(0,0,0,1)",
+                "family": "Arial",
+                "size": 18.5969281859693
+              },
+              "xref": "paper",
+              "yref": "paper",
+              "textangle": -90,
+              "xanchor": "right",
+              "yanchor": "center",
+              "annotationType": "axis"
+            },
+            {
+              "text": "Permanent",
+              "x": 0.162385844748858,
+              "y": 1,
+              "showarrow": false,
+              "ax": 0,
+              "ay": 0,
+              "font": {
+                "color": "rgba(26,26,26,1)",
+                "family": "Arial",
+                "size": 14.8775425487754
+              },
+              "xref": "paper",
+              "yref": "paper",
+              "textangle": 0,
+              "xanchor": "center",
+              "yanchor": "bottom"
+            },
+            {
+              "text": "Temporary",
+              "x": 0.5,
+              "y": 1,
+              "showarrow": false,
+              "ax": 0,
+              "ay": 0,
+              "font": {
+                "color": "rgba(26,26,26,1)",
+                "family": "Arial",
+                "size": 14.8775425487754
+              },
+              "xref": "paper",
+              "yref": "paper",
+              "textangle": 0,
+              "xanchor": "center",
+              "yanchor": "bottom"
+            },
+            {
+              "text": "New school",
+              "x": 0.837614155251142,
+              "y": 1,
+              "showarrow": false,
+              "ax": 0,
+              "ay": 0,
+              "font": {
+                "color": "rgba(26,26,26,1)",
+                "family": "Arial",
+                "size": 14.8775425487754
+              },
+              "xref": "paper",
+              "yref": "paper",
+              "textangle": 0,
+              "xanchor": "center",
+              "yanchor": "bottom"
+            }
+          ],
+          "shapes": [
+            {
+              "type": "rect",
+              "fillcolor": "transparent",
+              "line": {
+                "color": "rgba(0,0,0,1)",
+                "width": 1.32835201328352,
+                "linetype": "solid"
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0,
+              "x1": 0.324771689497717,
+              "y0": 0,
+              "y1": 1
+            },
+            {
+              "type": "rect",
+              "fillcolor": "rgba(217,217,217,1)",
+              "line": {
+                "color": "transparent",
+                "width": 0.66417600664176,
+                "linetype": "solid"
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0,
+              "x1": 0.324771689497717,
+              "y0": 0,
+              "y1": 26.5670402656704,
+              "yanchor": 1,
+              "ysizemode": "pixel"
+            },
+            {
+              "type": "rect",
+              "fillcolor": "transparent",
+              "line": {
+                "color": "rgba(0,0,0,1)",
+                "width": 1.32835201328352,
+                "linetype": "solid"
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0.34189497716895,
+              "x1": 0.65810502283105,
+              "y0": 0,
+              "y1": 1
+            },
+            {
+              "type": "rect",
+              "fillcolor": "rgba(217,217,217,1)",
+              "line": {
+                "color": "transparent",
+                "width": 0.66417600664176,
+                "linetype": "solid"
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0.34189497716895,
+              "x1": 0.65810502283105,
+              "y0": 0,
+              "y1": 26.5670402656704,
+              "yanchor": 1,
+              "ysizemode": "pixel"
+            },
+            {
+              "type": "rect",
+              "fillcolor": "transparent",
+              "line": {
+                "color": "rgba(0,0,0,1)",
+                "width": 1.32835201328352,
+                "linetype": "solid"
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0.675228310502283,
+              "x1": 1,
+              "y0": 0,
+              "y1": 1
+            },
+            {
+              "type": "rect",
+              "fillcolor": "rgba(217,217,217,1)",
+              "line": {
+                "color": "transparent",
+                "width": 0.66417600664176,
+                "linetype": "solid"
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0.675228310502283,
+              "x1": 1,
+              "y0": 0,
+              "y1": 26.5670402656704,
+              "yanchor": 1,
+              "ysizemode": "pixel"
+            }
+          ],
+          "xaxis2": {
+            "type": "linear",
+            "autorange": false,
+            "range": [
+              0.970748011097381,
+              1.02975896065248
+            ],
+            "tickmode": "array",
+            "ticktext": [
+              "0.98",
+              "0.99",
+              "1.00",
+              "1.01",
+              "1.02"
+            ],
+            "tickvals": [
+              0.98,
+              0.99,
+              1,
+              1.01,
+              1.02
+            ],
+            "categoryorder": "array",
+            "categoryarray": [
+              "0.98",
+              "0.99",
+              "1.00",
+              "1.01",
+              "1.02"
+            ],
+            "nticks": null,
+            "ticks": "outside",
+            "tickcolor": "rgba(51,51,51,1)",
+            "ticklen": 3.65296803652968,
+            "tickwidth": 0.66417600664176,
+            "showticklabels": false,
+            "tickfont": {
+              "color": null,
+              "family": null,
+              "size": 0
+            },
+            "tickangle": 0,
+            "showline": false,
+            "linecolor": null,
+            "linewidth": 0,
+            "showgrid": true,
+            "domain": [
+              0.34189497716895,
+              0.65810502283105
+            ],
+            "gridcolor": "rgba(255,255,255,1)",
+            "gridwidth": 0.66417600664176,
+            "zeroline": false,
+            "anchor": "y",
+            "title": "",
+            "hoverformat": ".2f"
+          },
+          "xaxis3": {
+            "type": "linear",
+            "autorange": false,
+            "range": [
+              0.970748011097381,
+              1.02975896065248
+            ],
+            "tickmode": "array",
+            "ticktext": [
+              "0.98",
+              "0.99",
+              "1.00",
+              "1.01",
+              "1.02"
+            ],
+            "tickvals": [
+              0.98,
+              0.99,
+              1,
+              1.01,
+              1.02
+            ],
+            "categoryorder": "array",
+            "categoryarray": [
+              "0.98",
+              "0.99",
+              "1.00",
+              "1.01",
+              "1.02"
+            ],
+            "nticks": null,
+            "ticks": "outside",
+            "tickcolor": "rgba(51,51,51,1)",
+            "ticklen": 3.65296803652968,
+            "tickwidth": 0.66417600664176,
+            "showticklabels": false,
+            "tickfont": {
+              "color": null,
+              "family": null,
+              "size": 0
+            },
+            "tickangle": 0,
+            "showline": false,
+            "linecolor": null,
+            "linewidth": 0,
+            "showgrid": true,
+            "domain": [
+              0.675228310502283,
+              1
+            ],
+            "gridcolor": "rgba(255,255,255,1)",
+            "gridwidth": 0.66417600664176,
+            "zeroline": false,
+            "anchor": "y",
+            "title": "",
+            "hoverformat": ".2f"
+          },
+          "showlegend": true,
+          "legend": {
+            "bgcolor": "rgba(255,255,255,1)",
+            "bordercolor": "transparent",
+            "borderwidth": 1.88976377952756,
+            "font": {
+              "color": "rgba(0,0,0,1)",
+              "family": "Arial",
+              "size": 14
+            },
+            "y": -0.1,
+            "orientation": "h",
+            "x": 0.33
+          },
+          "hovermode": "closest",
+          "barmode": "relative",
+          "title": {
+            "text": "Chart showing the cost of permanent, temporary and new school projects by local authority",
+            "font": {
+              "color": "#d9d9d9",
+              "size": 1
+            }
+          }
+        },
+        "config": {
+          "doubleClick": "reset",
+          "showSendToCloud": false,
+          "displayModeBar": false
+        },
+        "source": "A",
+        "highlight": {
+          "on": "plotly_click",
+          "persistent": false,
+          "dynamic": false,
+          "selectize": false,
+          "opacityDim": 0.2,
+          "selected": {
+            "opacity": 1
+          },
+          "debounce": 0
+        },
+        "shinyEvents": [
+          "plotly_hover",
+          "plotly_click",
+          "plotly_selected",
+          "plotly_relayout",
+          "plotly_brushed",
+          "plotly_brushing",
+          "plotly_clickannotation",
+          "plotly_doubleclick",
+          "plotly_deselect",
+          "plotly_afterplot",
+          "plotly_sunburstclick"
+        ],
+        "base_url": "https://plot.ly"
+      },
+      "evals": [
+
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "setprototypeof",
+          "version": "0.1",
+          "src": {
+            "href": "setprototypeof-0.1"
+          },
+          "meta": null,
+          "script": "setprototypeof.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "typedarray",
+          "version": "0.1",
+          "src": {
+            "href": "typedarray-0.1"
+          },
+          "meta": null,
+          "script": "typedarray.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "3.5.1",
+          "src": {
+            "href": "jquery-3.5.1"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.1.1",
+          "src": {
+            "href": "crosstalk-1.1.1"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "plotly-htmlwidgets-css",
+          "version": "1.57.1",
+          "src": {
+            "href": "plotly-htmlwidgets-css-1.57.1"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "plotly-htmlwidgets.css",
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "plotly-main",
+          "version": "1.57.1",
+          "src": {
+            "href": "plotly-main-1.57.1"
+          },
+          "meta": null,
+          "script": "plotly-latest.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        }
+      ]
+    },
+    "cost_table": "<table  class = 'table shiny-table table- spacing-s' style = 'width:auto;'>\n<thead> <tr> <th style='text-align: left;'> Type <\/th> <th style='text-align: left;'> England <\/th>  <\/tr> <\/thead> <tbody>\n  <tr> <td> Permanent <\/td> <td> £23,775 <\/td> <\/tr>\n  <tr> <td> Temporary <\/td> <td> £9,248 <\/td> <\/tr>\n  <tr> <td> New school <\/td> <td> £24,929 <\/td> <\/tr>\n   <\/tbody> <\/table>",
+    "new_box": {
+      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>12<\/h3>\n    <p>New secondary schools projects in England<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "perm_box": {
+      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>144<\/h3>\n    <p>Permanent secondary expansion projects in England<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "temp_box": {
+      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>41<\/h3>\n    <p>Temporary secondary projects in England<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    }
+  }
+}
