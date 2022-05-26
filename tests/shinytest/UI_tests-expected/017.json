@@ -120,75 +120,18 @@
               20811,
               33015
             ],
-            "text": [
-              "Lambeth : £ 25,167.0  per place",
-              "Southwark : £ 15,732.0  per place",
-              "Wandsworth : £ 20,781.0  per place",
-              "Barking and Dagenham : £ 22,397.0  per place",
-              "Ealing : £ 29,417.0  per place",
-              "Harrow : £ 34,664.0  per place",
-              "Hillingdon : £ 24,462.0  per place",
-              "Hounslow : £ 55,656.0  per place",
-              "Merton : £ 12,577.0  per place",
-              "Newham : £ 13,868.0  per place",
-              "Redbridge : £ 27,779.0  per place",
-              "Sutton : £ 14,246.0  per place",
-              "Waltham Forest : £ 29,888.0  per place",
-              "Birmingham : £ 7,581.0  per place",
-              "Sandwell : £ 22,623.0  per place",
-              "Solihull : £ 14,223.0  per place",
-              "Liverpool : £ 22,862.0  per place",
-              "Manchester : £ 19,254.0  per place",
-              "Rochdale : £ 9,663.0  per place",
-              "Tameside : £ 17,974.0  per place",
-              "Wigan : £ 16,131.0  per place",
-              "Rotherham : £ 16,147.0  per place",
-              "Sheffield : £ 20,588.0  per place",
-              "Bradford : £ 8,099.0  per place",
-              "Leeds : £ 74,166.0  per place",
-              "Bristol City of : £ 13,656.0  per place",
-              "York : £ 136,863.0  per place",
-              "Luton : £ 13,218.0  per place",
-              "Bedford Borough : £ 13,653.0  per place",
-              "Central Bedfordshire : £ 27,257.0  per place",
-              "Buckinghamshire : £ 27,964.0  per place",
-              "Milton Keynes : £ 20,565.0  per place",
-              "Hampshire : £ 47,023.0  per place",
-              "Portsmouth : £ 5,585.0  per place",
-              "Leicestershire : £ 5,264.0  per place",
-              "Staffordshire : £ 7,734.0  per place",
-              "Wiltshire : £ 19,302.0  per place",
-              "Swindon : £ 102,004.0  per place",
-              "Bracknell Forest : £ 29,154.0  per place",
-              "Windsor and Maidenhead : £ 17,309.0  per place",
-              "Cambridgeshire : £ 27,405.0  per place",
-              "Devon : £ 16,490.0  per place",
-              "Essex : £ 17,826.0  per place",
-              "Worcestershire : £ 17,384.0  per place",
-              "Kent : £ 37,751.0  per place",
-              "Lancashire : £ 19,026.0  per place",
-              "Nottinghamshire : £ 16,907.0  per place",
-              "Cheshire West and Chester : £ 19,127.0  per place",
-              "Hertfordshire : £ 24,907.0  per place",
-              "Norfolk : £ 7,539.0  per place",
-              "Oxfordshire : £ 18,579.0  per place",
-              "Somerset : £ 6,708.0  per place",
-              "Suffolk : £ 28,482.0  per place",
-              "Surrey : £ 46,009.0  per place",
-              "Warwickshire : £ 20,811.0  per place",
-              "West Sussex : £ 33,015.0  per place"
-            ],
+            "text": "",
             "type": "scatter",
             "mode": "markers",
             "marker": {
               "autocolorscale": false,
-              "color": "rgba(243,242,241,1)",
+              "color": "rgba(191,191,191,1)",
               "opacity": 1,
               "size": 5.66929133858268,
               "symbol": "circle",
               "line": {
                 "width": 1.88976377952756,
-                "color": "rgba(243,242,241,1)"
+                "color": "rgba(191,191,191,1)"
               }
             },
             "hoveron": "points",
@@ -239,36 +182,18 @@
               4383,
               8171
             ],
-            "text": [
-              "Greenwich : £ 10,337.0  per place",
-              "Bromley : £ 11,467.0  per place",
-              "Ealing : £ 22,317.0  per place",
-              "Birmingham : £ 3,806.0  per place",
-              "Manchester : £ 8,342.0  per place",
-              "Salford : £ 5,866.0  per place",
-              "Sheffield : £ 10,741.0  per place",
-              "Wakefield : £ 13,635.0  per place",
-              "Buckinghamshire : £ 14,586.0  per place",
-              "Hampshire : £ 24,092.0  per place",
-              "Leicestershire : £ 3,883.0  per place",
-              "Leicester : £ 8,562.0  per place",
-              "Essex : £ 5,322.0  per place",
-              "Gloucestershire : £ 12,461.0  per place",
-              "Hertfordshire : £ 12,785.0  per place",
-              "Suffolk : £ 4,383.0  per place",
-              "Surrey : £ 8,171.0  per place"
-            ],
+            "text": "",
             "type": "scatter",
             "mode": "markers",
             "marker": {
               "autocolorscale": false,
-              "color": "rgba(243,242,241,1)",
+              "color": "rgba(191,191,191,1)",
               "opacity": 1,
               "size": 5.66929133858268,
               "symbol": "circle",
               "line": {
                 "width": 1.88976377952756,
-                "color": "rgba(243,242,241,1)"
+                "color": "rgba(191,191,191,1)"
               }
             },
             "hoveron": "points",
@@ -307,30 +232,18 @@
               20981,
               26093
             ],
-            "text": [
-              "Croydon : £ 24,175.0  per place",
-              "Harrow : £ 16,703.0  per place",
-              "Sandwell : £ 27,258.0  per place",
-              "Manchester : £ 31,675.0  per place",
-              "Bradford : £ 18,176.0  per place",
-              "Milton Keynes : £ 18,173.0  per place",
-              "Wokingham : £ 31,954.0  per place",
-              "Cambridgeshire : £ 51,973.0  per place",
-              "Devon : £ 20,884.0  per place",
-              "Oxfordshire : £ 20,981.0  per place",
-              "West Sussex : £ 26,093.0  per place"
-            ],
+            "text": "",
             "type": "scatter",
             "mode": "markers",
             "marker": {
               "autocolorscale": false,
-              "color": "rgba(243,242,241,1)",
+              "color": "rgba(191,191,191,1)",
               "opacity": 1,
               "size": 5.66929133858268,
               "symbol": "circle",
               "line": {
                 "width": 1.88976377952756,
-                "color": "rgba(243,242,241,1)"
+                "color": "rgba(191,191,191,1)"
               }
             },
             "hoveron": "points",
@@ -352,7 +265,7 @@
               "autocolorscale": false,
               "color": "rgba(244,119,56,1)",
               "opacity": 1,
-              "size": 5.66929133858268,
+              "size": 12.0944881889764,
               "symbol": "circle",
               "line": {
                 "width": 1.88976377952756,
@@ -378,7 +291,7 @@
               "autocolorscale": false,
               "color": "rgba(244,119,56,1)",
               "opacity": 1,
-              "size": 5.66929133858268,
+              "size": 12.0944881889764,
               "symbol": "circle",
               "line": {
                 "width": 1.88976377952756,
@@ -404,7 +317,7 @@
               "autocolorscale": false,
               "color": "rgba(244,119,56,1)",
               "opacity": 1,
-              "size": 5.66929133858268,
+              "size": 12.0944881889764,
               "symbol": "circle",
               "line": {
                 "width": 1.88976377952756,
@@ -426,7 +339,7 @@
             "t": 40.6187906461879,
             "r": 22.1834786218348,
             "b": 13.3942161339422,
-            "l": 10.958904109589
+            "l": 66.7496886674969
           },
           "font": {
             "color": "rgba(0,0,0,1)",
@@ -469,10 +382,10 @@
               "1.02"
             ],
             "nticks": null,
-            "ticks": "",
-            "tickcolor": null,
+            "ticks": "outside",
+            "tickcolor": "rgba(51,51,51,1)",
             "ticklen": 3.65296803652968,
-            "tickwidth": 0,
+            "tickwidth": 0.66417600664176,
             "showticklabels": false,
             "tickfont": {
               "color": null,
@@ -483,9 +396,9 @@
             "showline": false,
             "linecolor": null,
             "linewidth": 0,
-            "showgrid": false,
-            "gridcolor": null,
-            "gridwidth": 0,
+            "showgrid": true,
+            "gridcolor": "rgba(255,255,255,1)",
+            "gridwidth": 0.66417600664176,
             "zeroline": false,
             "anchor": "y",
             "title": "",
@@ -521,133 +434,48 @@
               "1e+05"
             ],
             "nticks": null,
-            "ticks": "",
-            "tickcolor": null,
+            "ticks": "outside",
+            "tickcolor": "rgba(51,51,51,1)",
             "ticklen": 3.65296803652968,
-            "tickwidth": 0,
-            "showticklabels": false,
+            "tickwidth": 0.66417600664176,
+            "showticklabels": true,
             "tickfont": {
-              "color": null,
-              "family": null,
-              "size": 0
+              "color": "rgba(77,77,77,1)",
+              "family": "Arial",
+              "size": 14.8775425487754
             },
             "tickangle": 0,
             "showline": false,
             "linecolor": null,
             "linewidth": 0,
-            "showgrid": false,
-            "gridcolor": null,
-            "gridwidth": 0,
+            "showgrid": true,
+            "gridcolor": "rgba(255,255,255,1)",
+            "gridwidth": 0.66417600664176,
             "zeroline": false,
             "anchor": "x",
             "title": "",
             "hoverformat": ".2f"
           },
-          "shapes": [
-            {
-              "type": "rect",
-              "fillcolor": null,
-              "line": {
-                "color": null,
-                "width": 0,
-                "linetype": [
-
-                ]
-              },
-              "yref": "paper",
-              "xref": "paper",
-              "x0": 0,
-              "x1": 0.324771689497717,
-              "y0": 0,
-              "y1": 1
-            },
-            {
-              "type": "rect",
-              "fillcolor": "rgba(217,217,217,1)",
-              "line": {
-                "color": "transparent",
-                "width": 0.66417600664176,
-                "linetype": "solid"
-              },
-              "yref": "paper",
-              "xref": "paper",
-              "x0": 0,
-              "x1": 0.324771689497717,
-              "y0": 0,
-              "y1": 26.5670402656704,
-              "yanchor": 1,
-              "ysizemode": "pixel"
-            },
-            {
-              "type": "rect",
-              "fillcolor": null,
-              "line": {
-                "color": null,
-                "width": 0,
-                "linetype": [
-
-                ]
-              },
-              "yref": "paper",
-              "xref": "paper",
-              "x0": 0.34189497716895,
-              "x1": 0.65810502283105,
-              "y0": 0,
-              "y1": 1
-            },
-            {
-              "type": "rect",
-              "fillcolor": "rgba(217,217,217,1)",
-              "line": {
-                "color": "transparent",
-                "width": 0.66417600664176,
-                "linetype": "solid"
-              },
-              "yref": "paper",
-              "xref": "paper",
-              "x0": 0.34189497716895,
-              "x1": 0.65810502283105,
-              "y0": 0,
-              "y1": 26.5670402656704,
-              "yanchor": 1,
-              "ysizemode": "pixel"
-            },
-            {
-              "type": "rect",
-              "fillcolor": null,
-              "line": {
-                "color": null,
-                "width": 0,
-                "linetype": [
-
-                ]
-              },
-              "yref": "paper",
-              "xref": "paper",
-              "x0": 0.675228310502283,
-              "x1": 1,
-              "y0": 0,
-              "y1": 1
-            },
-            {
-              "type": "rect",
-              "fillcolor": "rgba(217,217,217,1)",
-              "line": {
-                "color": "transparent",
-                "width": 0.66417600664176,
-                "linetype": "solid"
-              },
-              "yref": "paper",
-              "xref": "paper",
-              "x0": 0.675228310502283,
-              "x1": 1,
-              "y0": 0,
-              "y1": 26.5670402656704,
-              "yanchor": 1,
-              "ysizemode": "pixel"
-            }
-          ],
           "annotations": [
+            {
+              "text": "Cost per place (£)",
+              "x": -0.0587640099626401,
+              "y": 0.5,
+              "showarrow": false,
+              "ax": 0,
+              "ay": 0,
+              "font": {
+                "color": "rgba(0,0,0,1)",
+                "family": "Arial",
+                "size": 18.5969281859693
+              },
+              "xref": "paper",
+              "yref": "paper",
+              "textangle": -90,
+              "xanchor": "right",
+              "yanchor": "center",
+              "annotationType": "axis"
+            },
             {
               "text": "Permanent",
               "x": 0.162385844748858,
@@ -703,6 +531,104 @@
               "yanchor": "bottom"
             }
           ],
+          "shapes": [
+            {
+              "type": "rect",
+              "fillcolor": "transparent",
+              "line": {
+                "color": "rgba(0,0,0,1)",
+                "width": 1.32835201328352,
+                "linetype": "solid"
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0,
+              "x1": 0.324771689497717,
+              "y0": 0,
+              "y1": 1
+            },
+            {
+              "type": "rect",
+              "fillcolor": "rgba(217,217,217,1)",
+              "line": {
+                "color": "transparent",
+                "width": 0.66417600664176,
+                "linetype": "solid"
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0,
+              "x1": 0.324771689497717,
+              "y0": 0,
+              "y1": 26.5670402656704,
+              "yanchor": 1,
+              "ysizemode": "pixel"
+            },
+            {
+              "type": "rect",
+              "fillcolor": "transparent",
+              "line": {
+                "color": "rgba(0,0,0,1)",
+                "width": 1.32835201328352,
+                "linetype": "solid"
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0.34189497716895,
+              "x1": 0.65810502283105,
+              "y0": 0,
+              "y1": 1
+            },
+            {
+              "type": "rect",
+              "fillcolor": "rgba(217,217,217,1)",
+              "line": {
+                "color": "transparent",
+                "width": 0.66417600664176,
+                "linetype": "solid"
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0.34189497716895,
+              "x1": 0.65810502283105,
+              "y0": 0,
+              "y1": 26.5670402656704,
+              "yanchor": 1,
+              "ysizemode": "pixel"
+            },
+            {
+              "type": "rect",
+              "fillcolor": "transparent",
+              "line": {
+                "color": "rgba(0,0,0,1)",
+                "width": 1.32835201328352,
+                "linetype": "solid"
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0.675228310502283,
+              "x1": 1,
+              "y0": 0,
+              "y1": 1
+            },
+            {
+              "type": "rect",
+              "fillcolor": "rgba(217,217,217,1)",
+              "line": {
+                "color": "transparent",
+                "width": 0.66417600664176,
+                "linetype": "solid"
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0.675228310502283,
+              "x1": 1,
+              "y0": 0,
+              "y1": 26.5670402656704,
+              "yanchor": 1,
+              "ysizemode": "pixel"
+            }
+          ],
           "xaxis2": {
             "type": "linear",
             "autorange": false,
@@ -734,10 +660,10 @@
               "1.02"
             ],
             "nticks": null,
-            "ticks": "",
-            "tickcolor": null,
+            "ticks": "outside",
+            "tickcolor": "rgba(51,51,51,1)",
             "ticklen": 3.65296803652968,
-            "tickwidth": 0,
+            "tickwidth": 0.66417600664176,
             "showticklabels": false,
             "tickfont": {
               "color": null,
@@ -748,13 +674,13 @@
             "showline": false,
             "linecolor": null,
             "linewidth": 0,
-            "showgrid": false,
+            "showgrid": true,
             "domain": [
               0.34189497716895,
               0.65810502283105
             ],
-            "gridcolor": null,
-            "gridwidth": 0,
+            "gridcolor": "rgba(255,255,255,1)",
+            "gridwidth": 0.66417600664176,
             "zeroline": false,
             "anchor": "y",
             "title": "",
@@ -791,10 +717,10 @@
               "1.02"
             ],
             "nticks": null,
-            "ticks": "",
-            "tickcolor": null,
+            "ticks": "outside",
+            "tickcolor": "rgba(51,51,51,1)",
             "ticklen": 3.65296803652968,
-            "tickwidth": 0,
+            "tickwidth": 0.66417600664176,
             "showticklabels": false,
             "tickfont": {
               "color": null,
@@ -805,13 +731,13 @@
             "showline": false,
             "linecolor": null,
             "linewidth": 0,
-            "showgrid": false,
+            "showgrid": true,
             "domain": [
               0.675228310502283,
               1
             ],
-            "gridcolor": null,
-            "gridwidth": 0,
+            "gridcolor": "rgba(255,255,255,1)",
+            "gridwidth": 0.66417600664176,
             "zeroline": false,
             "anchor": "y",
             "title": "",
@@ -962,19 +888,19 @@
     },
     "cost_table": "<table  class = 'table shiny-table table- spacing-s' style = 'width:auto;'>\n<thead> <tr> <th style='text-align: left;'> Type <\/th> <th style='text-align: left;'> England <\/th>  <\/tr> <\/thead> <tbody>\n  <tr> <td> Permanent <\/td> <td> £23,775 <\/td> <\/tr>\n  <tr> <td> Temporary <\/td> <td> £9,248 <\/td> <\/tr>\n  <tr> <td> New school <\/td> <td> £24,929 <\/td> <\/tr>\n   <\/tbody> <\/table>",
     "new_box": {
-      "html": "<div class=\"small-box bg-purple\">\n  <div class=\"inner\">\n    <h3>12<\/h3>\n    <p>New secondary schools projects in England<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>12<\/h3>\n    <p>New secondary schools projects in England<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "perm_box": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>144<\/h3>\n    <p>Permanent secondary expansion projects in England<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>144<\/h3>\n    <p>Permanent secondary expansion projects in England<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "temp_box": {
-      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>41<\/h3>\n    <p>Temporary secondary projects in England<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>41<\/h3>\n    <p>Temporary secondary projects in England<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]

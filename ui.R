@@ -8,7 +8,7 @@ function(request) {
     title = "School places scorecards",
     tabPanel(
       "LA scorecards",
-      includeCSS("www/shiny_gov_style.css"),
+      includeCSS("www/dfe_shiny_gov_style.css"),
       useShinyjs(),
       useShinydashboard(),
       tags$html(lang = "en"),
@@ -76,10 +76,10 @@ function(request) {
                   p(strong("Forecast accuracy of pupil projections (values closer to 0 are more accurate)")),
                   htmlOutput("label_estimate_y1"),
                   br(),
-                  uiOutput("forecast_1y_proxy"),
+                  plotOutput("forecast_1y_bar", height = "96px"),
                   htmlOutput("label_estimate_y3"),
                   br(),
-                  uiOutput("forecast_3y_proxy")
+                  plotOutput("forecast_3y_bar", height = "96px"),
                 )
               )
             ),
@@ -124,6 +124,8 @@ function(request) {
               fluidRow(
                 column(
                   8,
+                  h5("How to read these plots"),
+                  p("These violin plots show the position of a given LA (blue marker) within the distribution of English LAs. The vertical position represents cost and the width of the shaded region denotes the number of LAs with a given cost."),
                   plotlyOutput("cost_plot") %>% withSpinner()
                 ),
                 column(
@@ -133,14 +135,7 @@ function(request) {
               )
               # Cost content to go here
             )
-          ), # end of tabset
-
-          br(),
-          br(),
-          img(src = "dfe_logo.svg", height = 100, width = 150, alt = "Department for Education logo"),
-          br(),
-          br(),
-          p("This is a development of our excel-based scorecards - if you would like to provide feedback on this dashboard, please complete our ", a(href = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-fim2cxpeIFFus-loZuDRkhUN0ZPMlhCSDgzQjlVTjNVTFpXRTdWMlo0MC4u", "online survey"))
+          ) # end of tabset
         )
       )
     ),
@@ -186,15 +181,7 @@ function(request) {
           "Cost",
           tableOutput("notesTableCost") # made in global.R file
         ) # end of tabPanel
-      ), # end of tabBox
-
-
-      br(),
-      br(),
-      img(src = "dfe_logo.svg", height = 100, width = 150, alt = "Department for Education logo"),
-      br(),
-      br(),
-      p("This is a development of our excel-based scorecards - if you would like to provide feedback on this dashboard, please complete our ", a(href = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-fim2cxpeIFFus-loZuDRkhUN0ZPMlhCSDgzQjlVTjNVTFpXRTdWMlo0MC4u", "online survey"))
+      ) # end of tabBox
     ),
 
     # Create the accessibility statement-----------------
@@ -233,12 +220,8 @@ function(request) {
       br(
         "If you have any feedback on how we could further improve the accessibility of this application, please contact us at",
         a(href = "mailto:SCAP.PPP@education.gov.uk", "SCAP.PPP@education.gov.uk")
-      ),
-      br(),
-      img(src = "dfe_logo.svg", height = 100, width = 150, alt = "Department for Education logo"),
-      br(),
-      br(),
-      p("This is a development of our excel-based scorecards - if you would like to provide feedback on this dashboard, please complete our ", a(href = "https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-fim2cxpeIFFus-loZuDRkhUN0ZPMlhCSDgzQjlVTjNVTFpXRTdWMlo0MC4u", "online survey"))
-    )
+      )
+    ),
+    shinyGovstyle::footer(TRUE)
   )
 }
