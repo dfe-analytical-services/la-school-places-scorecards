@@ -1,9 +1,10 @@
 ---
 params: 
-    input_la_choice: Durham
+    input_la_choice: Gateshead
     input_phase_choice: Primary
     input_quality_chart: 'Ofsted'
 header-includes:
+  # Here be dragons, edit these header items at your own risk.
    - \usepackage{graphics}
    - \usepackage{expl3}
    - \usepackage{xparse}
@@ -19,7 +20,9 @@ header-includes:
    - \definecolor{dfeheadingblue}{RGB}{16, 79, 117}
    - \renewcommand{\familydefault}{\sfdefault}
    - \allsectionsfont{\color{dfeheadingblue}}
-   - \fancyhead[C,L,R]{}
+   - \sectionfont{\color{dfeheadingblue}\fontsize{24}{30}\selectfont}
+   - \fancyhead[C]{*** Note that this is a draft document and does not contain genuine data ***}
+   - \fancyhead[L,R]{}
    - \fancyfoot[R]{\nouppercase{\emph{\rightmark}}}
    - \fancyfoot[L]{\nouppercase{\emph{\leftmark}}}
    - \fancyfoot[C] {}
@@ -28,6 +31,7 @@ header-includes:
    - \futurelet\TMPfootrule\def\footrule{{\color{gssmidblue}\TMPfootrule}}
 output:
   pdf_document
+urlcolor: blue
 ---
 
 
@@ -42,14 +46,20 @@ library(kableExtra)
 
 
 \includegraphics[width=0.25\linewidth]{"images/Department_for_Education.png"}
-\vspace{1.6cm}
+\vspace{2.4cm}
 
 
-# `r params$input_phase_choice` School Places Scorecard for `r params$input_la_choice`
+# LA `r params$input_phase_choice` School Places Scorecard for `r params$input_la_choice`
+\vspace{3.2cm}
+\vspace*{\fill}
+\color{dfeheadingblue}{\hrule}
+\color{black}
 
 ## Introduction
 
-This scorecard presents school places benchmarking figures for `r params$input_la_choice` covering quantity of places available, places allocated by preference, places allocated by school quality and funding provided for new places.
+This document presents school places benchmarking figures for `r params$input_la_choice` covering quantity of places available, places allocated by preference, places allocated by school quality and funding provided for new places. It is intended to provide a downloadable, printable document of figures for individual Local Authorities as an alternative to our online dashboard (available [here](https://department-for-education.shinyapps.io/la-school-places-scorecards/)). 
+
+\vspace{12pt}
 
 ```{r basic need funding, echo = FALSE}
 
@@ -104,7 +114,8 @@ This scorecard presents school places benchmarking figures for `r params$input_l
  sharp corners, 
  colframe=gssmidblue,
  width=0.49\linewidth,
- boxrule=0pt 
+ boxrule=0pt,
+ equal height group=introbox
  ]
 £`r ifelse(params$input_la_choice== "England",paste0(total_funding, "billion"),paste0(total_funding, "million"))`
 \tcblower
@@ -121,7 +132,8 @@ Total primary and secondary basic need funding `r funding_year`
  sharp corners, 
  colframe=gssmidblue,
  width=0.49\linewidth,
- boxrule=0pt 
+ boxrule=0pt,
+ equal height group=introbox
  ]
 `r growth_perc`\%
 \tcblower
@@ -171,7 +183,8 @@ A local authority can have both ‘spare places’ and ‘additional places need
  sharp corners, 
  colframe=gssmidblue,
  width=0.49\linewidth,
- boxrule=0pt 
+ boxrule=0pt,
+ equal height group=quanbox
  ]
 `r scales::comma(additional_places_perc)`
 \tcblower
@@ -186,7 +199,8 @@ Estimated additional `r str_to_lower(params$input_phase_choice)` places to meet 
  sharp corners, 
  colframe=gssmidblue,
  width=0.49\linewidth,
- boxrule=0pt 
+ boxrule=0pt,
+ equal height group=quanbox
  ]
 `r spare_places_per`\%
 \tcblower
@@ -266,7 +280,8 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
  sharp corners, 
  colframe=gssmidblue,
  width=0.49\linewidth,
- boxrule=0pt 
+ boxrule=0pt ,
+ equal height group=prefbox
  ]
 `r PrefT3_E`\%
 \tcblower
@@ -274,7 +289,7 @@ Percentage of applicants who recieved an offer of one of their top three preferr
 \end{tcolorbox}
 ``` {r echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
 if (params$input_la_choice != "England") {
-cat(paste("\\begin{tcolorbox}[colback=gssmidblue, 
+cat(paste0("\\begin{tcolorbox}[colback=gssmidblue, 
  leftright skip=0.1cm,
  coltext=white, 
  halign=left, 
@@ -283,7 +298,8 @@ cat(paste("\\begin{tcolorbox}[colback=gssmidblue,
  sharp corners, 
  colframe=gssmidblue,
  width=0.49\\linewidth,
- boxrule=0pt 
+ boxrule=0pt,
+ equal height group=prefbox
  ]
 ",PrefT3,"\\%
 \\tcblower
@@ -539,7 +555,8 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
  sharp corners, 
  colframe=gssmidblue,
  `r ifelse(params$input_la_choice != "England","width=0.32\\linewidth","width=0.49\\linewidth")`,
- boxrule=0pt 
+ boxrule=0pt,
+ equal height group=qualbox
  ]
 `r england_comp`\%
 \tcblower
@@ -547,7 +564,7 @@ Percentage of new places created in `r paste(school_description, str_to_lower(pa
 \end{tcolorbox}
 ``` {r echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
     if (params$input_la_choice != "England") {
-cat(paste("\\begin{tcolorbox}[colback=gssmidblue, 
+cat(paste0("\\begin{tcolorbox}[colback=gssmidblue, 
  leftright skip=0.1cm,
  coltext=white, 
  halign=left, 
@@ -556,7 +573,8 @@ cat(paste("\\begin{tcolorbox}[colback=gssmidblue,
  sharp corners, 
  colframe=gssmidblue,
  width=0.32\\linewidth,
- boxrule=0pt 
+ boxrule=0pt,
+ equal height group=qualbox 
  ]
 ",LA_comp,"\\%
 \\tcblower
@@ -564,7 +582,7 @@ Percentage of new places created in ", school_description, str_to_lower(params$i
 \\end{tcolorbox}
 ")
 )
-cat(paste("\\begin{tcolorbox}[colback=gssmidblue, 
+cat(paste0("\\begin{tcolorbox}[colback=gssmidblue, 
  leftright skip=0.1cm,
  coltext=white, 
  halign=left, 
@@ -573,7 +591,8 @@ cat(paste("\\begin{tcolorbox}[colback=gssmidblue,
  sharp corners, 
  colframe=gssmidblue,
  width=0.32\\linewidth,
- boxrule=0pt 
+ boxrule=0pt,
+ equal height group=qualbox
  ]
 ",LA_ranking,"
 \\tcblower
@@ -898,7 +917,27 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
 
 New places with no rating =  `r scales::comma(no_rating)` 
 
-
+\newpage
 ## Cost
 
+Add in text and charts for funding data here...
+
+\newpage
+\vspace*{\fill}
+\color{dfeheadingblue}{\hrule}
+\color{black}
+## Contact
+
+> Pupil place planning team
+>
+> Publication: [Explore Education Statistics: Local authority school places scorecards](https://explore-education-statistics.service.gov.uk/find-statistics/local-authority-school-places-scorecards)
+>
+> Dashboard: [LA School Places Scorecards](https://department-for-education.shinyapps.io/la-school-places-scorecards)
+>
+> Email: [SCAP.PPP@education.gov.uk](mailto:SCAP.PPP@education.gov.uk)
+>
+> This document was produced using the [DfE Analytical Services](https://github.com/dfe-analytical-services) Rmarkdown template, which is available on GitHub as part of our [R-Shiny data dashboard template](https://github.com/dfe-analytical-services/shiny-template).
+
+
+[\includegraphics[width=0.50\linewidth]{"images/Department_for_Education_long.png"}](https://www.gov.uk/government/organisations/department-for-education)
 
