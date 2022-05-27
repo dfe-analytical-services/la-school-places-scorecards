@@ -1,17 +1,31 @@
 ---
-title: "School Places Scorecard"
 params: 
     input_la_choice: Durham
     input_phase_choice: Primary
     input_quality_chart: 'Ofsted'
 header-includes:
+   - \usepackage{graphics}
    - \usepackage{expl3}
    - \usepackage{xparse}
    - \usepackage{tcolorbox}
    - \usepackage{amsmath,amsfonts,amsthm}
    - \usepackage{wrapfig}
+   - \usepackage{helvet}
+   - \usepackage{sectsty}
+   - \usepackage{fancyhdr}
+   - \usepackage{xpatch}
+   - \pagestyle{fancy}
    - \definecolor{gssmidblue}{RGB}{32, 115, 188}
-
+   - \definecolor{dfeheadingblue}{RGB}{16, 79, 117}
+   - \renewcommand{\familydefault}{\sfdefault}
+   - \allsectionsfont{\color{dfeheadingblue}}
+   - \fancyhead[C,L,R]{}
+   - \fancyfoot[R]{\nouppercase{\emph{\rightmark}}}
+   - \fancyfoot[L]{\nouppercase{\emph{\leftmark}}}
+   - \fancyfoot[C] {}
+   - \renewcommand{\headrulewidth}{0pt}
+   - \renewcommand{\footrulewidth}{2pt}
+   - \futurelet\TMPfootrule\def\footrule{{\color{gssmidblue}\TMPfootrule}}
 output:
   pdf_document
 ---
@@ -26,8 +40,16 @@ library(kableExtra)
 
 ```
 
-# Data for `r params$input_phase_choice` Schools in `r params$input_la_choice`
 
+\includegraphics[width=0.25\linewidth]{"images/Department_for_Education.png"}
+\vspace{1.6cm}
+
+
+# `r params$input_phase_choice` School Places Scorecard for `r params$input_la_choice`
+
+## Introduction
+
+This scorecard presents school places benchmarking figures for `r params$input_la_choice` covering quantity of places available, places allocated by preference, places allocated by school quality and funding provided for new places.
 
 ```{r basic need funding, echo = FALSE}
 
@@ -107,7 +129,7 @@ Growth in `r str_to_lower(params$input_phase_choice)`, pupil numbers 2009/10 to 
 \end{tcolorbox}
 }
 
-  
+\newpage
   
 ## Quantity
 
@@ -172,8 +194,7 @@ Estimated percentage of spare `r str_to_lower(params$input_phase_choice)` places
 \end{tcolorbox}
 }
 
-            
-``` {r quantity_b, echo = FALSE, fig.show="hold", out.width = "100%", out.height = "100%"}
+``` {r quantity_b, echo = FALSE, fig.show="hold", out.width = "100%",crop=TRUE}
  live_scorecard_data <- scorecards_data_pivot %>% filter(
       LA_name == params$input_la_choice,
       Phase == params$input_phase_choice)
@@ -208,6 +229,8 @@ quality_places <- plot_ly(
       htmlwidgets::saveWidget(widget = quality_places, file = "hc.html")
       webshot(url = "hc.html", file = "hc.png", delay = 1, zoom = 4, vheight = 500)
 ```
+
+\newpage
 
 ## Preference
 
@@ -275,7 +298,7 @@ paste("
       }
 ```
 
-```{r preference_barchart, echo = FALSE, message=FALSE, out.width="1600px", crop=TRUE}
+```{r preference_barchart, echo = FALSE, message=FALSE, out.width="100%", crop=TRUE}
 # Scorecard data, filtered on user input AND including England as a comparison
   live_scorecard_data_england_comp <- scorecards_data_pivot %>%
       filter(
@@ -562,7 +585,7 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
 }
 
 
-``` {r quality_chart, out.width="1600px", crop=TRUE}           
+``` {r quality_chart, out.width="92%", crop=TRUE}           
 # Scorecard data, filtered on user input AND including England as a comparison
   live_scorecard_data_england_comp <- scorecards_data_pivot %>%
       filter(

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7200 64-bit) (preloaded format=pdflatex 2021.12.7)  24 MAY 2022 11:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7200 64-bit) (preloaded format=pdflatex 2021.12.7)  27 MAY 2022 10:29
 entering extended mode
 **./Summary_scorecard.tex
 (Summary_scorecard.tex
@@ -860,6 +860,33 @@ Package: amsthm 2017/10/31 v2.20.4
 \WF@box=\box64
 \WF@everypar=\toks42
 Package: wrapfig 2003/01/31  v 3.6
+) ("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\helvet.sty"
+Package: helvet 2005/04/12 PSNFSS-v9.2a (WaS) 
+) (C:\Users\RBIELBY\AppData\Roaming\MiKTeX\2.9\tex/latex/sectsty\sectsty.sty
+Package: sectsty 2002/02/25 v2.0.2 Commands to change all sectional heading sty
+les
+
+LaTeX Warning: Command \underbar  has changed.
+               Check if current package is valid.
+
+
+LaTeX Warning: Command \underline  has changed.
+               Check if current package is valid.
+
+) (C:\Users\RBIELBY\AppData\Roaming\MiKTeX\2.9\tex/latex/fancyhdr\fancyhdr.sty
+Package: fancyhdr 2022/05/18 v4.0.3 Extensive control of page headers and foote
+rs
+\f@nch@headwidth=\skip56
+\f@nch@O@elh=\skip57
+\f@nch@O@erh=\skip58
+\f@nch@O@olh=\skip59
+\f@nch@O@orh=\skip60
+\f@nch@O@elf=\skip61
+\f@nch@O@erf=\skip62
+\f@nch@O@olf=\skip63
+\f@nch@O@orf=\skip64
+) (C:\Users\RBIELBY\AppData\Roaming\MiKTeX\2.9\tex/latex/xpatch\xpatch.sty
+Package: xpatch 2020/03/25 v0.3a Extending etoolbox patching commands
 ) (C:\Users\RBIELBY\AppData\Roaming\MiKTeX\2.9\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen196
@@ -881,10 +908,10 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@thisrulewidth=\dimen264
 ) ("C:\Program Files\MiKTeX 2.9\tex/latex/tools\longtable.sty"
 Package: longtable 2019/02/06 v4.12 Multi-page Table package (DPC)
-\LTleft=\skip56
-\LTright=\skip57
-\LTpre=\skip58
-\LTpost=\skip59
+\LTleft=\skip65
+\LTright=\skip66
+\LTpre=\skip67
+\LTpost=\skip68
 \LTchunksize=\count293
 \LTcapwidth=\dimen265
 \LT@head=\box65
@@ -902,14 +929,14 @@ Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
 \ar@mcellbox=\box69
 \extrarowheight=\dimen267
 \NC@list=\toks44
-\extratabsurround=\skip60
-\backup@length=\skip61
+\extratabsurround=\skip69
+\backup@length=\skip70
 \ar@cellbox=\box70
 ) ("C:\Program Files\MiKTeX 2.9\tex/latex/multirow\multirow.sty"
 Package: multirow 2019/05/31 v2.5 Span multiple rows of a table
-\multirow@colwidth=\skip62
+\multirow@colwidth=\skip71
 \multirow@cntb=\count298
-\multirow@dima=\skip63
+\multirow@dima=\skip72
 \bigstrutjot=\dimen268
 ) ("C:\Program Files\MiKTeX 2.9\tex/latex/float\float.sty"
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
@@ -921,7 +948,7 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 ) (C:\Users\RBIELBY\AppData\Roaming\MiKTeX\2.9\tex/latex/colortbl\colortbl.sty
 Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
 \everycr=\toks47
-\minrowclearance=\skip64
+\minrowclearance=\skip73
 ) ("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\pdflscape.sty"
 Package: pdflscape 2016/05/14 v0.11 Display of landscape pages in PDF (HO)
 ("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\lscape.sty"
@@ -958,7 +985,7 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \tabu@arstrutbox=\box75
 \tabu@hleads=\box76
 \tabu@vleads=\box77
-\tabu@cellskip=\skip65
+\tabu@cellskip=\skip74
 )
 (C:\Users\RBIELBY\AppData\Roaming\MiKTeX\2.9\tex/latex/threeparttable\threepart
 table.sty
@@ -968,11 +995,11 @@ Package: threeparttable 2003/06/13  v 3.0
 (C:\Users\RBIELBY\AppData\Roaming\MiKTeX\2.9\tex/latex/threeparttablex\threepar
 ttablex.sty
 Package: threeparttablex 2013/07/23 v0.3 by daleif
-\TPTL@width=\skip66
+\TPTL@width=\skip75
 ) (C:\Users\RBIELBY\AppData\Roaming\MiKTeX\2.9\tex/latex/ulem\ulem.sty
 \UL@box=\box79
 \UL@hyphenbox=\box80
-\UL@skip=\skip67
+\UL@skip=\skip76
 \UL@hook=\toks50
 \UL@height=\dimen280
 \UL@pe=\count307
@@ -1091,7 +1118,7 @@ Package: uniquecounter 2016/05/16 v1.3 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
-\Hy@SectionHShift=\skip68
+\Hy@SectionHShift=\skip77
 ) ("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\bkm-pdftex.def"
 File: bkm-pdftex.def 2019/06/04 v1.27 bookmark driver for pdfTeX (HO)
 \BKM@id=\count319
@@ -1100,53 +1127,54 @@ Package: xurl 2020/12/30 v 0.09a modify URL breaks
 ) (Summary_scorecard.aux)
 \openout1 = `Summary_scorecard.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 89.
-LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 8
-9.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 103.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 1
+03.
 ("C:\Program Files\MiKTeX 2.9\tex/latex/base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 89
-.
-("C:\Program Files\MiKTeX 2.9\tex/latex/lm\t1lmr.fd"
-File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Trying to load font information for T1+phv on input line 10
+3.
+("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\t1phv.fd"
+File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
-LaTeX Info: Redefining \microtypecontext on input line 89.
-Package microtype Info: Applying patch `item' on input line 89.
-Package microtype Info: Applying patch `toc' on input line 89.
-Package microtype Info: Applying patch `eqnum' on input line 89.
-Package microtype Info: Applying patch `footnote' on input line 89.
+LaTeX Info: Redefining \microtypecontext on input line 103.
+Package microtype Info: Applying patch `item' on input line 103.
+Package microtype Info: Applying patch `toc' on input line 103.
+Package microtype Info: Applying patch `eqnum' on input line 103.
+Package microtype Info: Applying patch `footnote' on input line 103.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 89.
+LaTeX Info: Redefining \showhyphens on input line 103.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
-(C:\Users\RBIELBY\AppData\Roaming\MiKTeX\2.9\tex/latex/microtype\mt-cmr.cfg
-File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
-(RS)
-)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `phv' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+
 (C:\Users\RBIELBY\AppData\Roaming\MiKTeX\2.9\tex/context/base/mkii\supp-pdf.mki
 i
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -1209,7 +1237,7 @@ G,.JBIG2,.JB2,.eps]
 
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box83
-Package hyperref Info: Link coloring OFF on input line 89.
+Package hyperref Info: Link coloring OFF on input line 103.
 ("C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\nameref.sty"
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 ("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\refcount.sty"
@@ -1219,128 +1247,96 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count326
 )
-LaTeX Info: Redefining \ref on input line 89.
-LaTeX Info: Redefining \pageref on input line 89.
-LaTeX Info: Redefining \nameref on input line 89.
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 9
-1.
-("C:\Program Files\MiKTeX 2.9\tex/latex/lm\ot1lmr.fd"
-File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 9
-1.
-("C:\Program Files\MiKTeX 2.9\tex/latex/lm\omllmm.fd"
-File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-91.
-("C:\Program Files\MiKTeX 2.9\tex/latex/lm\omslmsy.fd"
-File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-91.
-("C:\Program Files\MiKTeX 2.9\tex/latex/lm\omxlmex.fd"
-File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 91.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 91.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 91.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 91.
+LaTeX Info: Redefining \ref on input line 103.
+LaTeX Info: Redefining \pageref on input line 103.
+LaTeX Info: Redefining \nameref on input line 103.
+<images/Department_for_Education.png, id=6, 1204.5pt x 712.6625pt>
+File: images/Department_for_Education.png Graphic file (type png)
+<use images/Department_for_Education.png>
+Package pdftex.def Info: images/Department_for_Education.png  used on input lin
+e 105.
+(pdftex.def)             Requested size: 117.42448pt x 69.47615pt.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 110.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <12> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 113.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <24.88> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 155.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 157.
+[1
 
-("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsa.fd"
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-) (C:\Users\RBIELBY\AppData\Roaming\MiKTeX\2.9\tex/latex/microtype\mt-msa.cfg
-File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 91.
-
-("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd"
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) (C:\Users\RBIELBY\AppData\Roaming\MiKTeX\2.9\tex/latex/microtype\mt-msb.cfg
-File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-)
-Underfull \hbox (badness 10000) in paragraph at lines 177--177
-[]\T1/lmr/bx/n/12 (+20) Estimated ad-di-tional pri-mary
- []
-
-<Summary_scorecard_files/figure-latex/quantity_b-1.png, id=6, 1991.44pt x 1124.
-2pt>
+{C:/Users/RBIELBY/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./images/
+Department_for_Education.png>]
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 165.
+<Summary_scorecard_files/figure-latex/quantity_b-1.png, id=21, 2987.16pt x 1686
+.3pt>
 File: Summary_scorecard_files/figure-latex/quantity_b-1.png Graphic file (type 
 png)
 <use Summary_scorecard_files/figure-latex/quantity_b-1.png>
 Package pdftex.def Info: Summary_scorecard_files/figure-latex/quantity_b-1.png 
- used on input line 179.
+ used on input line 204.
 (pdftex.def)             Requested size: 469.75092pt x 265.18196pt.
-[1
-
-{C:/Users/RBIELBY/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./Summary
-_scorecard_files/figure-latex/quantity_b-1.png>]
-<Summary_scorecard_files/figure-latex/preference_barchart-1.pdf, id=25, 434.623
-75pt x 225.84375pt>
+[2 <./Summary_scorecard_files/figure-latex/quantity_b-1.png>]
+<Summary_scorecard_files/figure-latex/preference_barchart-1.pdf, id=31, 696.602
+5pt x 339.2675pt>
 File: Summary_scorecard_files/figure-latex/preference_barchart-1.pdf Graphic fi
 le (type pdf)
 <use Summary_scorecard_files/figure-latex/preference_barchart-1.pdf>
 Package pdftex.def Info: Summary_scorecard_files/figure-latex/preference_barcha
-rt-1.pdf  used on input line 223.
-(pdftex.def)             Requested size: 434.6492pt x 225.85696pt.
-[2 <./Summary_scorecard_files/figure-latex/preference_barchart-1.pdf>]
-Underfull \hbox (badness 1924) in paragraph at lines 282--282
-[]\T1/lmr/bx/n/12 (+20) Percentage of new
+rt-1.pdf  used on input line 250.
+(pdftex.def)             Requested size: 469.7506pt x 228.78342pt.
+[3 <./Summary_scorecard_files/figure-latex/preference_barchart-1.pdf>]
+Underfull \hbox (badness 4954) in paragraph at lines 309--309
+[]\T1/phv/b/n/12 (+20) Percentage of new
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 282--282
-\T1/lmr/bx/n/12 (+20) places cre-ated in
+Underfull \hbox (badness 10000) in paragraph at lines 309--309
+\T1/phv/b/n/12 (+20) places cre-ated in
  []
 
 
-Underfull \hbox (badness 1924) in paragraph at lines 282--282
-[]\T1/lmr/bx/n/12 (+20) Percentage of new
+Underfull \hbox (badness 4954) in paragraph at lines 309--309
+[]\T1/phv/b/n/12 (+20) Percentage of new
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 282--282
-\T1/lmr/bx/n/12 (+20) places cre-ated in
+Underfull \hbox (badness 10000) in paragraph at lines 309--309
+\T1/phv/b/n/12 (+20) places cre-ated in
  []
 
-
-Underfull \hbox (badness 6284) in paragraph at lines 282--282
-[]\T1/lmr/bx/n/12 (+20) LA Rank out of
- []
-
-<Summary_scorecard_files/figure-latex/quality_chart-1.pdf, id=45, 448.67625pt x
- 233.87375pt>
+<Summary_scorecard_files/figure-latex/quality_chart-1.pdf, id=52, 671.50874pt x
+ 350.30875pt>
 File: Summary_scorecard_files/figure-latex/quality_chart-1.pdf Graphic file (ty
 pe pdf)
 <use Summary_scorecard_files/figure-latex/quality_chart-1.pdf>
 Package pdftex.def Info: Summary_scorecard_files/figure-latex/quality_chart-1.p
-df  used on input line 284.
-(pdftex.def)             Requested size: 448.6957pt x 233.88385pt.
-[3 <./Summary_scorecard_files/figure-latex/quality_chart-1.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 291.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 291.
+df  used on input line 311.
+(pdftex.def)             Requested size: 432.17203pt x 225.45297pt.
+[4 <./Summary_scorecard_files/figure-latex/quality_chart-1.pdf>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 318.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 318.
 (Summary_scorecard.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 291.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 291.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 318.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 318.
  ) 
 Here is how much of TeX's memory you used:
- 35857 strings out of 492452
- 663369 string characters out of 3129802
- 722118 words of memory out of 3000000
- 39658 multiletter control sequences out of 15000+200000
- 512259 words of font info for 86 fonts, out of 3000000 for 9000
+ 36079 strings out of 492452
+ 665097 string characters out of 3129802
+ 719192 words of memory out of 3000000
+ 39891 multiletter control sequences out of 15000+200000
+ 494560 words of font info for 85 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,6n,62p,1403b,920s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Program Files/M
-iKTeX 2.9/fonts/type1/public/lm/lmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
-ype1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lm
-r10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb>
-Output written on Summary_scorecard.pdf (3 pages, 218444 bytes).
+ 57i,11n,62p,1403b,920s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
+KTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts
+/type1/urw/helvetic/uhvr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/hel
+vetic/uhvro8a.pfb>
+Output written on Summary_scorecard.pdf (4 pages, 183725 bytes).
 PDF statistics:
- 113 PDF objects out of 1000 (max. 8388607)
- 20 named destinations out of 1000 (max. 500000)
- 24668 words of extra memory for PDF output out of 24883 (max. 10000000)
+ 120 PDF objects out of 1000 (max. 8388607)
+ 23 named destinations out of 1000 (max. 500000)
+ 30825 words of extra memory for PDF output out of 35830 (max. 10000000)
 
