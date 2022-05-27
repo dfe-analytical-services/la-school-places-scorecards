@@ -40,6 +40,7 @@ function(request) {
           ),
           br(),
           br(),
+          p("Download data for all geographies and phases using the button below."),
           myDownloadButton(
             "download_ud",
             "Download data"
