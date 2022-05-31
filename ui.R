@@ -2,11 +2,13 @@
 function(request) {
   source("0_variable_change.R") ##
  
+  #Homepage----------------------------------------------------------------------
   navbarPage(
     title = "",
     tabPanel("Homepage"),
-    mainPanel(
-      width = 12),
+   
+    
+  #scorecard---------------------------------------------------------------------
     tabPanel(
       "LA scorecards",
       includeCSS("www/dfe_shiny_gov_style.css"),
@@ -22,6 +24,8 @@ function(request) {
         rating = "General",
         referrer = "no-referrer"
       ),
+     
+       #Sidebar---------------------------------------------------------------------
       sidebarLayout(
         sidebarPanel(
           width = 2,
