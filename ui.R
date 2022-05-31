@@ -5,8 +5,8 @@ function(request) {
   #Homepage----------------------------------------------------------------------
   navbarPage(
     title = "",
-    tabPanel("Homepage"),
-   
+    tabPanel("Homepage",
+    h2("Local authority school places scorecards academic year 2020/21")),
     
   #scorecard---------------------------------------------------------------------
     tabPanel(
