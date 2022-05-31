@@ -7,7 +7,6 @@ function(request) {
     tabPanel("Homepage"),
     mainPanel(
       width = 12),
-   p(strong("Local authority school places scorecards academic year 2020/21")),
     tabPanel(
       "LA scorecards",
       includeCSS("www/dfe_shiny_gov_style.css"),
