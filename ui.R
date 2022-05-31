@@ -1,11 +1,13 @@
 
 function(request) {
   source("0_variable_change.R") ##
-
-
-
+ 
   navbarPage(
-    title = "School places scorecards",
+    title = "",
+    tabPanel("Homepage"),
+    mainPanel(
+      width = 12),
+   p(strong("Local authority school places scorecards academic year 2020/21")),
     tabPanel(
       "LA scorecards",
       includeCSS("www/dfe_shiny_gov_style.css"),
@@ -40,7 +42,7 @@ function(request) {
           ),
           br(),
           br(),
-          p("Download data for all geographies and phases using the button below."),
+          p(strong("Download data for all geographies and phases using the button below.")),
           myDownloadButton(
             "download_ud",
             "Download data"
