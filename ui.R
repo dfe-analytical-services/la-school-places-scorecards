@@ -15,7 +15,7 @@ function(request) {
     h3("Contents:School Places Metrics"),
     br(),
     h4("Quantity"),
-    br("You can see how much progress the chosen local authority is making in providing sufficient school places by looking at the quantity measure. The quantity chart is based on published school capacity 20/21 data."),
+    br("You can see how much progress the chosen local authority is making in providing sufficient school places by looking at the quantity measure. The quantity chart is based on published", a(href = "https://www.gov.uk/government/statistics/school-capacity-in-england-academic-year-2020-to-2021", "school capacity 20/21 data.")),
     br("The blue portion of the bar chart shows the places already added since the academic year 2009/10, the orange portion shows the places planned up to the 2023/24 academic year and the purple portion shows the estimated number of additional places needed to meet demand in the 2023/24 academic year (the number for this portion is also shown in the box next to  the bar chart). Local authorities with relatively small or no purple bars are making the best progress."),
     br("It is important to take care when making comparisons using the quantity measure. Some local authorities have long-standing place pressure, whereas for others it has emerged more recently. Those experiencing long-standing place pressures will have had more chance to demonstrate that they can add large quantities of places."),
     br("The estimated percentage of spare places is also shown in the blue box next to  the bar chart. It is common for a local authority to have both a need for additional places and spare capacity, reflecting pockets of localised need for places or pockets of localised spare places."),
