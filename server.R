@@ -251,13 +251,13 @@ function(input, output, session) {
   # Code to go here using above template
 
   output$forecasting.bartext <- renderUI(
-    tagList(p(paste0("The filled bar in each chart shows the forecasting accuracy for ",input$LA_choice,"."))
-            ))
-  
+    tagList(p(paste0("The filled bar in each chart shows the forecasting accuracy for ", input$LA_choice, ".")))
+  )
+
   output$forecast_1y_bar <- renderPlot(
     {
       forecast_accuracy <- live_scorecard_data() %>%
-        filter(name == "For_1")%>%
+        filter(name == "For_1") %>%
         as.data.frame()
 
       forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
@@ -267,29 +267,33 @@ function(input, output, session) {
           name == "For_1",
           Phase == input$phase_choice
         )
-      
-      range_values <- forecast_range %>% 
-        summarise(quantile = scales::percent(c(0.,0.25, 0.5, 0.75,1.0)),
-                  accuracy = 100.*quantile(value, c(0.,0.25, 0.5, 0.75,1.0),na.rm=TRUE)) %>%
+
+      range_values <- forecast_range %>%
+        summarise(
+          quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
+          accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+        ) %>%
         as.data.frame()
-      
+
       ggplot(forecast_accuracy, aes(name, value, fill = value)) +
         geom_bar(stat = "identity", width = 100) +
-        scale_fill_gradient2(low = "#e34a33", mid = "#e0f3db", high = "#e34a33", 
-                             space = "Lab", 
-                             limits = c(-abs(range_values$accuracy[1]), abs(range_values$accuracy[5]))) +
-        ylim(-0.33*range_values$accuracy[5], range_values$accuracy[5]) +
+        scale_fill_gradient2(
+          low = "#e34a33", mid = "#e0f3db", high = "#e34a33",
+          space = "Lab",
+          limits = c(-abs(range_values$accuracy[1]), abs(range_values$accuracy[5]))
+        ) +
+        ylim(-0.33 * range_values$accuracy[5], range_values$accuracy[5]) +
         theme_bw() +
         theme(
           legend.position = "none", axis.text.y = element_blank(),
           axis.ticks.y = element_blank(),
           text = element_text(size = 20)
         ) +
-        geom_hline(yintercept = 0,linetype='dotted')+
-        geom_hline(yintercept = range_values$accuracy[2],linetype = "dashed")+
-        geom_hline(yintercept = 100.*(forecast_range %>% filter(LA_name=='England'))$value,size=2)+
-        geom_hline(yintercept = range_values$accuracy[4],linetype = "dashed")+
-        geom_hline(yintercept = forecast_accuracy$value)+
+        geom_hline(yintercept = 0, linetype = "dotted") +
+        geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
+        geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value, size = 2) +
+        geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
+        geom_hline(yintercept = forecast_accuracy$value) +
         labs(x = "", y = "") +
         coord_flip()
     },
@@ -308,29 +312,33 @@ function(input, output, session) {
           name == "For_3",
           Phase == input$phase_choice
         )
-      
-      range_values <- forecast_range %>% 
-        summarise(quantile = scales::percent(c(0.,0.25, 0.5, 0.75,1.0)),
-                  accuracy = 100.*quantile(value, c(0.,0.25, 0.5, 0.75,1.0),na.rm=TRUE)) %>%
+
+      range_values <- forecast_range %>%
+        summarise(
+          quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
+          accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+        ) %>%
         as.data.frame()
-      
+
       ggplot(forecast_accuracy, aes(name, value, fill = value)) +
         geom_bar(stat = "identity", width = 100) +
-        scale_fill_gradient2(low = "#e34a33", mid = "#e0f3db", high = "#e34a33", 
-                             space = "Lab", 
-                             limits = c(-abs(range_values$accuracy[1]), abs(range_values$accuracy[5]))) +
-        ylim(c(-0.33*range_values$accuracy[5], range_values$accuracy[5])) +
+        scale_fill_gradient2(
+          low = "#e34a33", mid = "#e0f3db", high = "#e34a33",
+          space = "Lab",
+          limits = c(-abs(range_values$accuracy[1]), abs(range_values$accuracy[5]))
+        ) +
+        ylim(c(-0.33 * range_values$accuracy[5], range_values$accuracy[5])) +
         theme_bw() +
         theme(
           legend.position = "none", axis.text.y = element_blank(),
           axis.ticks.y = element_blank(),
           text = element_text(size = 20)
         ) +
-        geom_hline(yintercept = 0,linetype='dotted')+
-        geom_hline(yintercept = range_values$accuracy[2],linetype = "dashed")+
-        geom_hline(yintercept = 100.*(forecast_range %>% filter(LA_name=='England'))$value,size=2)+
-        geom_hline(yintercept = range_values$accuracy[4],linetype = "dashed")+
-        geom_hline(yintercept = forecast_accuracy$value)+
+        geom_hline(yintercept = 0, linetype = "dotted") +
+        geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
+        geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value, size = 2) +
+        geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
+        geom_hline(yintercept = forecast_accuracy$value) +
         labs(x = "", y = "") +
         coord_flip()
     },
