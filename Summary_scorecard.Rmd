@@ -43,7 +43,7 @@ library(webshot)
 library(kableExtra)
 
 ```
-
+read("../data_file")
 
 \includegraphics[width=0.25\linewidth]{"images/Department_for_Education.png"}
 \vspace{2.4cm}
