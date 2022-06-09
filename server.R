@@ -269,11 +269,11 @@ function(input, output, session) {
                   accuracy = 100.*quantile(value, c(0.,0.25, 0.5, 0.75,1.0),na.rm=TRUE)) %>%
         as.data.frame()
       
-      print(forecast_accuracy)
       ggplot(forecast_accuracy, aes(name, value, fill = value)) +
         geom_bar(stat = "identity", width = 100) +
-        scale_fill_gradient2(low = "#e34a33", mid = "#fee8c8", high = "#e34a33", space = "Lab", 
-                             limits = c(-abs(range_values$accuracy[5]), abs(range_values$accuracy[5]))) +
+        scale_fill_gradient2(low = "#e34a33", mid = "#e0f3db", high = "#e34a33", 
+                             space = "Lab", 
+                             limits = c(-abs(range_values$accuracy[1]), abs(range_values$accuracy[5]))) +
         ylim(-0.33*range_values$accuracy[5], range_values$accuracy[5]) +
         theme_bw() +
         theme(
@@ -310,11 +310,11 @@ function(input, output, session) {
                   accuracy = 100.*quantile(value, c(0.,0.25, 0.5, 0.75,1.0),na.rm=TRUE)) %>%
         as.data.frame()
       
-      print(forecast_accuracy)
       ggplot(forecast_accuracy, aes(name, value, fill = value)) +
         geom_bar(stat = "identity", width = 100) +
-        scale_fill_gradient2(low = "#43a2ca", mid = "#e0f3db", high = "#43a2ca", space = "Lab", 
-                             limits = c(-abs(range_values$accuracy[5]), abs(range_values$accuracy[5]))) +
+        scale_fill_gradient2(low = "#e34a33", mid = "#e0f3db", high = "#e34a33", 
+                             space = "Lab", 
+                             limits = c(-abs(range_values$accuracy[1]), abs(range_values$accuracy[5]))) +
         ylim(c(-0.33*range_values$accuracy[5], range_values$accuracy[5])) +
         theme_bw() +
         theme(
