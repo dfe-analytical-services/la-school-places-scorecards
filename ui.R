@@ -73,9 +73,9 @@ function(request) {
                 column(
                   6,
                   p(strong("Forecast accuracy of pupil projections (values closer to 0 are more accurate)")),
-                  p("In the charts below, the thick vertical line shows the England 
-                    average forecasting accuracy, whilst the dashed lines show the 
-                    25th and 75th percentiles across all LAs (i.e. half of all LAs were 
+                  p("In the charts below, the thick vertical line shows the England
+                    average forecasting accuracy, whilst the dashed lines show the
+                    25th and 75th percentiles across all LAs (i.e. half of all LAs were
                     found to have a forecasting accuracy falling between the two dashed lines)."),
                   uiOutput("forecasting.bartext"),
                   htmlOutput("label_estimate_y1"),
