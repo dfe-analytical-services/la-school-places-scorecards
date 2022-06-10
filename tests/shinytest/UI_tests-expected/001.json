@@ -36,7 +36,7 @@
       ]
     },
     "forecast_1y_bar": {
-      "src": "[image data sha1: 61f251288e31e09ac88c19dd29884650d9d72396]",
+      "src": "[image data sha1: 22b4fe4b697712262ab60925d02e9181a078e5e5]",
       "width": 358,
       "height": 96,
       "alt": "Plot object",
@@ -54,8 +54,8 @@
               "y": null
             },
             "domain": {
-              "left": -8.25,
-              "right": 8.25,
+              "left": -3.172,
+              "right": 8.532,
               "bottom": -49,
               "top": 51,
               "discrete_limits": {
@@ -68,9 +68,9 @@
               "fill": "value"
             },
             "range": {
-              "left": 21.9588979758169,
+              "left": 26.9588965791689,
               "right": 352.520449475779,
-              "bottom": 61.8492506421233,
+              "bottom": 52.8492600171233,
               "top": 5.47944634703196
             }
           }
@@ -82,7 +82,7 @@
       }
     },
     "forecast_3y_bar": {
-      "src": "[image data sha1: c5f3038a928811e1a56aa189ab3ea00c0947de8c]",
+      "src": "[image data sha1: 9a307f709c809a46f62bbe5982b26324b3b2186d]",
       "width": 358,
       "height": 96,
       "alt": "Plot object",
@@ -100,8 +100,8 @@
               "y": null
             },
             "domain": {
-              "left": -14.08,
-              "right": 14.08,
+              "left": -5.1545,
+              "right": 13.8645,
               "bottom": -49,
               "top": 51,
               "discrete_limits": {
@@ -114,9 +114,9 @@
               "fill": "value"
             },
             "range": {
-              "left": 21.9588979758169,
+              "left": 26.9588965791689,
               "right": 352.520449475779,
-              "bottom": 61.8492506421233,
+              "bottom": 52.8492600171233,
               "top": 5.47944634703196
             }
           }
@@ -126,6 +126,12 @@
           "height": 96
         }
       }
+    },
+    "forecasting.bartext": {
+      "html": "<p>The filled bar in each chart shows the forecasting accuracy for England.<\/p>",
+      "deps": [
+
+      ]
     },
     "label_estimate_y1": "<b>One year ahead : <\/b> 1 %  overestimate",
     "label_estimate_y3": "<b>Three years ahead : <\/b> 2.7 %  overestimate",
