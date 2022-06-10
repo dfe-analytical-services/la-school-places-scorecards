@@ -261,12 +261,13 @@ function(input, output, session) {
         as.data.frame()
 
       forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
-
+      
       forecast_range <- scorecards_data_pivot %>%
         filter(
           name == "For_1",
           Phase == input$phase_choice
         )
+      
 
       range_values <- forecast_range %>%
         summarise(
@@ -275,6 +276,8 @@ function(input, output, session) {
         ) %>%
         as.data.frame()
 
+      range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
+      range_values$accuracy[0] <- (ceiling(abs(range_values$accuracy[0]))*range_values$accuracy[0]/abs(range_values$accuracy[0]))
       ggplot(forecast_accuracy, aes(name, value, fill = value)) +
         geom_bar(stat = "identity", width = 100) +
         scale_fill_gradient2(
@@ -320,6 +323,9 @@ function(input, output, session) {
         ) %>%
         as.data.frame()
 
+      range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
+      range_values$accuracy[0] <- (ceiling(abs(range_values$accuracy[0]))*range_values$accuracy[0]/abs(range_values$accuracy[0]))
+      
       ggplot(forecast_accuracy, aes(name, value, fill = value)) +
         geom_bar(stat = "identity", width = 100) +
         scale_fill_gradient2(
