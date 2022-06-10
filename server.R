@@ -245,104 +245,59 @@ function(input, output, session) {
   })
 
 
-  ## Forecast accuracy one year ahead
-
-  output$forecast_1y <- renderGauge({
-    # live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
-
-    forecast_accuracy <- live_scorecard_data() %>%
-      filter(name == "For_1") %>%
-      pull(value) %>%
-      roundFiveUp(., 3) * 100
-
-    lowest_accuracy <- scorecards_data_pivot %>%
-      filter(
-        name == "For_1",
-        Phase == input$phase_choice
-      ) %>%
-      slice(which.min(value)) %>%
-      pull(value) %>%
-      roundFiveUp(., 3) * 100
-
-    highest_accuracy <- scorecards_data_pivot %>%
-      filter(
-        name == "For_1",
-        Phase == input$phase_choice
-      ) %>%
-      slice(which.max(value)) %>%
-      pull(value) %>%
-      roundFiveUp(., 3) * 100
-
-    # Get medians/quartiles to set the sectors in the gauge
-
-    mid_low_accuracy <- median(c(-1, lowest_accuracy))
-    mid_high_accuracy <- median(c(1, highest_accuracy))
-
-    gauge(forecast_accuracy,
-      min = lowest_accuracy,
-      max = highest_accuracy,
-      symbol = "%",
-      sectors = gaugeSectors(
-        success = c(-1, 1),
-        warning = c(mid_low_accuracy, mid_high_accuracy),
-        danger = c(lowest_accuracy, highest_accuracy),
-        colors = c("#00703c", "#ffdd00", "#d4351c")
-      )
-    )
-  })
-
-
-  output$forecast_1y_proxy <- renderUI({
-    input$phase_choice # force re-render
-    input$LA_choice
-    input$tabs
-    # live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
-    gaugeOutput(outputId = "forecast_1y")
-  })
 
   ## Forecast accuracy three years ahead
 
   # Code to go here using above template
 
+  output$forecasting.bartext <- renderUI(
+    tagList(p(paste0("The filled bar in each chart shows the forecasting accuracy for ", input$LA_choice, ".")))
+  )
+
   output$forecast_1y_bar <- renderPlot(
     {
       forecast_accuracy <- live_scorecard_data() %>%
-        filter(name == "For_1")
+        filter(name == "For_1") %>%
+        as.data.frame()
 
       forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
 
-      lowest_accuracy <- scorecards_data_pivot %>%
+      forecast_range <- scorecards_data_pivot %>%
         filter(
           name == "For_1",
           Phase == input$phase_choice
+        )
+
+
+      range_values <- forecast_range %>%
+        summarise(
+          quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
+          accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
         ) %>%
-        slice(which.min(value)) %>%
-        pull(value) %>%
-        roundFiveUp(., 3) * 100
+        as.data.frame()
 
-      highest_accuracy <- scorecards_data_pivot %>%
-        filter(
-          name == "For_1",
-          Phase == input$phase_choice
-        ) %>%
-        slice(which.max(value)) %>%
-        pull(value) %>%
-        roundFiveUp(., 3) * 100
-
-      # Get medians/quartiles to set the sectors in the gauge
-
-      mid_low_accuracy <- median(c(-1, lowest_accuracy))
-      mid_high_accuracy <- median(c(1, highest_accuracy))
+      range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
+      range_values$accuracy[0] <- (ceiling(abs(range_values$accuracy[0])) * range_values$accuracy[0] / abs(range_values$accuracy[0]))
       ggplot(forecast_accuracy, aes(name, value, fill = value)) +
         geom_bar(stat = "identity", width = 100) +
-        scale_fill_gradient2(low = "#e34a33", mid = "#fee8c8", high = "#e34a33", space = "Lab", limits = c(-abs(highest_accuracy), abs(highest_accuracy))) +
-        ylim(-highest_accuracy, highest_accuracy) +
-        theme_minimal() +
+        scale_fill_gradient2(
+          low = "#e34a33", mid = "#e0f3db", high = "#e34a33",
+          space = "Lab",
+          limits = c(-abs(range_values$accuracy[1]), abs(range_values$accuracy[5]))
+        ) +
+        ylim(-0.33 * range_values$accuracy[5], range_values$accuracy[5]) +
+        theme_bw() +
         theme(
           legend.position = "none", axis.text.y = element_blank(),
-          axis.ticks.y = element_blank()
+          axis.ticks.y = element_blank(),
+          text = element_text(size = 16)
         ) +
-        labs(x = "", y = "") +
+        geom_hline(yintercept = 0, linetype = "dotted") +
+        geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
+        geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value, size = 2) +
+        geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
+        geom_hline(yintercept = forecast_accuracy$value) +
+        labs(x = "", y = "Accuracy (%)") +
         coord_flip()
     },
     height = 96,
@@ -355,39 +310,42 @@ function(input, output, session) {
         filter(name == "For_3")
       forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
 
-      lowest_accuracy <- scorecards_data_pivot %>%
+      forecast_range <- scorecards_data_pivot %>%
         filter(
           name == "For_3",
           Phase == input$phase_choice
+        )
+
+      range_values <- forecast_range %>%
+        summarise(
+          quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
+          accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
         ) %>%
-        slice(which.min(value)) %>%
-        pull(value) %>%
-        roundFiveUp(., 3) * 100
+        as.data.frame()
 
-      highest_accuracy <- scorecards_data_pivot %>%
-        filter(
-          name == "For_3",
-          Phase == input$phase_choice
-        ) %>%
-        slice(which.max(value)) %>%
-        pull(value) %>%
-        roundFiveUp(., 3) * 100
-
-      # Get medians/quartiles to set the sectors in the gauge
-
-      mid_low_accuracy <- median(c(-1, lowest_accuracy))
-      mid_high_accuracy <- median(c(1, highest_accuracy))
+      range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
+      range_values$accuracy[0] <- (ceiling(abs(range_values$accuracy[0])) * range_values$accuracy[0] / abs(range_values$accuracy[0]))
 
       ggplot(forecast_accuracy, aes(name, value, fill = value)) +
         geom_bar(stat = "identity", width = 100) +
-        scale_fill_gradient2(low = "#43a2ca", mid = "#e0f3db", high = "#43a2ca", space = "Lab", limits = c(-abs(highest_accuracy), abs(highest_accuracy))) +
-        ylim(-highest_accuracy, highest_accuracy) +
-        theme_minimal() +
+        scale_fill_gradient2(
+          low = "#e34a33", mid = "#e0f3db", high = "#e34a33",
+          space = "Lab",
+          limits = c(-abs(range_values$accuracy[1]), abs(range_values$accuracy[5]))
+        ) +
+        ylim(c(-0.33 * range_values$accuracy[5], range_values$accuracy[5])) +
+        theme_bw() +
         theme(
           legend.position = "none", axis.text.y = element_blank(),
-          axis.ticks.y = element_blank()
+          axis.ticks.y = element_blank(),
+          text = element_text(size = 16)
         ) +
-        labs(x = "", y = "") +
+        geom_hline(yintercept = 0, linetype = "dotted") +
+        geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
+        geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value, size = 2) +
+        geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
+        geom_hline(yintercept = forecast_accuracy$value) +
+        labs(x = "", y = "Accuracy (%)") +
         coord_flip()
     },
     height = 96,
