@@ -290,14 +290,14 @@ function(input, output, session) {
         theme(
           legend.position = "none", axis.text.y = element_blank(),
           axis.ticks.y = element_blank(),
-          text = element_text(size = 20)
+          text = element_text(size = 16)
         ) +
         geom_hline(yintercept = 0, linetype = "dotted") +
         geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
         geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value, size = 2) +
         geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
         geom_hline(yintercept = forecast_accuracy$value) +
-        labs(x = "", y = "") +
+        labs(x = "", y = "Accuracy (%)") +
         coord_flip()
     },
     height = 96,
@@ -338,14 +338,14 @@ function(input, output, session) {
         theme(
           legend.position = "none", axis.text.y = element_blank(),
           axis.ticks.y = element_blank(),
-          text = element_text(size = 20)
+          text = element_text(size = 16)
         ) +
         geom_hline(yintercept = 0, linetype = "dotted") +
         geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
         geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value, size = 2) +
         geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
         geom_hline(yintercept = forecast_accuracy$value) +
-        labs(x = "", y = "") +
+        labs(x = "", y = "Accuracy (%)") +
         coord_flip()
     },
     height = 96,
