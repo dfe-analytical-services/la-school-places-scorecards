@@ -12,8 +12,17 @@ function(request) {
     br("When a different local authority is selected, or the education phase is changed, the figures and charts in the scorecard will automatically update to reflect the chosen local authority and phase. This means that you can compare the position in selected local authorities by switching between authorities (they are not shown side by side)."),
     br("Each scorecard metric is shown on  a different tab, select each tab by clicking on the name of the metric near the top of the scorecard, to see the relevant figures and chart for the chosen metric. You can download a PDF version of the scorecard which shows all the metrics, by clicking the ‘download report’ button on the left. Use the ‘download data’ button on the left to download underlying data for all geographies and phases."),
     br(),
-    h3("Contents:School Places Metrics"),
-    br(),
+    div(
+      class = "panel panel-info",
+    div(
+      class = "panel-heading",
+      style = "color: white;font-size: 18px;font-style: bold; background-color: #1d70b8;",
+      h2("Scorecard Metrics")
+         ),
+    div(
+      class = "panel-body",
+       br(),
+    h3(actionLink("tabs=Quantity&link_to_mainPanel", "Quantity")),
     h4("Quantity"),
     br("You can see how much progress the chosen local authority is making in providing sufficient school places by looking at the quantity measure. The quantity chart is based on published", a(href = "https://www.gov.uk/government/statistics/school-capacity-in-england-academic-year-2020-to-2021", "school capacity 20/21 data.")),
     br("The blue portion of the bar chart shows the places already added since the academic year 2009/10, the orange portion shows the places planned up to the 2023/24 academic year and the purple portion shows the estimated number of additional places needed to meet demand in the 2023/24 academic year (the number for this portion is also shown in the box next to  the bar chart). Local authorities with relatively small or no purple bars are making the best progress."),
@@ -43,7 +52,7 @@ function(request) {
     br("You can use the scorecard to see whether the average amount spent on each school place is relatively high or low compared with other local authorities."),
     br("The types of projects local authorities reported in the academic years 2015/16, 2016/17 and 2017/18 have been split into permanent expansions, temporary expansions and new schools. They have been separated so that you can compare more similar groups of projects between local authorities."),
     br("Cost figures have been adjusted to take location factors and inflation into account when average cost per place is calculated. There is further guidance on converting costs into current or future prices and/or regional prices in the scorecard ‘technical notes’."),
-    br("It is important to take care when making comparisons. Some local authorities have small numbers of projects to add places, so cost comparisons become very dependent upon the nature of individual projects. Some additional but limited benchmark information for similar capital programme schemes carried out by the DfE is available in the National School Delivery Cost Benchmarking study.")),
+    br("It is important to take care when making comparisons. Some local authorities have small numbers of projects to add places, so cost comparisons become very dependent upon the nature of individual projects. Some additional but limited benchmark information for similar capital programme schemes carried out by the DfE is available in the National School Delivery Cost Benchmarking study.")))),
     #scorecard---------------------------------------------------------------------
     tabPanel(
       "LA scorecards",
