@@ -99,14 +99,14 @@ function(input, output, session) {
         paste0("Total primary and secondary basic need funding ", funding_year),
         # get different icons for background here: https://fontawesome.com/v5.15/icons?d=gallery&p=2
         # icon = icon("fas fa-pound-sign"),
-        color = "purple"
+        color = "light-blue"
       )
     } else {
       shinydashboard::valueBox(
         paste0("£", total_funding, " million"),
         paste0("Total primary and secondary basic need funding ", funding_year),
         # icon = icon("fas fa-pound-sign"),
-        color = "purple"
+        color = "light-blue"
       )
     }
   })
@@ -126,7 +126,7 @@ function(input, output, session) {
       paste0(growth_perc, "%"),
       paste0("Growth in ", str_to_lower(input$phase_choice), " pupil numbers 2009/10 to ", plan_year),
       # icon = icon("fas fa-chart-line"),
-      color = "blue"
+      color = "light-blue"
     )
   })
 
@@ -149,7 +149,7 @@ function(input, output, session) {
       paste0(scales::comma(additional_places_perc)),
       paste0("Estimated additional ", str_to_lower(input$phase_choice), " places to meet demand in ", plan_year),
       # icon = icon("fas fa-signal"),
-      color = "purple"
+      color = "light-blue"
     )
   })
 
@@ -170,7 +170,7 @@ function(input, output, session) {
       paste0(spare_places_per, "%"),
       paste0("Estimated percentage of spare ", str_to_lower(input$phase_choice), " places in ", plan_year),
       # icon = icon("fas fa-school"),
-      color = "green"
+      color = "light-blue"
     )
   })
 
@@ -276,55 +276,6 @@ function(input, output, session) {
       paste("<b>Three years ahead : </b>", label)
     }
   })
-
-
-  ## Forecast accuracy one year ahead
-
-  output$forecast_1y <- renderGauge({
-    # live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
-
-    forecast_accuracy <- live_scorecard_data() %>%
-      filter(name == "For_1") %>%
-      pull(value) %>%
-      roundFiveUp(., 3) * 100
-
-    lowest_accuracy <- scorecards_data_pivot %>%
-      filter(
-        name == "For_1",
-        Phase == input$phase_choice
-      ) %>%
-      slice(which.min(value)) %>%
-      pull(value) %>%
-      roundFiveUp(., 3) * 100
-
-    highest_accuracy <- scorecards_data_pivot %>%
-      filter(
-        name == "For_1",
-        Phase == input$phase_choice
-      ) %>%
-      slice(which.max(value)) %>%
-      pull(value) %>%
-      roundFiveUp(., 3) * 100
-
-    # Get medians/quartiles to set the sectors in the gauge
-
-    mid_low_accuracy <- median(c(-1, lowest_accuracy))
-    mid_high_accuracy <- median(c(1, highest_accuracy))
-
-    gauge(forecast_accuracy,
-      min = -12.8,
-      max = 12.8,
-      symbol = "%",
-      sectors = gaugeSectors(
-        success = c(-1, 1),
-        warning = c(mid_low_accuracy, mid_high_accuracy),
-        danger = c(lowest_accuracy, highest_accuracy),
-        colors = c("#00703c", "#ffdd00", "#d4351c")
-      )
-    )
-  })
-
-
   
   output$for1year_table <- renderTable({
     scorecards_data_pivot %>%
@@ -387,94 +338,112 @@ function(input, output, session) {
   )
   
     
-        # format it nicely with £ sign
-      
-              #lowest_accuracy <- scorecards_data_pivot %>%
-      #filter(
-        #name == "For_1",
-       # Phase == input$phase_choice
-      #) %>%
-     # slice(which.min(value)) %>%
-     # pull(value) %>%
-     # roundFiveUp(., 3) * 100
-    
-   # highest_accuracy <- scorecards_data_pivot %>%
-     # filter(
-       # name == "For_1",
-      #  Phase == input$phase_choice
-     # ) %>%
-     # slice(which.max(value)) %>%
-     # pull(value) %>%
-     # roundFiveUp(., 3) * 100
-    
-
-  
-
-  output$forecast_1y_proxy <- renderUI({
-    input$phase_choice # force re-render
-    input$LA_choice
-    input$tabs
-    # live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
-    gaugeOutput(outputId = "forecast_1y")
-  })
 
   ## Forecast accuracy three years ahead
 
   # Code to go here using above template
 
-  output$forecast_3y <-
-    renderGauge({
-      # live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
+  output$forecasting.bartext <- renderUI(
+    tagList(p(paste0("The filled bar in each chart shows the forecasting accuracy for ", input$LA_choice, ".")))
+  )
 
-
+  output$forecast_1y_bar <- renderPlot(
+    {
       forecast_accuracy <- live_scorecard_data() %>%
-        filter(name == "For_3") %>%
-        pull(value) %>%
-        roundFiveUp(., 3) * 100
+        filter(name == "For_1") %>%
+        as.data.frame()
 
-      lowest_accuracy <- scorecards_data_pivot %>%
+      forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
+
+      forecast_range <- scorecards_data_pivot %>%
         filter(
-          name == "For_3",
+          name == "For_1",
           Phase == input$phase_choice
-        ) %>%
-        slice(which.min(value)) %>%
-        pull(value) %>%
-        roundFiveUp(., 3) * 100
-
-      highest_accuracy <- scorecards_data_pivot %>%
-        filter(
-          name == "For_3",
-          Phase == input$phase_choice
-        ) %>%
-        slice(which.max(value)) %>%
-        pull(value) %>%
-        roundFiveUp(., 3) * 100
-
-      # Get medians/quartiles to set the sectors in the gauge
-
-      mid_low_accuracy <- median(c(-1, lowest_accuracy))
-      mid_high_accuracy <- median(c(1, highest_accuracy))
-
-      gauge(forecast_accuracy,
-        min = -highest_accuracy,
-        max = highest_accuracy,
-        symbol = "%",
-        sectors = gaugeSectors(
-          success = c(-1, 1),
-          warning = c(mid_low_accuracy, mid_high_accuracy),
-          danger = c(lowest_accuracy, highest_accuracy),
-          colors = c("#00703c", "#ffdd00", "#d4351c")
         )
-      )
-    })
 
-  output$forecast_3y_proxy <- renderUI({
-    input$phase_choice # force re-render
-    input$LA_choice
-    input$tabs
-    # live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
-    gaugeOutput(outputId = "forecast_3y")
-  })
+
+      range_values <- forecast_range %>%
+        summarise(
+          quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
+          accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+        ) %>%
+        as.data.frame()
+
+      range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
+      range_values$accuracy[0] <- (ceiling(abs(range_values$accuracy[0])) * range_values$accuracy[0] / abs(range_values$accuracy[0]))
+      ggplot(forecast_accuracy, aes(name, value, fill = value)) +
+        geom_bar(stat = "identity", width = 100) +
+        scale_fill_gradient2(
+          low = "#e34a33", mid = "#e0f3db", high = "#e34a33",
+          space = "Lab",
+          limits = c(-abs(range_values$accuracy[1]), abs(range_values$accuracy[5]))
+        ) +
+        ylim(-0.33 * range_values$accuracy[5], range_values$accuracy[5]) +
+        theme_bw() +
+        theme(
+          legend.position = "none", axis.text.y = element_blank(),
+          axis.ticks.y = element_blank(),
+          text = element_text(size = 16)
+        ) +
+        geom_hline(yintercept = 0, linetype = "dotted") +
+        geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
+        geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value, size = 2) +
+        geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
+        geom_hline(yintercept = forecast_accuracy$value) +
+        labs(x = "", y = "Accuracy (%)") +
+        coord_flip()
+    },
+    height = 96,
+    width = "auto"
+  )
+
+  output$forecast_3y_bar <- renderPlot(
+    {
+      forecast_accuracy <- live_scorecard_data() %>%
+        filter(name == "For_3")
+      forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
+
+      forecast_range <- scorecards_data_pivot %>%
+        filter(
+          name == "For_3",
+          Phase == input$phase_choice
+        )
+
+      range_values <- forecast_range %>%
+        summarise(
+          quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
+          accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+        ) %>%
+        as.data.frame()
+
+      range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
+      range_values$accuracy[0] <- (ceiling(abs(range_values$accuracy[0])) * range_values$accuracy[0] / abs(range_values$accuracy[0]))
+
+      ggplot(forecast_accuracy, aes(name, value, fill = value)) +
+        geom_bar(stat = "identity", width = 100) +
+        scale_fill_gradient2(
+          low = "#e34a33", mid = "#e0f3db", high = "#e34a33",
+          space = "Lab",
+          limits = c(-abs(range_values$accuracy[1]), abs(range_values$accuracy[5]))
+        ) +
+        ylim(c(-0.33 * range_values$accuracy[5], range_values$accuracy[5])) +
+        theme_bw() +
+        theme(
+          legend.position = "none", axis.text.y = element_blank(),
+          axis.ticks.y = element_blank(),
+          text = element_text(size = 16)
+        ) +
+        geom_hline(yintercept = 0, linetype = "dotted") +
+        geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
+        geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value, size = 2) +
+        geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
+        geom_hline(yintercept = forecast_accuracy$value) +
+        labs(x = "", y = "Accuracy (%)") +
+        coord_flip()
+    },
+    height = 96,
+    width = "auto"
+  )
 
 
   # Preference -------------------------------------------------------------
@@ -497,7 +466,7 @@ function(input, output, session) {
       paste0(PrefT3_E, "%"),
       paste0("Percentage of applicants who recieved an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England"),
       # icon = icon("fas fa-chart-line"),
-      color = "blue"
+      color = "light-blue"
     )
   })
 
@@ -516,7 +485,7 @@ function(input, output, session) {
       paste0(PrefT3, "%"),
       paste0("Percentage of applicants who recieved an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in ", (input$LA_choice)),
       # icon = icon("fas fa-sort-amount-up"),
-      color = "green"
+      color = "light-blue"
     )
   })
 
@@ -641,7 +610,7 @@ function(input, output, session) {
       paste0(LA_comp(), "%"),
       paste0("Percentage of new places created in ", school_description(), str_to_lower(input$phase_choice), " schools in ", input$LA_choice),
       # icon = icon("fas fa-boxes"),
-      color = "green"
+      color = "light-blue"
     )
   })
 
@@ -720,7 +689,7 @@ function(input, output, session) {
       paste0(england_comp(), "%"),
       paste0("Percentage of new places created in ", school_description(), str_to_lower(input$phase_choice), " schools in England"),
       # icon = icon("fas fa-equals"),
-      color = "blue"
+      color = "light-blue"
     )
   })
 
@@ -778,7 +747,7 @@ function(input, output, session) {
       LA_ranking(),
       paste0("LA Rank out of ", LA_denom(), " LAs that created new places between ", last_year, " and ", this_year, " (ranks can be tied)"),
       # icon = icon("fas fa-bars"),
-      color = "purple"
+      color = "light-blue"
     )
   })
 
@@ -1173,9 +1142,13 @@ function(input, output, session) {
           color = grouping,
           text = paste(LA_name, ": £", scales::comma(cost_per_place), " per place")
         ),
-        groupOnX = TRUE, na.rm = TRUE
+        groupOnX = TRUE, na.rm = TRUE, size = 3.2
       ) +
       facet_grid(~ factor(exp_type, levels = c("Permanent", "Temporary", "New school"))) +
+      scale_fill_manual(
+        breaks = c("Other LA", input$LA_choice, "England"),
+        values = c("#BFBFBF", "#f47738", "#1d70b8")
+      ) +
       scale_color_manual(
         breaks = c(input$LA_choice, "England", "Other LA"),
         values = c("#f2590d", "#1c6bb0", "#dcd9d6")
@@ -1195,7 +1168,8 @@ function(input, output, session) {
         panel.grid.minor = element_blank(),
         plot.background = element_blank(),
         text = element_text(size = 14, family = "Arial")
-      )
+      ) +
+      labs(y = "Cost per place (£)")
 
 
 
@@ -1239,7 +1213,7 @@ function(input, output, session) {
       paste0(perm_fig),
       paste0("Permanent ", str_to_lower(input$phase_choice), " expansion projects in ", input$LA_choice),
       # icon = icon("fas fa-school"),
-      color = "blue"
+      color = "light-blue"
     )
   })
 
@@ -1267,7 +1241,7 @@ function(input, output, session) {
       paste0(temp_fig),
       paste0("Temporary ", str_to_lower(input$phase_choice), " projects in ", input$LA_choice),
       # icon = icon("fas fa-campground"),
-      color = "green"
+      color = "light-blue"
     )
   })
 
@@ -1296,7 +1270,7 @@ function(input, output, session) {
       paste0(new_fig),
       paste0("New ", str_to_lower(input$phase_choice), " schools projects in ", input$LA_choice),
       # icon = icon("fas fa-plus"),
-      color = "purple"
+      color = "light-blue"
     )
   })
 
