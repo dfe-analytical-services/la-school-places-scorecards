@@ -235,6 +235,8 @@ function(input, output, session) {
       input$LA_choice != "England" & forecast_accuracy < 0 ~ "underestimate, the median LA one year forecast accuracy is an overstimate",
       input$LA_choice == "England" &  forecast_accuracy > 0  ~ "overestimate",
       input$LA_choice == "England" &  forecast_accuracy < 0  ~ "underestimate",
+      input$LA_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London",
+      input$LA_choice == "Isles Of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly",
       TRUE ~ "overestimate/underestimate therefore accurate"
     )
 
@@ -267,6 +269,8 @@ function(input, output, session) {
       input$LA_choice != "England" & forecast_accuracy < 0 ~ "underestimate, the median LA three year forecast accuracy is an overstimate",
       input$LA_choice == "England" &  forecast_accuracy > 0  ~ "overestimate",
       input$LA_choice == "England" &  forecast_accuracy < 0  ~ "underestimate",
+      input$LA_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London",
+      input$LA_choice == "Isles Of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly",
       TRUE ~ "overestimate/underestimate therefore accurate"
     )
 
