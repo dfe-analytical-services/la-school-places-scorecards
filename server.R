@@ -344,7 +344,7 @@ function(input, output, session) {
   # Code to go here using above template
 
   output$forecasting.bartext <- renderUI(
-    tagList(p(paste0("The filled bar in each chart shows the forecasting accuracy for ", input$LA_choice, ".")))
+    tagList(p(paste0("The extent of the filled bar in each chart shows the forecasting accuracy for ", input$LA_choice, ".")))
   )
 
   output$forecast_1y_bar <- renderPlot(
