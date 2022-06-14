@@ -183,14 +183,18 @@ function(input, output, session) {
       marker = list(color = c("#12436D")),
       type = "bar", name = paste0("Total places created between 2009/10 and ", this_year),
       text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF"),
-      hoverinfo="text"
+      hoverinfo = "text"
+    ) %>%
+      add_trace(
+        y = ~QuanPP, marker = list(color = c("#F46A25")),
+        name = paste0("New places planned for delivery between ", this_year, " and ", plan_year),
+        text = ~ scales::comma(QuanPP), textposition = "inside"
       ) %>%
-      add_trace(y = ~QuanPP, marker = list(color = c("#F46A25")), 
-                name = paste0("New places planned for delivery between ", this_year, " and ", plan_year), 
-                text = ~ scales::comma(QuanPP), textposition = "inside") %>%
-      add_trace(y = ~QuanRP, marker = list(color = c("#801650")), 
-                name = paste0("Estimated additional places still needed to meet demand in ", plan_year), 
-                text = ~ scales::comma(QuanRP), textposition = "inside") %>%
+      add_trace(
+        y = ~QuanRP, marker = list(color = c("#801650")),
+        name = paste0("Estimated additional places still needed to meet demand in ", plan_year),
+        text = ~ scales::comma(QuanRP), textposition = "inside"
+      ) %>%
       layout(
         yaxis = list(title = ""),
         xaxis = list(title = ""),
@@ -259,107 +263,107 @@ function(input, output, session) {
     tagList(p(paste0("The filled bar in each chart shows the forecasting accuracy for ", input$LA_choice, ".")))
   )
 
-  output$forecast_1y_bar <- renderPlotly(
-    {
-      forecast_accuracy <- live_scorecard_data() %>%
-        filter(name == "For_1") %>%
-        as.data.frame()
+  output$forecast_1y_bar <- renderPlotly({
+    forecast_accuracy <- live_scorecard_data() %>%
+      filter(name == "For_1") %>%
+      as.data.frame()
 
-      forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
+    forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
 
-      forecast_range <- scorecards_data_pivot %>%
-        filter(
-          name == "For_1",
-          Phase == input$phase_choice
-        )
+    forecast_range <- scorecards_data_pivot %>%
+      filter(
+        name == "For_1",
+        Phase == input$phase_choice
+      )
 
 
-      range_values <- forecast_range %>%
-        summarise(
-          quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
-          accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
-        ) %>%
-        as.data.frame()
+    range_values <- forecast_range %>%
+      summarise(
+        quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
+        accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+      ) %>%
+      as.data.frame()
 
-      range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
-      range_values$accuracy[0] <- (ceiling(abs(range_values$accuracy[0])) * range_values$accuracy[0] / abs(range_values$accuracy[0]))
-      p <- ggplot(forecast_accuracy, 
-                  aes(name, value, fill = value,
-                      text=paste0(input$LA_choice,": ", value,"%"))) +
-        geom_bar(stat = "identity", width = 100) +
-        scale_fill_gradientn(
-          colors=divergent_gradient,
-          space = "Lab",
-          limits = c(-0.75*abs(range_values$accuracy[5]), 1.08*abs(range_values$accuracy[5])),
-        ) +
-        ylim(-0.33 * range_values$accuracy[5], range_values$accuracy[5]) +
-        theme_bw() +
-        theme(
-          legend.position = "none", axis.text.y = element_blank(),
-          axis.ticks.y = element_blank(),
-          text = element_text(size = 12)
-        ) +
-        geom_hline(yintercept = 0, linetype = "dotted") +
-        geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
-        geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value, size = 1.4) +
-        geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
-        geom_hline(yintercept = forecast_accuracy$value) +
-        labs(x = "", y = "Accuracy (%)") +
-        coord_flip()
-      ggplotly(p, tooltip=c("text")) %>%
-        layout(font = font_choice) %>%
-        config(displayModeBar = FALSE)
-    }
-  )
+    range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
+    range_values$accuracy[0] <- (ceiling(abs(range_values$accuracy[0])) * range_values$accuracy[0] / abs(range_values$accuracy[0]))
+    p <- ggplot(
+      forecast_accuracy,
+      aes(name, value,
+        fill = value,
+        text = paste0(input$LA_choice, ": ", value, "%")
+      )
+    ) +
+      geom_bar(stat = "identity", width = 100) +
+      scale_fill_gradientn(
+        colors = divergent_gradient,
+        space = "Lab",
+        limits = c(-0.75 * abs(range_values$accuracy[5]), 1.08 * abs(range_values$accuracy[5])),
+      ) +
+      ylim(-0.33 * range_values$accuracy[5], range_values$accuracy[5]) +
+      theme_bw() +
+      theme(
+        legend.position = "none", axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        text = element_text(size = 12)
+      ) +
+      geom_hline(yintercept = 0, linetype = "dotted") +
+      geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
+      geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value, size = 1.4) +
+      geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
+      geom_hline(yintercept = forecast_accuracy$value) +
+      labs(x = "", y = "Accuracy (%)") +
+      coord_flip()
+    ggplotly(p, tooltip = c("text")) %>%
+      layout(font = font_choice) %>%
+      config(displayModeBar = FALSE)
+  })
 
-  output$forecast_3y_bar <- renderPlotly(
-    {
-      forecast_accuracy <- live_scorecard_data() %>%
-        filter(name == "For_3")
-      forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
+  output$forecast_3y_bar <- renderPlotly({
+    forecast_accuracy <- live_scorecard_data() %>%
+      filter(name == "For_3")
+    forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
 
-      forecast_range <- scorecards_data_pivot %>%
-        filter(
-          name == "For_3",
-          Phase == input$phase_choice
-        )
+    forecast_range <- scorecards_data_pivot %>%
+      filter(
+        name == "For_3",
+        Phase == input$phase_choice
+      )
 
-      range_values <- forecast_range %>%
-        summarise(
-          quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
-          accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
-        ) %>%
-        as.data.frame()
+    range_values <- forecast_range %>%
+      summarise(
+        quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
+        accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+      ) %>%
+      as.data.frame()
 
-      range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
-      range_values$accuracy[0] <- (ceiling(abs(range_values$accuracy[0])) * range_values$accuracy[0] / abs(range_values$accuracy[0]))
+    range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
+    range_values$accuracy[0] <- (ceiling(abs(range_values$accuracy[0])) * range_values$accuracy[0] / abs(range_values$accuracy[0]))
 
-      p <- ggplot(forecast_accuracy, aes(name, value, fill = value, text=paste0(input$LA_choice,": ", value,"%"))) +
-        geom_bar(stat = "identity", width = 100) +
-        scale_fill_gradientn(
-          colors=divergent_gradient,
-          space = "Lab",
-          limits = c(-0.75*abs(range_values$accuracy[5]), 1.08*abs(range_values$accuracy[5])),
-        ) +
-        ylim(c(-0.33 * range_values$accuracy[5], range_values$accuracy[5])) +
-        theme_bw() +
-        theme(
-          legend.position = "none", axis.text.y = element_blank(),
-          axis.ticks.y = element_blank(),
-          text = element_text(size = 12)
-        ) +
-        geom_hline(yintercept = 0, linetype = "dotted") +
-        geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
-        geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value, size = 1.4) +
-        geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
-        geom_hline(yintercept = forecast_accuracy$value) +
-        labs(x = "", y = "Accuracy (%)") +
-        coord_flip()
-      ggplotly(p, tooltip=c("text")) %>%
-        layout(font = font_choice) %>%
-        config(displayModeBar = FALSE)
-    }
-  )
+    p <- ggplot(forecast_accuracy, aes(name, value, fill = value, text = paste0(input$LA_choice, ": ", value, "%"))) +
+      geom_bar(stat = "identity", width = 100) +
+      scale_fill_gradientn(
+        colors = divergent_gradient,
+        space = "Lab",
+        limits = c(-0.75 * abs(range_values$accuracy[5]), 1.08 * abs(range_values$accuracy[5])),
+      ) +
+      ylim(c(-0.33 * range_values$accuracy[5], range_values$accuracy[5])) +
+      theme_bw() +
+      theme(
+        legend.position = "none", axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        text = element_text(size = 12)
+      ) +
+      geom_hline(yintercept = 0, linetype = "dotted") +
+      geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
+      geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value, size = 1.4) +
+      geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
+      geom_hline(yintercept = forecast_accuracy$value) +
+      labs(x = "", y = "Accuracy (%)") +
+      coord_flip()
+    ggplotly(p, tooltip = c("text")) %>%
+      layout(font = font_choice) %>%
+      config(displayModeBar = FALSE)
+  })
 
 
   # Preference -------------------------------------------------------------
@@ -478,7 +482,6 @@ function(input, output, session) {
         )
       ) %>%
       config(displayModeBar = FALSE)
-    
   })
 
   # Quality -----------------------------------------------------------------
