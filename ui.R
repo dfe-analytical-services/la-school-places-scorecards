@@ -79,10 +79,9 @@ function(request) {
                     found to have a forecasting accuracy falling between the two dashed lines)."),
                   uiOutput("forecasting.bartext"),
                   htmlOutput("label_estimate_y1"),
-                  br(),
                   plotlyOutput("forecast_1y_bar", height = "120px"),
-                  htmlOutput("label_estimate_y3"),
                   br(),
+                                    htmlOutput("label_estimate_y3"),
                   plotlyOutput("forecast_3y_bar", height = "120px"),
                 )
               )

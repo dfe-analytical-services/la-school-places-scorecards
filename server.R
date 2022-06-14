@@ -308,9 +308,9 @@ function(input, output, session) {
       ) +
       geom_hline(yintercept = 0, linetype = "dotted") +
       geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
-      geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value, size = 1.4) +
+      geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value) +
       geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
-      geom_hline(yintercept = forecast_accuracy$value) +
+      geom_hline(yintercept = forecast_accuracy$value, size=1.) +
       labs(x = "", y = "Accuracy (%)") +
       coord_flip()
     ggplotly(p, tooltip = c("text")) %>%
@@ -355,9 +355,9 @@ function(input, output, session) {
       ) +
       geom_hline(yintercept = 0, linetype = "dotted") +
       geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
-      geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value, size = 1.4) +
+      geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value) +
       geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
-      geom_hline(yintercept = forecast_accuracy$value) +
+      geom_hline(yintercept = forecast_accuracy$value, size=1.) +
       labs(x = "", y = "Accuracy (%)") +
       coord_flip()
     ggplotly(p, tooltip = c("text")) %>%
