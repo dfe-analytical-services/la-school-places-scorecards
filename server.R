@@ -228,11 +228,16 @@ function(input, output, session) {
       roundFiveUp(., 3) * 100
     
     medianaccuracy1 <- median(Foracc1year, na.rm = TRUE) 
+    
+    Twentyfifthpercentile1  <-  quantile(Foracc1year,0.25, na.rm = TRUE)
+
+    Seventyfifthpercentile1  <-  quantile(Foracc1year,0.75, na.rm = TRUE)
 
     label <- case_when(
-      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy > medianaccuracy1 ~ "overestimate, which is higher in comparison to the median LA one year forecast accuracy",
-      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < medianaccuracy1 ~ "overestimate, which is lower in comparison to the median LA one year forecast accuracy",
-      input$LA_choice != "England" & forecast_accuracy < 0 ~ "underestimate, the median LA one year forecast accuracy is an overstimate",
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy >  Seventyfifthpercentile1 ~ "overestimate, larger than at least 75% of forecast accuracy scores",
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < Seventyfifthpercentile1 ~ "overestimate, within the middle 25 to 75% of forecast accuracy scores",
+      input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy < Twentyfifthpercentile1 ~ "underestimate, within the lowest 25% of forecast accuracy scores",
+      input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy > Twentyfifthpercentile1 ~ "underestimate, within the middle 25 to 75% of forecast accuracy scores",
       input$LA_choice == "England" &  forecast_accuracy > 0  ~ "overestimate",
       input$LA_choice == "England" &  forecast_accuracy < 0  ~ "underestimate",
       input$LA_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London",
@@ -263,9 +268,15 @@ function(input, output, session) {
     
     medianaccuracy2 <- median(Foracc3year, na.rm = TRUE) 
     
+    Twentyfifthpercentile2 <- quantile(Foracc3year,0.25, na.rm = TRUE)
+    
+    Seventyfifthpercentile2 <- quantile(Foracc3year,0.75, na.rm = TRUE)
+    
     label <- case_when(
-      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy > medianaccuracy2 ~ "overestimate, which is higher in comparison to the median LA three year forecast accuracy",
-      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < medianaccuracy2 ~ "overestimate, which is lower in comparison to the median LA three year forecast accuracy",
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy >  Seventyfifthpercentile2 ~ "overestimate, larger than at least 75% of forecast accuracy scores",
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < Seventyfifthpercentile2 ~ "overestimate, within the middle 25-75% of forecast accuracy scores",
+      input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy < Twentyfifthpercentile2 ~ "underestimate, within the lowest 25% of forecast accuracy scores",
+      input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy > Twentyfifthpercentile2 ~ "underestimate, within the middle 25-75% of forecast accuracy scores",
       input$LA_choice != "England" & forecast_accuracy < 0 ~ "underestimate, the median LA three year forecast accuracy is an overstimate",
       input$LA_choice == "England" &  forecast_accuracy > 0  ~ "overestimate",
       input$LA_choice == "England" &  forecast_accuracy < 0  ~ "underestimate",
@@ -288,26 +299,26 @@ function(input, output, session) {
         Phase == input$phase_choice
       ) %>%
       mutate(
-        median_accuracy  = median(value, na.rm = TRUE),
-        median_accuracy =  roundFiveUp(median_accuracy,3) * 100,
-        median_accuracy =   paste0(median_accuracy, "%"),
-        twentyfifth_percentile = quantile(value,0.25, na.rm = TRUE),
-        twentyfifth_percentile =  roundFiveUp(twentyfifth_percentile,3) * 100,
-        twentyfifth_percentile =   paste0( twentyfifth_percentile, "%"),
-        seventyfifth_percentile = quantile(value,0.75, na.rm = TRUE),
-        seventyfifth_percentile =  roundFiveUp(seventyfifth_percentile,3) * 100,
-        seventyfifth_percentile =   paste0(seventyfifth_percentile, "%"),
-        min_accuracy = min(value, na.rm = TRUE),
-        min_accuracy =  roundFiveUp(min_accuracy,3) * 100,
-        min_accuracy =   paste0(min_accuracy, "%"),
-        max_accuracy = max(value, na.rm = TRUE),
-        max_accuracy =  roundFiveUp(max_accuracy,3) * 100,
-        max_accuracy =   paste0(max_accuracy, "%")
+        Median  = median(value, na.rm = TRUE),
+        Median =  roundFiveUp(Median,3) * 100,
+        Median =   paste0(Median, "%"),
+        Twentyfifthpercentile = quantile(value,0.25, na.rm = TRUE),
+        Twentyfifthpercentile =  roundFiveUp(Twentyfifthpercentile,3) * 100,
+        Twentyfifthpercentile =   paste0( Twentyfifthpercentile, "%"),
+        Seventyfifthpercentile = quantile(value,0.75, na.rm = TRUE),
+        Seventyfifthpercentile =  roundFiveUp(Seventyfifthpercentile,3) * 100,
+        Seventyfifthpercentile =   paste0(Seventyfifthpercentile, "%"),
+        Minimum = min(value, na.rm = TRUE),
+        Minimum =  roundFiveUp(Minimum,3) * 100,
+        Minimum =   paste0(Minimum, "%"),
+        Maximum = max(value, na.rm = TRUE),
+        Maximum =  roundFiveUp(Maximum,3) * 100,
+        Maximum =   paste0(Maximum, "%")
        ) %>%
       filter(
                LA_name == "England"
       ) %>%
-    select(min_accuracy, twentyfifth_percentile, median_accuracy,  seventyfifth_percentile, max_accuracy)
+    select(Minimum, Twentyfifthpercentile, Median,  Seventyfifthpercentile, Maximum)
   }
   )
   
@@ -318,26 +329,26 @@ function(input, output, session) {
         Phase == input$phase_choice
       ) %>%
       mutate(
-        median_accuracy  = median(value, na.rm = TRUE),
-        median_accuracy =  roundFiveUp(median_accuracy,3) * 100,
-        median_accuracy =   paste0(median_accuracy, "%"),
-        twentyfifth_percentile = quantile(value,0.25, na.rm = TRUE),
-        twentyfifth_percentile =  roundFiveUp(twentyfifth_percentile,3) * 100,
-        twentyfifth_percentile =   paste0( twentyfifth_percentile, "%"),
-        seventyfifth_percentile = quantile(value,0.75, na.rm = TRUE),
-        seventyfifth_percentile =  roundFiveUp(seventyfifth_percentile,3) * 100,
-        seventyfifth_percentile =   paste0(seventyfifth_percentile, "%"),
-        min_accuracy = min(value, na.rm = TRUE),
-        min_accuracy =  roundFiveUp(min_accuracy,3) * 100,
-        min_accuracy =   paste0(min_accuracy, "%"),
-        max_accuracy = max(value, na.rm = TRUE),
-        max_accuracy =  roundFiveUp(max_accuracy,3) * 100,
-        max_accuracy =   paste0(max_accuracy, "%")
+        Median  = median(value, na.rm = TRUE),
+        Median =  roundFiveUp(Median,3) * 100,
+        Median =   paste0(Median, "%"),
+        Twentyfifthpercentile = quantile(value,0.25, na.rm = TRUE),
+        Twentyfifthpercentile =  roundFiveUp(Twentyfifthpercentile,3) * 100,
+        Twentyfifthpercentile =   paste0( Twentyfifthpercentile, "%"),
+        Seventyfifthpercentile = quantile(value,0.75, na.rm = TRUE),
+        Seventyfifthpercentile =  roundFiveUp(Seventyfifthpercentile,3) * 100,
+        Seventyfifthpercentile =   paste0(Seventyfifthpercentile, "%"),
+        Minimum = min(value, na.rm = TRUE),
+        Minimum =  roundFiveUp(Minimum,3) * 100,
+        Minimum =   paste0(Minimum, "%"),
+        Maximum = max(value, na.rm = TRUE),
+        Maximum =  roundFiveUp(Maximum,3) * 100,
+        Maximum =   paste0(Maximum, "%")
       ) %>%
       filter(
         LA_name == "England"
       ) %>%
-      select(min_accuracy, twentyfifth_percentile, median_accuracy,  seventyfifth_percentile, max_accuracy)
+      select(Minimum, Twentyfifthpercentile, Median,  Seventyfifthpercentile, Maximum)
   }
   )
   
@@ -347,8 +358,9 @@ function(input, output, session) {
 
   # Code to go here using above template
 
-  output$forecasting.bartext <- renderUI(
-    tagList(p(paste0("The extent of the filled bar in each chart shows the forecasting accuracy for ", input$LA_choice, ".")))
+ output$forecasting.bartext <- renderUI(
+   tagList(p(paste0("The extent of the filled bar in each chart shows the forecasting accuracy for ", input$LA_choice,
+ ".")))
   )
 
   output$forecast_1y_bar <- renderPlot(
@@ -423,7 +435,7 @@ function(input, output, session) {
       range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
       range_values$accuracy[0] <- (ceiling(abs(range_values$accuracy[0])) * range_values$accuracy[0] / abs(range_values$accuracy[0]))
 
-      ggplot(forecast_accuracy, aes(name, value, fill = value)) +
+            ggplot(forecast_accuracy, aes(name, value, fill = value)) +
         geom_bar(stat = "identity", width = 100) +
         scale_fill_gradient2(
           low = "#e34a33", mid = "#e0f3db", high = "#e34a33",
