@@ -83,45 +83,36 @@ function(request) {
                   p(strong("Anticipated increase in pupils")),
                   valueBoxOutput("pupil_growth", width = 6)
                 ))),
-           tabPanel(
-             "Pupil forecast accuracy",
-             fluidRow(
-               p(strong("Forecast accuracy of pupil projections")),
-               column(
-                 6,
-                 uiOutput("forecasting.bartext"),
-                 details(
-                   inputId = "faccuracyhelp",
-                   label = "How to read these charts",
-                   help_text = " Percentages closer to 0 are more accurate and will show a narrow filled bar. 
- Wider bars to the right of 0 indicate a larger overestimation (positive percentage) and wider bars to the left of 0 indicate a larger underestimation (negative percentage).
-The thick vertical line shows the England
-  average forecasting accuracy, whilst the dashed lines show the
-  25th and 75th percentiles across all LAs (i.e. half of all LAs were
-   found to have a forecasting accuracy falling between the two dashed lines)."),
-                                htmlOutput("label_estimate_y1"),
+            tabPanel(
+              "Pupil forecast accuracy",
+              p(strong("Forecast accuracy of pupil projections (values closer to 0 are more accurate)")),
+              details(
+                inputId = "faccuracyhelp",
+                label = "How to read these charts",
+                help_text = "xxx."),
+              fluidRow(
+                column(
+                  6,
+                  htmlOutput("label_estimate_y1"),
                   br(),
-                  plotOutput("forecast_1y_bar", height = "96px"),
-                  br(),
+                  uiOutput("forecast_1y_proxy",  width = 6),
                   htmlOutput("label_estimate_y3"),
                   br(),
-                  plotOutput("forecast_3y_bar", height = "96px"),
-
-               ),
-               column(
-                 4,
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                                  p("One year ahead: range of forecast accuracy scores"),
-                 tableOutput("for1year_table"),
-                                 br(),
-                 br(),
-                 br(),
-                 p("Three year ahead: range of forecast accuracy scores"),
-             tableOutput("for3year_table"))),
-             ),
+                  uiOutput("forecast_3y_proxy",  width = 6)
+                ),
+                column(
+                  4,
+                  tableOutput("for1year_table"),
+                  br(),
+                  br(),
+                  br(),
+                  br(),
+                  br(),
+                  br(),
+                  br(),
+                  br(),
+                  tableOutput("for3year_table"))),
+            ),
             tabPanel(
               "Preference",
               p(strong(paste0("School applications and offers for September ", preference_year, " entry"))),
