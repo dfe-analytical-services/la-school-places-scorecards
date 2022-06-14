@@ -285,7 +285,7 @@ function(input, output, session) {
       as.data.frame()
 
     range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
-    range_values$accuracy[0] <- (ceiling(abs(range_values$accuracy[0])) * range_values$accuracy[0] / abs(range_values$accuracy[0]))
+    range_values$accuracy[1] <- (ceiling(abs(range_values$accuracy[1])) * range_values$accuracy[1] / abs(range_values$accuracy[1]))
     p <- ggplot(
       forecast_accuracy,
       aes(name, value,
@@ -299,7 +299,7 @@ function(input, output, session) {
         space = "Lab",
         limits = c(-0.75 * abs(range_values$accuracy[5]), 1.08 * abs(range_values$accuracy[5])),
       ) +
-      ylim(-0.33 * range_values$accuracy[5], range_values$accuracy[5]) +
+      ylim(range_values$accuracy[1], range_values$accuracy[5]) +
       theme_bw() +
       theme(
         legend.position = "none", axis.text.y = element_blank(),
@@ -337,7 +337,7 @@ function(input, output, session) {
       as.data.frame()
 
     range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
-    range_values$accuracy[0] <- (ceiling(abs(range_values$accuracy[0])) * range_values$accuracy[0] / abs(range_values$accuracy[0]))
+    range_values$accuracy[1] <- (ceiling(abs(range_values$accuracy[1])) * range_values$accuracy[1] / abs(range_values$accuracy[1]))
 
     p <- ggplot(forecast_accuracy, aes(name, value, fill = value, text = paste0(input$LA_choice, ": ", value, "%"))) +
       geom_bar(stat = "identity", width = 100) +
@@ -346,7 +346,7 @@ function(input, output, session) {
         space = "Lab",
         limits = c(-0.75 * abs(range_values$accuracy[5]), 1.08 * abs(range_values$accuracy[5])),
       ) +
-      ylim(c(-0.33 * range_values$accuracy[5], range_values$accuracy[5])) +
+      ylim(c(range_values$accuracy[1], range_values$accuracy[5])) +
       theme_bw() +
       theme(
         legend.position = "none", axis.text.y = element_blank(),
