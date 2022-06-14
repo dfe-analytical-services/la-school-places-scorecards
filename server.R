@@ -297,7 +297,7 @@ function(input, output, session) {
         theme(
           legend.position = "none", axis.text.y = element_blank(),
           axis.ticks.y = element_blank(),
-          text = element_text(size = 16)
+          text = element_text(size = 12)
         ) +
         geom_hline(yintercept = 0, linetype = "dotted") +
         geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
@@ -307,6 +307,7 @@ function(input, output, session) {
         labs(x = "", y = "Accuracy (%)") +
         coord_flip()
       ggplotly(p, tooltip=c("text")) %>%
+        layout(font = font_choice) %>%
         config(displayModeBar = FALSE)
     }
   )
@@ -345,7 +346,7 @@ function(input, output, session) {
         theme(
           legend.position = "none", axis.text.y = element_blank(),
           axis.ticks.y = element_blank(),
-          text = element_text(size = 16)
+          text = element_text(size = 12)
         ) +
         geom_hline(yintercept = 0, linetype = "dotted") +
         geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
@@ -355,6 +356,7 @@ function(input, output, session) {
         labs(x = "", y = "Accuracy (%)") +
         coord_flip()
       ggplotly(p, tooltip=c("text")) %>%
+        layout(font = font_choice) %>%
         config(displayModeBar = FALSE)
     }
   )
