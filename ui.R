@@ -81,7 +81,7 @@ function(request) {
                   htmlOutput("label_estimate_y1"),
                   plotlyOutput("forecast_1y_bar", height = "120px"),
                   br(),
-                                    htmlOutput("label_estimate_y3"),
+                  htmlOutput("label_estimate_y3"),
                   plotlyOutput("forecast_3y_bar", height = "120px"),
                 )
               )
