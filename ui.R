@@ -80,10 +80,10 @@ function(request) {
                   uiOutput("forecasting.bartext"),
                   htmlOutput("label_estimate_y1"),
                   br(),
-                  plotOutput("forecast_1y_bar", height = "96px"),
+                  plotlyOutput("forecast_1y_bar", height = "120px"),
                   htmlOutput("label_estimate_y3"),
                   br(),
-                  plotOutput("forecast_3y_bar", height = "96px"),
+                  plotlyOutput("forecast_3y_bar", height = "120px"),
                 )
               )
             ),
