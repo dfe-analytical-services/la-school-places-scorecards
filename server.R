@@ -358,8 +358,8 @@ function(input, output, session) {
   
   output$forecasting.bartext <- renderUI(
     tagList(p(paste0("The shaded area in each chart shows the forecasting accuracy for ", input$LA_choice, ". 
-                     The starting point is 0: an accurate forecast accuracy score.
-                     A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate")))
+                     The starting point is 0: an accurate score.
+                     A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.")))
   )
   
   output$forecast_1y_bar <- renderPlotly({
