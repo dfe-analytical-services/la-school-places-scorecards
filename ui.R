@@ -95,7 +95,7 @@ function(request) {
                    label = "How to benchmark using the charts",
                    help_text = "
 The thick vertical line shows the chosen LA's
-  average forecasting accuracy, the thin vertical line shows the England average, whilst the dashed lines show the
+  average forecasting accuracy, whilst the dashed lines show the
   25th and 75th percentiles across all LAs (i.e. half of all LAs were
    found to have a forecasting accuracy falling between the two dashed lines)."),
                                 htmlOutput("label_estimate_y1"),
@@ -166,9 +166,11 @@ The thick vertical line shows the chosen LA's
               p(strong("Average cost of additional mainstream school places")),
               p("Based on local authority reported projects between ", last_year_1, " and ", last_year, ", adjusted for inflation and regional variation"),
               p("Not new data: see technical notes"),
+              fluidRow(
               valueBoxOutput("perm_box", width = 4),
               valueBoxOutput("temp_box", width = 4),
               valueBoxOutput("new_box", width = 4),
+              ),
               p(strong("Average cost per place for permanent, temporary and new school projects")),
               details(
                 inputId = "costhelp",
