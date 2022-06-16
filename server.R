@@ -68,14 +68,14 @@ function(input, output, session) {
     paste0("Data for ", str_to_lower(input$phase_choice), " state-funded school places in ", input$LA_choice, ": ")
   })
 
-  
+
 
   ## create quality heading
   output$quality_description <- renderText({
-    paste0("Quality of school places created between 2017-18 and 2018-19, based on ",input$chart_choice)
+    paste0("Quality of school places created between 2017-18 and 2018-19, based on ", input$chart_choice)
   })
-  
-  
+
+
   ## Total funding
 
   output$total_funding_box <- renderValueBox({
@@ -218,37 +218,53 @@ function(input, output, session) {
       filter(name == "For_1") %>%
       pull(value) %>%
       roundFiveUp(., 3) * 100
-    
- 
+
+
     Foracc1year <- scorecards_data_pivot %>%
       filter(
         name == "For_1",
-        Phase == input$phase_choice)  %>%
-            pull(value) %>%
+        Phase == input$phase_choice
+      ) %>%
+      pull(value) %>%
       roundFiveUp(., 3) * 100
-    
-    medianaccuracy1 <- median(Foracc1year, na.rm = TRUE) 
-    
-    Twentyfifthpercentile1  <-  quantile(Foracc1year,0.25, na.rm = TRUE)
 
-    Seventyfifthpercentile1  <-  quantile(Foracc1year,0.75, na.rm = TRUE)
+    medianaccuracy1 <- median(Foracc1year, na.rm = TRUE)
+
+    Twentyfifthpercentile1 <- quantile(Foracc1year, 0.25, na.rm = TRUE)
+
+    Seventyfifthpercentile1 <- quantile(Foracc1year, 0.75, na.rm = TRUE)
 
     label <- case_when(
-      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy >  Seventyfifthpercentile1 ~ "overestimate, larger than at least 75% of forecast accuracy scores",
+<<<<<<< HEAD
+<<<<<<< HEAD
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy > Seventyfifthpercentile1 ~ "overestimate, larger than at least 75% of forecast accuracy scores",
       input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < Seventyfifthpercentile1 ~ "overestimate, within the middle 25 to 75% of forecast accuracy scores",
       input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy < Twentyfifthpercentile1 ~ "underestimate, within the lowest 25% of forecast accuracy scores",
       input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy > Twentyfifthpercentile1 ~ "underestimate, within the middle 25 to 75% of forecast accuracy scores",
-      input$LA_choice == "England" &  forecast_accuracy > 0  ~ "overestimate",
-      input$LA_choice == "England" &  forecast_accuracy < 0  ~ "underestimate",
+      input$LA_choice == "England" & forecast_accuracy > 0 ~ "overestimate",
+      input$LA_choice == "England" & forecast_accuracy < 0 ~ "underestimate",
+=======
+=======
+>>>>>>> 0fd377507aaa9d9fffa9b7453ca85b36ec17119d
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy >  Seventyfifthpercentile1 ~ "Overestimate of pupil numbers, larger overestimate than at least 75% of local authorities",
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < Seventyfifthpercentile1 ~ "Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
+      input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy < Twentyfifthpercentile1 ~ "underestimate of pupil numbers, larger underestimation than at least 75% of local authorities",
+      input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy > Twentyfifthpercentile1 ~ "underestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
+      input$LA_choice == "England" &  forecast_accuracy > 0  ~ "Overestimate of pupil numbers",
+      input$LA_choice == "England" &  forecast_accuracy < 0  ~ "Underestimate of pupil numbers",
+<<<<<<< HEAD
+>>>>>>> 0fd377507aaa9d9fffa9b7453ca85b36ec17119d
+=======
+>>>>>>> 0fd377507aaa9d9fffa9b7453ca85b36ec17119d
       input$LA_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London",
       input$LA_choice == "Isles Of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly",
-      TRUE ~ "overestimate/underestimate therefore accurate"
+      TRUE ~ "No Overestimate/underestimate therefore accurate"
     )
 
     if (label != "accurate") {
-      paste("<b>One year ahead : </b>", forecast_accuracy, "% ", label)
+      paste0("<h1>One year ahead: ", forecast_accuracy, "%</h1> ", label)
     } else {
-      paste("<b>One year ahead : </b>", label)
+      paste0("<b>One year ahead: ", label)
     }
   })
 
@@ -262,36 +278,52 @@ function(input, output, session) {
     Foracc3year <- scorecards_data_pivot %>%
       filter(
         name == "For_3",
-        Phase == input$phase_choice)  %>%
+        Phase == input$phase_choice
+      ) %>%
       pull(value) %>%
       roundFiveUp(., 3) * 100
-    
-    medianaccuracy2 <- median(Foracc3year, na.rm = TRUE) 
-    
-    Twentyfifthpercentile2 <- quantile(Foracc3year,0.25, na.rm = TRUE)
-    
-    Seventyfifthpercentile2 <- quantile(Foracc3year,0.75, na.rm = TRUE)
-    
+
+    medianaccuracy2 <- median(Foracc3year, na.rm = TRUE)
+
+    Twentyfifthpercentile2 <- quantile(Foracc3year, 0.25, na.rm = TRUE)
+
+    Seventyfifthpercentile2 <- quantile(Foracc3year, 0.75, na.rm = TRUE)
+
     label <- case_when(
-      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy >  Seventyfifthpercentile2 ~ "overestimate, larger than at least 75% of forecast accuracy scores",
+<<<<<<< HEAD
+<<<<<<< HEAD
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy > Seventyfifthpercentile2 ~ "overestimate, larger than at least 75% of forecast accuracy scores",
       input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < Seventyfifthpercentile2 ~ "overestimate, within the middle 25-75% of forecast accuracy scores",
       input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy < Twentyfifthpercentile2 ~ "underestimate, within the lowest 25% of forecast accuracy scores",
       input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy > Twentyfifthpercentile2 ~ "underestimate, within the middle 25-75% of forecast accuracy scores",
       input$LA_choice != "England" & forecast_accuracy < 0 ~ "underestimate, the median LA three year forecast accuracy is an overstimate",
-      input$LA_choice == "England" &  forecast_accuracy > 0  ~ "overestimate",
-      input$LA_choice == "England" &  forecast_accuracy < 0  ~ "underestimate",
+      input$LA_choice == "England" & forecast_accuracy > 0 ~ "overestimate",
+      input$LA_choice == "England" & forecast_accuracy < 0 ~ "underestimate",
+=======
+=======
+>>>>>>> 0fd377507aaa9d9fffa9b7453ca85b36ec17119d
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy >  Seventyfifthpercentile2 ~ "Overestimate of pupil numbers, larger overestimate than at least 75% of local authorities",
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < Seventyfifthpercentile2 ~ "Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
+      input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy < Twentyfifthpercentile2 ~ "Underestimate of pupil numbers, larger underestimation than at least 75% of local authorities",
+      input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy > Twentyfifthpercentile2 ~ "Underestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
+          input$LA_choice == "England" &  forecast_accuracy > 0  ~ "Overestimate of pupil numbers",
+      input$LA_choice == "England" &  forecast_accuracy < 0  ~ "Underestimate of pupil numbers",
+<<<<<<< HEAD
+>>>>>>> 0fd377507aaa9d9fffa9b7453ca85b36ec17119d
+=======
+>>>>>>> 0fd377507aaa9d9fffa9b7453ca85b36ec17119d
       input$LA_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London",
       input$LA_choice == "Isles Of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly",
-      TRUE ~ "overestimate/underestimate therefore accurate"
+      TRUE ~ "No Overestimate/underestimate therefore accurate"
     )
 
     if (label != "accurate") {
-      paste("<b>Three years ahead : </b>", forecast_accuracy, "% ", label)
+      paste0("<h1>Three years ahead: ", forecast_accuracy, "%</h1> ", label)
     } else {
       paste("<b>Three years ahead : </b>", label)
     }
   })
-  
+
   output$for1year_table <- renderTable({
     scorecards_data_pivot %>%
       filter(
@@ -299,29 +331,28 @@ function(input, output, session) {
         Phase == input$phase_choice
       ) %>%
       mutate(
-        Median  = median(value, na.rm = TRUE),
-        Median =  roundFiveUp(Median,3) * 100,
-        Median =   paste0(Median, "%"),
-        Twentyfifthpercentile = quantile(value,0.25, na.rm = TRUE),
-        Twentyfifthpercentile =  roundFiveUp(Twentyfifthpercentile,3) * 100,
-        Twentyfifthpercentile =   paste0( Twentyfifthpercentile, "%"),
-        Seventyfifthpercentile = quantile(value,0.75, na.rm = TRUE),
-        Seventyfifthpercentile =  roundFiveUp(Seventyfifthpercentile,3) * 100,
-        Seventyfifthpercentile =   paste0(Seventyfifthpercentile, "%"),
+        Median = median(value, na.rm = TRUE),
+        Median = roundFiveUp(Median, 3) * 100,
+        Median = paste0(Median, "%"),
+        Twentyfifthpercentile = quantile(value, 0.25, na.rm = TRUE),
+        Twentyfifthpercentile = roundFiveUp(Twentyfifthpercentile, 3) * 100,
+        Twentyfifthpercentile = paste0(Twentyfifthpercentile, "%"),
+        Seventyfifthpercentile = quantile(value, 0.75, na.rm = TRUE),
+        Seventyfifthpercentile = roundFiveUp(Seventyfifthpercentile, 3) * 100,
+        Seventyfifthpercentile = paste0(Seventyfifthpercentile, "%"),
         Minimum = min(value, na.rm = TRUE),
-        Minimum =  roundFiveUp(Minimum,3) * 100,
-        Minimum =   paste0(Minimum, "%"),
+        Minimum = roundFiveUp(Minimum, 3) * 100,
+        Minimum = paste0(Minimum, "%"),
         Maximum = max(value, na.rm = TRUE),
-        Maximum =  roundFiveUp(Maximum,3) * 100,
-        Maximum =   paste0(Maximum, "%")
-       ) %>%
-      filter(
-               LA_name == "England"
+        Maximum = roundFiveUp(Maximum, 3) * 100,
+        Maximum = paste0(Maximum, "%")
       ) %>%
-    select(Minimum, Twentyfifthpercentile, Median,  Seventyfifthpercentile, Maximum)
-  }
-  )
-  
+      filter(
+        LA_name == "England"
+      ) %>%
+      select(Minimum, Twentyfifthpercentile, Median, Seventyfifthpercentile, Maximum)
+  })
+
   output$for3year_table <- renderTable({
     scorecards_data_pivot %>%
       filter(
@@ -329,38 +360,49 @@ function(input, output, session) {
         Phase == input$phase_choice
       ) %>%
       mutate(
-        Median  = median(value, na.rm = TRUE),
-        Median =  roundFiveUp(Median,3) * 100,
-        Median =   paste0(Median, "%"),
-        Twentyfifthpercentile = quantile(value,0.25, na.rm = TRUE),
-        Twentyfifthpercentile =  roundFiveUp(Twentyfifthpercentile,3) * 100,
-        Twentyfifthpercentile =   paste0( Twentyfifthpercentile, "%"),
-        Seventyfifthpercentile = quantile(value,0.75, na.rm = TRUE),
-        Seventyfifthpercentile =  roundFiveUp(Seventyfifthpercentile,3) * 100,
-        Seventyfifthpercentile =   paste0(Seventyfifthpercentile, "%"),
+        Median = median(value, na.rm = TRUE),
+        Median = roundFiveUp(Median, 3) * 100,
+        Median = paste0(Median, "%"),
+        Twentyfifthpercentile = quantile(value, 0.25, na.rm = TRUE),
+        Twentyfifthpercentile = roundFiveUp(Twentyfifthpercentile, 3) * 100,
+        Twentyfifthpercentile = paste0(Twentyfifthpercentile, "%"),
+        Seventyfifthpercentile = quantile(value, 0.75, na.rm = TRUE),
+        Seventyfifthpercentile = roundFiveUp(Seventyfifthpercentile, 3) * 100,
+        Seventyfifthpercentile = paste0(Seventyfifthpercentile, "%"),
         Minimum = min(value, na.rm = TRUE),
-        Minimum =  roundFiveUp(Minimum,3) * 100,
-        Minimum =   paste0(Minimum, "%"),
+        Minimum = roundFiveUp(Minimum, 3) * 100,
+        Minimum = paste0(Minimum, "%"),
         Maximum = max(value, na.rm = TRUE),
-        Maximum =  roundFiveUp(Maximum,3) * 100,
-        Maximum =   paste0(Maximum, "%")
+        Maximum = roundFiveUp(Maximum, 3) * 100,
+        Maximum = paste0(Maximum, "%")
       ) %>%
       filter(
         LA_name == "England"
       ) %>%
+<<<<<<< HEAD
+      select(Minimum, Twentyfifthpercentile, Median, Seventyfifthpercentile, Maximum)
+  })
+
+
+
+=======
       select(Minimum, Twentyfifthpercentile, Median,  Seventyfifthpercentile, Maximum)
   }
   )
   
     
-
+<<<<<<< HEAD
+>>>>>>> 0fd377507aaa9d9fffa9b7453ca85b36ec17119d
   ## Forecast accuracy three years ahead
-
+  
   # Code to go here using above template
+<<<<<<< HEAD
 
- output$forecasting.bartext <- renderUI(
-   tagList(p(paste0("The extent of the filled bar in each chart shows the forecasting accuracy for ", input$LA_choice,
- ".")))
+  output$forecasting.bartext <- renderUI(
+    tagList(p(paste0(
+      "The extent of the filled bar in each chart shows the forecasting accuracy for ", input$LA_choice,
+      "."
+    )))
   )
 
   output$forecast_1y_bar <- renderPlot(
@@ -435,7 +477,7 @@ function(input, output, session) {
       range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
       range_values$accuracy[0] <- (ceiling(abs(range_values$accuracy[0])) * range_values$accuracy[0] / abs(range_values$accuracy[0]))
 
-            ggplot(forecast_accuracy, aes(name, value, fill = value)) +
+      ggplot(forecast_accuracy, aes(name, value, fill = value)) +
         geom_bar(stat = "identity", width = 100) +
         scale_fill_gradient2(
           low = "#e34a33", mid = "#e0f3db", high = "#e34a33",
@@ -461,6 +503,131 @@ function(input, output, session) {
     width = "auto"
   )
 
+=======
+  
+  output$forecasting.bartext <- renderUI(
+    tagList(p(paste0("The shaded area in each chart shows the forecasting accuracy for ", input$LA_choice, ". 
+                     The starting point is 0: an accurate score.
+                     A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.")))
+  )
+=======
+  ## Forecast accuracy three years ahead
+  
+  # Code to go here using above template
+  
+  output$forecasting.bartext <- renderUI(
+    tagList(p(paste0("The shaded area in each chart shows the forecasting accuracy for ", input$LA_choice, ". 
+                     The starting point is 0: an accurate score.
+                     A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.")))
+  )
+>>>>>>> 0fd377507aaa9d9fffa9b7453ca85b36ec17119d
+  
+  output$forecast_1y_bar <- renderPlotly({
+    forecast_accuracy <- live_scorecard_data() %>%
+      filter(name == "For_1") %>%
+      as.data.frame()
+    
+    forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
+    
+    forecast_range <- scorecards_data_pivot %>%
+      filter(
+        name == "For_1",
+        Phase == input$phase_choice
+      )
+    
+    
+    range_values <- forecast_range %>%
+      summarise(
+        quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
+        accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+      ) %>%
+      as.data.frame()
+    
+    range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
+    range_values$accuracy[1] <- (ceiling(abs(range_values$accuracy[1])) * range_values$accuracy[1] / abs(range_values$accuracy[1]))
+    p <- ggplot(
+      forecast_accuracy,
+      aes(name, value,
+          fill = value,
+          text = paste0(input$LA_choice, ": ", value, "%")
+      )
+    ) +
+      geom_bar(stat = "identity", width = 100) +
+      scale_fill_gradientn(
+        colors = divergent_gradient,
+        space = "Lab",
+        limits = c(-0.75 * abs(range_values$accuracy[5]), 1.08 * abs(range_values$accuracy[5])),
+      ) +
+      ylim(range_values$accuracy[1], range_values$accuracy[5]) +
+      theme_bw() +
+      theme(
+        legend.position = "none", axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        text = element_text(size = 12)
+      ) +
+      geom_hline(yintercept = 0, linetype = "dotted") +
+      geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
+     # geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value) +
+      geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
+      geom_hline(yintercept = forecast_accuracy$value, size = 1.) +
+      labs(x = "", y = "Accuracy (%)") +
+      coord_flip()
+    ggplotly(p, tooltip = c("text")) %>%
+      layout(font = font_choice) %>%
+      config(displayModeBar = FALSE)
+  })
+  
+  output$forecast_3y_bar <- renderPlotly({
+    forecast_accuracy <- live_scorecard_data() %>%
+      filter(name == "For_3")
+    forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
+    
+    forecast_range <- scorecards_data_pivot %>%
+      filter(
+        name == "For_3",
+        Phase == input$phase_choice
+      )
+    
+    range_values <- forecast_range %>%
+      summarise(
+        quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
+        accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+      ) %>%
+      as.data.frame()
+    
+    range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
+    range_values$accuracy[1] <- (ceiling(abs(range_values$accuracy[1])) * range_values$accuracy[1] / abs(range_values$accuracy[1]))
+    
+    p <- ggplot(forecast_accuracy, aes(name, value, fill = value, text = paste0(input$LA_choice, ": ", value, "%"))) +
+      geom_bar(stat = "identity", width = 100) +
+      scale_fill_gradientn(
+        colors = divergent_gradient,
+        space = "Lab",
+        limits = c(-0.75 * abs(range_values$accuracy[5]), 1.08 * abs(range_values$accuracy[5])),
+      ) +
+      ylim(c(range_values$accuracy[1], range_values$accuracy[5])) +
+      theme_bw() +
+      theme(
+        legend.position = "none", axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        text = element_text(size = 12)
+      ) +
+      geom_hline(yintercept = 0, linetype = "dotted") +
+      geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
+    #  geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value) +
+      geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
+      geom_hline(yintercept = forecast_accuracy$value, size = 1.) +
+      labs(x = "", y = "Accuracy (%)") +
+      coord_flip()
+    ggplotly(p, tooltip = c("text")) %>%
+      layout(font = font_choice) %>%
+      config(displayModeBar = FALSE)
+  })
+  
+<<<<<<< HEAD
+>>>>>>> 0fd377507aaa9d9fffa9b7453ca85b36ec17119d
+=======
+>>>>>>> 0fd377507aaa9d9fffa9b7453ca85b36ec17119d
 
   # Preference -------------------------------------------------------------
 
@@ -550,8 +717,10 @@ function(input, output, session) {
       geom_bar(stat = "identity", position = position_fill(reverse = TRUE)) +
       coord_flip() +
       facet_wrap(~LA_name, nrow = 2) +
-      geom_text(aes(label = value_label), colour = "#ffffff", 
-                size = 4, position = position_fill(reverse = TRUE, vjust = 0.5)) +
+      geom_text(aes(label = value_label),
+        colour = "#ffffff",
+        size = 4, position = position_fill(reverse = TRUE, vjust = 0.5)
+      ) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
       scale_fill_manual(values = dfe_colours) +
@@ -781,7 +950,7 @@ function(input, output, session) {
       tooltip = c("text")
     ) %>%
       layout(
-        scale_y_continuous(labels = scales::percent_format(accuracy=100)),
+        scale_y_continuous(labels = scales::percent_format(accuracy = 100)),
         legend = list(
           orientation = "h",
           y = -0.1, x = 0.2,
@@ -849,9 +1018,11 @@ function(input, output, session) {
       geom_bar(stat = "identity", position = position_fill(reverse = TRUE)) +
       coord_flip() +
       facet_wrap(~LA_name, nrow = 2) +
-      geom_text(aes(label = scales::comma(value_label)), size = 4, 
-                colour = "#FFFFFF", 
-                position = position_fill(reverse = TRUE, vjust = 0.5)) +
+      geom_text(aes(label = scales::comma(value_label)),
+        size = 4,
+        colour = "#FFFFFF",
+        position = position_fill(reverse = TRUE, vjust = 0.5)
+      ) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
       scale_fill_manual(values = dfe_colours) +
@@ -1155,10 +1326,10 @@ function(input, output, session) {
           text = paste(LA_name, ": £", scales::comma(cost_per_place), " per place")
         ),
         groupOnX = TRUE, na.rm = TRUE
-      ) + 
-       scale_y_continuous(labels=comma) +
-      labs(x="", y="Cost per place (£)") +
-            geom_beeswarm(
+      ) +
+      scale_y_continuous(labels = comma) +
+      labs(x = "", y = "Cost per place (£)") +
+      geom_beeswarm(
         data = all_LA_cost %>% filter(group_higlight == 1), aes(x, cost_per_place,
           color = grouping,
           text = paste(LA_name, ": £", scales::comma(cost_per_place), " per place")
@@ -1175,16 +1346,16 @@ function(input, output, session) {
         values = c("#f2590d", "#1c6bb0", "#dcd9d6")
       ) +
       theme(
-        axis.line.y = element_line(color="grey", size = 1),
+        axis.line.y = element_line(color = "grey", size = 1),
         axis.line.x = element_blank(),
         axis.text.x = element_blank(),
-        axis.text.y = element_text(size=8),
+        axis.text.y = element_text(size = 8),
         axis.ticks.x = element_blank(),
         axis.title.x = element_blank(),
         axis.title.y = element_text(margin = margin(r = 70)),
         legend.title = element_blank(),
         panel.background = element_blank(),
-        panel.border = element_rect(color="grey",size = 1, fill=NA),
+        panel.border = element_rect(color = "grey", size = 1, fill = NA),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank(),
