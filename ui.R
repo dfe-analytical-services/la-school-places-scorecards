@@ -17,13 +17,14 @@ function(request) {
     div(
       class = "panel-heading",
       style = "color: white;font-size: 18px;font-style: bold; background-color: #1d70b8;",
-      h2("Scorecard Metrics")
-         ),
+      h2("Scorecard Contents"),
+               ),
     div(
       class = "panel-body",
+      h3 ("School Place Metrics Included"),
        br(),
     h3(actionLink("tabs=Quantity&link_to_mainPanel", "Quantity")),
-    h4("Quantity"),
+  #  h4("Quantity"),
     br("You can see how much progress the chosen local authority is making in providing sufficient school places by looking at the quantity measure. The quantity chart is based on published", a(href = "https://www.gov.uk/government/statistics/school-capacity-in-england-academic-year-2020-to-2021", "school capacity 20/21 data.")),
     br("The blue portion of the bar chart shows the places already added since the academic year 2009/10, the orange portion shows the places planned up to the 2023/24 academic year and the purple portion shows the estimated number of additional places needed to meet demand in the 2023/24 academic year (the number for this portion is also shown in the box next to  the bar chart). Local authorities with relatively small or no purple bars are making the best progress."),
     br("It is important to take care when making comparisons using the quantity measure. Some local authorities have long-standing place pressure, whereas for others it has emerged more recently. Those experiencing long-standing place pressures will have had more chance to demonstrate that they can add large quantities of places."),
