@@ -550,10 +550,12 @@ function(input, output, session) {
       geom_bar(stat = "identity", position = position_fill(reverse = TRUE)) +
       coord_flip() +
       facet_wrap(~LA_name, nrow = 2) +
-      geom_text(aes(label = value_label), colour = "#ffffff", size = 4, position = position_fill(reverse = TRUE, vjust = 0.5)) +
+      geom_text(aes(label = value_label), colour = "#ffffff", 
+                size = 4, position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
       scale_fill_manual(values = dfe_colours) +
+      scale_y_continuous(labels = scales::percent) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
@@ -566,7 +568,7 @@ function(input, output, session) {
     ) %>%
       layout(
         uniformtext = list(minsize = 12, mode = "hide"),
-        xaxis = list(showticklabels = FALSE),
+        xaxis = list(showticklabels = TRUE),
         legend = list(
           orientation = "h",
           y = -0.1, x = 0.33,
@@ -779,7 +781,7 @@ function(input, output, session) {
       tooltip = c("text")
     ) %>%
       layout(
-        scale_y_continuous(labels = scales::percent_format(accuracy=1)),
+        scale_y_continuous(labels = scales::percent_format(accuracy=100)),
         legend = list(
           orientation = "h",
           y = -0.1, x = 0.2,
@@ -847,10 +849,13 @@ function(input, output, session) {
       geom_bar(stat = "identity", position = position_fill(reverse = TRUE)) +
       coord_flip() +
       facet_wrap(~LA_name, nrow = 2) +
-      geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
+      geom_text(aes(label = scales::comma(value_label)), size = 4, 
+                colour = "#FFFFFF", 
+                position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
       scale_fill_manual(values = dfe_colours) +
+      scale_y_continuous(labels = scales::percent) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
