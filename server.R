@@ -4,6 +4,29 @@ function(input, output, session) {
     family = "Arial",
     size = 14
   )
+  
+  # actionLinks
+  observeEvent(input$linkQuantityTab, {
+    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "tabs", selected = "quantity")
+  })
+  observeEvent(input$linkForecastTab, {
+    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "tabs", selected = "forecast")
+  })
+  observeEvent(input$linkPreferenceTab, {
+    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "tabs", selected = "preference")
+  })
+  observeEvent(input$linkQualityTab, {
+    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "tabs", selected = "quality")
+  })
+  observeEvent(input$linkCostTab, {
+    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "tabs", selected = "cost")
+  })
+  
 
   # Data calculations - reactive --------------------------------------------
 

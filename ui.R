@@ -4,6 +4,7 @@ function(request) {
  
   #Homepage----------------------------------------------------------------------
   navbarPage(
+    id="navbar",
     title = "",
     tabPanel("Homepage",
     h2("Local authority school places scorecards academic year 2020/21"),
@@ -23,7 +24,7 @@ function(request) {
       class = "panel-body",
       h3 ("School Place Metrics Included"),
        br(),
-    h3(actionLink("tabs=Quantity&link_to_mainPanel", "Quantity")),
+    h4(actionLink("linkQuantityTab", "Quantity")),
   #  h4("Quantity"),
     br("You can see how much progress the chosen local authority is making in providing sufficient school places by looking at the quantity measure. The quantity chart is based on published", a(href = "https://www.gov.uk/government/statistics/school-capacity-in-england-academic-year-2020-to-2021", "school capacity 20/21 data.")),
     br("The blue portion of the bar chart shows the places already added since the academic year 2009/10, the orange portion shows the places planned up to the 2023/24 academic year and the purple portion shows the estimated number of additional places needed to meet demand in the 2023/24 academic year (the number for this portion is also shown in the box next to  the bar chart). Local authorities with relatively small or no purple bars are making the best progress."),
@@ -32,14 +33,14 @@ function(request) {
     br("The basic need funding box shows the total amount of basic need capital funding allocated to each local authority to create new places from 2011 to 2024."),
     br("The percentage growth in pupil numbers box shows the anticipated percentage increase in pupil numbers in primary or secondary provision  between 2009/10 to 2023/24."),
     br(),
-    h4("Forecast Accuracy"),
+    h4(actionLink("linkForecastTab", "Forecast Accuracy")),
     br("Estimating place pressure in future years relies upon the forecasts of pupil numbers made by local authorities, provided in the annual school capacity survey. We have included two graphics, which illustrate the forecasting accuracy of the selected local authority for forecasts made one year ago in SCAP21 and three years ago in SCAP19.  These pupil forecasts have been compared with pupils on roll from the January 22 school census numbers to produce a forecast accuracy score for one and three years ahead. The bar shows underestimates for number of pupils  (a minus figure) and over estimates for numbers of pupils  (a positive figure) respectively. The bar extends to the position of the local authority’s forecast accuracy score in the range of all forecast accuracy scores"),
     br(),
-    h4("Preference"),
+  h4(actionLink("linkPreferenceTab","Preference")),
     br("You can use the scorecard to see how well the chosen local authority is able to meet parents’ school preferences, based on published school applications and offers 2021 data. The scorecard shows the percentage of applicants who received an offer of a place in one of their top three preferences for entry in September 2021, in the local authority. This is presented alongside the same percentage for England."),
     br("The chart breaks down the percentage of applicants who received an offer of one of their top three preferences to those who received an offer of their first, second or third preferences. The turquoise section represents the proportion of pupils made an offer of a lower preference (where a local authority allows four or more preferences) and the proportion not made a preferred offer. The latter can include applicants who were made an alternative offer and those who were not, made any offer."),
     br(),
-    h4("Quality"),
+  h4(actionLink("linkQualityTab","Quality")),
     br("You can check the quality measure to see where the chosen local authority has added school places, based on published school capacity 20/21 data and school Ofsted rating"),
     br("The bar chart shows the number of new places added in the local authority, between May 2019 and May 2021, according to the Ofsted rating of the school in which they have been added. There are 4 possible Ofsted ratings: outstanding, good, requires improvement and inadequate."),
     br("It is important to take care when making comparisons using the quality measure as:"),
@@ -48,16 +49,16 @@ function(request) {
     ("•	We have used the Ofsted rating available at 31 August 2021 and places may have been added before or after that rating was given"),
     br("•	Where schools have amalgamated, we have only used an Ofsted rating when we can be sure the rating is for the post-amalgamation school."),
     br(),
-    h4("Cost Metric"),
+  h4(actionLink("linkCostTab","Cost Metric")),
     br("No cost data was collected in 2021 as the Capital Spend data collection was removed from the SCAP survey pending the introduction of the Capital Spend Survey. The most recent cost data available is the 2018 Capital Spend data as used in the 2018 Scorecard. For the 2021 Scorecard, this data has been adjusted for inflation (rebased to 1st quarter 2022 prices)."),
     br("You can use the scorecard to see whether the average amount spent on each school place is relatively high or low compared with other local authorities."),
     br("The types of projects local authorities reported in the academic years 2015/16, 2016/17 and 2017/18 have been split into permanent expansions, temporary expansions and new schools. They have been separated so that you can compare more similar groups of projects between local authorities."),
     br("Cost figures have been adjusted to take location factors and inflation into account when average cost per place is calculated. There is further guidance on converting costs into current or future prices and/or regional prices in the scorecard ‘technical notes’."),
     br("It is important to take care when making comparisons. Some local authorities have small numbers of projects to add places, so cost comparisons become very dependent upon the nature of individual projects. Some additional but limited benchmark information for similar capital programme schemes carried out by the DfE is available in the National School Delivery Cost Benchmarking study.")))),
     #scorecard---------------------------------------------------------------------
->>>>>>> dev_format
     tabPanel(
-      "LA scorecards",
+      value="la_scorecards",
+      title="LA scorecards",
       includeCSS("www/dfe_shiny_gov_style.css"),
       useShinyjs(),
       useShinydashboard(),
@@ -94,11 +95,7 @@ function(request) {
           ),
           br(),
           br(),
-<<<<<<< HEAD
-          p("Download data for all geographies and phases using the button below."),
-=======
           p(strong("Download data for all geographies and phases using the button below.",style = "color:white")),
->>>>>>> dev_format
           myDownloadButton(
             "download_ud",
             "Download data"
@@ -116,11 +113,11 @@ function(request) {
           width = 10,
           h2(textOutput("data_description")),
           br(),
-                         tabBox(
-            title = "",
-            id = "tabs", width = "12",
+          tabsetPanel(
+            id = "tabs",
             tabPanel(
-              "Quantity",
+              value="quantity",
+              title="Quantity",
               fluidRow(
                 column(
                   6,
@@ -139,7 +136,8 @@ function(request) {
                   valueBoxOutput("pupil_growth", width = 6)
                 ))),
            tabPanel(
-             "Pupil forecast accuracy",
+             value="forecast",
+             title="Pupil forecast accuracy",
              fluidRow(
                p(strong("Forecast accuracy of pupil projections")),
                column(
@@ -187,7 +185,8 @@ The thick vertical line shows the chosen LA's
              tableOutput("for3year_table"))),
              ),
             tabPanel(
-              "Preference",
+              value="preference",
+              title="Preference",
               p(strong(paste0("School applications and offers for September ", preference_year, " entry"))),
               # preference content to go here
               valueBoxOutput("prefT3_ENG", width = 6),
@@ -201,7 +200,8 @@ The thick vertical line shows the chosen LA's
               )
             ),
             tabPanel(
-              "Quality",
+              value="quality",
+              title="Quality",
               strong(textOutput("quality_description")),
               br(),
               valueBoxOutput("England_GO_places", width = 4),
@@ -217,7 +217,8 @@ The thick vertical line shows the chosen LA's
               textOutput("no_rating_line")
             ),
             tabPanel(
-              "Cost",
+              value="cost",
+              title="Cost",
               p(strong("Average cost of additional mainstream school places")),
               p("Based on local authority reported projects between ", last_year_1, " and ", last_year, ", adjusted for inflation and regional variation"),
               p("Not new data: see technical notes"),
