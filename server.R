@@ -561,7 +561,8 @@ function(input, output, session) {
       theme_minimal() +
       theme(
         legend.position = "bottom",
-        text = element_text(size = 14, family = "Arial")
+        text = element_text(size = 14, family = "Arial"),
+        strip.text.x = element_text(size = 20)
       )
 
 
@@ -859,7 +860,8 @@ function(input, output, session) {
       theme_minimal() +
       theme(
         legend.position = "bottom",
-        text = element_text(size = 14, family = "Arial")
+        text = element_text(size = 14, family = "Arial"),
+        strip.text.x = element_text(size = 20)
       )
 
     if (input$LA_choice == "England" & input$chart_choice == "Ofsted Rating") {
