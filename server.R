@@ -68,14 +68,14 @@ function(input, output, session) {
     paste0("Data for ", str_to_lower(input$phase_choice), " state-funded school places in ", input$LA_choice, ": ")
   })
 
-  
+
 
   ## create quality heading
   output$quality_description <- renderText({
-    paste0("Quality of school places created between 2017-18 and 2018-19, based on ",input$chart_choice)
+    paste0("Quality of school places created between 2017/18 and 2018/19, based on ",input$chart_choice)
   })
-  
-  
+
+
   ## Total funding
 
   output$total_funding_box <- renderValueBox({
@@ -483,7 +483,7 @@ function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(PrefT3_E, "%"),
-      paste0("Percentage of applicants who recieved an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England"),
+      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England"),
       # icon = icon("fas fa-chart-line"),
       color = "light-blue"
     )
@@ -1157,8 +1157,8 @@ function(input, output, session) {
           text = paste(LA_name, ": £", scales::comma(cost_per_place), " per place")
         ),
         groupOnX = TRUE, na.rm = TRUE
-      ) + 
-       scale_y_continuous(labels=comma) +
+      ) +
+      scale_y_continuous(labels=comma) +
       labs(x="", y="Cost per place (£)") +
             geom_beeswarm(
         data = all_LA_cost %>% filter(group_higlight == 1), aes(x, cost_per_place,
@@ -1233,9 +1233,9 @@ function(input, output, session) {
 
 
     shinydashboard::valueBox(
-      paste0(perm_fig),
-      paste0("Permanent ", str_to_lower(input$phase_choice), " expansion projects in ", input$LA_choice),
-      # icon = icon("fas fa-school"),
+      paste0(scales::comma(perm_fig)),
+      paste0("Permanent ",str_to_lower(input$phase_choice), " expansion projects in ", input$LA_choice),
+       # icon = icon("fas fa-school"),
       color = "light-blue"
     )
   })
