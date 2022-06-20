@@ -967,7 +967,7 @@ scorecards_data_pivot <- scorecards_data %>%
  fontlower={\large \bfseries},
  sharp corners, 
  colframe=gssmidblue,
- width=0.32\\linewidth,
+ width=0.32\linewidth,
  boxrule=0pt,
  equal height group=costbox
  ]
@@ -984,7 +984,7 @@ Percentage of new places created in `r paste(school_description, str_to_lower(pa
  fontlower={\large \bfseries},
  sharp corners, 
  colframe=gssmidblue,
- width=0.32\\linewidth,
+ width=0.32\linewidth,
  boxrule=0pt,
  equal height group=costbox
  ]
@@ -1001,7 +1001,7 @@ Percentage of new places created in `r paste( str_to_lower(params$input_phase_ch
  fontlower={\large \bfseries},
  sharp corners, 
  colframe=gssmidblue,
- width=0.32\\linewidth,
+ width=0.32\linewidth,
  boxrule=0pt,
  equal height group=costbox
  ]
@@ -1300,11 +1300,12 @@ Percentage of new places created in `r paste(school_description, str_to_lower(pa
 
   <!-- # Code to go here using above template -->
 
-``` {r echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
-     paste0("The shaded area in each chart shows the forecasting accuracy for ", params$input_la_choice, ".
+      The shaded area in each chart shows the forecasting accuracy for 'r  params$input_la_choice' .
                      The starting point is 0: an accurate score.
-                     A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.")
-  
+                     A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.
+
+``` {r echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
+
 
      forecast_accuracy <- live_scorecard_data %>%
       filter(name == "For_1") %>%
@@ -1355,10 +1356,7 @@ Percentage of new places created in `r paste(school_description, str_to_lower(pa
       geom_hline(yintercept = forecast_accuracy$value, size = 1.) +
       labs(x = "", y = "Accuracy (%)") +
       coord_flip()
-    ggplotly(p, tooltip = c("text")) %>%
-      layout(font = font_choice) %>%
-      config(displayModeBar = FALSE)
-  
+
 
 ```
   <!-- output$forecast_3y_bar <- renderPlotly({ -->
