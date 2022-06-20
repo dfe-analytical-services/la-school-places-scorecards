@@ -954,12 +954,65 @@ scorecards_data_pivot <- scorecards_data %>%
         LA_name = factor(LA_name, levels = rev(levels(LA_name)))
       )
   
+```
 
 
+  \makebox[1.0\linewidth]{
+\centering
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.32\\linewidth,
+ boxrule=0pt,
+ equal height group=costbox
+ ]
+`r england_comp`\%
+\tcblower
+Percentage of new places created in `r paste(school_description, str_to_lower(params$input_phase_choice))` schools in England
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.32\\linewidth,
+ boxrule=0pt,
+ equal height group=costbox
+ ]
+`r england_comp`\%
+\tcblower
+Percentage of new places created in `r paste( str_to_lower(params$input_phase_choice))` schools in England
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.32\\linewidth,
+ boxrule=0pt,
+ equal height group=costbox
+ ]
+`r england_comp`\%
+\tcblower
+Percentage of new places created in `r paste(school_description, str_to_lower(params$input_phase_choice))` schools in England
+\end{tcolorbox}
+}
 
   
-  
-
+``` {r echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
 
 
 #cost.bartext <- 
@@ -1003,93 +1056,363 @@ scorecards_data_pivot <- scorecards_data %>%
       pivot_wider(names_from = Region, values_from = cost_per_place)
   
 
+  
+  
+  
+  kable( cost_table)
+  
+  
 ```
 
-  # Comparison boxes - number of projects
-  output$perm_box <- renderValueBox({
-    perm_fig <- live_scorecard_data() %>%
-      # Filter for Cost, places and project data
-      filter(str_detect(name, "Cost|Places|Projects")) %>%
-      # Create new column called data_type, based on the name of the data
-      mutate(data_type = case_when(
-        str_detect(name, "Cost") ~ "Cost",
-        str_detect(name, "Place") ~ "Place",
-        str_detect(name, "Project") ~ "Project"
-      )) %>%
-      mutate(exp_type = case_when(
-        str_detect(name, "EP") ~ "Permanent",
-        str_detect(name, "ET") ~ "Temporary",
-        str_detect(name, "NS") ~ "New school"
-      )) %>%
-      select(LA_name, data_type, exp_type, value) %>%
-      filter(data_type == "Project" & exp_type == "Permanent") %>%
-      pull(value)
 
 
-    shinydashboard::valueBox(
-      paste0(perm_fig),
-      paste0("Permanent ", str_to_lower(input$phase_choice), " expansion projects in England"),
-      # icon = icon("fas fa-school"),
-      color = "light-blue"
-    )
-  })
 
-  output$temp_box <- renderValueBox({
-    temp_fig <- live_scorecard_data() %>%
-      # Filter for Cost, places and project data
-      filter(str_detect(name, "Cost|Places|Projects")) %>%
-      # Create new column called data_type, based on the name of the data
-      mutate(data_type = case_when(
-        str_detect(name, "Cost") ~ "Cost",
-        str_detect(name, "Place") ~ "Place",
-        str_detect(name, "Project") ~ "Project"
-      )) %>%
-      mutate(exp_type = case_when(
-        str_detect(name, "EP") ~ "Permanent",
-        str_detect(name, "ET") ~ "Temporary",
-        str_detect(name, "NS") ~ "New school"
-      )) %>%
-      select(LA_name, data_type, exp_type, value) %>%
-      filter(data_type == "Project" & exp_type == "Temporary") %>%
-      pull(value)
+  <!-- # Comparison boxes - number of projects -->
+  <!-- output$perm_box <- renderValueBox({ -->
+  <!--   perm_fig <- live_scorecard_data() %>% -->
+  <!--     # Filter for Cost, places and project data -->
+  <!--     filter(str_detect(name, "Cost|Places|Projects")) %>% -->
+  <!--     # Create new column called data_type, based on the name of the data -->
+  <!--     mutate(data_type = case_when( -->
+  <!--       str_detect(name, "Cost") ~ "Cost", -->
+  <!--       str_detect(name, "Place") ~ "Place", -->
+  <!--       str_detect(name, "Project") ~ "Project" -->
+  <!--     )) %>% -->
+  <!--     mutate(exp_type = case_when( -->
+  <!--       str_detect(name, "EP") ~ "Permanent", -->
+  <!--       str_detect(name, "ET") ~ "Temporary", -->
+  <!--       str_detect(name, "NS") ~ "New school" -->
+  <!--     )) %>% -->
+  <!--     select(LA_name, data_type, exp_type, value) %>% -->
+  <!--     filter(data_type == "Project" & exp_type == "Permanent") %>% -->
+  <!--     pull(value) -->
 
 
-    shinydashboard::valueBox(
-      paste0(temp_fig),
-      paste0("Temporary ", str_to_lower(input$phase_choice), " expansion projects in England "),
-      # icon = icon("fas fa-campground"),
-      color = "light-blue"
-    )
-  })
+  <!--   shinydashboard::valueBox( -->
+  <!--     paste0(perm_fig), -->
+  <!--     paste0("Permanent ", str_to_lower(params$input_phase_choice), " expansion projects in England"), -->
+  <!--     # icon = icon("fas fa-school"), -->
+  <!--     color = "light-blue" -->
+  <!--   ) -->
+  <!-- }) -->
+
+  <!-- output$temp_box <- renderValueBox({ -->
+  <!--   temp_fig <- live_scorecard_data() %>% -->
+  <!--     # Filter for Cost, places and project data -->
+  <!--     filter(str_detect(name, "Cost|Places|Projects")) %>% -->
+  <!--     # Create new column called data_type, based on the name of the data -->
+  <!--     mutate(data_type = case_when( -->
+  <!--       str_detect(name, "Cost") ~ "Cost", -->
+  <!--       str_detect(name, "Place") ~ "Place", -->
+  <!--       str_detect(name, "Project") ~ "Project" -->
+  <!--     )) %>% -->
+  <!--     mutate(exp_type = case_when( -->
+  <!--       str_detect(name, "EP") ~ "Permanent", -->
+  <!--       str_detect(name, "ET") ~ "Temporary", -->
+  <!--       str_detect(name, "NS") ~ "New school" -->
+  <!--     )) %>% -->
+  <!--     select(LA_name, data_type, exp_type, value) %>% -->
+  <!--     filter(data_type == "Project" & exp_type == "Temporary") %>% -->
+  <!--     pull(value) -->
 
 
-  output$new_box <- renderValueBox({
-    new_fig <- live_scorecard_data() %>%
-      # Filter for Cost, places and project data
-      filter(str_detect(name, "Cost|Places|Projects")) %>%
-      # Create new column called data_type, based on the name of the data
-      mutate(data_type = case_when(
-        str_detect(name, "Cost") ~ "Cost",
-        str_detect(name, "Place") ~ "Place",
-        str_detect(name, "Project") ~ "Project"
-      )) %>%
-      mutate(exp_type = case_when(
-        str_detect(name, "EP") ~ "Permanent",
-        str_detect(name, "ET") ~ "Temporary",
-        str_detect(name, "NS") ~ "New school"
-      )) %>%
-      select(LA_name, data_type, exp_type, value) %>%
-      filter(data_type == "Project" & exp_type == "New school") %>%
-      pull(value)
+  <!--   shinydashboard::valueBox( -->
+  <!--     paste0(temp_fig), -->
+  <!--     paste0("Temporary ", str_to_lower(params$input_phase_choice), " expansion projects in England "), -->
+  <!--     # icon = icon("fas fa-campground"), -->
+  <!--     color = "light-blue" -->
+  <!--   ) -->
+  <!-- }) -->
 
 
-    shinydashboard::valueBox(
-      paste0(new_fig),
-      paste0("New ", str_to_lower(input$phase_choice), " schools projects in England"),
-      # icon = icon("fas fa-plus"),
-      color = "light-blue"
-    )
-  })
+  <!-- output$new_box <- renderValueBox({ -->
+  <!--   new_fig <- live_scorecard_data() %>% -->
+  <!--     # Filter for Cost, places and project data -->
+  <!--     filter(str_detect(name, "Cost|Places|Projects")) %>% -->
+  <!--     # Create new column called data_type, based on the name of the data -->
+  <!--     mutate(data_type = case_when( -->
+  <!--       str_detect(name, "Cost") ~ "Cost", -->
+  <!--       str_detect(name, "Place") ~ "Place", -->
+  <!--       str_detect(name, "Project") ~ "Project" -->
+  <!--     )) %>% -->
+  <!--     mutate(exp_type = case_when( -->
+  <!--       str_detect(name, "EP") ~ "Permanent", -->
+  <!--       str_detect(name, "ET") ~ "Temporary", -->
+  <!--       str_detect(name, "NS") ~ "New school" -->
+  <!--     )) %>% -->
+  <!--     select(LA_name, data_type, exp_type, value) %>% -->
+  <!--     filter(data_type == "Project" & exp_type == "New school") %>% -->
+  <!--     pull(value) -->
+
+
+  <!--   shinydashboard::valueBox( -->
+  <!--     paste0(new_fig), -->
+  <!--     paste0("New ", str_to_lower(params$input_phase_choice), " schools projects in England"), -->
+  <!--     # icon = icon("fas fa-plus"), -->
+  <!--     color = "light-blue" -->
+  <!--   ) -->
+  <!-- }) -->
+
+
+
+  <!-- ## Forecast accuracy labels -->
+
+  <!-- output$label_estimate_y1 <- renderText({ -->
+  <!--   forecast_accuracy <- live_scorecard_data() %>% -->
+  <!--     filter(name == "For_1") %>% -->
+  <!--     pull(value) %>% -->
+  <!--     roundFiveUp(., 3) * 100 -->
+
+
+  <!--   Foracc1year <- scorecards_data_pivot %>% -->
+  <!--     filter( -->
+  <!--       name == "For_1", -->
+  <!--       Phase == params$input_phase_choice)  %>% -->
+  <!--           pull(value) %>% -->
+  <!--     roundFiveUp(., 3) * 100 -->
+
+  <!--   medianaccuracy1 <- median(Foracc1year, na.rm = TRUE)  -->
+
+  <!--   Twentyfifthpercentile1  <-  quantile(Foracc1year,0.25, na.rm = TRUE) -->
+
+  <!--   Seventyfifthpercentile1  <-  quantile(Foracc1year,0.75, na.rm = TRUE) -->
+
+  <!--   label <- case_when( -->
+  <!--     params$input_la_choice != "England" & forecast_accuracy > 0 & forecast_accuracy >  Seventyfifthpercentile1 ~ "Overestimate of pupil numbers, larger overestimate than at least 75% of local authorities", -->
+  <!--     params$input_la_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < Seventyfifthpercentile1 ~ "Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores", -->
+  <!--     params$input_la_choice != "England" & forecast_accuracy < 0 & forecast_accuracy < Twentyfifthpercentile1 ~ "underestimate of pupil numbers, larger underestimation than at least 75% of local authorities", -->
+  <!--     params$input_la_choice != "England" & forecast_accuracy < 0 & forecast_accuracy > Twentyfifthpercentile1 ~ "underestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores", -->
+  <!--     params$input_la_choice == "England" &  forecast_accuracy > 0  ~ "Overestimate of pupil numbers", -->
+  <!--     params$input_la_choice == "England" &  forecast_accuracy < 0  ~ "Underestimate of pupil numbers", -->
+  <!--     params$input_la_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London", -->
+  <!--     params$input_la_choice == "Isles Of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly", -->
+  <!--     TRUE ~ "No overestimate/underestimate therefore accurate" -->
+  <!--   ) -->
+
+  <!--   if (label != "accurate") { -->
+  <!--     paste0("<h1>One year ahead: ", forecast_accuracy, "%</h1> ", label) -->
+  <!--   } else { -->
+  <!--     paste0("<b>One year ahead: ", label) -->
+  <!--   } -->
+  <!-- }) -->
+
+
+  <!-- output$label_estimate_y3 <- renderText({ -->
+  <!--   forecast_accuracy <- live_scorecard_data() %>% -->
+  <!--     filter(name == "For_3") %>% -->
+  <!--     pull(value) %>% -->
+  <!--     roundFiveUp(., 3) * 100 -->
+
+  <!--   Foracc3year <- scorecards_data_pivot %>% -->
+  <!--     filter( -->
+  <!--       name == "For_3", -->
+  <!--       Phase == params$input_phase_choice)  %>% -->
+  <!--     pull(value) %>% -->
+  <!--     roundFiveUp(., 3) * 100 -->
+
+  <!--   medianaccuracy2 <- median(Foracc3year, na.rm = TRUE)  -->
+
+  <!--   Twentyfifthpercentile2 <- quantile(Foracc3year,0.25, na.rm = TRUE) -->
+
+  <!--   Seventyfifthpercentile2 <- quantile(Foracc3year,0.75, na.rm = TRUE) -->
+
+  <!--   label <- case_when( -->
+  <!--     params$input_la_choice != "England" & forecast_accuracy > 0 & forecast_accuracy >  Seventyfifthpercentile2 ~ "Overestimate of pupil numbers, larger overestimate than at least 75% of local authorities", -->
+  <!--     params$input_la_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < Seventyfifthpercentile2 ~ "Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores", -->
+  <!--     params$input_la_choice != "England" & forecast_accuracy < 0 & forecast_accuracy < Twentyfifthpercentile2 ~ "Underestimate of pupil numbers, larger underestimation than at least 75% of local authorities", -->
+  <!--     params$input_la_choice != "England" & forecast_accuracy < 0 & forecast_accuracy > Twentyfifthpercentile2 ~ "Underestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores", -->
+  <!--         params$input_la_choice == "England" &  forecast_accuracy > 0  ~ "Overestimate of pupil numbers", -->
+  <!--     params$input_la_choice == "England" &  forecast_accuracy < 0  ~ "Underestimate of pupil numbers", -->
+  <!--     params$input_la_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London", -->
+  <!--     params$input_la_choice == "Isles Of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly", -->
+  <!--     TRUE ~ "No overestimate/underestimate therefore accurate" -->
+  <!--   ) -->
+
+  <!--   if (label != "accurate") { -->
+  <!--     paste0("<h1>Three years ahead: ", forecast_accuracy, "%</h1> ", label) -->
+  <!--   } else { -->
+  <!--     paste("<b>Three years ahead : </b>", label) -->
+  <!--   } -->
+  <!-- }) -->
+
+  <!-- output$for1year_table <- renderTable({ -->
+  <!--   scorecards_data_pivot %>% -->
+  <!--     filter( -->
+  <!--       name == "For_1", -->
+  <!--       Phase == params$input_phase_choice -->
+  <!--     ) %>% -->
+  <!--     mutate( -->
+  <!--       Median  = median(value, na.rm = TRUE), -->
+  <!--       Median =  roundFiveUp(Median,3) * 100, -->
+  <!--       Median =   paste0(Median, "%"), -->
+  <!--       Twentyfifthpercentile = quantile(value,0.25, na.rm = TRUE), -->
+  <!--       Twentyfifthpercentile =  roundFiveUp(Twentyfifthpercentile,3) * 100, -->
+  <!--       Twentyfifthpercentile =   paste0( Twentyfifthpercentile, "%"), -->
+  <!--       Seventyfifthpercentile = quantile(value,0.75, na.rm = TRUE), -->
+  <!--       Seventyfifthpercentile =  roundFiveUp(Seventyfifthpercentile,3) * 100, -->
+  <!--       Seventyfifthpercentile =   paste0(Seventyfifthpercentile, "%"), -->
+  <!--       Minimum = min(value, na.rm = TRUE), -->
+  <!--       Minimum =  roundFiveUp(Minimum,3) * 100, -->
+  <!--       Minimum =   paste0(Minimum, "%"), -->
+  <!--       Maximum = max(value, na.rm = TRUE), -->
+  <!--       Maximum =  roundFiveUp(Maximum,3) * 100, -->
+  <!--       Maximum =   paste0(Maximum, "%") -->
+  <!--      ) %>% -->
+  <!--     filter( -->
+  <!--              LA_name == "England" -->
+  <!--     ) %>% -->
+  <!--   select(Minimum, Twentyfifthpercentile, Median,  Seventyfifthpercentile, Maximum) -->
+  <!-- } -->
+  <!-- ) -->
+
+  <!-- output$for3year_table <- renderTable({ -->
+  <!--   scorecards_data_pivot %>% -->
+  <!--     filter( -->
+  <!--       name == "For_3", -->
+  <!--       Phase == params$input_phase_choice -->
+  <!--     ) %>% -->
+  <!--     mutate( -->
+  <!--       Median  = median(value, na.rm = TRUE), -->
+  <!--       Median =  roundFiveUp(Median,3) * 100, -->
+  <!--       Median =   paste0(Median, "%"), -->
+  <!--       Twentyfifthpercentile = quantile(value,0.25, na.rm = TRUE), -->
+  <!--       Twentyfifthpercentile =  roundFiveUp(Twentyfifthpercentile,3) * 100, -->
+  <!--       Twentyfifthpercentile =   paste0( Twentyfifthpercentile, "%"), -->
+  <!--       Seventyfifthpercentile = quantile(value,0.75, na.rm = TRUE), -->
+  <!--       Seventyfifthpercentile =  roundFiveUp(Seventyfifthpercentile,3) * 100, -->
+  <!--       Seventyfifthpercentile =   paste0(Seventyfifthpercentile, "%"), -->
+  <!--       Minimum = min(value, na.rm = TRUE), -->
+  <!--       Minimum =  roundFiveUp(Minimum,3) * 100, -->
+  <!--       Minimum =   paste0(Minimum, "%"), -->
+  <!--       Maximum = max(value, na.rm = TRUE), -->
+  <!--       Maximum =  roundFiveUp(Maximum,3) * 100, -->
+  <!--       Maximum =   paste0(Maximum, "%") -->
+  <!--     ) %>% -->
+  <!--     filter( -->
+  <!--       LA_name == "England" -->
+  <!--     ) %>% -->
+  <!--     select(Minimum, Twentyfifthpercentile, Median,  Seventyfifthpercentile, Maximum) -->
+  <!-- } -->
+  <!-- ) -->
+
+
+  <!-- ## Forecast accuracy three years ahead -->
+
+  <!-- # Code to go here using above template -->
+
+``` {r echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
+     paste0("The shaded area in each chart shows the forecasting accuracy for ", params$input_la_choice, ".
+                     The starting point is 0: an accurate score.
+                     A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.")
+  
+
+     forecast_accuracy <- live_scorecard_data %>%
+      filter(name == "For_1") %>%
+      as.data.frame()
+
+    forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
+
+    forecast_range <- scorecards_data_pivot %>%
+      filter(
+        name == "For_1",
+        Phase == params$input_phase_choice
+      )
+
+
+    range_values <- forecast_range %>%
+      summarise(
+        quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
+        accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+      ) %>%
+      as.data.frame()
+
+    range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
+    range_values$accuracy[1] <- (ceiling(abs(range_values$accuracy[1])) * range_values$accuracy[1] / abs(range_values$accuracy[1]))
+     ggplot(
+      forecast_accuracy,
+      aes(name, value,
+          fill = value,
+          text = paste0(params$input_la_choice, ": ", value, "%")
+      )
+    ) +
+      geom_bar(stat = "identity", width = 100) +
+      scale_fill_gradientn(
+        colors = divergent_gradient,
+        space = "Lab",
+        limits = c(-0.75 * abs(range_values$accuracy[5]), 1.08 * abs(range_values$accuracy[5])),
+      ) +
+      ylim(range_values$accuracy[1], range_values$accuracy[5]) +
+      theme_bw() +
+      theme(
+        legend.position = "none", axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        text = element_text(size = 12)
+      ) +
+      geom_hline(yintercept = 0, linetype = "dotted") +
+      geom_hline(yintercept = range_values$accuracy[2], color="Grey", linetype = "dashed") +
+     # geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value) +
+      geom_hline(yintercept = range_values$accuracy[4], color="Grey", linetype = "dashed") +
+      geom_hline(yintercept = forecast_accuracy$value, size = 1.) +
+      labs(x = "", y = "Accuracy (%)") +
+      coord_flip()
+    ggplotly(p, tooltip = c("text")) %>%
+      layout(font = font_choice) %>%
+      config(displayModeBar = FALSE)
+  
+
+```
+  <!-- output$forecast_3y_bar <- renderPlotly({ -->
+  <!--   forecast_accuracy <- live_scorecard_data() %>% -->
+  <!--     filter(name == "For_3") -->
+  <!--   forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100 -->
+
+  <!--   forecast_range <- scorecards_data_pivot %>% -->
+  <!--     filter( -->
+  <!--       name == "For_3", -->
+  <!--       Phase == params$input_phase_choice -->
+  <!--     ) -->
+
+  <!--   range_values <- forecast_range %>% -->
+  <!--     summarise( -->
+  <!--       quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)), -->
+  <!--       accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE) -->
+  <!--     ) %>% -->
+  <!--     as.data.frame() -->
+
+  <!--   range_values$accuracy[5] <- (ceiling(range_values$accuracy[5])) -->
+  <!--   range_values$accuracy[1] <- (ceiling(abs(range_values$accuracy[1])) * range_values$accuracy[1] / abs(range_values$accuracy[1])) -->
+
+  <!--   p <- ggplot(forecast_accuracy, aes(name, value, fill = value, text = paste0(params$input_la_choice, ": ", value, "%"))) + -->
+  <!--     geom_bar(stat = "identity", width = 100) + -->
+  <!--     scale_fill_gradientn( -->
+  <!--       colors = divergent_gradient, -->
+  <!--       space = "Lab", -->
+  <!--       limits = c(-0.75 * abs(range_values$accuracy[5]), 1.08 * abs(range_values$accuracy[5])), -->
+  <!--     ) + -->
+  <!--     ylim(c(range_values$accuracy[1], range_values$accuracy[5])) + -->
+  <!--     theme_bw() + -->
+  <!--     theme( -->
+  <!--       legend.position = "none", axis.text.y = element_blank(), -->
+  <!--       axis.ticks.y = element_blank(), -->
+  <!--       text = element_text(size = 12) -->
+  <!--     ) + -->
+  <!--     geom_hline(yintercept = 0, linetype = "dotted") + -->
+  <!--     geom_hline(yintercept = range_values$accuracy[2], color="Grey", linetype = "dashed") + -->
+  <!--   #  geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value) + -->
+  <!--     geom_hline(yintercept = range_values$accuracy[4], color="Grey", linetype = "dashed") + -->
+  <!--     geom_hline(yintercept = forecast_accuracy$value, size = 1.) + -->
+  <!--     labs(x = "", y = "Accuracy (%)") + -->
+  <!--     coord_flip() -->
+  <!--   ggplotly(p, tooltip = c("text")) %>% -->
+  <!--     layout(font = font_choice) %>% -->
+  <!--     config(displayModeBar = FALSE) -->
+  <!-- }) -->
+
+
+
+
+
+
 
 
 \newpage
