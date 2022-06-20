@@ -921,7 +921,6 @@ New places with no rating =  `r scales::comma(no_rating)`
 
 ## Cost
 
- # Cost --------------------------------------------------------------------
 
 ``` {r echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
 
