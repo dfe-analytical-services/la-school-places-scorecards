@@ -918,9 +918,140 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
 New places with no rating =  `r scales::comma(no_rating)` 
 
 \newpage
+
 ## Cost
 
-Add in text and charts for funding data here...
+ # Cost --------------------------------------------------------------------
+
+#cost.bartext <- 
+             if (params$input_la_choice != "England") {
+ paste0("Region column shows England averages, adjusted for regional location factors: see technical notes") }
+    else {
+      paste("")
+      }
+  #})   
+
+
+  # Comparison table - average cost of projects per place
+  
+  cost_table <- 
+    live_scorecard_data_england_comp  %>%
+      # Filter for Cost, places and project data
+      filter(str_detect(name, "Cost|Places|Projects")) %>%
+      # Create new column called data_type, based on the name of the data
+      mutate(data_type = case_when(
+        str_detect(name, "Cost") ~ "Cost",
+        str_detect(name, "Place") ~ "Place",
+        str_detect(name, "Project") ~ "Project"
+      )) %>%
+      mutate(exp_type = case_when(
+        str_detect(name, "EP") ~ "Permanent Expansion",
+        str_detect(name, "ET") ~ "Temporary Expansion",
+        str_detect(name, "NS") ~ "New school"
+      )) %>%
+      select(Region, data_type, exp_type, value) %>%
+      # pivot the data wider
+      pivot_wider(names_from = data_type, values_from = value) %>%
+      # calculate cost per place
+      mutate(
+        cost_per_place = roundFiveUp(Cost / Place, 0),
+        # format it nicely with £ sign
+        cost_per_place = paste0("£", cs_num(cost_per_place)),
+        # Nicely format any NA
+        cost_per_place = str_replace(cost_per_place, "£NaN", "-")
+      ) %>%
+      select(Region, Type = exp_type, cost_per_place) %>%
+      pivot_wider(names_from = Region, values_from = cost_per_place)
+  })
+
+
+
+  # Comparison boxes - number of projects
+  output$perm_box <- renderValueBox({
+    perm_fig <- live_scorecard_data() %>%
+      # Filter for Cost, places and project data
+      filter(str_detect(name, "Cost|Places|Projects")) %>%
+      # Create new column called data_type, based on the name of the data
+      mutate(data_type = case_when(
+        str_detect(name, "Cost") ~ "Cost",
+        str_detect(name, "Place") ~ "Place",
+        str_detect(name, "Project") ~ "Project"
+      )) %>%
+      mutate(exp_type = case_when(
+        str_detect(name, "EP") ~ "Permanent",
+        str_detect(name, "ET") ~ "Temporary",
+        str_detect(name, "NS") ~ "New school"
+      )) %>%
+      select(LA_name, data_type, exp_type, value) %>%
+      filter(data_type == "Project" & exp_type == "Permanent") %>%
+      pull(value)
+
+
+    shinydashboard::valueBox(
+      paste0(perm_fig),
+      paste0("Permanent ", str_to_lower(input$phase_choice), " expansion projects in England"),
+      # icon = icon("fas fa-school"),
+      color = "light-blue"
+    )
+  })
+
+  output$temp_box <- renderValueBox({
+    temp_fig <- live_scorecard_data() %>%
+      # Filter for Cost, places and project data
+      filter(str_detect(name, "Cost|Places|Projects")) %>%
+      # Create new column called data_type, based on the name of the data
+      mutate(data_type = case_when(
+        str_detect(name, "Cost") ~ "Cost",
+        str_detect(name, "Place") ~ "Place",
+        str_detect(name, "Project") ~ "Project"
+      )) %>%
+      mutate(exp_type = case_when(
+        str_detect(name, "EP") ~ "Permanent",
+        str_detect(name, "ET") ~ "Temporary",
+        str_detect(name, "NS") ~ "New school"
+      )) %>%
+      select(LA_name, data_type, exp_type, value) %>%
+      filter(data_type == "Project" & exp_type == "Temporary") %>%
+      pull(value)
+
+
+    shinydashboard::valueBox(
+      paste0(temp_fig),
+      paste0("Temporary ", str_to_lower(input$phase_choice), " expansion projects in England "),
+      # icon = icon("fas fa-campground"),
+      color = "light-blue"
+    )
+  })
+
+
+  output$new_box <- renderValueBox({
+    new_fig <- live_scorecard_data() %>%
+      # Filter for Cost, places and project data
+      filter(str_detect(name, "Cost|Places|Projects")) %>%
+      # Create new column called data_type, based on the name of the data
+      mutate(data_type = case_when(
+        str_detect(name, "Cost") ~ "Cost",
+        str_detect(name, "Place") ~ "Place",
+        str_detect(name, "Project") ~ "Project"
+      )) %>%
+      mutate(exp_type = case_when(
+        str_detect(name, "EP") ~ "Permanent",
+        str_detect(name, "ET") ~ "Temporary",
+        str_detect(name, "NS") ~ "New school"
+      )) %>%
+      select(LA_name, data_type, exp_type, value) %>%
+      filter(data_type == "Project" & exp_type == "New school") %>%
+      pull(value)
+
+
+    shinydashboard::valueBox(
+      paste0(new_fig),
+      paste0("New ", str_to_lower(input$phase_choice), " schools projects in England"),
+      # icon = icon("fas fa-plus"),
+      color = "light-blue"
+    )
+  })
+
 
 \newpage
 \vspace*{\fill}
