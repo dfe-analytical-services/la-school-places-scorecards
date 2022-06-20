@@ -1,7 +1,7 @@
 {
   "output": {
     "England_GO_places": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>22.2%<\/h3>\n    <p>Percentage of new places in well above and above average primary schools in England<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>22.2%<\/h3>\n    <p>Percentage of new places in well above and above average primary schools in England<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]

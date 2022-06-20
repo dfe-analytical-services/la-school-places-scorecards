@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------
 # Library calls
 # ----------------------------------------------------------------------------
-
+library(shinyGovstyle)
 library(shiny)
 library(dplyr)
 library(data.table)
@@ -56,6 +56,9 @@ appLoadingCSS <- "
 options(spinner.type = 5)
 options(spinner.color = "#c8c8c8")
 options(spinner.size = .5)
+
+seq_gradient <- c("#8c2d04", "#cc4c02", "#ec7014", "#fe9929", "#fec44f", "#d9f0a3")
+divergent_gradient <- c(seq_gradient, rev(seq_gradient))
 
 
 # Enable bookmarking ---------------------------------------------------------
