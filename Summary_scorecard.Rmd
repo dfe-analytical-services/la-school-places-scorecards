@@ -923,19 +923,37 @@ New places with no rating =  `r scales::comma(no_rating)`
 
  # Cost --------------------------------------------------------------------
 
+
+scorecards_data_pivot <- scorecards_data %>%
+  mutate_at(vars(-c("Region","LA_name")), as.numeric) %>%
+  pivot_longer(cols = !starts_with(c("Region","LA"))) %>%
+  # assign phase based on names of columns
+  mutate(
+    Phase = ifelse(
+      str_detect(name, "_S_") | str_detect(name, "KS4") | name %in% c("For_3_S", "For_1_S"), "Secondary", "Primary"
+    ),
+    # remove the _S_, _P_ name identifiers so we can instead use the phase column to get data
+    name = str_replace_all(name, "_S_", ""),
+    name = str_replace_all(name, "_P_", ""),
+    name = str_replace_all(name, "_S$", ""),
+    name = str_replace_all(name, "_P$", "")
+  )
+
+
+
 #cost.bartext <- 
              if (params$input_la_choice != "England") {
  paste0("Region column shows England averages, adjusted for regional location factors: see technical notes") }
     else {
       paste("")
-      }
+      }_data
   #})   
 
 
   # Comparison table - average cost of projects per place
   
   cost_table <- 
-    live_scorecard_data_england_comp  %>%
+    live_scorecard_england_comp  %>%
       # Filter for Cost, places and project data
       filter(str_detect(name, "Cost|Places|Projects")) %>%
       # Create new column called data_type, based on the name of the data
