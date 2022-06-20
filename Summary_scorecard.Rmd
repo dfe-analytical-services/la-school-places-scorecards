@@ -923,6 +923,8 @@ New places with no rating =  `r scales::comma(no_rating)`
 
  # Cost --------------------------------------------------------------------
 
+``` {r echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
+
 
 scorecards_data_pivot <- scorecards_data %>%
   mutate_at(vars(-c("Region","LA_name")), as.numeric) %>%
@@ -939,21 +941,40 @@ scorecards_data_pivot <- scorecards_data %>%
     name = str_replace_all(name, "_P$", "")
   )
 
+  live_scorecard_data_england_comp <- 
+    scorecards_data_pivot %>%
+      filter(
+        LA_name %in% c(params$input_la_choice, "England"),
+        Phase == params$input_phase_choice
+      ) %>%
+      mutate(
+        LA_name = as.factor(LA_name),
+        # This step just makes sure that the LA is FIRST when it comes to plots/tables
+        LA_name = relevel(LA_name, "England"),
+        LA_name = factor(LA_name, levels = rev(levels(LA_name)))
+      )
+  
+
+
+
+  
+  
+
 
 
 #cost.bartext <- 
-             if (params$input_la_choice != "England") {
- paste0("Region column shows England averages, adjusted for regional location factors: see technical notes") }
-    else {
-      paste("")
-      }_data
-  #})   
+          #   if (params$input_la_choice != "England") {
+# paste0("Average cost per place. Region column shows England averages, adjusted for regional location factors: see technical notes") }
+   # else {
+    #  paste("Average cost per place.")
+    #  }
+    
 
 
   # Comparison table - average cost of projects per place
   
   cost_table <- 
-    live_scorecard_england_comp  %>%
+    live_scorecard_data_england_comp  %>%
       # Filter for Cost, places and project data
       filter(str_detect(name, "Cost|Places|Projects")) %>%
       # Create new column called data_type, based on the name of the data
@@ -980,9 +1001,9 @@ scorecards_data_pivot <- scorecards_data %>%
       ) %>%
       select(Region, Type = exp_type, cost_per_place) %>%
       pivot_wider(names_from = Region, values_from = cost_per_place)
-  })
+  
 
-
+```
 
   # Comparison boxes - number of projects
   output$perm_box <- renderValueBox({
