@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.20)  20 JUN 2022 17:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.20)  21 JUN 2022 10:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -715,7 +715,7 @@ Package hyperref Info: Link coloring ON on input line 110.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<images/Department_for_Education.png, id=51, 1204.5pt x 712.6625pt>
+<images/Department_for_Education.png, id=71, 1204.5pt x 712.6625pt>
 File: images/Department_for_Education.png Graphic file (type png)
 <use images/Department_for_Education.png>
 Package pdftex.def Info: images/Department_for_Education.png  used on input line 114.
@@ -729,148 +729,141 @@ Underfull \hbox (badness 10000) in paragraph at lines 226--226
 []\T1/phv/b/n/12 Estimated ad-di-tional pri-mary
  []
 
-<Summary_scorecard_files/figure-latex/quantity_b-1.png, id=65, 2987.16pt x 1686.3pt>
+<Summary_scorecard_files/figure-latex/quantity_b-1.png, id=85, 2987.16pt x 1686.3pt>
 File: Summary_scorecard_files/figure-latex/quantity_b-1.png Graphic file (type png)
 <use Summary_scorecard_files/figure-latex/quantity_b-1.png>
 Package pdftex.def Info: Summary_scorecard_files/figure-latex/quantity_b-1.png  used on input line 228.
 (pdftex.def)             Requested size: 469.75092pt x 265.18196pt.
 [2 <./Summary_scorecard_files/figure-latex/quantity_b-1.png>]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 238.
-(c:/Users/npaterson/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-Overfull \hbox (228.49295pt too wide) in paragraph at lines 239--239
-[]\T1/lmtt/m/n/10 ## [1] "<h1>One year ahead: -0.7%</h1> underestimate of pupil numbers, larger underestimation than at least 75% of local authorities" 
- []
-
-
-Overfull \hbox (275.74281pt too wide) in paragraph at lines 243--243
-[]\T1/lmtt/m/n/10 ## [1] "<h1>Three years ahead: 3%</h1> Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores" 
- []
-
-<Summary_scorecard_files/figure-latex/forecast1-1.pdf, id=73, 469.755pt x 325.215pt>
+<Summary_scorecard_files/figure-latex/forecast1-1.pdf, id=93, 469.755pt x 72.27pt>
 File: Summary_scorecard_files/figure-latex/forecast1-1.pdf Graphic file (type pdf)
 <use Summary_scorecard_files/figure-latex/forecast1-1.pdf>
-Package pdftex.def Info: Summary_scorecard_files/figure-latex/forecast1-1.pdf  used on input line 267.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[3 <./Summary_scorecard_files/figure-latex/forecast1-1.pdf>]
-<Summary_scorecard_files/figure-latex/preference_barchart-1.pdf, id=85, 963.6pt x 481.8pt>
-File: Summary_scorecard_files/figure-latex/preference_barchart-1.pdf Graphic file (type pdf)
-<use Summary_scorecard_files/figure-latex/preference_barchart-1.pdf>
-Package pdftex.def Info: Summary_scorecard_files/figure-latex/preference_barchart-1.pdf  used on input line 317.
-(pdftex.def)             Requested size: 469.75679pt x 234.87839pt.
-[4 <./Summary_scorecard_files/figure-latex/preference_barchart-1.pdf>]
-Underfull \hbox (badness 7256) in paragraph at lines 379--379
-[]\T1/phv/b/n/12 Percentage of new
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 379--379
-\T1/phv/b/n/12 places cre-ated in
- []
-
-
-Underfull \hbox (badness 1521) in paragraph at lines 379--379
-\T1/phv/b/n/12 good and out-stand-
- []
-
-
-Underfull \hbox (badness 7256) in paragraph at lines 379--379
-[]\T1/phv/b/n/12 Percentage of new
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 379--379
-\T1/phv/b/n/12 places cre-ated in
- []
-
-
-Underfull \hbox (badness 1521) in paragraph at lines 379--379
-\T1/phv/b/n/12 good and out-stand-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 379--379
-\T1/phv/b/n/12 LAs that cre-ated
- []
-
-<Summary_scorecard_files/figure-latex/quality_chart-1.pdf, id=102, 903.375pt x 481.8pt>
-File: Summary_scorecard_files/figure-latex/quality_chart-1.pdf Graphic file (type pdf)
-<use Summary_scorecard_files/figure-latex/quality_chart-1.pdf>
-Package pdftex.def Info: Summary_scorecard_files/figure-latex/quality_chart-1.pdf  used on input line 381.
-(pdftex.def)             Requested size: 432.1815pt x 230.4968pt.
-[5 <./Summary_scorecard_files/figure-latex/quality_chart-1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 446--446
-[]\T1/phv/b/n/12 Permanent pri-mary
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 446--446
-\T1/phv/b/n/12 ex-pan-sion projects
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 446--446
-[]\T1/phv/b/n/12 Temporary pri-mary
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 446--446
-\T1/phv/b/n/12 ex-pan-sion projects
- []
-
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 454.
+Package pdftex.def Info: Summary_scorecard_files/figure-latex/forecast1-1.pdf  used on input line 253.
+(pdftex.def)             Requested size: 469.75386pt x 72.2698pt.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 257.
 (c:/Users/npaterson/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 454.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 257.
 (c:/Users/npaterson/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 454.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 257.
 (c:/Users/npaterson/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 454.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 257.
 (c:/Users/npaterson/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 454.
+(Font)              <10> on input line 257.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 454.
+(Font)              <7> on input line 257.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 454.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 454.
+(Font)              <5> on input line 257.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 257.
 (c:/Users/npaterson/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 454.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 257.
 (c:/Users/npaterson/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [6]
-<images/Department_for_Education_long.png, id=130, 691.83469pt x 149.8097pt>
+)
+<Summary_scorecard_files/figure-latex/forecast22-1.pdf, id=94, 469.755pt x 72.27pt>
+File: Summary_scorecard_files/figure-latex/forecast22-1.pdf Graphic file (type pdf)
+<use Summary_scorecard_files/figure-latex/forecast22-1.pdf>
+Package pdftex.def Info: Summary_scorecard_files/figure-latex/forecast22-1.pdf  used on input line 271.
+(pdftex.def)             Requested size: 469.75386pt x 72.2698pt.
+[3 <./Summary_scorecard_files/figure-latex/forecast1-1.pdf> <./Summary_scorecard_files/figure-latex/forecast22-1.pdf>]
+<Summary_scorecard_files/figure-latex/preference_barchart-1.pdf, id=113, 963.6pt x 481.8pt>
+File: Summary_scorecard_files/figure-latex/preference_barchart-1.pdf Graphic file (type pdf)
+<use Summary_scorecard_files/figure-latex/preference_barchart-1.pdf>
+Package pdftex.def Info: Summary_scorecard_files/figure-latex/preference_barchart-1.pdf  used on input line 329.
+(pdftex.def)             Requested size: 469.75679pt x 234.87839pt.
+[4 <./Summary_scorecard_files/figure-latex/preference_barchart-1.pdf>]
+Underfull \hbox (badness 7256) in paragraph at lines 391--391
+[]\T1/phv/b/n/12 Percentage of new
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 391--391
+\T1/phv/b/n/12 places cre-ated in
+ []
+
+
+Underfull \hbox (badness 1521) in paragraph at lines 391--391
+\T1/phv/b/n/12 good and out-stand-
+ []
+
+
+Underfull \hbox (badness 7256) in paragraph at lines 391--391
+[]\T1/phv/b/n/12 Percentage of new
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 391--391
+\T1/phv/b/n/12 places cre-ated in
+ []
+
+
+Underfull \hbox (badness 1521) in paragraph at lines 391--391
+\T1/phv/b/n/12 good and out-stand-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 391--391
+\T1/phv/b/n/12 LAs that cre-ated
+ []
+
+<Summary_scorecard_files/figure-latex/quality_chart-1.pdf, id=130, 903.375pt x 481.8pt>
+File: Summary_scorecard_files/figure-latex/quality_chart-1.pdf Graphic file (type pdf)
+<use Summary_scorecard_files/figure-latex/quality_chart-1.pdf>
+Package pdftex.def Info: Summary_scorecard_files/figure-latex/quality_chart-1.pdf  used on input line 393.
+(pdftex.def)             Requested size: 432.1815pt x 230.4968pt.
+[5 <./Summary_scorecard_files/figure-latex/quality_chart-1.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 461--461
+[]\T1/phv/b/n/12 Permanent pri-mary
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 461--461
+\T1/phv/b/n/12 ex-pan-sion projects
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 461--461
+[]\T1/phv/b/n/12 Temporary pri-mary
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 461--461
+\T1/phv/b/n/12 ex-pan-sion projects
+ []
+
+[6]
+<images/Department_for_Education_long.png, id=161, 691.83469pt x 149.8097pt>
 File: images/Department_for_Education_long.png Graphic file (type png)
 <use images/Department_for_Education_long.png>
-Package pdftex.def Info: images/Department_for_Education_long.png  used on input line 496.
+Package pdftex.def Info: images/Department_for_Education_long.png  used on input line 513.
 (pdftex.def)             Requested size: 234.87231pt x 50.85918pt.
 [7 <./images/Department_for_Education_long.png>] (./Summary_scorecard.aux)
 Package rerunfilecheck Info: File `Summary_scorecard.out' has not changed.
-(rerunfilecheck)             Checksum: 1D590FAE2DE9C72A285F93B4CA92573D;2707.
+(rerunfilecheck)             Checksum: 73AAB014A4AD005B5014E06F99A99791;4371.
  ) 
 Here is how much of TeX's memory you used:
- 23011 strings out of 479998
- 432400 string characters out of 5886466
- 713656 words of memory out of 5000000
- 40711 multiletter control sequences out of 15000+600000
- 508596 words of font info for 63 fonts, out of 8000000 for 9000
+ 22995 strings out of 479998
+ 432691 string characters out of 5886466
+ 713036 words of memory out of 5000000
+ 40688 multiletter control sequences out of 15000+600000
+ 508277 words of font info for 62 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 83i,11n,80p,741b,538s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{c:/Users/npaterson/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/npaterson/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/Users/npaterson/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/npaterson/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb><c:/Users/npaterson/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb><c:/Users/npaterson/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on Summary_scorecard.pdf (7 pages, 234046 bytes).
+ 83i,11n,80p,744b,538s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{c:/Users/npaterson/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/Users/npaterson/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb><c:/Users/npaterson/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb><c:/Users/npaterson/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
+Output written on Summary_scorecard.pdf (7 pages, 212505 bytes).
 PDF statistics:
- 168 PDF objects out of 1000 (max. 8388607)
- 135 compressed objects within 2 object streams
- 30 named destinations out of 1000 (max. 500000)
- 131 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 197 PDF objects out of 1000 (max. 8388607)
+ 164 compressed objects within 2 object streams
+ 40 named destinations out of 1000 (max. 500000)
+ 176 words of extra memory for PDF output out of 10000 (max. 10000000)
 
