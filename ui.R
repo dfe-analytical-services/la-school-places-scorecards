@@ -87,46 +87,30 @@ function(request) {
              "Pupil forecast accuracy",
              fluidRow(
                p(strong("Forecast accuracy of pupil projections")),
+               uiOutput("forecasting.bartext"),
                column(
                  6,
-                 uiOutput("forecasting.bartext"),
-                 details(
-                   inputId = "faccuracyhelp",
-                   label = "How to benchmark using the charts",
-                   help_text = "
-The thick vertical line shows the chosen LA's
-  average forecasting accuracy, whilst the dashed lines show the
-  25th and 75th percentiles across all LAs (i.e. half of all LAs were
-   found to have a forecasting accuracy falling between the two dashed lines)."),
-                                htmlOutput("label_estimate_y1"),
-                  br(),
-                  plotlyOutput("forecast_1y_bar", height = "120px"),
-                  br(),
-                  htmlOutput("label_estimate_y3"),
-                  br(),
-                  plotlyOutput("forecast_3y_bar", height = "120px"),
+             
+                # details(
+                 #  inputId = "faccuracyhelp",
+                 #  label = "How to benchmark using the charts",
+                  # help_text = "
+#The thick vertical line shows the chosen LA's
+ # average forecasting accuracy, whilst the dashed lines show the
+ # 25th and 75th percentiles across all LAs (i.e. half of all LAs were
+  # found to have a forecasting accuracy falling between the two dashed lines)."),
+                 htmlOutput("label_estimate_y1"),
+                 plotlyOutput("forecast_1y_bar", height = "120px"),
+                   br(),
+               p("One year ahead: range of forecast accuracy scores"),
+tableOutput("for1year_table"),
+                 # plotlyOutput("forecast_3y_bar", height = "120px"),
 
                ),
                column(
-                 4,
-                 br(),
-                             br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                                  p("One year ahead: range of forecast accuracy scores"),
-                 tableOutput("for1year_table"),
-                                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
+                 6,
+                 htmlOutput("label_estimate_y3"),
+                   plotlyOutput("forecast_3y_bar", height = "120px"),
                  br(),
                  p("Three year ahead: range of forecast accuracy scores"),
              tableOutput("for3year_table"))),
