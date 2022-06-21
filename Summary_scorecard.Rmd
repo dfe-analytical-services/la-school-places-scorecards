@@ -667,17 +667,19 @@ paste("
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
       scale_fill_manual(values = dfe_colours) +
+         scale_y_continuous(labels = scales::percent) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
-        text = element_text(size = 14, family = "Arial")
+        text = element_text(size = 14, family = "Arial"),
+        strip.text.x = element_text(size = 20)
       )
     ggplotly(preference_p,
              width=960,height=480
          ) %>%
       layout(
         uniformtext = list(minsize = 12, mode = "hide"),
-        xaxis = list(showticklabels = FALSE),
+        xaxis = list(showticklabels = TRUE),
         legend = list(
           orientation = "h",
           y = -0.1, x = 0.
@@ -959,10 +961,12 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
       scale_fill_manual(values = dfe_colours) +
+  scale_y_continuous(labels = scales::percent) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
-        text = element_text(size = 14, family = "Arial")
+        text = element_text(size = 14, family = "Arial"),
+      strip.text.x = element_text(size = 20)
       )
 
     if (params$input_la_choice == "England" & params$input_quality_chart == "Ofsted") {
@@ -1195,7 +1199,8 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
              width=900, height=480,
          ) %>%
       layout(
-        xaxis = list(showticklabels = FALSE),
+        xaxis = list(showticklabels = TRUE),
+      scale_y_continuous(labels = scales::percent_format(accuracy=1)),
         legend = list(
           orientation = "h",
           y = -0.1, x = 0.2
