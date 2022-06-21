@@ -84,6 +84,7 @@
             "textfont": {
               "color": "#FFF"
             },
+            "hoverinfo": "text",
             "name": "Total places created between 2009/10 and 2018-19",
             "type": "bar",
             "error_y": {
@@ -110,7 +111,8 @@
             "textfont": {
               "color": "#FFF"
             },
-            "name": "New places already planned for delivery between 2018-19 and 2021-22",
+            "hoverinfo": "text",
+            "name": "New places planned for delivery between 2018-19 and 2021-22",
             "type": "bar",
             "error_y": {
               "color": "rgba(255,127,14,1)"
@@ -136,6 +138,7 @@
             "textfont": {
               "color": "#FFF"
             },
+            "hoverinfo": "text",
             "name": "Estimated additional places still needed to meet demand in 2021-22",
             "type": "bar",
             "error_y": {
