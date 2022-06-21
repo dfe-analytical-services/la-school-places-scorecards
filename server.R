@@ -406,7 +406,7 @@ function(input, output, session) {
         text = element_text(size = 12)
       ) +
       geom_hline(yintercept = 0, linetype = "dotted") +
-      geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
+      geom_hline(aes(yintercept = range_values$accuracy[2], colors="Grey", linetype = "dashed", text = "25th percentile")) +
      # geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value) +
       geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
       geom_hline(yintercept = forecast_accuracy$value, size = 1.) +
