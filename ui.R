@@ -1,7 +1,6 @@
 
 function(request) {
   source("0_variable_change.R") ##
- 
   #Homepage----------------------------------------------------------------------
   navbarPage(
     id="navbar",
@@ -88,11 +87,11 @@ function(request) {
             label = p(strong("Choose a phase")),
             choices = c("Primary", "Secondary")
           ),
-          br(),
-          selectInput("chart_choice",
-            label = p(strong("Choose a quality measure")),
-            choices = c("Ofsted", "Reading Progress", "Maths Progress")
-          ),
+        #  br(),
+        #  selectInput("chart_choice",
+         #   label = p(strong("Choose a quality measure")),
+          #  choices = c("Ofsted", "Reading Progress", "Maths Progress")
+        #  ),
           br(),
           br(),
           p(strong("Download data for all geographies and phases using the button below.",style = "color:white")),
@@ -116,73 +115,69 @@ function(request) {
           tabsetPanel(
             id = "tabs",
             tabPanel(
-              value="quantity",
-              title="Quantity",
-              fluidRow(
-                column(
-                  6,
-                  p(strong("School places created and planned, additional places still needed")),
-                  plotlyOutput("places_chart") %>% withSpinner()
-                ),
-                column(
-                  6,
-                p(strong(paste0("Estimated future school place demand"))),
-                p("A local authority can have both ‘spare places’ and ‘additional places needed’ due to localised or specific year group demand"),
-                valueBoxOutput("estimated_additional_places", width = 6),
-                valueBoxOutput("estimated_spare_places", width = 6),
-                      p(strong("Funding allocated for creation of new places")),
-                  valueBoxOutput("total_funding_box", width = 6),
-                  p(strong("Anticipated increase in pupils")),
-                  valueBoxOutput("pupil_growth", width = 6)
-                ))),
-           tabPanel(
-             value="forecast",
-             title="Pupil forecast accuracy",
+            "Quantity",
+            fluidRow(
+              column(
+                6,
+                p(strong("School places created, planned future places, additional places still needed, as at May", SCAP_ref)),
+                plotlyOutput("places_chart") %>% withSpinner()
+              ),
+              column(
+                6,
+                fluidRow(
+                  column(
+                    12,
+                    p(strong(paste0("Estimated future school place demand"))),
+                    p("A local authority can have both ‘spare places’ and ‘additional places needed’ due to localised or specific year group demand"),
+                    valueBoxOutput("estimated_additional_places", width =6),
+                    valueBoxOutput("estimated_spare_places", width = 6)
+                  )),
+                fluidRow(
+                  column(
+                    12,
+                    p(strong("Funding allocated for creation of new places, anticipated increase in pupils"))
+                  )),
+                fluidRow(
+                  column(
+                    12,
+                    valueBoxOutput("total_funding_box", width = 6),
+                    valueBoxOutput("pupil_growth", width = 6)
+                  )))),
+            uiOutput("quantity.bartext")
+                         ),
+                     tabPanel(
+             "Pupil forecast accuracy",
              fluidRow(
-               p(strong("Forecast accuracy of pupil projections")),
+               p(strong("Forecast accuracy of pupil projections for", forecast_year, ", made one year and three years previously")),
+               uiOutput("forecasting.bartext"),
                column(
                  6,
-                 uiOutput("forecasting.bartext"),
-                 details(
-                   inputId = "faccuracyhelp",
-                   label = "How to benchmark using the charts",
-                   help_text = "
-The thick vertical line shows the chosen LA's
-  average forecasting accuracy, whilst the dashed lines show the
-  25th and 75th percentiles across all LAs (i.e. half of all LAs were
-   found to have a forecasting accuracy falling between the two dashed lines)."),
-                                htmlOutput("label_estimate_y1"),
-                  br(),
-                  plotlyOutput("forecast_1y_bar", height = "120px"),
-                  br(),
-                  htmlOutput("label_estimate_y3"),
-                  br(),
-                  plotlyOutput("forecast_3y_bar", height = "120px"),
+             
+                # details(
+                 #  inputId = "faccuracyhelp",
+                 #  label = "How to benchmark using the charts",
+                  # help_text = "
+#The thick vertical line shows the chosen LA's
+ # average forecasting accuracy, whilst the dashed lines show the
+ # 25th and 75th percentiles across all LAs (i.e. half of all LAs were
+  # found to have a forecasting accuracy falling between the two dashed lines)."),
+                 htmlOutput("label_estimate_y1"),
+                 plotlyOutput("forecast_1y_bar", height = "120px"),
+                   br(),
+               p("One year ahead: range of forecast accuracy scores"),
+                  tableOutput("for1year_table"),
+                 # plotlyOutput("forecast_3y_bar", height = "120px"),
 
                ),
                column(
-                 4,
-                 br(),
-                             br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                                  p("One year ahead: range of forecast accuracy scores"),
-                 tableOutput("for1year_table"),
-                                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
+                 6,
+                 htmlOutput("label_estimate_y3"),
+                   plotlyOutput("forecast_3y_bar", height = "120px"),
                  br(),
                  p("Three year ahead: range of forecast accuracy scores"),
              tableOutput("for3year_table"))),
+           br(),
+          p(em("Caution should be taken with forecast accuracy scores due to unforseen circumstances. See Homepage for more information.")),
              ),
             tabPanel(
               value="preference",
@@ -214,46 +209,32 @@ The thick vertical line shows the chosen LA's
                   plotlyOutput("quality_chart") %>% withSpinner()
                 )
               ),
-              textOutput("no_rating_line")
+              textOutput("no_rating_line"),
+              br(),
+              p(em("Caution should be taken with quality data as Ofsted inspections may have been delayed due to Covid-19."))
             ),
-            tabPanel(
-              value="cost",
-              title="Cost",
-              p(strong("Average cost of additional mainstream school places")),
-              p("Based on local authority reported projects between ", last_year_1, " and ", last_year, ", adjusted for inflation and regional variation"),
-              p("Not new data: see technical notes"),
-              fluidRow(
-              valueBoxOutput("perm_box", width = 4),
-              valueBoxOutput("temp_box", width = 4),
-              valueBoxOutput("new_box", width = 4),
-              ),
-              p(strong("Average cost per place for permanent, temporary and new school projects")),
-              details(
-                inputId = "costhelp",
-                label = "How to read these charts",
-                help_text = "These interactive beeswarm plots show the position of a given LA (blue marker) within the distribution of English LAs (grey dots).
-                The vertical position represents cost and the width of the shaded region denotes the number of LAs with a given cost.
-                Hover your curser over each marker to view the average cost per place for an LA or the England average cost per place (orange marker)."
-                                          ),
-             #h5("How to read these plots"),
-             # p("These interactive beeswarm plots show the position of a given LA (blue marker) within the distribution of English LAs (grey dots)."), 
-             # p("The vertical position represents cost and the width of the shaded region denotes the number of LAs with a given cost."),
-             # p("Hover your curser over each marker to view the average cost per place for an LA or the England average cost per place (orange marker)"),
-              fluidRow(
-                column(
-                  8,
-                  h5("How to read these plots"),
-                  p("These violin plots show the position of a given LA (blue marker) within the distribution of English LAs. The vertical position represents cost and the width of the shaded region denotes the number of LAs with a given cost."),
-                  plotlyOutput("cost_plot") %>% withSpinner()
-                ),
-                column(
-                  4,
-                  tableOutput("cost_table")
-                )
-              )
-              # Cost content to go here
-            )
-          ) # end of tabset
+tabPanel(
+  "Cost",
+  p(strong("Average cost of additional mainstream school places")),
+  p("Based on local authority reported projects between ", cost_year_1, " and ", cost_year_2, ", adjusted for inflation and regional variation"),
+  p("Not new data: see technical notes"),
+  fluidRow(
+    valueBoxOutput("perm_box", width = 4),
+    valueBoxOutput("temp_box", width = 4),
+    valueBoxOutput("new_box", width = 4),
+  ),
+  p(strong("Average cost per place for permanent, temporary and new school projects")),
+  uiOutput("cost.bartext"),
+  br(),
+  fluidRow(
+    column(
+      4,
+      tableOutput("cost_table")
+    )
+  )
+)
+                         ) # end of tabset
+
         )
       )
     ),
@@ -340,6 +321,8 @@ The thick vertical line shows the chosen LA's
         a(href = "mailto:SCAP.PPP@education.gov.uk", "SCAP.PPP@education.gov.uk")
       )
     ),
+tabPanel(
+  "Support & Feedback"),
     shinyGovstyle::footer(TRUE)
   )
 }
