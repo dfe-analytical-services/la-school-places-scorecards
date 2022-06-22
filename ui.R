@@ -5,10 +5,12 @@ function(request) {
 
 
   navbarPage(
+    id="navbar",
     title = "",
     tabPanel("Homepage"),
     tabPanel(
-      "LA scorecards",
+      value="la_scorecards",
+      title="LA scorecards",
       includeCSS("www/dfe_shiny_gov_style.css"),
       useShinyjs(),
       useShinydashboard(),
