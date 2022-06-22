@@ -201,10 +201,19 @@ function(input, output, session) {
       x = ~LA_name, y = ~QuanIn,
       marker = list(color = c("#12436D")),
       type = "bar", name = paste0("Total places created between 2009/10 and ", this_year),
-      text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF")
+      text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF"),
+      hoverinfo = "text"
     ) %>%
-      add_trace(y = ~QuanPP, marker = list(color = c("#F46A25")), name = paste0("New places already planned for delivery between ", this_year, " and ", plan_year), text = ~ scales::comma(QuanPP), textposition = "inside") %>%
-      add_trace(y = ~QuanRP, marker = list(color = c("#801650")), name = paste0("Estimated additional places still needed to meet demand in ", plan_year), text = ~ scales::comma(QuanRP), textposition = "inside") %>%
+      add_trace(
+        y = ~QuanPP, marker = list(color = c("#F46A25")),
+        name = paste0("New places planned for delivery between ", this_year, " and ", plan_year),
+        text = ~ scales::comma(QuanPP), textposition = "inside"
+      ) %>%
+      add_trace(
+        y = ~QuanRP, marker = list(color = c("#801650")),
+        name = paste0("Estimated additional places still needed to meet demand in ", plan_year),
+        text = ~ scales::comma(QuanRP), textposition = "inside"
+      ) %>%
       layout(
         yaxis = list(title = ""),
         xaxis = list(title = ""),
@@ -219,6 +228,7 @@ function(input, output, session) {
       ) %>%
       config(displayModeBar = FALSE)
   })
+  
 
 
 
