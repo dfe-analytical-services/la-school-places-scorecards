@@ -73,8 +73,8 @@ scorecards_data <- fread("data/scorecards_data.csv")
 
 # pivot data around to long format
 scorecards_data_pivot <- scorecards_data %>%
-  mutate_at(vars(-("LA_name")), as.numeric) %>%
-  pivot_longer(cols = !starts_with("LA")) %>%
+  mutate_at(vars(-c("Region","LA_name")), as.numeric) %>%
+  pivot_longer(cols = !starts_with(c("Region","LA"))) %>%
   # assign phase based on names of columns
   mutate(
     Phase = ifelse(
