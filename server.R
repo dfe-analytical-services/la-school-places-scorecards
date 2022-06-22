@@ -4,6 +4,29 @@ function(input, output, session) {
     family = "Arial",
     size = 14
   )
+  
+  # actionLinks
+  observeEvent(input$linkQuantityTab, {
+    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "tabs", selected = "quantity")
+  })
+  observeEvent(input$linkForecastTab, {
+    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "tabs", selected = "forecast")
+  })
+  observeEvent(input$linkPreferenceTab, {
+    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "tabs", selected = "preference")
+  })
+  observeEvent(input$linkQualityTab, {
+    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "tabs", selected = "quality")
+  })
+  observeEvent(input$linkCostTab, {
+    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "tabs", selected = "cost")
+  })
+  
 
   # Data calculations - reactive --------------------------------------------
 
@@ -65,7 +88,7 @@ function(input, output, session) {
   ## create header so users know what the data is showing
 
   output$data_description <- renderText({
-    paste0("Data for ", str_to_lower(input$phase_choice), " schools in ", input$LA_choice, ": ")
+    paste0("Data for ", str_to_lower(input$phase_choice), " state-funded school places in ", input$LA_choice, ": ")
   })
 
 
@@ -218,17 +241,37 @@ function(input, output, session) {
       filter(name == "For_1") %>%
       pull(value) %>%
       roundFiveUp(., 3) * 100
+    
+ 
+    Foracc1year <- scorecards_data_pivot %>%
+      filter(
+        name == "For_1",
+        Phase == input$phase_choice)  %>%
+            pull(value) %>%
+      roundFiveUp(., 3) * 100
+    
+    medianaccuracy1 <- median(Foracc1year, na.rm = TRUE) 
+    
+    Twentyfifthpercentile1  <-  quantile(Foracc1year,0.25, na.rm = TRUE)
+
+    Seventyfifthpercentile1  <-  quantile(Foracc1year,0.75, na.rm = TRUE)
 
     label <- case_when(
-      forecast_accuracy > 0 ~ "overestimate",
-      forecast_accuracy < 0 ~ "underestimate",
-      TRUE ~ "Accurate"
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy >  Seventyfifthpercentile1 ~ "Overestimate of pupil numbers, larger overestimate than at least 75% of local authorities",
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < Seventyfifthpercentile1 ~ "Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
+      input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy < Twentyfifthpercentile1 ~ "underestimate of pupil numbers, larger underestimation than at least 75% of local authorities",
+      input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy > Twentyfifthpercentile1 ~ "underestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
+      input$LA_choice == "England" &  forecast_accuracy > 0  ~ "Overestimate of pupil numbers",
+      input$LA_choice == "England" &  forecast_accuracy < 0  ~ "Underestimate of pupil numbers",
+      input$LA_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London",
+      input$LA_choice == "Isles Of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly",
+      TRUE ~ "No Overestimate/underestimate therefore accurate"
     )
 
     if (label != "accurate") {
-      paste("<b>One year ahead : </b>", forecast_accuracy, "% ", label)
+      paste0("<h1>One year ahead: ", forecast_accuracy, "%</h1> ", label)
     } else {
-      paste("<b>One year ahead : </b>", label)
+      paste0("<b>One year ahead: ", label)
     }
   })
 
@@ -239,169 +282,211 @@ function(input, output, session) {
       pull(value) %>%
       roundFiveUp(., 3) * 100
 
+    Foracc3year <- scorecards_data_pivot %>%
+      filter(
+        name == "For_3",
+        Phase == input$phase_choice)  %>%
+      pull(value) %>%
+      roundFiveUp(., 3) * 100
+    
+    medianaccuracy2 <- median(Foracc3year, na.rm = TRUE) 
+    
+    Twentyfifthpercentile2 <- quantile(Foracc3year,0.25, na.rm = TRUE)
+    
+    Seventyfifthpercentile2 <- quantile(Foracc3year,0.75, na.rm = TRUE)
+    
     label <- case_when(
-      forecast_accuracy > 0 ~ "overestimate",
-      forecast_accuracy < 0 ~ "underestimate",
-      TRUE ~ "over/under estimate: Accurate"
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy >  Seventyfifthpercentile2 ~ "Overestimate of pupil numbers, larger overestimate than at least 75% of local authorities",
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < Seventyfifthpercentile2 ~ "Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
+      input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy < Twentyfifthpercentile2 ~ "Underestimate of pupil numbers, larger underestimation than at least 75% of local authorities",
+      input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy > Twentyfifthpercentile2 ~ "Underestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
+          input$LA_choice == "England" &  forecast_accuracy > 0  ~ "Overestimate of pupil numbers",
+      input$LA_choice == "England" &  forecast_accuracy < 0  ~ "Underestimate of pupil numbers",
+      input$LA_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London",
+      input$LA_choice == "Isles Of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly",
+      TRUE ~ "No Overestimate/underestimate therefore accurate"
     )
 
     if (label != "accurate") {
-      paste("<b>Three years ahead : </b>", forecast_accuracy, "% ", label)
+      paste0("<h1>Three years ahead: ", forecast_accuracy, "%</h1> ", label)
     } else {
       paste("<b>Three years ahead : </b>", label)
     }
   })
-
-
-  ## Forecast accuracy one year ahead
-
-  output$forecast_1y <- renderGauge({
-    # live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
-
+  
+  output$for1year_table <- renderTable({
+    scorecards_data_pivot %>%
+      filter(
+        name == "For_1",
+        Phase == input$phase_choice
+      ) %>%
+      mutate(
+        Median  = median(value, na.rm = TRUE),
+        Median =  roundFiveUp(Median,3) * 100,
+        Median =   paste0(Median, "%"),
+        Twentyfifthpercentile = quantile(value,0.25, na.rm = TRUE),
+        Twentyfifthpercentile =  roundFiveUp(Twentyfifthpercentile,3) * 100,
+        Twentyfifthpercentile =   paste0( Twentyfifthpercentile, "%"),
+        Seventyfifthpercentile = quantile(value,0.75, na.rm = TRUE),
+        Seventyfifthpercentile =  roundFiveUp(Seventyfifthpercentile,3) * 100,
+        Seventyfifthpercentile =   paste0(Seventyfifthpercentile, "%"),
+        Minimum = min(value, na.rm = TRUE),
+        Minimum =  roundFiveUp(Minimum,3) * 100,
+        Minimum =   paste0(Minimum, "%"),
+        Maximum = max(value, na.rm = TRUE),
+        Maximum =  roundFiveUp(Maximum,3) * 100,
+        Maximum =   paste0(Maximum, "%")
+       ) %>%
+      filter(
+               LA_name == "England"
+      ) %>%
+    select(Minimum, Twentyfifthpercentile, Median,  Seventyfifthpercentile, Maximum)
+  }
+  )
+  
+  output$for3year_table <- renderTable({
+    scorecards_data_pivot %>%
+      filter(
+        name == "For_3",
+        Phase == input$phase_choice
+      ) %>%
+      mutate(
+        Median  = median(value, na.rm = TRUE),
+        Median =  roundFiveUp(Median,3) * 100,
+        Median =   paste0(Median, "%"),
+        Twentyfifthpercentile = quantile(value,0.25, na.rm = TRUE),
+        Twentyfifthpercentile =  roundFiveUp(Twentyfifthpercentile,3) * 100,
+        Twentyfifthpercentile =   paste0( Twentyfifthpercentile, "%"),
+        Seventyfifthpercentile = quantile(value,0.75, na.rm = TRUE),
+        Seventyfifthpercentile =  roundFiveUp(Seventyfifthpercentile,3) * 100,
+        Seventyfifthpercentile =   paste0(Seventyfifthpercentile, "%"),
+        Minimum = min(value, na.rm = TRUE),
+        Minimum =  roundFiveUp(Minimum,3) * 100,
+        Minimum =   paste0(Minimum, "%"),
+        Maximum = max(value, na.rm = TRUE),
+        Maximum =  roundFiveUp(Maximum,3) * 100,
+        Maximum =   paste0(Maximum, "%")
+      ) %>%
+      filter(
+        LA_name == "England"
+      ) %>%
+      select(Minimum, Twentyfifthpercentile, Median,  Seventyfifthpercentile, Maximum)
+  }
+  )
+  
+    
+  ## Forecast accuracy three years ahead
+  
+  # Code to go here using above template
+  
+  output$forecasting.bartext <- renderUI(
+    tagList(p(paste0("The shaded area in each chart shows the forecasting accuracy for ", input$LA_choice, ". 
+                     The starting point is 0: an accurate score.
+                     A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.")))
+  )
+  
+  output$forecast_1y_bar <- renderPlotly({
     forecast_accuracy <- live_scorecard_data() %>%
       filter(name == "For_1") %>%
-      pull(value) %>%
-      roundFiveUp(., 3) * 100
-
-    lowest_accuracy <- scorecards_data_pivot %>%
+      as.data.frame()
+    
+    forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
+    
+    forecast_range <- scorecards_data_pivot %>%
       filter(
         name == "For_1",
         Phase == input$phase_choice
-      ) %>%
-      slice(which.min(value)) %>%
-      pull(value) %>%
-      roundFiveUp(., 3) * 100
-
-    highest_accuracy <- scorecards_data_pivot %>%
-      filter(
-        name == "For_1",
-        Phase == input$phase_choice
-      ) %>%
-      slice(which.max(value)) %>%
-      pull(value) %>%
-      roundFiveUp(., 3) * 100
-
-    # Get medians/quartiles to set the sectors in the gauge
-
-    mid_low_accuracy <- median(c(-1, lowest_accuracy))
-    mid_high_accuracy <- median(c(1, highest_accuracy))
-
-    gauge(forecast_accuracy,
-      min = lowest_accuracy,
-      max = highest_accuracy,
-      symbol = "%",
-      sectors = gaugeSectors(
-        success = c(-1, 1),
-        warning = c(mid_low_accuracy, mid_high_accuracy),
-        danger = c(lowest_accuracy, highest_accuracy),
-        colors = c("#00703c", "#ffdd00", "#d4351c")
       )
-    )
+    
+    
+    range_values <- forecast_range %>%
+      summarise(
+        quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
+        accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+      ) %>%
+      as.data.frame()
+    
+    range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
+    range_values$accuracy[1] <- (ceiling(abs(range_values$accuracy[1])) * range_values$accuracy[1] / abs(range_values$accuracy[1]))
+    p <- ggplot(
+      forecast_accuracy,
+      aes(name, value,
+          fill = value,
+          text = paste0(input$LA_choice, ": ", value, "%")
+      )
+    ) +
+      geom_bar(stat = "identity", width = 100) +
+      scale_fill_gradientn(
+        colors = divergent_gradient,
+        space = "Lab",
+        limits = c(-0.75 * abs(range_values$accuracy[5]), 1.08 * abs(range_values$accuracy[5])),
+      ) +
+      ylim(range_values$accuracy[1], range_values$accuracy[5]) +
+      theme_bw() +
+      theme(
+        legend.position = "none", axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        text = element_text(size = 12)
+      ) +
+      geom_hline(yintercept = 0, linetype = "dotted") +
+      geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
+     # geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value) +
+      geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
+      geom_hline(yintercept = forecast_accuracy$value, size = 1.) +
+      labs(x = "", y = "Accuracy (%)") +
+      coord_flip()
+    ggplotly(p, tooltip = c("text")) %>%
+      layout(font = font_choice) %>%
+      config(displayModeBar = FALSE)
   })
-
-
-  output$forecast_1y_proxy <- renderUI({
-    input$phase_choice # force re-render
-    input$LA_choice
-    input$tabs
-    # live_scorecard_data<- scorecards_data_pivot %>% filter(LA_name =="Sheffield",Phase =="Secondary")
-    gaugeOutput(outputId = "forecast_1y")
+  
+  output$forecast_3y_bar <- renderPlotly({
+    forecast_accuracy <- live_scorecard_data() %>%
+      filter(name == "For_3")
+    forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
+    
+    forecast_range <- scorecards_data_pivot %>%
+      filter(
+        name == "For_3",
+        Phase == input$phase_choice
+      )
+    
+    range_values <- forecast_range %>%
+      summarise(
+        quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
+        accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
+      ) %>%
+      as.data.frame()
+    
+    range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
+    range_values$accuracy[1] <- (ceiling(abs(range_values$accuracy[1])) * range_values$accuracy[1] / abs(range_values$accuracy[1]))
+    
+    p <- ggplot(forecast_accuracy, aes(name, value, fill = value, text = paste0(input$LA_choice, ": ", value, "%"))) +
+      geom_bar(stat = "identity", width = 100) +
+      scale_fill_gradientn(
+        colors = divergent_gradient,
+        space = "Lab",
+        limits = c(-0.75 * abs(range_values$accuracy[5]), 1.08 * abs(range_values$accuracy[5])),
+      ) +
+      ylim(c(range_values$accuracy[1], range_values$accuracy[5])) +
+      theme_bw() +
+      theme(
+        legend.position = "none", axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        text = element_text(size = 12)
+      ) +
+      geom_hline(yintercept = 0, linetype = "dotted") +
+      geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
+    #  geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value) +
+      geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
+      geom_hline(yintercept = forecast_accuracy$value, size = 1.) +
+      labs(x = "", y = "Accuracy (%)") +
+      coord_flip()
+    ggplotly(p, tooltip = c("text")) %>%
+      layout(font = font_choice) %>%
+      config(displayModeBar = FALSE)
   })
-
-  ## Forecast accuracy three years ahead
-
-  # Code to go here using above template
-
-  output$forecast_1y_bar <- renderPlot(
-    {
-      forecast_accuracy <- live_scorecard_data() %>%
-        filter(name == "For_1")
-
-      forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
-
-      lowest_accuracy <- scorecards_data_pivot %>%
-        filter(
-          name == "For_1",
-          Phase == input$phase_choice
-        ) %>%
-        slice(which.min(value)) %>%
-        pull(value) %>%
-        roundFiveUp(., 3) * 100
-
-      highest_accuracy <- scorecards_data_pivot %>%
-        filter(
-          name == "For_1",
-          Phase == input$phase_choice
-        ) %>%
-        slice(which.max(value)) %>%
-        pull(value) %>%
-        roundFiveUp(., 3) * 100
-
-      # Get medians/quartiles to set the sectors in the gauge
-
-      mid_low_accuracy <- median(c(-1, lowest_accuracy))
-      mid_high_accuracy <- median(c(1, highest_accuracy))
-      ggplot(forecast_accuracy, aes(name, value, fill = value)) +
-        geom_bar(stat = "identity", width = 100) +
-        scale_fill_gradient2(low = "#e34a33", mid = "#fee8c8", high = "#e34a33", space = "Lab", limits = c(-abs(highest_accuracy), abs(highest_accuracy))) +
-        ylim(-highest_accuracy, highest_accuracy) +
-        theme_minimal() +
-        theme(
-          legend.position = "none", axis.text.y = element_blank(),
-          axis.ticks.y = element_blank()
-        ) +
-        labs(x = "", y = "") +
-        coord_flip()
-    },
-    height = 96,
-    width = "auto"
-  )
-
-  output$forecast_3y_bar <- renderPlot(
-    {
-      forecast_accuracy <- live_scorecard_data() %>%
-        filter(name == "For_3")
-      forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
-
-      lowest_accuracy <- scorecards_data_pivot %>%
-        filter(
-          name == "For_3",
-          Phase == input$phase_choice
-        ) %>%
-        slice(which.min(value)) %>%
-        pull(value) %>%
-        roundFiveUp(., 3) * 100
-
-      highest_accuracy <- scorecards_data_pivot %>%
-        filter(
-          name == "For_3",
-          Phase == input$phase_choice
-        ) %>%
-        slice(which.max(value)) %>%
-        pull(value) %>%
-        roundFiveUp(., 3) * 100
-
-      # Get medians/quartiles to set the sectors in the gauge
-
-      mid_low_accuracy <- median(c(-1, lowest_accuracy))
-      mid_high_accuracy <- median(c(1, highest_accuracy))
-
-      ggplot(forecast_accuracy, aes(name, value, fill = value)) +
-        geom_bar(stat = "identity", width = 100) +
-        scale_fill_gradient2(low = "#43a2ca", mid = "#e0f3db", high = "#43a2ca", space = "Lab", limits = c(-abs(highest_accuracy), abs(highest_accuracy))) +
-        ylim(-highest_accuracy, highest_accuracy) +
-        theme_minimal() +
-        theme(
-          legend.position = "none", axis.text.y = element_blank(),
-          axis.ticks.y = element_blank()
-        ) +
-        labs(x = "", y = "") +
-        coord_flip()
-    },
-    height = 96,
-    width = "auto"
-  )
-
+  
 
   # Preference -------------------------------------------------------------
 
@@ -495,10 +580,12 @@ function(input, output, session) {
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
       scale_fill_manual(values = dfe_colours) +
+      scale_y_continuous(labels = scales::percent) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
-        text = element_text(size = 14, family = "Arial")
+        text = element_text(size = 14, family = "Arial"),
+        strip.text.x = element_text(size = 20)
       )
 
 
@@ -507,7 +594,7 @@ function(input, output, session) {
     ) %>%
       layout(
         uniformtext = list(minsize = 12, mode = "hide"),
-        xaxis = list(showticklabels = FALSE),
+        xaxis = list(showticklabels = TRUE),
         legend = list(
           orientation = "h",
           y = -0.1, x = 0.33,
@@ -792,10 +879,12 @@ function(input, output, session) {
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
       scale_fill_manual(values = dfe_colours) +
+      scale_y_continuous(labels = scales::percent) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
-        text = element_text(size = 14, family = "Arial")
+        text = element_text(size = 14, family = "Arial"),
+        strip.text.x = element_text(size = 20)
       )
 
     if (input$LA_choice == "England" & input$chart_choice == "Ofsted Rating") {
@@ -1084,18 +1173,9 @@ function(input, output, session) {
       ) %>%
       arrange(group_higlight)
 
-    p <- ggplot(
-      all_LA_cost %>% filter(group_higlight == 0),
-      aes(
-        x, cost_per_place,
-        color = grouping,
-        fill = grouping
-      )
-    ) +
-      geom_beeswarm() +
+    p <- ggplot() +
       geom_beeswarm(
-        data = all_LA_cost %>% filter(group_higlight == 1),
-        aes(x, cost_per_place,
+        data = all_LA_cost %>% filter(group_higlight == 0), mapping = aes(x, cost_per_place,
           color = grouping,
           text = paste(LA_name, ": £", scales::comma(cost_per_place), " per place")
         ),
@@ -1108,7 +1188,7 @@ function(input, output, session) {
           color = grouping,
           text = paste(LA_name, ": £", scales::comma(cost_per_place), " per place")
         ),
-        groupOnX = TRUE, na.rm = TRUE
+        groupOnX = TRUE, na.rm = TRUE, size = 3.2
       ) +
       facet_grid(~ factor(exp_type, levels = c("Permanent", "Temporary", "New school"))) +
       scale_fill_manual(
@@ -1116,8 +1196,8 @@ function(input, output, session) {
         values = c("#BFBFBF", "#f47738", "#1d70b8")
       ) +
       scale_color_manual(
-        breaks = c("Other LA", input$LA_choice, "England"),
-        values = c("#BFBFBF", "#f47738", "#1d70b8")
+        breaks = c(input$LA_choice, "England", "Other LA"),
+        values = c("#f2590d", "#1c6bb0", "#dcd9d6")
       ) +
       theme(
         axis.line.y = element_line(color="grey", size = 1),
@@ -1126,7 +1206,7 @@ function(input, output, session) {
         axis.text.y = element_text(size=8),
         axis.ticks.x = element_blank(),
         axis.title.x = element_blank(),
-        axis.title.y = element_text(size=10),
+        axis.title.y = element_text(margin = margin(r = 70)),
         legend.title = element_blank(),
         panel.background = element_blank(),
         panel.border = element_rect(color="grey",size = 1, fill=NA),
@@ -1148,7 +1228,7 @@ function(input, output, session) {
         ),
         title = list(
           text = "Chart showing the cost of permanent, temporary and new school projects by local authority",
-          font = list(color = "#d9d9d9", size = 1)
+          font = list(color = "#c8c8c8", size = 1)
         )
       ) %>%
       config(displayModeBar = FALSE)
