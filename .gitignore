@@ -4,3 +4,6 @@
 .Ruserdata
 data/scorecards_data_2021.csv
 file*.log
+hc.*
+Summary_scorecard.log
+Summary_scorecard.pdf
