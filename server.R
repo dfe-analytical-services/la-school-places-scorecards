@@ -134,6 +134,17 @@ function(input, output, session) {
   # Quantity ----------------------------------------------------------------
 
   ## Estimated additional places - use QUAN_P_RP and QUAN_S_RP
+  
+  ## Caveats for BCP and Dorset
+  output$quantity.bartext <- renderUI({
+    if (input$LA_choice == "Dorset")  {
+      paste0("2009/10 data is not comparable because of 2019 boundary changes.  
+             Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for Dorset.") }
+    else if (input$LA_choice == "Bournemouth, Christchurch and Poole") {
+      paste0("2009/10 data is not comparable because of 2019 boundary changes.  
+             Therefore total places created since 2009/10 and 'growth in pupil numbers since 2009/10 are not shown for Bournemouth, Christchurch and Poole .") }
+  })   
+  
 
   # Box to go here (use pupil growth as template)
 
@@ -147,7 +158,7 @@ function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(scales::comma(additional_places_perc)),
-      paste0("Estimated additional ", str_to_lower(input$phase_choice), " places to meet demand in ", plan_year),
+      paste0("Estimated additional ", str_to_lower(input$phase_choice), " places needed to meet demand in ", plan_year),
       # icon = icon("fas fa-signal"),
       color = "light-blue"
     )
@@ -357,11 +368,19 @@ function(input, output, session) {
   # Code to go here using above template
   
   output$forecasting.bartext <- renderUI(
-    tagList(p(paste0("The shaded area ending at the thick vertical line in each chart shows the forecasting accuracy for ", input$LA_choice, ". 
+    if (input$LA_choice != "England")  { tagList(p(paste0("The shaded area ending at the thick vertical line in each chart shows the forecasting accuracy for ", input$LA_choice, ". 
                      The starting point is 0, an accurate score, indicated by a dotted line.
                      A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.
                      The dashed lines show the 25th and 75th percentiles across all local authorities i.e. half of all local authorities were
-  found to have a forecasting accuracy falling between the two dashed lines."),)))
+  found to have a forecasting accuracy falling between the two dashed lines."))) }
+  else if (input$LA_choice == "England")  { tagList(p(paste0("The shaded area ending at the thick vertical line in each chart shows the average forecasting accuracy for local authorities in England. 
+                     The starting point is 0, an accurate score, indicated by a dotted line.
+                     A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.
+                     The dashed lines show the 25th and 75th percentiles across all local authorities i.e. half of all local authorities were
+  found to have a forecasting accuracy falling between the two dashed lines."))) }
+  )   
+  
+
   
   
   output$forecast_1y_bar <- renderPlotly({

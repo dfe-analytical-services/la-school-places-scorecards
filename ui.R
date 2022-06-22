@@ -65,28 +65,40 @@ function(request) {
             title = "",
             id = "tabs", width = "12",
             tabPanel(
-              "Quantity",
-              fluidRow(
-                column(
-                  6,
-                  p(strong("School places created and planned, additional places still needed")),
-                  plotlyOutput("places_chart") %>% withSpinner()
-                ),
-                column(
-                  6,
-                p(strong(paste0("Estimated future school place demand"))),
-                p("A local authority can have both ‘spare places’ and ‘additional places needed’ due to localised or specific year group demand"),
-                valueBoxOutput("estimated_additional_places", width = 6),
-                valueBoxOutput("estimated_spare_places", width = 6),
-                      p(strong("Funding allocated for creation of new places")),
-                  valueBoxOutput("total_funding_box", width = 6),
-                  p(strong("Anticipated increase in pupils")),
-                  valueBoxOutput("pupil_growth", width = 6)
-                ))),
-           tabPanel(
+            "Quantity",
+            fluidRow(
+              column(
+                6,
+                p(strong("School places created, planned future places, additional places still needed, as at May", SCAP_ref)),
+                plotlyOutput("places_chart") %>% withSpinner()
+              ),
+              column(
+                6,
+                fluidRow(
+                  column(
+                    12,
+                    p(strong(paste0("Estimated future school place demand"))),
+                    p("A local authority can have both ‘spare places’ and ‘additional places needed’ due to localised or specific year group demand"),
+                    valueBoxOutput("estimated_additional_places", width =6),
+                    valueBoxOutput("estimated_spare_places", width = 6)
+                  )),
+                fluidRow(
+                  column(
+                    12,
+                    p(strong("Funding allocated for creation of new places, anticipated increase in pupils"))
+                  )),
+                fluidRow(
+                  column(
+                    12,
+                    valueBoxOutput("total_funding_box", width = 6),
+                    valueBoxOutput("pupil_growth", width = 6)
+                  )))),
+            uiOutput("quantity.bartext")
+                         ),
+                     tabPanel(
              "Pupil forecast accuracy",
              fluidRow(
-               p(strong("Forecast accuracy of pupil projections")),
+               p(strong("Forecast accuracy of pupil projections for", forecast_year, ", made one year and three years previously")),
                uiOutput("forecasting.bartext"),
                column(
                  6,
@@ -103,7 +115,7 @@ function(request) {
                  plotlyOutput("forecast_1y_bar", height = "120px"),
                    br(),
                p("One year ahead: range of forecast accuracy scores"),
-tableOutput("for1year_table"),
+                  tableOutput("for1year_table"),
                  # plotlyOutput("forecast_3y_bar", height = "120px"),
 
                ),
@@ -114,6 +126,8 @@ tableOutput("for1year_table"),
                  br(),
                  p("Three year ahead: range of forecast accuracy scores"),
              tableOutput("for3year_table"))),
+           br(),
+          p(em("Caution should be taken with forecast accuracy scores due to unforseen circumstances. See Homepage for more information.")),
              ),
             tabPanel(
               "Preference",
@@ -143,45 +157,32 @@ tableOutput("for1year_table"),
                   plotlyOutput("quality_chart") %>% withSpinner()
                 )
               ),
-              textOutput("no_rating_line")
+              textOutput("no_rating_line"),
+              br(),
+              p(em("Caution should be taken with quality data as Ofsted inspections may have been delayed due to Covid-19."))
             ),
-            tabPanel(
-              "Cost",
-              p(strong("Average cost of additional mainstream school places")),
-              p("Based on local authority reported projects between ", last_year_1, " and ", last_year, ", adjusted for inflation and regional variation"),
-              p("Not new data: see technical notes"),
-              fluidRow(
-              valueBoxOutput("perm_box", width = 4),
-              valueBoxOutput("temp_box", width = 4),
-              valueBoxOutput("new_box", width = 4),
-              ),
-              p(strong("Average cost per place for permanent, temporary and new school projects")),
-              details(
-                inputId = "costhelp",
-                label = "How to read these charts",
-                help_text = "These interactive beeswarm plots show the position of a given LA (blue marker) within the distribution of English LAs (grey dots).
-                The vertical position represents cost and the width of the shaded region denotes the number of LAs with a given cost.
-                Hover your curser over each marker to view the average cost per place for an LA or the England average cost per place (orange marker)."
-                                          ),
-             #h5("How to read these plots"),
-             # p("These interactive beeswarm plots show the position of a given LA (blue marker) within the distribution of English LAs (grey dots)."), 
-             # p("The vertical position represents cost and the width of the shaded region denotes the number of LAs with a given cost."),
-             # p("Hover your curser over each marker to view the average cost per place for an LA or the England average cost per place (orange marker)"),
-              fluidRow(
-                column(
-                  8,
-                  h5("How to read these plots"),
-                  p("These violin plots show the position of a given LA (blue marker) within the distribution of English LAs. The vertical position represents cost and the width of the shaded region denotes the number of LAs with a given cost."),
-                  plotlyOutput("cost_plot") %>% withSpinner()
-                ),
-                column(
-                  4,
-                  tableOutput("cost_table")
-                )
-              )
-              # Cost content to go here
-            )
-          ) # end of tabset
+tabPanel(
+  "Cost",
+  p(strong("Average cost of additional mainstream school places")),
+  p("Based on local authority reported projects between ", cost_year_1, " and ", cost_year_2, ", adjusted for inflation and regional variation"),
+  p("Not new data: see technical notes"),
+  fluidRow(
+    valueBoxOutput("perm_box", width = 4),
+    valueBoxOutput("temp_box", width = 4),
+    valueBoxOutput("new_box", width = 4),
+  ),
+  p(strong("Average cost per place for permanent, temporary and new school projects")),
+  uiOutput("cost.bartext"),
+  br(),
+  fluidRow(
+    column(
+      4,
+      tableOutput("cost_table")
+    )
+  )
+)
+                         ) # end of tabset
+
         )
       )
     ),
@@ -268,6 +269,8 @@ tableOutput("for1year_table"),
         a(href = "mailto:SCAP.PPP@education.gov.uk", "SCAP.PPP@education.gov.uk")
       )
     ),
+tabPanel(
+  "Support & Feedback"),
     shinyGovstyle::footer(TRUE)
   )
 }
