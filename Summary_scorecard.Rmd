@@ -1,7 +1,8 @@
 ---
 params: 
-    input_la_choice: Gateshead
-    input_phase_choice: Primary
+    input_la_choice: Darlington
+    input_phase_choice: Secondary
+     # Keep this as Ofsted for 2021 scorecard as only option
     input_quality_chart: 'Ofsted'
 header-includes:
   # Here be dragons, edit these header items at your own risk.
@@ -57,7 +58,7 @@ read("../data_file")
 
 ## Introduction
 
-This document presents school places figures for `r params$input_la_choice` covering quantity of places available, forecast accuracy of pupil projections, places allocated by preference, places allocated by school quality and cost per place. It is intended to provide a downloadable, printable document of figures for individual Local Authorities as an alternative to our online dashboard (available [here](https://department-for-education.shinyapps.io/la-school-places-scorecards/)). 
+This document presents school places figures for `r params$input_la_choice` covering quantity of places available, forecast accuracy of pupil projections, places allocated by preference, new places allocated by school quality and cost per place. It is intended to provide a downloadable, printable document of figures for individual Local Authorities as an alternative to our online dashboard (available [here](https://department-for-education.shinyapps.io/la-school-places-scorecards/)). 
 
 \vspace{12pt}
 
@@ -147,7 +148,7 @@ Growth in `r str_to_lower(params$input_phase_choice)` pupil numbers 2009/10 to `
 \end{tcolorbox}
 }
 
-### Places created since 2009-10, places planned to 2021-22 and estimated place pressure in 2021-22
+### Places created since 2009/10, places planned to `r plan_year` and estimated place pressure in `r plan_year`
 
 A local authority can have both ‘spare places’ and ‘additional places needed’ due to localised or specific year group demand
 
@@ -161,7 +162,7 @@ A local authority can have both ‘spare places’ and ‘additional places need
       pull(value)
 
     # Display value
-           x <- paste0("Estimated additional ", str_to_lower(params$input_phase_choice), " places to meet demand in ", plan_year, ": ", scales::comma(additional_places_perc))
+           x <- paste0("Estimated additional ", str_to_lower(params$input_phase_choice), " places still needed to meet demand in ", plan_year, ": ", scales::comma(additional_places_perc))
      
   
 
@@ -250,11 +251,12 @@ quality_places <- plot_ly(
   
 ## Forecast Accuracy
 
-### Forecast accuracy of pupil projections for 21/22, made one year and three years previously
+### Forecast accuracy of pupil projections for `r forecast_year`, made one year and three years previously
 
-The shaded area in each chart and the bold line shows the forecasting accuracy for `r  params$input_la_choice`.\
+The shaded area in each chart ending at the thick vertical line shows the forecasting accuracy for `r  params$input_la_choice`.
 The starting point is 0, an accurate score, indicated by a dotted line.
-A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate. The grey dashed lines show the 25th and 75th percentile score for all local authorities.
+A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.\
+The grey dashed lines show the 25th and 75th percentile score for all local authorities.
 
 ``` {r forecast7,echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
    ## Forecast accuracy labels 
@@ -542,7 +544,7 @@ Range of accuracy scores three years ahead
 
 ## Preference
 
-### Proportion of applicants who received an offer of one of their top three preference schools for September 2019 entry
+### Proportion of applicants who received an offer of one of their top three preference schools for September `r preference_year` entry
 
 ```{r preference_text, echo = FALSE, message=FALSE}
 
@@ -597,7 +599,7 @@ cat(paste0("\\begin{tcolorbox}[colback=gssmidblue,
  ]
 ",PrefT3,"\\%
 \\tcblower
-Percentage of applicants who recieved an offer of one of their top three preferred ", str_to_lower(params$input_phase_choice)," places in ",plan_year," in ",params$input_la_choice,"
+Percentage of applicants who recieved an offer of one of their top three preferred ", str_to_lower(params$input_phase_choice)," schools in ",params$input_la_choice,"
 \\end{tcolorbox}
 }
 "))
@@ -695,7 +697,7 @@ paste("
 \newpage
 ## Quality
 
-### Quality of places created between 2017-18 and 2018-19, based on `r params$input_quality_chart`:
+### Quality of places created between `r last_year` and `r this_year`, based on `r params$input_quality_chart`:
 
 ```{r quality, echo = FALSE}
   # Change name of what "better than average" is depending on chart choice:
@@ -1206,7 +1208,7 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
           y = -0.1, x = 0.2
                 ),
         title = list(
-          text = "Chart showing the quality of new and existing school places and estimated additional places, by Local Authority compared to England",
+          text = "Chart showing the quality of new and existing school places, by Local Authority compared to England",
           font = list(color = "#ffffff")
         )
       ) %>%
