@@ -3,3 +3,4 @@
 .RData
 .Ruserdata
 data/scorecards_data_2021.csv
+file*.log
