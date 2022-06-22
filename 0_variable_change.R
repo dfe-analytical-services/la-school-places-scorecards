@@ -13,3 +13,5 @@ funding_year <- "2011 to 22"
 preference_year <- "2019"
 
 forecast_year <- "2021/22"
+
+chart_choice <- "Ofsted Rating"

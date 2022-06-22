@@ -36,11 +36,11 @@ function(request) {
             label = p(strong("Choose a phase")),
             choices = c("Primary", "Secondary")
           ),
-          br(),
-          selectInput("chart_choice",
-            label = p(strong("Choose a quality measure")),
-            choices = c("Ofsted", "Reading Progress", "Maths Progress")
-          ),
+        #  br(),
+        #  selectInput("chart_choice",
+         #   label = p(strong("Choose a quality measure")),
+          #  choices = c("Ofsted", "Reading Progress", "Maths Progress")
+        #  ),
           br(),
           br(),
           p("Download data for all geographies and phases using the button below."),
