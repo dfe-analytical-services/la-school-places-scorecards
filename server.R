@@ -1119,11 +1119,21 @@ function(input, output, session) {
   })
 
 
+  
   # Cost --------------------------------------------------------------------
-
+  
+  output$cost.bartext <- renderUI({
+    if (input$LA_choice != "England") {
+      paste0("Region column shows England averages, adjusted for regional location factors: see technical notes") }
+    else {
+      paste("")
+    }
+  })   
+  
+  
   # Comparison table - average cost of projects per place
   output$cost_table <- renderTable({
-    live_scorecard_data_england_comp() %>%
+    live_scorecard_data_england_comp()  %>%
       # Filter for Cost, places and project data
       filter(str_detect(name, "Cost|Places|Projects")) %>%
       # Create new column called data_type, based on the name of the data
@@ -1133,11 +1143,11 @@ function(input, output, session) {
         str_detect(name, "Project") ~ "Project"
       )) %>%
       mutate(exp_type = case_when(
-        str_detect(name, "EP") ~ "Permanent",
-        str_detect(name, "ET") ~ "Temporary",
+        str_detect(name, "EP") ~ "Permanent Expansion",
+        str_detect(name, "ET") ~ "Temporary Expansion",
         str_detect(name, "NS") ~ "New school"
       )) %>%
-      select(LA_name, data_type, exp_type, value) %>%
+      select(Region, data_type, exp_type, value) %>%
       # pivot the data wider
       pivot_wider(names_from = data_type, values_from = value) %>%
       # calculate cost per place
@@ -1148,9 +1158,11 @@ function(input, output, session) {
         # Nicely format any NA
         cost_per_place = str_replace(cost_per_place, "£NaN", "-")
       ) %>%
-      select(LA_name, Type = exp_type, cost_per_place) %>%
-      pivot_wider(names_from = LA_name, values_from = cost_per_place)
+      select(Region, Type = exp_type, cost_per_place) %>%
+      pivot_wider(names_from = Region, values_from = cost_per_place)
   })
+  
+  
 
 
   # Comparison charts - average cost per place
@@ -1261,16 +1273,16 @@ function(input, output, session) {
       select(LA_name, data_type, exp_type, value) %>%
       filter(data_type == "Project" & exp_type == "Permanent") %>%
       pull(value)
-
-
+    
+    
     shinydashboard::valueBox(
       paste0(perm_fig),
-      paste0("Permanent ", str_to_lower(input$phase_choice), " expansion projects in ", input$LA_choice),
+      paste0("Permanent ", str_to_lower(input$phase_choice), " expansion projects in England"),
       # icon = icon("fas fa-school"),
       color = "light-blue"
     )
   })
-
+  
   output$temp_box <- renderValueBox({
     temp_fig <- live_scorecard_data() %>%
       # Filter for Cost, places and project data
@@ -1289,17 +1301,17 @@ function(input, output, session) {
       select(LA_name, data_type, exp_type, value) %>%
       filter(data_type == "Project" & exp_type == "Temporary") %>%
       pull(value)
-
-
+    
+    
     shinydashboard::valueBox(
       paste0(temp_fig),
-      paste0("Temporary ", str_to_lower(input$phase_choice), " projects in ", input$LA_choice),
+      paste0("Temporary ", str_to_lower(input$phase_choice), " expansion projects in England "),
       # icon = icon("fas fa-campground"),
       color = "light-blue"
     )
   })
-
-
+  
+  
   output$new_box <- renderValueBox({
     new_fig <- live_scorecard_data() %>%
       # Filter for Cost, places and project data
@@ -1318,15 +1330,16 @@ function(input, output, session) {
       select(LA_name, data_type, exp_type, value) %>%
       filter(data_type == "Project" & exp_type == "New school") %>%
       pull(value)
-
-
+    
+    
     shinydashboard::valueBox(
       paste0(new_fig),
-      paste0("New ", str_to_lower(input$phase_choice), " schools projects in ", input$LA_choice),
+      paste0("New ", str_to_lower(input$phase_choice), " schools projects in England"),
       # icon = icon("fas fa-plus"),
       color = "light-blue"
     )
   })
+  
 
   # Files for download ------------------------------------------------------
 
