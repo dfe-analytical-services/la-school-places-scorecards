@@ -509,7 +509,7 @@ function(input, output, session) {
       filter(name == "PrefT3") %>%
       filter(LA_name == "England") %>%
       pull(value) %>%
-      roundFiveUp(., 2)
+      roundFiveUp(., 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -528,7 +528,7 @@ function(input, output, session) {
     PrefT3 <- live_scorecard_data() %>%
       filter(name == "PrefT3") %>%
       pull(value) %>%
-      roundFiveUp(., 2)
+      roundFiveUp(., 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
