@@ -357,10 +357,12 @@ function(input, output, session) {
   # Code to go here using above template
   
   output$forecasting.bartext <- renderUI(
-    tagList(p(paste0("The shaded area in each chart shows the forecasting accuracy for ", input$LA_choice, ". 
-                     The starting point is 0: an accurate score.
-                     A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.")))
-  )
+    tagList(p(paste0("The shaded area ending at the thick vertical line in each chart shows the forecasting accuracy for ", input$LA_choice, ". 
+                     The starting point is 0, an accurate score, indicated by a dotted line.
+                     A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.
+                     The dashed lines show the 25th and 75th percentiles across all local authorities i.e. half of all local authorities were
+  found to have a forecasting accuracy falling between the two dashed lines."),)))
+  
   
   output$forecast_1y_bar <- renderPlotly({
     forecast_accuracy <- live_scorecard_data() %>%
@@ -406,9 +408,9 @@ function(input, output, session) {
         text = element_text(size = 12)
       ) +
       geom_hline(yintercept = 0, linetype = "dotted") +
-      geom_hline(aes(yintercept = range_values$accuracy[2], colors="Grey", linetype = "dashed", text = "25th percentile")) +
+      geom_hline(aes(yintercept = range_values$accuracy[2],text = "25th percentile"), linetype = "dashed", color="Grey") +
      # geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value) +
-      geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
+      geom_hline(aes(yintercept = range_values$accuracy[4],text = "75th percentile"), linetype = "dashed", color="Grey") +
       geom_hline(yintercept = forecast_accuracy$value, size = 1.) +
       labs(x = "", y = "Accuracy (%)") +
       coord_flip()
@@ -452,10 +454,10 @@ function(input, output, session) {
         axis.ticks.y = element_blank(),
         text = element_text(size = 12)
       ) +
-      geom_hline(yintercept = 0, linetype = "dotted") +
-      geom_hline(yintercept = range_values$accuracy[2], linetype = "dashed") +
-    #  geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value) +
-      geom_hline(yintercept = range_values$accuracy[4], linetype = "dashed") +
+      geom_hline(yintercept = 0, linetype = "dotted", color="Black") +
+      geom_hline(aes(yintercept = range_values$accuracy[2],text = "25th percentile"), linetype = "dashed", color="Grey") +
+      # geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value) +
+      geom_hline(aes(yintercept = range_values$accuracy[4],text = "75th percentile"), linetype = "dashed", color="Grey") +
       geom_hline(yintercept = forecast_accuracy$value, size = 1.) +
       labs(x = "", y = "Accuracy (%)") +
       coord_flip()
