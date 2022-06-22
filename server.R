@@ -103,7 +103,7 @@ function(input, output, session) {
       )
     } else {
       shinydashboard::valueBox(
-        paste0("£", total_funding, "mm"),
+        paste0("£", total_funding, "m"),
         paste0("Total primary and secondary basic need funding ", funding_year),
         # icon = icon("fas fa-pound-sign"),
         color = "light-blue"
