@@ -1,20 +1,18 @@
 {
   "output": {
-    "data_description": "Data for primary schools in England: ",
+    "data_description": "Data for primary state-funded school places in England: ",
     "estimated_additional_places": {
-      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>40,970<\/h3>\n    <p>Estimated additional primary places to meet demand in 2021-22<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>40,970<\/h3>\n    <p>Estimated additional primary places needed to meet demand in 2021/22<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "estimated_spare_places": {
-      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>10%<\/h3>\n    <p>Estimated percentage of spare primary places in 2021-22<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>10%<\/h3>\n    <p>Estimated percentage of spare primary places in 2021/22<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
-    "label_estimate_y1": "<b>One year ahead : <\/b> 1 %  overestimate",
-    "label_estimate_y3": "<b>Three years ahead : <\/b> 2.7 %  overestimate",
     "places_chart": {
       "x": {
         "layout": {
@@ -84,7 +82,8 @@
             "textfont": {
               "color": "#FFF"
             },
-            "name": "Total places created between 2009/10 and 2018-19",
+            "hoverinfo": "text",
+            "name": "Total places created between 2009/10 and 2018/19",
             "type": "bar",
             "error_y": {
               "color": "rgba(31,119,180,1)"
@@ -110,7 +109,8 @@
             "textfont": {
               "color": "#FFF"
             },
-            "name": "New places already planned for delivery between 2018-19 and 2021-22",
+            "hoverinfo": "text",
+            "name": "New places planned for delivery between 2018/19 and 2021/22",
             "type": "bar",
             "error_y": {
               "color": "rgba(255,127,14,1)"
@@ -136,7 +136,8 @@
             "textfont": {
               "color": "#FFF"
             },
-            "name": "Estimated additional places still needed to meet demand in 2021-22",
+            "hoverinfo": "text",
+            "name": "Estimated additional places still needed to meet demand in 2021/22",
             "type": "bar",
             "error_y": {
               "color": "rgba(44,160,44,1)"
@@ -263,13 +264,13 @@
       ]
     },
     "pupil_growth": {
-      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>19%<\/h3>\n    <p>Growth in primary pupil numbers 2009/10 to 2021-22<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>19%<\/h3>\n    <p>Growth in primary pupil numbers 2009/10 to 2021/22<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "total_funding_box": {
-      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>£12.3 billion<\/h3>\n    <p>Total primary and secondary basic need funding 2011-22<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>£12.3bn<\/h3>\n    <p>Total primary and secondary basic need funding 2011 to 22<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
