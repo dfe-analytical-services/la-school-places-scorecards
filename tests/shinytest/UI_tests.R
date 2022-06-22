@@ -1,4 +1,4 @@
-app <- ShinyDriver$new("../../")
+app <- ShinyDriver$new("../../",loadTimeout = 1.e5)
 app$snapshotInit("UI_tests", screenshot = FALSE)
 
 # 1. Does it load  -------------------------------------------------------------------------------------------------------------------
@@ -6,6 +6,7 @@ Sys.sleep(1)
 app$snapshot()
 
 # 2. Is England, Primary the default?--------------------------------------------
+app$setInputs(navbar='la_scorecards')
 app$snapshot(list(output = c("data_description","total_funding_box","pupil_growth","estimated_additional_places",
                              "estimated_spare_places","places_chart","label_estimate_y1","forecast_1y",
                              "label_estimate_y3","forecast_3y","forecast_3y")))
@@ -24,7 +25,7 @@ app$snapshot(list(output = c("data_description","total_funding_box","pupil_growt
 
 
 # 5. Do the values stay the same when you select a different quality measure?-------------------------------
-app$setInputs(chart_choice = "Progress 8",wait_=FALSE, values_=FALSE)
+# app$setInputs(chart_choice = "Progress 8",wait_=FALSE, values_=FALSE)
 app$snapshot(list(output = c("data_description","total_funding_box","pupil_growth","estimated_additional_places",
                              "estimated_spare_places","places_chart","label_estimate_y1","forecast_1y",
                              "label_estimate_y3","forecast_3y","forecast_3y")))
@@ -42,7 +43,7 @@ app$setInputs(phase_choice = "Primary")
 app$snapshot(list(output = c("prefT3_ENG","PrefT3_LA","preference_p")))
 
 # 9. Does the values in the preference tab stay the same when you select a different quality measure? ------------------------------
-app$setInputs(chart_choice = "Ofsted",wait_=FALSE, values_=FALSE)
+# app$setInputs(chart_choice = "Ofsted",wait_=FALSE, values_=FALSE)
 app$snapshot(list(output = c("prefT3_ENG","PrefT3_LA","preference_p")))
 
 # 10. Does the quality tab load correctly? ------------------------------
@@ -51,16 +52,16 @@ app$snapshot(list(output = c("England_GO_places","quality_chart","no_rating_line
 
 # 11. Do the values in the quality tab change when you select Progress 8? ------------------------------
 app$setInputs(phase_choice = "Secondary")
-app$setInputs(chart_choice = "Progress 8")
+# app$setInputs(chart_choice = "Progress 8")
 app$snapshot(list(output = c("England_GO_places","quality_chart","no_rating_line")))
 
 # 12. Do the values in the quality tab change when you select Reading? Are these options available for Primary?------------------------------
 app$setInputs(phase_choice = "Primary")
-app$setInputs(chart_choice = "Reading Progress")
+#app$setInputs(chart_choice = "Reading Progress")
 app$snapshot(list(output = c("England_GO_places","quality_chart","no_rating_line")))
 
 # 13. Do the values in the quality tab change when you select Maths?  Are these options available for Primary?------------------------------
-app$setInputs(chart_choice = "Maths Progress")
+# app$setInputs(chart_choice = "Maths Progress")
 app$snapshot(list(output = c("England_GO_places","quality_chart","no_rating_line")))
 
 # 14. Do the values in the quality tab change when you select an LA?------------------------------
@@ -80,5 +81,5 @@ app$setInputs(phase_choice = "Secondary")
 app$snapshot(list(output = c("perm_box","temp_box","new_box","cost_table","cost_plot")))
 
 # 18. Do outputs stay the same when you select a different quality measure?-----------------
-app$setInputs(chart_choice = "Progress 8",wait_=FALSE, values_=FALSE)
+# app$setInputs(chart_choice = "Progress 8",wait_=FALSE, values_=FALSE)
 app$snapshot(list(output = c("perm_box","temp_box","new_box","cost_table","cost_plot")))
