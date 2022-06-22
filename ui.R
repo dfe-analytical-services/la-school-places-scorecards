@@ -146,8 +146,9 @@ function(request) {
             uiOutput("quantity.bartext")
                          ),
                      tabPanel(
-             "Pupil forecast accuracy",
-             fluidRow(
+               value="forecast",
+             title="Pupil forecast accuracy",
+               fluidRow(
                p(strong("Forecast accuracy of pupil projections for", forecast_year, ", made one year and three years previously")),
                uiOutput("forecasting.bartext"),
                column(
@@ -214,8 +215,9 @@ function(request) {
               p(em("Caution should be taken with quality data as Ofsted inspections may have been delayed due to Covid-19."))
             ),
 tabPanel(
-  "Cost",
-  p(strong("Average cost of additional mainstream school places")),
+    value="cost",
+  title="Cost",
+    p(strong("Average cost of additional mainstream school places")),
   p("Based on local authority reported projects between ", cost_year_1, " and ", cost_year_2, ", adjusted for inflation and regional variation"),
   p("Not new data: see technical notes"),
   fluidRow(
