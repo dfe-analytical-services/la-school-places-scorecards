@@ -13,11 +13,10 @@ function(input, output, session) {
 
       # List of parameters to pass from shiny to the report
       params <- list(input_la_choice = input$LA_choice,
-                     input_phase_choice = input$phase_choice,
-                     scorecards_data_pivot = scorecards_data_pivot)
+                     input_phase_choice = input$phase_choice)
       
       # Render the pdf file from the rmarkdown template
-      rmarkdown::render("Rmarkdown/Summary_scorecard.Rmd", 
+      rmarkdown::render("Summary_scorecard.Rmd", 
                         output_file = file,
                         params = params,
                         output_format = 'pdf_document',
