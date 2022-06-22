@@ -31,11 +31,17 @@ function(request) {
             label = p(strong("Choose a geography")),
             choices = levels(LA_options)
           ),
+          bsTooltip("LA_choice", 
+                    "Please select your required geography level.",
+                    "right"),
           br(),
           selectInput("phase_choice",
             label = p(strong("Choose a phase")),
             choices = c("Primary", "Secondary")
           ),
+          bsTooltip("phase_choice", 
+                    "Please select your required phase.",
+                    "right"),
           br(),
           selectInput("chart_choice",
             label = p(strong("Choose a quality measure")),

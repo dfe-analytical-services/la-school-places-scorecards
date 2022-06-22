@@ -1395,7 +1395,8 @@ function(input, output, session) {
     }
   })
 
-  # Automatically bookmark every time an input changes-------------------
+
+    # Automatically bookmark every time an input changes-------------------
   observe({
     reactiveValuesToList(input)
     session$doBookmark()
