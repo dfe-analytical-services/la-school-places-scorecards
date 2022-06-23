@@ -26,8 +26,6 @@ function(input, output, session) {
     }
   ) 
   
-
-  
   # actionLinks
   observeEvent(input$linkQuantityTab, {
     updateTabsetPanel(session, "navbar", selected = "la_scorecards")
@@ -50,7 +48,6 @@ function(input, output, session) {
     updateTabsetPanel(session, "tabs", selected = "cost")
   })
   
-
 
   # Data calculations - reactive --------------------------------------------
 
