@@ -580,7 +580,7 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
  ]
 `r PrefT3_E`\%
 \tcblower
-Percentage of applicants who recieved an offer of one of their top three preferred `r str_to_lower(params$input_phase_choice)` schools in England
+Percentage of applicants who received an offer of one of their top three preferred `r str_to_lower(params$input_phase_choice)` schools in England
 \end{tcolorbox}
 
 ``` {r echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
@@ -599,7 +599,7 @@ cat(paste0("\\begin{tcolorbox}[colback=gssmidblue,
  ]
 ",PrefT3,"\\%
 \\tcblower
-Percentage of applicants who recieved an offer of one of their top three preferred ", str_to_lower(params$input_phase_choice)," schools in ",params$input_la_choice,"
+Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(params$input_phase_choice)," schools in ",params$input_la_choice,"
 \\end{tcolorbox}
 }
 "))
