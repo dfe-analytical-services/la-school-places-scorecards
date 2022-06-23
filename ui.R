@@ -96,11 +96,14 @@ function(request) {
         #  ),
           br(),
           br(),
-          p(strong("Download data for all geographies and phases using the button below.",style = "color:white")),
+          p(strong("Download data for all geographies and phases using the button below",style = "color:white")),
           myDownloadButton(
             "download_ud",
             "Download data"
                       ),
+        br(),
+        br(),
+        p(strong("Download summary pdf for the chosen geography and phase using the button below",style = "color:white")),
           myDownloadButton(
             "pdfDownload",
             "Download report"
