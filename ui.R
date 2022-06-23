@@ -1,7 +1,38 @@
+fluidPage(
+  useShinyjs(),
+  useShinydashboard(),
+  includeCSS("www/dfe_shiny_gov_style.css"),
+  title = "LA School Places Scorecards",
+  # use_tota11y(), # accessibility layer for local testing
+  
+  # Set metadata for browser ==================================================
+  
+  tags$html(lang = "en"),
+  meta_general(
+    application_name = "School places scorecards",
+    description = "Scorecards for school places by local authority in England",
+    robots = "index,follow",
+    generator = "R-Shiny",
+    subject = "School places in England",
+    rating = "General",
+    referrer = "no-referrer"
+  ),
+  
+  # Set title for search engines
+  HTML("<title>LA School Places Scorecards</title>"),
+  
+  # Navbar ====================================================================
 
-function(request) {
-  source("0_variable_change.R") ##
-  # Homepage----------------------------------------------------------------------
+  tagList(
+    tags$head(tags$style(HTML("
+                           .navbar-nav {
+                           float: none !important;
+                           }
+                           .navbar-nav > li:nth-child(5) {
+                           float: right;
+                           }
+                           ")))
+  ),
   navbarPage(
     id = "navbar",
     title = "",
@@ -62,20 +93,6 @@ function(request) {
     tabPanel(
       value = "la_scorecards",
       title = "LA scorecards",
-      includeCSS("www/dfe_shiny_gov_style.css"),
-      useShinyjs(),
-      useShinydashboard(),
-      tags$html(lang = "en"),
-      meta_general(
-        application_name = "School places scorecards",
-        description = "Scorecards for school places by local authority in England",
-        robots = "index,follow",
-        generator = "R-Shiny",
-        subject = "School places in England",
-        rating = "General",
-        referrer = "no-referrer"
-      ),
-
       # Sidebar---------------------------------------------------------------------
       sidebarLayout(
         sidebarPanel(
@@ -129,7 +146,9 @@ function(request) {
             id = "tabs",
             tabPanel(
               "Quantity",
+              fluidPage(
               fluidRow(
+                column(width=12,br()),
                 column(
                   6,
                   p(strong("School places created, planned future places, additional places still needed, as at May", SCAP_ref)),
@@ -162,12 +181,15 @@ function(request) {
                 )
               ),
               uiOutput("quantity.bartext")
+            )
             ),
             tabPanel(
               value = "forecast",
               title = "Pupil forecast accuracy",
-              fluidRow(
-                p(strong("Forecast accuracy of pupil projections for", forecast_year, ", made one year and three years previously")),
+              fluidPage(
+                fluidRow(
+                  br(),
+                  p(strong("Forecast accuracy of pupil projections for", forecast_year, ", made one year and three years previously")),
                 uiOutput("forecasting.bartext"),
                 column(
                   6,
@@ -184,7 +206,7 @@ function(request) {
                   plotlyOutput("forecast_1y_bar", height = "120px"),
                   br(),
                   p("One year ahead: range of forecast accuracy scores"),
-                  tableOutput("for1year_table"),
+                  dataTableOutput("for1year_table"),
                   # plotlyOutput("forecast_3y_bar", height = "120px"),
                 ),
                 column(
@@ -193,19 +215,25 @@ function(request) {
                   plotlyOutput("forecast_3y_bar", height = "120px"),
                   br(),
                   p("Three year ahead: range of forecast accuracy scores"),
-                  tableOutput("for3year_table")
+                  dataTableOutput("for3year_table")
                 )
               ),
               br(),
               p(em("Caution should be taken with forecast accuracy scores due to unforseen circumstances. See Homepage for more information.")),
+            )
             ),
             tabPanel(
               value = "preference",
               title = "Preference",
+              fluidPage(
+                fluidRow(
+                  br(),
+                  
               p(strong(paste0("School applications and offers for September ", preference_year, " entry"))),
               # preference content to go here
               valueBoxOutput("prefT3_ENG", width = 6),
-              valueBoxOutput("PrefT3_LA", width = 6),
+              valueBoxOutput("PrefT3_LA", width = 6)
+                ),
               fluidRow(
                 column(
                   12,
@@ -213,15 +241,21 @@ function(request) {
                   plotlyOutput("preference_p") %>% withSpinner()
                 )
               )
+            )
             ),
             tabPanel(
               value = "quality",
               title = "Quality",
+              fluidPage(
+                fluidRow(
+                  br(),
+                  
               strong(textOutput("quality_description")),
               br(),
               valueBoxOutput("England_GO_places", width = 4),
               valueBoxOutput("LA_GO_places", width = 4),
-              valueBoxOutput("LA_GO_ran", width = 4),
+              valueBoxOutput("LA_GO_ran", width = 4)
+              ),
               fluidRow(
                 column(
                   12,
@@ -232,13 +266,19 @@ function(request) {
               textOutput("no_rating_line"),
               br(),
               p(em("Caution should be taken with quality data as Ofsted inspections may have been delayed due to Covid-19."))
+            )
             ),
             tabPanel(
               value = "cost",
               title = "Cost",
+              fluidPage(
+                fluidRow(
+                  br(),
+                  
               p(strong("Average cost of additional mainstream school places")),
               p("Based on local authority reported projects between ", cost_year_1, " and ", cost_year_2, ", adjusted for inflation and regional variation"),
-              p("Not new data: see technical notes"),
+              p("Not new data: see technical notes")
+              ),
               fluidRow(
                 valueBoxOutput("perm_box", width = 4),
                 valueBoxOutput("temp_box", width = 4),
@@ -252,6 +292,7 @@ function(request) {
                   4,
                   tableOutput("cost_table")
                 )
+              )
               )
             )
           ) # end of tabset
@@ -346,4 +387,4 @@ function(request) {
     ),
     shinyGovstyle::footer(TRUE)
   )
-}
+)
