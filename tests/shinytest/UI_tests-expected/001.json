@@ -1,6 +1,11 @@
 {
   "input": {
-    "LA_choice": "England",
+    "LA_choice": "Darlington",
+    "linkCostTab": 0,
+    "linkForecastTab": 0,
+    "linkPreferenceTab": 0,
+    "linkQualityTab": 0,
+    "linkQuantityTab": 0,
     "navbar": "Homepage",
     "phase_choice": "Primary",
     "tabs": "Quantity",

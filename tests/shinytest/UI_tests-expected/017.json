@@ -1,4 +1,10 @@
 {
+  "input": {
+    "LA_choice": "England",
+    "navbar": "la_scorecards",
+    "phase_choice": "Secondary",
+    "tabs": "cost"
+  },
   "output": {
     "cost_table": "<table  class = 'table shiny-table table- spacing-s' style = 'width:auto;'>\n<thead> <tr> <th style='text-align: left;'> Type <\/th> <th style='text-align: left;'> England <\/th>  <\/tr> <\/thead> <tbody>\n  <tr> <td> Permanent Expansion <\/td> <td> £23,775 <\/td> <\/tr>\n  <tr> <td> Temporary Expansion <\/td> <td> £9,248 <\/td> <\/tr>\n  <tr> <td> New school <\/td> <td> £24,929 <\/td> <\/tr>\n   <\/tbody> <\/table>",
     "new_box": {

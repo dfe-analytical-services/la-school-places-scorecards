@@ -1,4 +1,10 @@
 {
+  "input": {
+    "LA_choice": "England",
+    "navbar": "la_scorecards",
+    "phase_choice": "Secondary",
+    "tabs": "quality"
+  },
   "output": {
     "England_GO_places": {
       "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>88.2%<\/h3>\n    <p>Percentage of new places created in good and outstanding secondary schools in England<\/p>\n  <\/div>\n<\/div>",

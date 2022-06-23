@@ -1,4 +1,10 @@
 {
+  "input": {
+    "LA_choice": "Cheshire East",
+    "navbar": "la_scorecards",
+    "phase_choice": "Primary",
+    "tabs": "quality"
+  },
   "output": {
     "LA_GO_places": {
       "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>100%<\/h3>\n    <p>Percentage of new places created in good and outstanding primary schools in Cheshire East<\/p>\n  <\/div>\n<\/div>",

@@ -1,4 +1,10 @@
 {
+  "input": {
+    "LA_choice": "England",
+    "navbar": "la_scorecards",
+    "phase_choice": "Primary",
+    "tabs": "preference"
+  },
   "output": {
     "preference_p": {
       "x": {
@@ -495,13 +501,13 @@
       ]
     },
     "prefT3_ENG": {
-      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>97.5%<\/h3>\n    <p>Percentage of applicants who recieved an offer of one of their top three preferred primary schools in England<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>97.5%<\/h3>\n    <p>Percentage of applicants who received an offer of one of their top three preferred primary schools in England<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "PrefT3_LA": {
-      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>93%<\/h3>\n    <p>Percentage of applicants who recieved an offer of one of their top three preferred secondary schools in England<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>93%<\/h3>\n    <p>Percentage of applicants who received an offer of one of their top three preferred secondary schools in England<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]

@@ -5,27 +5,29 @@ function(input, output, session) {
     size = 14
   )
 
-  output$pdfDownload  <- downloadHandler(
+  output$pdfDownload <- downloadHandler(
     filename = paste0("dashboard_output.pdf"),
     content = function(file) {
       # Add a loading modal, can probably make this prettier at a later date
-      showModal(modalDialog("Preparing PDF report...", footer=NULL))
+      showModal(modalDialog("Preparing PDF report...", footer = NULL))
       on.exit(removeModal())
 
       # List of parameters to pass from shiny to the report
-      params <- list(input_la_choice = input$LA_choice,
-                     input_phase_choice = input$phase_choice)
-      
+      params <- list(
+        input_la_choice = input$LA_choice,
+        input_phase_choice = input$phase_choice
+      )
+
       # Render the pdf file from the rmarkdown template
-      rmarkdown::render("Summary_scorecard.Rmd", 
-                        output_file = file,
-                        params = params,
-                        output_format = 'pdf_document',
-                        envir = new.env(parent = globalenv())
+      rmarkdown::render("Summary_scorecard.Rmd",
+        output_file = file,
+        params = params,
+        output_format = "pdf_document",
+        envir = new.env(parent = globalenv())
       )
     }
-  ) 
-  
+  )
+
   # actionLinks
   observeEvent(input$linkQuantityTab, {
     updateTabsetPanel(session, "navbar", selected = "la_scorecards")
@@ -47,7 +49,7 @@ function(input, output, session) {
     updateTabsetPanel(session, "navbar", selected = "la_scorecards")
     updateTabsetPanel(session, "tabs", selected = "cost")
   })
-  
+
 
   # Data calculations - reactive --------------------------------------------
 
@@ -86,20 +88,20 @@ function(input, output, session) {
 
   # Options for chart choice - dependent on phase choice
 
- # chart_options <- reactive({
-   # if (input$phase_choice == "Primary") {
-    #  c("Ofsted Rating", "Reading Progress", "Maths Progress")
-    #} else {
-    #  c("Ofsted Rating", "Progress 8")
-   # }
-#  })
+  # chart_options <- reactive({
+  # if (input$phase_choice == "Primary") {
+  #  c("Ofsted Rating", "Reading Progress", "Maths Progress")
+  # } else {
+  #  c("Ofsted Rating", "Progress 8")
+  # }
+  #  })
 
- # observe({
+  # observe({
   #  updateSelectInput(session, "chart_choice",
-    #  choices = chart_options(),
-     # selected = "Ofsted Rating"
-   # )
- # })
+  #  choices = chart_options(),
+  # selected = "Ofsted Rating"
+  # )
+  # })
 
 
 
@@ -116,7 +118,7 @@ function(input, output, session) {
 
   ## create quality heading
   output$quality_description <- renderText({
-    paste0("Quality of school places created between 2017-18 and 2018-19, based on ",chart_choice)
+    paste0("Quality of school places created between 2017-18 and 2018-19, based on ", chart_choice)
   })
 
 
@@ -178,17 +180,18 @@ function(input, output, session) {
   # Quantity ----------------------------------------------------------------
 
   ## Estimated additional places - use QUAN_P_RP and QUAN_S_RP
-  
+
   ## Caveats for BCP and Dorset
   output$quantity.bartext <- renderUI({
-    if (input$LA_choice == "Dorset")  {
-      paste0("2009/10 data is not comparable because of 2019 boundary changes.  
-             Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for Dorset.") }
-    else if (input$LA_choice == "Bournemouth, Christchurch and Poole") {
-      paste0("2009/10 data is not comparable because of 2019 boundary changes.  
-             Therefore total places created since 2009/10 and 'growth in pupil numbers since 2009/10 are not shown for Bournemouth, Christchurch and Poole .") }
-  })   
-  
+    if (input$LA_choice == "Dorset") {
+      paste0("2009/10 data is not comparable because of 2019 boundary changes.
+             Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for Dorset.")
+    } else if (input$LA_choice == "Bournemouth, Christchurch and Poole") {
+      paste0("2009/10 data is not comparable because of 2019 boundary changes.
+             Therefore total places created since 2009/10 and 'growth in pupil numbers since 2009/10 are not shown for Bournemouth, Christchurch and Poole .")
+    }
+  })
+
 
   # Box to go here (use pupil growth as template)
 
@@ -272,7 +275,7 @@ function(input, output, session) {
       ) %>%
       config(displayModeBar = FALSE)
   })
-  
+
 
 
 
@@ -283,28 +286,29 @@ function(input, output, session) {
       filter(name == "For_1") %>%
       pull(value) %>%
       roundFiveUp(., 3) * 100
-    
- 
+
+
     Foracc1year <- scorecards_data_pivot %>%
       filter(
         name == "For_1",
-        Phase == input$phase_choice)  %>%
-            pull(value) %>%
+        Phase == input$phase_choice
+      ) %>%
+      pull(value) %>%
       roundFiveUp(., 3) * 100
-    
-    medianaccuracy1 <- median(Foracc1year, na.rm = TRUE) 
-    
-    Twentyfifthpercentile1  <-  quantile(Foracc1year,0.25, na.rm = TRUE)
 
-    Seventyfifthpercentile1  <-  quantile(Foracc1year,0.75, na.rm = TRUE)
+    medianaccuracy1 <- median(Foracc1year, na.rm = TRUE)
+
+    Twentyfifthpercentile1 <- quantile(Foracc1year, 0.25, na.rm = TRUE)
+
+    Seventyfifthpercentile1 <- quantile(Foracc1year, 0.75, na.rm = TRUE)
 
     label <- case_when(
-      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy >  Seventyfifthpercentile1 ~ "Overestimate of pupil numbers, larger overestimate than at least 75% of local authorities",
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy > Seventyfifthpercentile1 ~ "Overestimate of pupil numbers, larger overestimate than at least 75% of local authorities",
       input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < Seventyfifthpercentile1 ~ "Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
       input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy < Twentyfifthpercentile1 ~ "underestimate of pupil numbers, larger underestimation than at least 75% of local authorities",
       input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy > Twentyfifthpercentile1 ~ "underestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
-      input$LA_choice == "England" &  forecast_accuracy > 0  ~ "Overestimate of pupil numbers",
-      input$LA_choice == "England" &  forecast_accuracy < 0  ~ "Underestimate of pupil numbers",
+      input$LA_choice == "England" & forecast_accuracy > 0 ~ "Overestimate of pupil numbers",
+      input$LA_choice == "England" & forecast_accuracy < 0 ~ "Underestimate of pupil numbers",
       input$LA_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London",
       input$LA_choice == "Isles Of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly",
       TRUE ~ "No Overestimate/underestimate therefore accurate"
@@ -327,23 +331,24 @@ function(input, output, session) {
     Foracc3year <- scorecards_data_pivot %>%
       filter(
         name == "For_3",
-        Phase == input$phase_choice)  %>%
+        Phase == input$phase_choice
+      ) %>%
       pull(value) %>%
       roundFiveUp(., 3) * 100
-    
-    medianaccuracy2 <- median(Foracc3year, na.rm = TRUE) 
-    
-    Twentyfifthpercentile2 <- quantile(Foracc3year,0.25, na.rm = TRUE)
-    
-    Seventyfifthpercentile2 <- quantile(Foracc3year,0.75, na.rm = TRUE)
-    
+
+    medianaccuracy2 <- median(Foracc3year, na.rm = TRUE)
+
+    Twentyfifthpercentile2 <- quantile(Foracc3year, 0.25, na.rm = TRUE)
+
+    Seventyfifthpercentile2 <- quantile(Foracc3year, 0.75, na.rm = TRUE)
+
     label <- case_when(
-      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy >  Seventyfifthpercentile2 ~ "Overestimate of pupil numbers, larger overestimate than at least 75% of local authorities",
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy > Seventyfifthpercentile2 ~ "Overestimate of pupil numbers, larger overestimate than at least 75% of local authorities",
       input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < Seventyfifthpercentile2 ~ "Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
       input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy < Twentyfifthpercentile2 ~ "Underestimate of pupil numbers, larger underestimation than at least 75% of local authorities",
       input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy > Twentyfifthpercentile2 ~ "Underestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
-          input$LA_choice == "England" &  forecast_accuracy > 0  ~ "Overestimate of pupil numbers",
-      input$LA_choice == "England" &  forecast_accuracy < 0  ~ "Underestimate of pupil numbers",
+      input$LA_choice == "England" & forecast_accuracy > 0 ~ "Overestimate of pupil numbers",
+      input$LA_choice == "England" & forecast_accuracy < 0 ~ "Underestimate of pupil numbers",
       input$LA_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London",
       input$LA_choice == "Isles Of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly",
       TRUE ~ "No Overestimate/underestimate therefore accurate"
@@ -355,7 +360,7 @@ function(input, output, session) {
       paste("<b>Three years ahead : </b>", label)
     }
   })
-  
+
   output$for1year_table <- renderTable({
     scorecards_data_pivot %>%
       filter(
@@ -363,29 +368,28 @@ function(input, output, session) {
         Phase == input$phase_choice
       ) %>%
       mutate(
-        Median  = median(value, na.rm = TRUE),
-        Median =  roundFiveUp(Median,3) * 100,
-        Median =   paste0(Median, "%"),
-        Twentyfifthpercentile = quantile(value,0.25, na.rm = TRUE),
-        Twentyfifthpercentile =  roundFiveUp(Twentyfifthpercentile,3) * 100,
-        Twentyfifthpercentile =   paste0( Twentyfifthpercentile, "%"),
-        Seventyfifthpercentile = quantile(value,0.75, na.rm = TRUE),
-        Seventyfifthpercentile =  roundFiveUp(Seventyfifthpercentile,3) * 100,
-        Seventyfifthpercentile =   paste0(Seventyfifthpercentile, "%"),
+        Median = median(value, na.rm = TRUE),
+        Median = roundFiveUp(Median, 3) * 100,
+        Median = paste0(Median, "%"),
+        Twentyfifthpercentile = quantile(value, 0.25, na.rm = TRUE),
+        Twentyfifthpercentile = roundFiveUp(Twentyfifthpercentile, 3) * 100,
+        Twentyfifthpercentile = paste0(Twentyfifthpercentile, "%"),
+        Seventyfifthpercentile = quantile(value, 0.75, na.rm = TRUE),
+        Seventyfifthpercentile = roundFiveUp(Seventyfifthpercentile, 3) * 100,
+        Seventyfifthpercentile = paste0(Seventyfifthpercentile, "%"),
         Minimum = min(value, na.rm = TRUE),
-        Minimum =  roundFiveUp(Minimum,3) * 100,
-        Minimum =   paste0(Minimum, "%"),
+        Minimum = roundFiveUp(Minimum, 3) * 100,
+        Minimum = paste0(Minimum, "%"),
         Maximum = max(value, na.rm = TRUE),
-        Maximum =  roundFiveUp(Maximum,3) * 100,
-        Maximum =   paste0(Maximum, "%")
-       ) %>%
-      filter(
-               LA_name == "England"
+        Maximum = roundFiveUp(Maximum, 3) * 100,
+        Maximum = paste0(Maximum, "%")
       ) %>%
-    select(Minimum, Twentyfifthpercentile, Median,  Seventyfifthpercentile, Maximum)
-  }
-  )
-  
+      filter(
+        LA_name == "England"
+      ) %>%
+      select(Minimum, Twentyfifthpercentile, Median, Seventyfifthpercentile, Maximum)
+  })
+
   output$for3year_table <- renderTable({
     scorecards_data_pivot %>%
       filter(
@@ -393,78 +397,80 @@ function(input, output, session) {
         Phase == input$phase_choice
       ) %>%
       mutate(
-        Median  = median(value, na.rm = TRUE),
-        Median =  roundFiveUp(Median,3) * 100,
-        Median =   paste0(Median, "%"),
-        Twentyfifthpercentile = quantile(value,0.25, na.rm = TRUE),
-        Twentyfifthpercentile =  roundFiveUp(Twentyfifthpercentile,3) * 100,
-        Twentyfifthpercentile =   paste0( Twentyfifthpercentile, "%"),
-        Seventyfifthpercentile = quantile(value,0.75, na.rm = TRUE),
-        Seventyfifthpercentile =  roundFiveUp(Seventyfifthpercentile,3) * 100,
-        Seventyfifthpercentile =   paste0(Seventyfifthpercentile, "%"),
+        Median = median(value, na.rm = TRUE),
+        Median = roundFiveUp(Median, 3) * 100,
+        Median = paste0(Median, "%"),
+        Twentyfifthpercentile = quantile(value, 0.25, na.rm = TRUE),
+        Twentyfifthpercentile = roundFiveUp(Twentyfifthpercentile, 3) * 100,
+        Twentyfifthpercentile = paste0(Twentyfifthpercentile, "%"),
+        Seventyfifthpercentile = quantile(value, 0.75, na.rm = TRUE),
+        Seventyfifthpercentile = roundFiveUp(Seventyfifthpercentile, 3) * 100,
+        Seventyfifthpercentile = paste0(Seventyfifthpercentile, "%"),
         Minimum = min(value, na.rm = TRUE),
-        Minimum =  roundFiveUp(Minimum,3) * 100,
-        Minimum =   paste0(Minimum, "%"),
+        Minimum = roundFiveUp(Minimum, 3) * 100,
+        Minimum = paste0(Minimum, "%"),
         Maximum = max(value, na.rm = TRUE),
-        Maximum =  roundFiveUp(Maximum,3) * 100,
-        Maximum =   paste0(Maximum, "%")
+        Maximum = roundFiveUp(Maximum, 3) * 100,
+        Maximum = paste0(Maximum, "%")
       ) %>%
       filter(
         LA_name == "England"
       ) %>%
-      select(Minimum, Twentyfifthpercentile, Median,  Seventyfifthpercentile, Maximum)
-  }
-  )
-  
-    
-  ## Forecast accuracy three years ahead
-  
-  # Code to go here using above template
-  
-  output$forecasting.bartext <- renderUI(
-    if (input$LA_choice != "England")  { tagList(p(paste0("The shaded area ending at the thick vertical line in each chart shows the forecasting accuracy for ", input$LA_choice, ". 
-                     The starting point is 0, an accurate score, indicated by a dotted line.
-                     A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.
-                     The dashed lines show the 25th and 75th percentiles across all local authorities i.e. half of all local authorities were
-  found to have a forecasting accuracy falling between the two dashed lines."))) }
-  else if (input$LA_choice == "England")  { tagList(p(paste0("The shaded area ending at the thick vertical line in each chart shows the average forecasting accuracy for local authorities in England. 
-                     The starting point is 0, an accurate score, indicated by a dotted line.
-                     A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.
-                     The dashed lines show the 25th and 75th percentiles across all local authorities i.e. half of all local authorities were
-  found to have a forecasting accuracy falling between the two dashed lines."))) }
-  )   
-  
+      select(Minimum, Twentyfifthpercentile, Median, Seventyfifthpercentile, Maximum)
+  })
 
-  
-  
+
+  ## Forecast accuracy three years ahead
+
+  # Code to go here using above template
+
+  output$forecasting.bartext <- renderUI(
+    if (input$LA_choice != "England") {
+      tagList(p(paste0("The shaded area ending at the thick vertical line in each chart shows the forecasting accuracy for ", input$LA_choice, ".
+                     The starting point is 0, an accurate score, indicated by a dotted line.
+                     A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.
+                     The dashed lines show the 25th and 75th percentiles across all local authorities i.e. half of all local authorities were
+  found to have a forecasting accuracy falling between the two dashed lines.")))
+    } else if (input$LA_choice == "England") {
+      tagList(p(paste0("The shaded area ending at the thick vertical line in each chart shows the average forecasting accuracy for local authorities in England.
+                     The starting point is 0, an accurate score, indicated by a dotted line.
+                     A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.
+                     The dashed lines show the 25th and 75th percentiles across all local authorities i.e. half of all local authorities were
+  found to have a forecasting accuracy falling between the two dashed lines.")))
+    }
+  )
+
+
+
+
   output$forecast_1y_bar <- renderPlotly({
     forecast_accuracy <- live_scorecard_data() %>%
       filter(name == "For_1") %>%
       as.data.frame()
-    
+
     forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
-    
+
     forecast_range <- scorecards_data_pivot %>%
       filter(
         name == "For_1",
         Phase == input$phase_choice
       )
-    
-    
+
+
     range_values <- forecast_range %>%
       summarise(
         quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
         accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
       ) %>%
       as.data.frame()
-    
+
     range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
     range_values$accuracy[1] <- (ceiling(abs(range_values$accuracy[1])) * range_values$accuracy[1] / abs(range_values$accuracy[1]))
     p <- ggplot(
       forecast_accuracy,
       aes(name, value,
-          fill = value,
-          text = paste0(input$LA_choice, ": ", value, "%")
+        fill = value,
+        text = paste0(input$LA_choice, ": ", value, "%")
       )
     ) +
       geom_bar(stat = "identity", width = 100) +
@@ -481,9 +487,9 @@ function(input, output, session) {
         text = element_text(size = 12)
       ) +
       geom_hline(yintercept = 0, linetype = "dotted") +
-      geom_hline(aes(yintercept = range_values$accuracy[2],text = "25th percentile"), linetype = "dashed", color="Grey") +
-     # geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value) +
-      geom_hline(aes(yintercept = range_values$accuracy[4],text = "75th percentile"), linetype = "dashed", color="Grey") +
+      geom_hline(aes(yintercept = range_values$accuracy[2], text = "25th percentile"), linetype = "dashed", color = "Grey") +
+      # geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value) +
+      geom_hline(aes(yintercept = range_values$accuracy[4], text = "75th percentile"), linetype = "dashed", color = "Grey") +
       geom_hline(yintercept = forecast_accuracy$value, size = 1.) +
       labs(x = "", y = "Accuracy (%)") +
       coord_flip()
@@ -491,28 +497,28 @@ function(input, output, session) {
       layout(font = font_choice) %>%
       config(displayModeBar = FALSE)
   })
-  
+
   output$forecast_3y_bar <- renderPlotly({
     forecast_accuracy <- live_scorecard_data() %>%
       filter(name == "For_3")
     forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
-    
+
     forecast_range <- scorecards_data_pivot %>%
       filter(
         name == "For_3",
         Phase == input$phase_choice
       )
-    
+
     range_values <- forecast_range %>%
       summarise(
         quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
         accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
       ) %>%
       as.data.frame()
-    
+
     range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
     range_values$accuracy[1] <- (ceiling(abs(range_values$accuracy[1])) * range_values$accuracy[1] / abs(range_values$accuracy[1]))
-    
+
     p <- ggplot(forecast_accuracy, aes(name, value, fill = value, text = paste0(input$LA_choice, ": ", value, "%"))) +
       geom_bar(stat = "identity", width = 100) +
       scale_fill_gradientn(
@@ -527,10 +533,10 @@ function(input, output, session) {
         axis.ticks.y = element_blank(),
         text = element_text(size = 12)
       ) +
-      geom_hline(yintercept = 0, linetype = "dotted", color="Black") +
-      geom_hline(aes(yintercept = range_values$accuracy[2],text = "25th percentile"), linetype = "dashed", color="Grey") +
+      geom_hline(yintercept = 0, linetype = "dotted", color = "Black") +
+      geom_hline(aes(yintercept = range_values$accuracy[2], text = "25th percentile"), linetype = "dashed", color = "Grey") +
       # geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value) +
-      geom_hline(aes(yintercept = range_values$accuracy[4],text = "75th percentile"), linetype = "dashed", color="Grey") +
+      geom_hline(aes(yintercept = range_values$accuracy[4], text = "75th percentile"), linetype = "dashed", color = "Grey") +
       geom_hline(yintercept = forecast_accuracy$value, size = 1.) +
       labs(x = "", y = "Accuracy (%)") +
       coord_flip()
@@ -538,7 +544,7 @@ function(input, output, session) {
       layout(font = font_choice) %>%
       config(displayModeBar = FALSE)
   })
-  
+
 
   # Preference -------------------------------------------------------------
 
@@ -859,7 +865,7 @@ function(input, output, session) {
       tooltip = c("text")
     ) %>%
       layout(
-        scale_y_continuous(labels = scales::percent_format(accuracy=1)),
+        scale_y_continuous(labels = scales::percent_format(accuracy = 1)),
         legend = list(
           orientation = "h",
           y = -0.1, x = 0.2,
@@ -1163,21 +1169,21 @@ function(input, output, session) {
   })
 
 
-  
+
   # Cost --------------------------------------------------------------------
-  
+
   output$cost.bartext <- renderUI({
     if (input$LA_choice != "England") {
-      paste0("Region column shows England averages, adjusted for regional location factors: see technical notes") }
-    else {
+      paste0("Region column shows England averages, adjusted for regional location factors: see technical notes")
+    } else {
       paste("")
     }
-  })   
-  
-  
+  })
+
+
   # Comparison table - average cost of projects per place
   output$cost_table <- renderTable({
-    live_scorecard_data_england_comp()  %>%
+    live_scorecard_data_england_comp() %>%
       # Filter for Cost, places and project data
       filter(str_detect(name, "Cost|Places|Projects")) %>%
       # Create new column called data_type, based on the name of the data
@@ -1205,8 +1211,8 @@ function(input, output, session) {
       select(Region, Type = exp_type, cost_per_place) %>%
       pivot_wider(names_from = Region, values_from = cost_per_place)
   })
-  
-  
+
+
 
 
   # Comparison charts - average cost per place
@@ -1245,9 +1251,9 @@ function(input, output, session) {
         ),
         groupOnX = TRUE, na.rm = TRUE
       ) +
-      scale_y_continuous(labels=comma) +
-      labs(x="", y="Cost per place (£)") +
-            geom_beeswarm(
+      scale_y_continuous(labels = comma) +
+      labs(x = "", y = "Cost per place (£)") +
+      geom_beeswarm(
         data = all_LA_cost %>% filter(group_higlight == 1), aes(x, cost_per_place,
           color = grouping,
           text = paste(LA_name, ": £", scales::comma(cost_per_place), " per place")
@@ -1264,16 +1270,16 @@ function(input, output, session) {
         values = c("#f2590d", "#1c6bb0", "#dcd9d6")
       ) +
       theme(
-        axis.line.y = element_line(color="grey", size = 1),
+        axis.line.y = element_line(color = "grey", size = 1),
         axis.line.x = element_blank(),
         axis.text.x = element_blank(),
-        axis.text.y = element_text(size=8),
+        axis.text.y = element_text(size = 8),
         axis.ticks.x = element_blank(),
         axis.title.x = element_blank(),
         axis.title.y = element_text(margin = margin(r = 70)),
         legend.title = element_blank(),
         panel.background = element_blank(),
-        panel.border = element_rect(color="grey",size = 1, fill=NA),
+        panel.border = element_rect(color = "grey", size = 1, fill = NA),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank(),
@@ -1317,8 +1323,8 @@ function(input, output, session) {
       select(LA_name, data_type, exp_type, value) %>%
       filter(data_type == "Project" & exp_type == "Permanent") %>%
       pull(value)
-    
-    
+
+
     shinydashboard::valueBox(
       paste0(scales::comma(perm_fig)),
       paste0("Permanent ", str_to_lower(input$phase_choice), " expansion projects in England"),
@@ -1326,7 +1332,7 @@ function(input, output, session) {
       color = "light-blue"
     )
   })
-  
+
   output$temp_box <- renderValueBox({
     temp_fig <- live_scorecard_data() %>%
       # Filter for Cost, places and project data
@@ -1345,8 +1351,8 @@ function(input, output, session) {
       select(LA_name, data_type, exp_type, value) %>%
       filter(data_type == "Project" & exp_type == "Temporary") %>%
       pull(value)
-    
-    
+
+
     shinydashboard::valueBox(
       paste0(temp_fig),
       paste0("Temporary ", str_to_lower(input$phase_choice), " expansion projects in England "),
@@ -1354,8 +1360,8 @@ function(input, output, session) {
       color = "light-blue"
     )
   })
-  
-  
+
+
   output$new_box <- renderValueBox({
     new_fig <- live_scorecard_data() %>%
       # Filter for Cost, places and project data
@@ -1374,8 +1380,8 @@ function(input, output, session) {
       select(LA_name, data_type, exp_type, value) %>%
       filter(data_type == "Project" & exp_type == "New school") %>%
       pull(value)
-    
-    
+
+
     shinydashboard::valueBox(
       paste0(new_fig),
       paste0("New ", str_to_lower(input$phase_choice), " schools projects in England"),
@@ -1383,7 +1389,7 @@ function(input, output, session) {
       color = "light-blue"
     )
   })
-  
+
 
   # Files for download ------------------------------------------------------
 

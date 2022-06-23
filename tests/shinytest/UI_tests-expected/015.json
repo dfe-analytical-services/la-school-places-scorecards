@@ -1,4 +1,10 @@
 {
+  "input": {
+    "LA_choice": "Cheshire East",
+    "navbar": "la_scorecards",
+    "phase_choice": "Primary",
+    "tabs": "cost"
+  },
   "output": {
     "cost_table": "<table  class = 'table shiny-table table- spacing-s' style = 'width:auto;'>\n<thead> <tr> <th style='text-align: left;'> Type <\/th> <th style='text-align: left;'> England <\/th> <th style='text-align: left;'> North East <\/th>  <\/tr> <\/thead> <tbody>\n  <tr> <td> Permanent Expansion <\/td> <td> £17,268 <\/td> <td> £14,386 <\/td> <\/tr>\n  <tr> <td> Temporary Expansion <\/td> <td> £8,196 <\/td> <td> £3,026 <\/td> <\/tr>\n  <tr> <td> New school <\/td> <td> £20,508 <\/td> <td> - <\/td> <\/tr>\n   <\/tbody> <\/table>",
     "new_box": {

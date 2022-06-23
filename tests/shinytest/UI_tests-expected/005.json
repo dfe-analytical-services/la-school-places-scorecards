@@ -1,4 +1,10 @@
 {
+  "input": {
+    "LA_choice": "Hertfordshire",
+    "navbar": "la_scorecards",
+    "phase_choice": "Secondary",
+    "tabs": "forecast"
+  },
   "output": {
     "data_description": "Data for secondary state-funded school places in Hertfordshire: ",
     "estimated_additional_places": {
@@ -13,6 +19,8 @@
 
       ]
     },
+    "label_estimate_y1": "<h1>One year ahead: 1%<\/h1> Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
+    "label_estimate_y3": "<h1>Three years ahead: 3.1%<\/h1> Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
     "places_chart": {
       "x": {
         "layout": {
@@ -270,7 +278,7 @@
       ]
     },
     "total_funding_box": {
-      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>£284m<\/h3>\n    <p>Total primary and secondary basic need funding 2011 to 22<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>£284m<\/h3>\n    <p>Total primary and secondary basic need funding 2011 to 2022<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
