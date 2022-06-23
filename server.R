@@ -361,67 +361,74 @@ function(input, output, session) {
     }
   })
 
-  output$for1year_table <- renderDataTable({
-    scorecards_data_pivot %>%
-      filter(
-        name == "For_1",
-        Phase == input$phase_choice
-      ) %>%
-      mutate(
-        Median  = format_perc(median(value, na.rm = TRUE)), 
-        Twentyfifthpercentile = format_perc(quantile(value,0.25, na.rm = TRUE)), 
-        Seventyfifthpercentile = format_perc(quantile(value,0.75, na.rm = TRUE)), 
-        Minimum = format_perc(min(value, na.rm = TRUE)), 
-        Maximum = format_perc(max(value, na.rm = TRUE)), 
-      ) %>%
-      filter(
-        LA_name == "England"
-      ) %>%
-      select(Minimum, 
-             `25th percentile`=Twentyfifthpercentile, 
-             Median, 
-             `75th percentile`=Seventyfifthpercentile, 
-             Maximum)
-    
-  },
-  options=list(scrollX=TRUE,
-               paging=FALSE,
-               orderFixed=TRUE,
-               searching=FALSE,
-               dom='t',
-               style = "bootstrap"))
-
-  output$for3year_table <- renderDataTable({
-    scorecards_data_pivot %>%
-      filter(
-        name == "For_3",
-        Phase == input$phase_choice
-      ) %>%
-      mutate(
-        Median  = format_perc(median(value, na.rm = TRUE)), 
-        Twentyfifthpercentile = format_perc(quantile(value,0.25, na.rm = TRUE)), 
-        Seventyfifthpercentile = format_perc(quantile(value,0.75, na.rm = TRUE)), 
-        Minimum = format_perc(min(value, na.rm = TRUE)), 
-        Maximum = format_perc(max(value, na.rm = TRUE)), 
-      ) %>%
-      filter(
-        LA_name == "England"
-      ) %>%
-      select(Minimum, 
-             `25th percentile`=Twentyfifthpercentile, 
-             Median, 
-             `75th percentile`=Seventyfifthpercentile, 
-             Maximum)
-    
-  },
-  options=list(scrollX=TRUE,
-               paging=FALSE,
-               orderFixed=TRUE,
-               searching=FALSE,
-               dom='t',
-               style = "bootstrap")
+  output$for1year_table <- renderDataTable(
+    {
+      scorecards_data_pivot %>%
+        filter(
+          name == "For_1",
+          Phase == input$phase_choice
+        ) %>%
+        mutate(
+          Median = format_perc(median(value, na.rm = TRUE)),
+          Twentyfifthpercentile = format_perc(quantile(value, 0.25, na.rm = TRUE)),
+          Seventyfifthpercentile = format_perc(quantile(value, 0.75, na.rm = TRUE)),
+          Minimum = format_perc(min(value, na.rm = TRUE)),
+          Maximum = format_perc(max(value, na.rm = TRUE)),
+        ) %>%
+        filter(
+          LA_name == "England"
+        ) %>%
+        select(Minimum,
+          `25th percentile` = Twentyfifthpercentile,
+          Median,
+          `75th percentile` = Seventyfifthpercentile,
+          Maximum
+        )
+    },
+    options = list(
+      scrollX = TRUE,
+      paging = FALSE,
+      orderFixed = TRUE,
+      searching = FALSE,
+      dom = "t",
+      style = "bootstrap"
+    )
   )
-  
+
+  output$for3year_table <- renderDataTable(
+    {
+      scorecards_data_pivot %>%
+        filter(
+          name == "For_3",
+          Phase == input$phase_choice
+        ) %>%
+        mutate(
+          Median = format_perc(median(value, na.rm = TRUE)),
+          Twentyfifthpercentile = format_perc(quantile(value, 0.25, na.rm = TRUE)),
+          Seventyfifthpercentile = format_perc(quantile(value, 0.75, na.rm = TRUE)),
+          Minimum = format_perc(min(value, na.rm = TRUE)),
+          Maximum = format_perc(max(value, na.rm = TRUE)),
+        ) %>%
+        filter(
+          LA_name == "England"
+        ) %>%
+        select(Minimum,
+          `25th percentile` = Twentyfifthpercentile,
+          Median,
+          `75th percentile` = Seventyfifthpercentile,
+          Maximum
+        )
+    },
+    options = list(
+      scrollX = TRUE,
+      paging = FALSE,
+      orderFixed = TRUE,
+      searching = FALSE,
+      dom = "t",
+      style = "bootstrap"
+    )
+  )
+
 
   ## Forecast accuracy three years ahead
 

@@ -4,9 +4,9 @@ fluidPage(
   includeCSS("www/dfe_shiny_gov_style.css"),
   title = "LA School Places Scorecards",
   # use_tota11y(), # accessibility layer for local testing
-  
+
   # Set metadata for browser ==================================================
-  
+
   tags$html(lang = "en"),
   meta_general(
     application_name = "School places scorecards",
@@ -17,10 +17,10 @@ fluidPage(
     rating = "General",
     referrer = "no-referrer"
   ),
-  
+
   # Set title for search engines
   HTML("<title>LA School Places Scorecards</title>"),
-  
+
   # Navbar ====================================================================
 
   tagList(
@@ -147,41 +147,41 @@ fluidPage(
             tabPanel(
               "Quantity",
               fluidPage(
-              fluidRow(
-                column(width=12,br()),
-                column(
-                  6,
-                  p(strong("School places created, planned future places, additional places still needed, as at May", SCAP_ref)),
-                  plotlyOutput("places_chart") %>% withSpinner()
-                ),
-                column(
-                  6,
-                  fluidRow(
-                    column(
-                      12,
-                      p(strong(paste0("Estimated future school place demand"))),
-                      p("A local authority can have both ‘spare places’ and ‘additional places needed’ due to localised or specific year group demand"),
-                      valueBoxOutput("estimated_additional_places", width = 6),
-                      valueBoxOutput("estimated_spare_places", width = 6)
-                    )
+                fluidRow(
+                  column(width = 12, br()),
+                  column(
+                    6,
+                    p(strong("School places created, planned future places, additional places still needed, as at May", SCAP_ref)),
+                    plotlyOutput("places_chart") %>% withSpinner()
                   ),
-                  fluidRow(
-                    column(
-                      12,
-                      p(strong("Funding allocated for creation of new places, anticipated increase in pupils"))
-                    )
-                  ),
-                  fluidRow(
-                    column(
-                      12,
-                      valueBoxOutput("total_funding_box", width = 6),
-                      valueBoxOutput("pupil_growth", width = 6)
+                  column(
+                    6,
+                    fluidRow(
+                      column(
+                        12,
+                        p(strong(paste0("Estimated future school place demand"))),
+                        p("A local authority can have both ‘spare places’ and ‘additional places needed’ due to localised or specific year group demand"),
+                        valueBoxOutput("estimated_additional_places", width = 6),
+                        valueBoxOutput("estimated_spare_places", width = 6)
+                      )
+                    ),
+                    fluidRow(
+                      column(
+                        12,
+                        p(strong("Funding allocated for creation of new places, anticipated increase in pupils"))
+                      )
+                    ),
+                    fluidRow(
+                      column(
+                        12,
+                        valueBoxOutput("total_funding_box", width = 6),
+                        valueBoxOutput("pupil_growth", width = 6)
+                      )
                     )
                   )
-                )
-              ),
-              uiOutput("quantity.bartext")
-            )
+                ),
+                uiOutput("quantity.bartext")
+              )
             ),
             tabPanel(
               value = "forecast",
@@ -190,37 +190,36 @@ fluidPage(
                 fluidRow(
                   br(),
                   p(strong("Forecast accuracy of pupil projections for", forecast_year, ", made one year and three years previously")),
-                uiOutput("forecasting.bartext"),
-                column(
-                  6,
+                  uiOutput("forecasting.bartext"),
+                  column(
+                    6,
 
-                  # details(
-                  #  inputId = "faccuracyhelp",
-                  #  label = "How to benchmark using the charts",
-                  # help_text = "
-                  # The thick vertical line shows the chosen LA's
-                  # average forecasting accuracy, whilst the dashed lines show the
-                  # 25th and 75th percentiles across all LAs (i.e. half of all LAs were
-                  # found to have a forecasting accuracy falling between the two dashed lines)."),
-                  htmlOutput("label_estimate_y1"),
-                  plotlyOutput("forecast_1y_bar", height = "120px"),
-                  br(),
-                  p("One year ahead: range of forecast accuracy scores"),
-                  dataTableOutput("for1year_table"),
-                  # plotlyOutput("forecast_3y_bar", height = "120px"),
+                    # details(
+                    #  inputId = "faccuracyhelp",
+                    #  label = "How to benchmark using the charts",
+                    # help_text = "
+                    # The thick vertical line shows the chosen LA's
+                    # average forecasting accuracy, whilst the dashed lines show the
+                    # 25th and 75th percentiles across all LAs (i.e. half of all LAs were
+                    # found to have a forecasting accuracy falling between the two dashed lines)."),
+                    htmlOutput("label_estimate_y1"),
+                    plotlyOutput("forecast_1y_bar", height = "120px"),
+                    br(),
+                    p("One year ahead: range of forecast accuracy scores"),
+                    dataTableOutput("for1year_table"),
+                  ),
+                  column(
+                    6,
+                    htmlOutput("label_estimate_y3"),
+                    plotlyOutput("forecast_3y_bar", height = "120px"),
+                    br(),
+                    p("Three year ahead: range of forecast accuracy scores"),
+                    dataTableOutput("for3year_table")
+                  )
                 ),
-                column(
-                  6,
-                  htmlOutput("label_estimate_y3"),
-                  plotlyOutput("forecast_3y_bar", height = "120px"),
-                  br(),
-                  p("Three year ahead: range of forecast accuracy scores"),
-                  dataTableOutput("for3year_table")
-                )
-              ),
-              br(),
-              p(em("Caution should be taken with forecast accuracy scores due to unforseen circumstances. See Homepage for more information.")),
-            )
+                br(),
+                p(em("Caution should be taken with forecast accuracy scores due to unforseen circumstances. See Homepage for more information.")),
+              )
             ),
             tabPanel(
               value = "preference",
@@ -228,20 +227,19 @@ fluidPage(
               fluidPage(
                 fluidRow(
                   br(),
-                  
-              p(strong(paste0("School applications and offers for September ", preference_year, " entry"))),
-              # preference content to go here
-              valueBoxOutput("prefT3_ENG", width = 6),
-              valueBoxOutput("PrefT3_LA", width = 6)
+                  p(strong(paste0("School applications and offers for September ", preference_year, " entry"))),
+                  # preference content to go here
+                  valueBoxOutput("prefT3_ENG", width = 6),
+                  valueBoxOutput("PrefT3_LA", width = 6)
                 ),
-              fluidRow(
-                column(
-                  12,
-                  p(strong(paste0("Proportion of applicants who received an offer of a school place in their first, second and third preferences"))),
-                  plotlyOutput("preference_p") %>% withSpinner()
+                fluidRow(
+                  column(
+                    12,
+                    p(strong(paste0("Proportion of applicants who received an offer of a school place in their first, second and third preferences"))),
+                    plotlyOutput("preference_p") %>% withSpinner()
+                  )
                 )
               )
-            )
             ),
             tabPanel(
               value = "quality",
@@ -249,24 +247,23 @@ fluidPage(
               fluidPage(
                 fluidRow(
                   br(),
-                  
-              strong(textOutput("quality_description")),
-              br(),
-              valueBoxOutput("England_GO_places", width = 4),
-              valueBoxOutput("LA_GO_places", width = 4),
-              valueBoxOutput("LA_GO_ran", width = 4)
-              ),
-              fluidRow(
-                column(
-                  12,
-                  p(strong(paste0("Number of new places created in schools of each category and number of existing school places in each category"))),
-                  plotlyOutput("quality_chart") %>% withSpinner()
-                )
-              ),
-              textOutput("no_rating_line"),
-              br(),
-              p(em("Caution should be taken with quality data as Ofsted inspections may have been delayed due to Covid-19."))
-            )
+                  strong(textOutput("quality_description")),
+                  br(),
+                  valueBoxOutput("England_GO_places", width = 4),
+                  valueBoxOutput("LA_GO_places", width = 4),
+                  valueBoxOutput("LA_GO_ran", width = 4)
+                ),
+                fluidRow(
+                  column(
+                    12,
+                    p(strong(paste0("Number of new places created in schools of each category and number of existing school places in each category"))),
+                    plotlyOutput("quality_chart") %>% withSpinner()
+                  )
+                ),
+                textOutput("no_rating_line"),
+                br(),
+                p(em("Caution should be taken with quality data as Ofsted inspections may have been delayed due to Covid-19."))
+              )
             ),
             tabPanel(
               value = "cost",
@@ -274,25 +271,24 @@ fluidPage(
               fluidPage(
                 fluidRow(
                   br(),
-                  
-              p(strong("Average cost of additional mainstream school places")),
-              p("Based on local authority reported projects between ", cost_year_1, " and ", cost_year_2, ", adjusted for inflation and regional variation"),
-              p("Not new data: see technical notes")
-              ),
-              fluidRow(
-                valueBoxOutput("perm_box", width = 4),
-                valueBoxOutput("temp_box", width = 4),
-                valueBoxOutput("new_box", width = 4),
-              ),
-              p(strong("Average cost per place for permanent, temporary and new school projects")),
-              uiOutput("cost.bartext"),
-              br(),
-              fluidRow(
-                column(
-                  4,
-                  tableOutput("cost_table")
+                  p(strong("Average cost of additional mainstream school places")),
+                  p("Based on local authority reported projects between ", cost_year_1, " and ", cost_year_2, ", adjusted for inflation and regional variation"),
+                  p("Not new data: see technical notes")
+                ),
+                fluidRow(
+                  valueBoxOutput("perm_box", width = 4),
+                  valueBoxOutput("temp_box", width = 4),
+                  valueBoxOutput("new_box", width = 4),
+                ),
+                p(strong("Average cost per place for permanent, temporary and new school projects")),
+                uiOutput("cost.bartext"),
+                br(),
+                fluidRow(
+                  column(
+                    4,
+                    tableOutput("cost_table")
+                  )
                 )
-              )
               )
             )
           ) # end of tabset
