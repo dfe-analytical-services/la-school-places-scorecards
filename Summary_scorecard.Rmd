@@ -1392,11 +1392,6 @@ cost_text <-
       ) %>%
       select(Region, Type = exp_type, cost_per_place) %>%
       pivot_wider(names_from = Region, values_from = cost_per_place)
-  
-
-  
-  
-  
   kable( cost_table,"latex",booktabs = T)
   
   
