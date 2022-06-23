@@ -24,7 +24,7 @@ library(styler)
 library(rsconnect)
 library(bit64)
 library(webshot)
-webshot::install_phantomjs()
+webshot::install_phantomjs(force = FALSE)
 
 # tidy_code_function -------------------------------------------------------------------------------
 
@@ -37,6 +37,7 @@ tidy_code_function <- function() {
 }
 
 source("0_variable_change.R")
+source("R/functions.R")
 
 # ----------------------------------------------------------------------------
 # Setup loading screen and spinner

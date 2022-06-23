@@ -16,6 +16,7 @@ header-includes:
    - \usepackage{sectsty}
    - \usepackage{fancyhdr}
    - \usepackage{xpatch}
+   - \usepackage{booktabs}
    - \pagestyle{fancy}
    - \definecolor{gssmidblue}{RGB}{32, 115, 188}
    - \definecolor{dfeheadingblue}{RGB}{16, 79, 117}
@@ -40,8 +41,17 @@ urlcolor: blue
 knitr::opts_chunk$set(echo = FALSE)
 knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
 source("global.R")
-library(webshot)
-library(kableExtra)
+
+# Filter the data
+# dfScorecardsAll contains the data for all LAs for the selected phase.
+dfScorecardsAll <- scorecards_data_pivot %>% filter(
+    Phase == params$input_phase_choice
+  )
+# dfScorecardArea contains only the data for the selected LA (for the selected phase).
+dfScorecardArea <- scorecards_data_pivot %>% filter(
+    LA_name == params$input_la_choice,
+    Phase == params$input_phase_choice
+  )
 
 ```
 
@@ -81,13 +91,8 @@ This document presents school places figures for `r params$input_la_choice` cove
       ) %>%
       as.numeric()
 
-# Take filtered data, search for growth rate, pull the value and tidy the number up
-  live_scorecard_data <- scorecards_data_pivot %>% filter(
-      LA_name == params$input_la_choice,
-      Phase == params$input_phase_choice
-    )
   
-    growth_perc <- live_scorecard_data %>%
+    growth_perc <- dfScorecardArea %>%
       filter(name == "Bangro") %>%
       pull(value) %>%
       roundFiveUp(., 2) * 100
@@ -156,7 +161,7 @@ A local authority can have both ‘spare places’ and ‘additional places need
   ## Estimated places need
 
     # Take filtered data, search for growth rate, pull the value and tidy the number up
-    additional_places_perc <- live_scorecard_data %>%
+    additional_places_perc <- dfScorecardArea %>%
       filter(name == "QuanRP") %>%
       pull(value)
 
@@ -168,7 +173,7 @@ A local authority can have both ‘spare places’ and ‘additional places need
   ## Estimated spare places
 
     # Take filtered data, search for growth rate, pull the value and tidy the number up
-    spare_places_per <- live_scorecard_data %>%
+    spare_places_per <- dfScorecardArea %>%
       filter(name == "QuanSu") %>%
       pull(value) %>%
       roundFiveUp(., 2) * 100
@@ -211,11 +216,7 @@ Estimated percentage of spare `r str_to_lower(params$input_phase_choice)` places
 }
 
 ``` {r quantity_b, echo = FALSE, fig.show="hold", out.width = "100%",crop=TRUE}
- live_scorecard_data <- scorecards_data_pivot %>% filter(
-      LA_name == params$input_la_choice,
-      Phase == params$input_phase_choice)
-
-    places_chart_data <- live_scorecard_data %>%
+places_chart_data <- dfScorecardArea %>%
       filter(name %in% c("QuanIn", "QuanPP", "QuanRP")) %>%
       select(LA_name, name, value) %>%
       pivot_wider()  
@@ -261,17 +262,15 @@ The grey dashed lines show the 25th and 75th percentile score for all local auth
    ## Forecast accuracy labels 
 
   
-     forecast_accuracy <- live_scorecard_data %>% 
+     forecast_accuracy <- dfScorecardArea %>% 
        filter(name == "For_1") %>% 
        pull(value) %>% 
        roundFiveUp(., 3) * 100 
 
 
-     Foracc1year <- scorecards_data_pivot %>% 
-       filter( 
-         name == "For_1", 
-         Phase == params$input_phase_choice)  %>% 
-             pull(value) %>% 
+     Foracc1year <- dfScorecardsAll %>% 
+       filter(name == "For_1")  %>% 
+       pull(value) %>% 
        roundFiveUp(., 3) * 100 
 
      medianaccuracy1 <- median(Foracc1year, na.rm = TRUE)  
@@ -303,7 +302,7 @@ The grey dashed lines show the 25th and 75th percentile score for all local auth
 
 ```
 
-## `r oneyearlabel`
+### `r oneyearlabel`
  `r label1`
 
   
@@ -312,17 +311,14 @@ The grey dashed lines show the 25th and 75th percentile score for all local auth
 ``` {r forecast1,echo = FALSE, warning = FALSE, message=FALSE, results='asis', fig.height=1}
 
 
-     forecast_accuracy <- live_scorecard_data %>%
+     forecast_accuracy <- dfScorecardArea %>%
       filter(name == "For_1") %>%
       as.data.frame()
 
     forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
 
-    forecast_range <- scorecards_data_pivot %>%
-      filter(
-        name == "For_1",
-        Phase == params$input_phase_choice
-      )
+    forecast_range <- dfScorecardsAll %>%
+      filter(name == "For_1")
 
 
     range_values <- forecast_range %>%
@@ -365,45 +361,34 @@ The grey dashed lines show the 25th and 75th percentile score for all local auth
 
 ```
  
- Range of accuracy scores one year ahead
+The table below shows the range in accuracy scores one year ahead across all England LAs
  
 ``` {r forecast3,echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
   facc_table1 <- 
-     scorecards_data_pivot %>% 
-       filter( 
-         name == "For_1", 
-         Phase == params$input_phase_choice 
-       ) %>% 
+     dfScorecardsAll %>% 
+       filter(name == "For_1") %>% 
        mutate( 
-         Median  = median(value, na.rm = TRUE), 
-         Median =  roundFiveUp(Median,3) * 100, 
-         Median =   paste0(Median, "%"), 
-         Twentyfifthpercentile = quantile(value,0.25, na.rm = TRUE), 
-         Twentyfifthpercentile =  roundFiveUp(Twentyfifthpercentile,3) * 100, 
-         Twentyfifthpercentile =   paste0( Twentyfifthpercentile, "%"), 
-         Seventyfifthpercentile = quantile(value,0.75, na.rm = TRUE), 
-         Seventyfifthpercentile =  roundFiveUp(Seventyfifthpercentile,3) * 100, 
-         Seventyfifthpercentile =   paste0(Seventyfifthpercentile, "%"), 
-         Minimum = min(value, na.rm = TRUE), 
-         Minimum =  roundFiveUp(Minimum,3) * 100, 
-         Minimum =   paste0(Minimum, "%"), 
-         Maximum = max(value, na.rm = TRUE), 
-         Maximum =  roundFiveUp(Maximum,3) * 100, 
-         Maximum =   paste0(Maximum, "%") 
+         Median  = format_perc(median(value, na.rm = TRUE)), 
+         Twentyfifthpercentile = format_perc(quantile(value,0.25, na.rm = TRUE)), 
+         Seventyfifthpercentile = format_perc(quantile(value,0.75, na.rm = TRUE)), 
+         Minimum = format_perc(min(value, na.rm = TRUE)), 
+         Maximum = format_perc(max(value, na.rm = TRUE)), 
         ) %>% 
-       filter( 
-                LA_name == "England" 
-       ) %>% 
-     select(Minimum, Twentyfifthpercentile, Median,  Seventyfifthpercentile, Maximum) 
-
- kable(facc_table1)
+       filter(LA_name == "England") %>%  
+     select(` `=LA_name,
+            Minimum, 
+            `25th percentile`=Twentyfifthpercentile, 
+            Median, 
+            `75th percentile`=Seventyfifthpercentile, 
+            Maximum)
+kable(facc_table1,"latex",booktabs = T)
 ```
  
 
  
 ``` {r forecast5,echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
   
-     forecast_accuracy <- live_scorecard_data %>% 
+     forecast_accuracy <- dfScorecardArea %>% 
        filter(name == "For_3") %>% 
        pull(value) %>% 
        roundFiveUp(., 3) * 100 
@@ -440,23 +425,14 @@ The grey dashed lines show the 25th and 75th percentile score for all local auth
      } else { 
        paste("<b>Three years ahead : </b>", label) 
      } 
-   
 
-
-   
 ``` 
  
-## `r threeyearlabel`
+### `r threeyearlabel`
  `r label`
 
-
-
-
-
 ``` {r forecast22,echo = FALSE, warning = FALSE, message=FALSE, results='asis', fig.height=1}
- 
-
-     forecast_accuracy <- live_scorecard_data %>% 
+     forecast_accuracy <- dfScorecardArea %>% 
        filter(name == "For_3") 
 
      forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100 
@@ -498,45 +474,30 @@ The grey dashed lines show the 25th and 75th percentile score for all local auth
        geom_hline(yintercept = forecast_accuracy$value, size = 1.) + 
        labs(x = "", y = "Accuracy (%)") + 
        coord_flip() 
-     
-       
-
 ```
 
-Range of accuracy scores three years ahead
+The table below shows the range in accuracy scores three years ahead across all England LAs
  
 ``` {r forecast4,echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
   facc_table3 <- 
-     scorecards_data_pivot %>% 
-       filter( 
-         name == "For_3", 
-         Phase == params$input_phase_choice 
-       ) %>% 
+     dfScorecardsAll %>% 
+       filter(name == "For_3") %>% 
        mutate( 
-         Median  = median(value, na.rm = TRUE), 
-         Median =  roundFiveUp(Median,3) * 100, 
-         Median =   paste0(Median, "%"), 
-         Twentyfifthpercentile = quantile(value,0.25, na.rm = TRUE), 
-         Twentyfifthpercentile =  roundFiveUp(Twentyfifthpercentile,3) * 100, 
-         Twentyfifthpercentile =   paste0( Twentyfifthpercentile, "%"), 
-         Seventyfifthpercentile = quantile(value,0.75, na.rm = TRUE), 
-         Seventyfifthpercentile =  roundFiveUp(Seventyfifthpercentile,3) * 100, 
-         Seventyfifthpercentile =   paste0(Seventyfifthpercentile, "%"), 
-         Minimum = min(value, na.rm = TRUE), 
-         Minimum =  roundFiveUp(Minimum,3) * 100, 
-         Minimum =   paste0(Minimum, "%"), 
-         Maximum = max(value, na.rm = TRUE), 
-         Maximum =  roundFiveUp(Maximum,3) * 100, 
-         Maximum =   paste0(Maximum, "%") 
-       ) %>% 
+         Median  = format_perc(median(value, na.rm = TRUE)), 
+         Twentyfifthpercentile = format_perc(quantile(value,0.25, na.rm = TRUE)), 
+         Seventyfifthpercentile = format_perc(quantile(value,0.75, na.rm = TRUE)), 
+         Minimum = format_perc(min(value, na.rm = TRUE)), 
+         Maximum = format_perc(max(value, na.rm = TRUE)), 
+        ) %>% 
        filter( 
-         LA_name == "England" 
-       ) %>% 
-       select(Minimum, Twentyfifthpercentile, Median,  Seventyfifthpercentile, Maximum) 
-     
-  
-    kable(facc_table3) 
- 
+                LA_name == "England" 
+       ) %>%  
+     select(` `=LA_name,
+            Minimum, 
+            `25th percentile`=Twentyfifthpercentile, 
+            Median, `75th percentile`=Seventyfifthpercentile, Maximum) 
+
+ kable(facc_table3,"latex",booktabs = T)
 ```
 
 \newpage
@@ -547,18 +508,18 @@ Range of accuracy scores three years ahead
 
 ```{r preference_text, echo = FALSE, message=FALSE}
 
-live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$input_phase_choice)
+dfScorecardArea_all_la <- scorecards_data_pivot %>% filter(Phase == params$input_phase_choice)
 
 
     # Take filtered data, search for growth rate, pull the value and tidy the number up
-    PrefT3_E <- live_scorecard_data_all_la %>%
+    PrefT3_E <- dfScorecardArea_all_la %>%
       filter(name == "PrefT3") %>%
       filter(LA_name == "England") %>%
       pull(value) %>%
       roundFiveUp(., 1)
 
       # Take filtered data, search for growth rate, pull the value and tidy the number up
-    PrefT3 <- live_scorecard_data %>%
+    PrefT3 <- dfScorecardArea %>%
       filter(name == "PrefT3") %>%
       pull(value) %>%
       roundFiveUp(., 1)
@@ -612,7 +573,7 @@ cat("
 
 ```{r preference_barchart, echo = FALSE, message=FALSE, out.width="100%", crop=TRUE}
 # Scorecard data, filtered on user input AND including England as a comparison
-  live_scorecard_data_england_comp <- scorecards_data_pivot %>%
+  dfScorecardArea_england_comp <- scorecards_data_pivot %>%
       filter(
         LA_name %in% c(params$input_la_choice, "England"),
         Phase == params$input_phase_choice
@@ -625,7 +586,7 @@ cat("
       )
   
     # reshape the data so it plots neatly!
-    preference_data <- live_scorecard_data_england_comp %>%
+    preference_data <- dfScorecardArea_england_comp %>%
       # select only preference values
       filter(name %in% c("Pref1", "Pref2", "Pref3")) %>%
       # Create ratings out of the names
@@ -712,41 +673,41 @@ cat("
   # Calculate LA % depending on chart choice:
   LA_comp <- 
     if (params$input_quality_chart == "Ofsted") {
-      live_scorecard_data %>%
+      dfScorecardArea %>%
         filter(name == "QualProp") %>%
         pull(value) %>%
         roundFiveUp(., 2) * 100
     } else if (params$input_quality_chart == "Progress 8") {
-      live_scorecard_data %>%
+      dfScorecardArea %>%
         filter(name == "Qual_KS4_Prop") %>%
         pull(value) %>%
         roundFiveUp(., 2) * 100
     } else if (params$input_quality_chart == "Reading Progress") {
-      live_scorecard_data %>%
+      dfScorecardArea %>%
         filter(name == "Qual_KS2Read_Prop") %>%
         pull(value) %>%
         roundFiveUp(., 2) * 100
     } else if (params$input_quality_chart== "Maths Progress") {
-      live_scorecard_data %>%
+      dfScorecardArea %>%
         filter(name == "Qual_KS2Mat_Prop") %>%
         pull(value) %>%
         roundFiveUp(., 2) * 100
     }
   
              # Scorecard data for ALL LAs, filtered only on phase choice
-live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$input_phase_choice)
+dfScorecardArea_all_la <- scorecards_data_pivot %>% filter(Phase == params$input_phase_choice)
  
         
   # Calculate England comparator depending on chart choice:
   england_comp <- 
     if (params$input_quality_chart == "Ofsted") {
-      numerator <- live_scorecard_data_all_la %>%
+      numerator <- dfScorecardArea_all_la %>%
         filter(LA_name == "England" &
           name %in% c("Qual1_N", "Qual2_N")) %>%
         summarise(sum(value)) %>%
         as.numeric()
 
-      denominator <- live_scorecard_data_all_la %>%
+      denominator <- dfScorecardArea_all_la %>%
         filter(LA_name == "England" &
           name %in% c("Qual1_N", "Qual2_N", "Qual3_N", "Qual4_N")) %>%
         summarise(sum(value)) %>%
@@ -755,13 +716,13 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
       # calculate percentage
       roundFiveUp(numerator / denominator * 100, 1)
     } else if (params$input_quality_chart == "Progress 8") {
-      numerator <- live_scorecard_data_all_la %>%
+      numerator <- dfScorecardArea_all_la %>%
         filter(LA_name == "England" &
           name %in% c("KS4_WAA_N", "KS4_AA_N")) %>%
         summarise(sum(value)) %>%
         as.numeric()
 
-      denominator <- live_scorecard_data_all_la %>%
+      denominator <- dfScorecardArea_all_la %>%
         filter(LA_name == "England" &
           name %in% c("KS4_WAA_N", "KS4_AA_N", "KS4_A_N", "KS4_BA_N", "KS4_WBA_N")) %>%
         summarise(sum(value)) %>%
@@ -770,13 +731,13 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
       # calculate percentage
       roundFiveUp(numerator / denominator * 100, 1)
     } else if (params$input_quality_chart == "Reading Progress") {
-      numerator <- live_scorecard_data_all_la %>%
+      numerator <- dfScorecardArea_all_la %>%
         filter(LA_name == "England" &
           name %in% c("KS2Read_WAA_N", "KS2Read_AA_N")) %>%
         summarise(sum(value)) %>%
         as.numeric()
 
-      denominator <- live_scorecard_data_all_la %>%
+      denominator <- dfScorecardArea_all_la %>%
         filter(LA_name == "England" &
           name %in% c("KS2Read_WAA_N", "KS2Read_AA_N", "KS2Read_A_N", "KS2Read_BA_N", "KS2Read_WBA_N")) %>%
         summarise(sum(value)) %>%
@@ -785,13 +746,13 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
       # calculate percentage
       roundFiveUp(numerator / denominator * 100, 1)
     } else if (params$input_quality_chart == "Maths Progress") {
-      numerator <- live_scorecard_data_all_la %>%
+      numerator <- dfScorecardArea_all_la %>%
         filter(LA_name == "England" &
           name %in% c("KS2Mat_WAA_N", "KS2Mat_AA_N")) %>%
         summarise(sum(value)) %>%
         as.numeric()
 
-      denominator <- live_scorecard_data_all_la %>%
+      denominator <- dfScorecardArea_all_la %>%
         filter(LA_name == "England" &
           name %in% c("KS2Mat_WAA_N", "KS2Mat_AA_N", "KS2Mat_A_N", "KS2Mat_BA_N", "KS2Mat_WBA_N")) %>%
         summarise(sum(value)) %>%
@@ -804,19 +765,19 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
             # Calculate % ranking depending on chart choice:
   LA_ranking <- 
     if (params$input_quality_chart == "Ofsted") {
-      live_scorecard_data %>%
+      dfScorecardArea %>%
         filter(name == "QualPropranks") %>%
         pull(value)
     } else if (params$input_quality_chart == "Progress 8") {
-      live_scorecard_data %>%
+      dfScorecardArea %>%
         filter(name == "Qual_KS4_Propranks") %>%
         pull(value)
     } else if (params$input_quality_chart == "Reading Progress") {
-      live_scorecard_data %>%
+      dfScorecardArea %>%
         filter(name == "Qual_KS2Read_Propranks") %>%
         pull(value)
     } else if (params$input_quality_chart == "Maths Progress") {
-      live_scorecard_data %>%
+      dfScorecardArea %>%
         filter(name == "Qual_KS2Mat_Propranks") %>%
         pull(value)
     }
@@ -824,19 +785,19 @@ live_scorecard_data_all_la <- scorecards_data_pivot %>% filter(Phase == params$i
     # Calculate ranking denominator depending on chart choice:
   LA_denom <- 
     if (params$input_quality_chart == "Ofsted") {
-      live_scorecard_data_all_la %>%
+      dfScorecardArea_all_la %>%
         filter(name == "QualPropranks" & !is.na(value)) %>%
         nrow()
     } else if (params$input_quality_chart == "Progress 8") {
-      live_scorecard_data_all_la %>%
+      dfScorecardArea_all_la %>%
         filter(name == "Qual_KS4_Propranks" & !is.na(value)) %>%
         nrow()
     } else if (params$input_quality_chart == "Reading Progress") {
-      live_scorecard_data_all_la %>%
+      dfScorecardArea_all_la %>%
         filter(name == "Qual_KS2Read_Propranks" & !is.na(value)) %>%
         nrow()
     } else if (params$input_quality_chart == "Maths Progress") {
-      live_scorecard_data_all_la %>%
+      dfScorecardArea_all_la %>%
         filter(name == "Qual_KS2Mat_Propranks" & !is.na(value)) %>%
         nrow()
     }
@@ -904,7 +865,7 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
 
 ``` {r quality_chart, out.width="92%", crop=TRUE}           
 # Scorecard data, filtered on user input AND including England as a comparison
-  live_scorecard_data_england_comp <- scorecards_data_pivot %>%
+  dfScorecardArea_england_comp <- scorecards_data_pivot %>%
       filter(
         LA_name %in% c(params$input_la_choice, "England"),
         Phase == params$input_phase_choice
@@ -919,7 +880,7 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
  # Bar chart comparison - Ofsted
 
     # reshape the data so it plots neatly!
- ofsted_data <- live_scorecard_data_england_comp %>%
+ ofsted_data <- dfScorecardArea_england_comp %>%
       # select only the ofsted values
       filter(name %in% c(
         "Qual1_N", "Qual2_N", "Qual3_N", "Qual4_N", "Qual0_N",
@@ -985,7 +946,7 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
     # Bar chart comparison - Progress 8
 
     # reshape the data so it plots neatly!
-    progress_8_data <- live_scorecard_data_england_comp %>%
+    progress_8_data <- dfScorecardArea_england_comp %>%
       # select only the progress 8 values
       filter(name %in% c(
         "KS4_WAA_N", "KS4_AA_N", "KS4_A_N", "KS4_BA_N", "KS4_WBA_N", "KS4_NR_N",
@@ -1051,7 +1012,7 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
         # Bar chart comparison - Progress Reading
 
     # reshape the data so it plots neatly!
-    progress_reading_data <- live_scorecard_data_england_comp %>%
+    progress_reading_data <- dfScorecardArea_england_comp %>%
       # select only the reading values
       filter(name %in% c(
         "KS2Read_WAA_N", "KS2Read_AA_N", "KS2Read_A_N", "KS2Read_BA_N", "KS2Read_WBA_N", "KS2Read_NR_N",
@@ -1117,7 +1078,7 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
     # Bar chart comparison - Progress Maths
 
     # reshape the data so it plots neatly!
-    progress_maths_data <- live_scorecard_data_england_comp %>%
+    progress_maths_data <- dfScorecardArea_england_comp %>%
       # select only the maths values
       filter(name %in% c(
         "KS2Mat_WAA_N", "KS2Mat_AA_N", "KS2Mat_A_N", "KS2Mat_BA_N", "KS2Mat_WBA_N", "KS2Mat_NR_N",
@@ -1244,7 +1205,7 @@ scorecards_data_pivot <- scorecards_data %>%
     name = str_replace_all(name, "_P$", "")
   )
 
-  live_scorecard_data_england_comp <- 
+  dfScorecardArea_england_comp <- 
     scorecards_data_pivot %>%
       filter(
         LA_name %in% c(params$input_la_choice, "England"),
@@ -1262,7 +1223,7 @@ scorecards_data_pivot <- scorecards_data %>%
 
  # Comparison boxes - number of projects 
  
-     perm_fig <- live_scorecard_data %>% 
+     perm_fig <- dfScorecardArea %>% 
       # Filter for Cost, places and project data 
       filter(str_detect(name, "Cost|Places|Projects")) %>% 
       # Create new column called data_type, based on the name of the data 
@@ -1283,7 +1244,7 @@ scorecards_data_pivot <- scorecards_data %>%
 
 
   
-    temp_fig <- live_scorecard_data %>% 
+    temp_fig <- dfScorecardArea %>% 
       # Filter for Cost, places and project data 
       filter(str_detect(name, "Cost|Places|Projects")) %>% 
       # Create new column called data_type, based on the name of the data 
@@ -1305,7 +1266,7 @@ scorecards_data_pivot <- scorecards_data %>%
   
 
  
-    new_fig <- live_scorecard_data %>% 
+    new_fig <- dfScorecardArea %>% 
       # Filter for Cost, places and project data 
       filter(str_detect(name, "Cost|Places|Projects")) %>% 
       # Create new column called data_type, based on the name of the data 
@@ -1404,7 +1365,7 @@ cost_text <-
   # Comparison table - average cost of projects per place
   
   cost_table <- 
-    live_scorecard_data_england_comp  %>%
+    dfScorecardArea_england_comp  %>%
       # Filter for Cost, places and project data
       filter(str_detect(name, "Cost|Places|Projects")) %>%
       # Create new column called data_type, based on the name of the data
@@ -1431,12 +1392,7 @@ cost_text <-
       ) %>%
       select(Region, Type = exp_type, cost_per_place) %>%
       pivot_wider(names_from = Region, values_from = cost_per_place)
-  
-
-  
-  
-  
-  kable( cost_table)
+  kable( cost_table,"latex",booktabs = T)
   
   
 ```
