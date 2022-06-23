@@ -23,6 +23,9 @@ library(shinyWidgets)
 library(styler)
 library(rsconnect)
 library(bit64)
+library(webshot)
+webshot::install_phantomjs()
+
 
 # tidy_code_function -------------------------------------------------------------------------------
 
@@ -33,6 +36,8 @@ tidy_code_function <- function() {
   app_scripts <- eval(styler::style_dir(recursive = FALSE)$changed)
   return(app_scripts)
 }
+
+source("0_variable_change.R")
 
 # ----------------------------------------------------------------------------
 # Setup loading screen and spinner

@@ -80,12 +80,14 @@ function(request) {
           p("Switch between different school place metrics using the tabs on the right."),
           selectInput("LA_choice",
             label = p(strong("Choose a geography")),
-            choices = levels(LA_options)
+            choices = levels(LA_options),
+            selected = "Darlington"
           ),
           br(),
           selectInput("phase_choice",
             label = p(strong("Choose a phase")),
-            choices = c("Primary", "Secondary")
+            choices = c("Primary", "Secondary"),
+            selected = "Primary"
           ),
         #  br(),
         #  selectInput("chart_choice",
@@ -94,10 +96,17 @@ function(request) {
         #  ),
           br(),
           br(),
-          p(strong("Download data for all geographies and phases using the button below.",style = "color:white")),
+          p(strong("Download data for all geographies and phases using the button below",style = "color:white")),
           myDownloadButton(
             "download_ud",
             "Download data"
+                      ),
+        br(),
+        br(),
+        p(strong("Download summary pdf for the chosen geography and phase using the button below",style = "color:white")),
+          myDownloadButton(
+            "pdfDownload",
+            "Download report"
           )
         ), # end of panel
 
