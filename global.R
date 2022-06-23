@@ -23,7 +23,8 @@ library(shinyWidgets)
 library(styler)
 library(rsconnect)
 library(bit64)
-
+library(webshot)
+webshot::install_phantomjs()
 # tidy_code_function -------------------------------------------------------------------------------
 
 tidy_code_function <- function() {
