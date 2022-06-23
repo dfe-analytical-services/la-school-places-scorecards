@@ -1,0 +1,624 @@
+{
+  "input": {
+    "LA_choice": "England",
+    "navbar": "la_scorecards",
+    "phase_choice": "Secondary",
+    "tabs": "quality"
+  },
+  "output": {
+    "England_GO_places": {
+      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>88.2%<\/h3>\n    <p>Percentage of new places created in good and outstanding secondary schools in England<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "no_rating_line": "New places with no rating = 30,445",
+    "quality_chart": {
+      "x": {
+        "data": [
+          {
+            "orientation": "h",
+            "width": [
+              0.9,
+              0.9
+            ],
+            "base": [
+              0,
+              0
+            ],
+            "x": [
+              0.290886942641715,
+              0.238142405143364
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Oustanding :  13850  places",
+              "Oustanding :  837639  places"
+            ],
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(18,67,109,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Oustanding",
+            "legendgroup": "Oustanding",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": [
+              0.9,
+              0.9
+            ],
+            "base": [
+              0.290886942641715,
+              0.238142405143364
+            ],
+            "x": [
+              0.590910045575788,
+              0.558595912249633
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Good :  28135  places",
+              "Good :  1964798  places"
+            ],
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(244,119,56,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Good",
+            "legendgroup": "Good",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": [
+              0.9,
+              0.9
+            ],
+            "base": [
+              0.881796988217504,
+              0.796738317392997
+            ],
+            "x": [
+              0.096129208409468,
+              0.161065302168911
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Requires Improvement :  4577  places",
+              "Requires Improvement :  566529  places"
+            ],
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(128,22,80,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Requires Improvement",
+            "legendgroup": "Requires Improvement",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": [
+              0.9,
+              0.9
+            ],
+            "base": [
+              0.977926196626972,
+              0.957803619561908
+            ],
+            "x": [
+              0.0220738033730283,
+              0.0421963804380923
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Inadequate :  1051  places",
+              "Inadequate :  148421  places"
+            ],
+            "type": "bar",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(40,161,151,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Inadequate",
+            "legendgroup": "Inadequate",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              0.145443471320858,
+              0.119071202571682
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "13,850",
+              "837,639"
+            ],
+            "hovertext": [
+              "Oustanding :  13850  places",
+              "Oustanding :  837639  places"
+            ],
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Oustanding",
+            "legendgroup": "Oustanding",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              0.58634196542961,
+              0.51744036126818
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "28,135",
+              "1,964,798"
+            ],
+            "hovertext": [
+              "Good :  28135  places",
+              "Good :  1964798  places"
+            ],
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Good",
+            "legendgroup": "Good",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              0.929861592422238,
+              0.877270968477452
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "4,577",
+              "566,529"
+            ],
+            "hovertext": [
+              "Requires Improvement :  4577  places",
+              "Requires Improvement :  566529  places"
+            ],
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Requires Improvement",
+            "legendgroup": "Requires Improvement",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              0.988963098313486,
+              0.978901809780954
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              null,
+              null
+            ],
+            "hovertext": [
+              "Inadequate :  1051  places",
+              "Inadequate :  148421  places"
+            ],
+            "textfont": {
+              "size": 15.1181102362205,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Inadequate",
+            "legendgroup": "Inadequate",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          }
+        ],
+        "layout": {
+          "margin": {
+            "t": 52.3082883630829,
+            "r": 7.30593607305936,
+            "b": 28.2717586827176,
+            "l": 70.4690743046907
+          },
+          "font": {
+            "color": "rgba(0,0,0,1)",
+            "family": "Arial",
+            "size": 18.5969281859693
+          },
+          "xaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "type": "linear",
+            "autorange": false,
+            "range": [
+              -0.05,
+              1.05
+            ],
+            "tickmode": "array",
+            "ticktext": [
+              "0%",
+              "25%",
+              "50%",
+              "75%",
+              "100%"
+            ],
+            "tickvals": [
+              0,
+              0.25,
+              0.5,
+              0.75,
+              1
+            ],
+            "categoryorder": "array",
+            "categoryarray": [
+              "0%",
+              "25%",
+              "50%",
+              "75%",
+              "100%"
+            ],
+            "nticks": null,
+            "ticks": "",
+            "tickcolor": null,
+            "ticklen": 3.65296803652968,
+            "tickwidth": 0,
+            "showticklabels": true,
+            "tickfont": {
+              "color": "rgba(77,77,77,1)",
+              "family": "Arial",
+              "size": 14.8775425487754
+            },
+            "tickangle": 0,
+            "showline": false,
+            "linecolor": null,
+            "linewidth": 0,
+            "showgrid": true,
+            "gridcolor": "rgba(235,235,235,1)",
+            "gridwidth": 0.66417600664176,
+            "zeroline": false,
+            "anchor": "y",
+            "title": "",
+            "hoverformat": ".2f"
+          },
+          "yaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "type": "linear",
+            "autorange": false,
+            "range": [
+              0.4,
+              2.6
+            ],
+            "tickmode": "array",
+            "ticktext": [
+              "Existing",
+              "New"
+            ],
+            "tickvals": [
+              1,
+              2
+            ],
+            "categoryorder": "array",
+            "categoryarray": [
+              "Existing",
+              "New"
+            ],
+            "nticks": null,
+            "ticks": "",
+            "tickcolor": null,
+            "ticklen": 3.65296803652968,
+            "tickwidth": 0,
+            "showticklabels": true,
+            "tickfont": {
+              "color": "rgba(77,77,77,1)",
+              "family": "Arial",
+              "size": 14.8775425487754
+            },
+            "tickangle": 0,
+            "showline": false,
+            "linecolor": null,
+            "linewidth": 0,
+            "showgrid": true,
+            "gridcolor": "rgba(235,235,235,1)",
+            "gridwidth": 0.66417600664176,
+            "zeroline": false,
+            "anchor": "x",
+            "title": "",
+            "hoverformat": ".2f"
+          },
+          "shapes": [
+            {
+              "type": "rect",
+              "fillcolor": null,
+              "line": {
+                "color": null,
+                "width": 0,
+                "linetype": [
+
+                ]
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0,
+              "x1": 1,
+              "y0": 0,
+              "y1": 1
+            },
+            {
+              "type": "rect",
+              "fillcolor": null,
+              "line": {
+                "color": null,
+                "width": 0,
+                "linetype": [
+
+                ]
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0,
+              "x1": 1,
+              "y0": 0,
+              "y1": 38.2565379825654,
+              "yanchor": 1,
+              "ysizemode": "pixel"
+            }
+          ],
+          "annotations": [
+            {
+              "text": "England",
+              "x": 0.5,
+              "y": 1,
+              "showarrow": false,
+              "ax": 0,
+              "ay": 0,
+              "font": {
+                "color": "rgba(26,26,26,1)",
+                "family": "Arial",
+                "size": 26.5670402656704
+              },
+              "xref": "paper",
+              "yref": "paper",
+              "textangle": 0,
+              "xanchor": "center",
+              "yanchor": "bottom"
+            }
+          ],
+          "showlegend": true,
+          "legend": {
+            "bgcolor": null,
+            "bordercolor": null,
+            "borderwidth": 0,
+            "font": {
+              "color": "rgba(0,0,0,1)",
+              "family": "Arial",
+              "size": 14
+            },
+            "y": -0.1,
+            "orientation": "h",
+            "x": 0.2
+          },
+          "hovermode": "closest",
+          "barmode": "relative",
+          "title": {
+            "text": "Chart showing the quality of new and existing school places and estimated additional places, by Local Authority compared to England",
+            "font": {
+              "color": "#ffffff"
+            }
+          }
+        },
+        "config": {
+          "doubleClick": "reset",
+          "showSendToCloud": false,
+          "displayModeBar": false
+        },
+        "source": "A",
+        "highlight": {
+          "on": "plotly_click",
+          "persistent": false,
+          "dynamic": false,
+          "selectize": false,
+          "opacityDim": 0.2,
+          "selected": {
+            "opacity": 1
+          },
+          "debounce": 0
+        },
+        "shinyEvents": [
+          "plotly_hover",
+          "plotly_click",
+          "plotly_selected",
+          "plotly_relayout",
+          "plotly_brushed",
+          "plotly_brushing",
+          "plotly_clickannotation",
+          "plotly_doubleclick",
+          "plotly_deselect",
+          "plotly_afterplot",
+          "plotly_sunburstclick"
+        ],
+        "base_url": "https://plot.ly"
+      },
+      "evals": [
+
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "setprototypeof",
+          "version": "0.1",
+          "src": {
+            "href": "setprototypeof-0.1"
+          },
+          "meta": null,
+          "script": "setprototypeof.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "typedarray",
+          "version": "0.1",
+          "src": {
+            "href": "typedarray-0.1"
+          },
+          "meta": null,
+          "script": "typedarray.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "3.5.1",
+          "src": {
+            "href": "jquery-3.5.1"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.1.1",
+          "src": {
+            "href": "crosstalk-1.1.1"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "plotly-htmlwidgets-css",
+          "version": "1.57.1",
+          "src": {
+            "href": "plotly-htmlwidgets-css-1.57.1"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "plotly-htmlwidgets.css",
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "plotly-main",
+          "version": "1.57.1",
+          "src": {
+            "href": "plotly-main-1.57.1"
+          },
+          "meta": null,
+          "script": "plotly-latest.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        }
+      ]
+    }
+  }
+}
