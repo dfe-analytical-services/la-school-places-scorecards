@@ -4,6 +4,28 @@ function(input, output, session) {
     family = "Arial",
     size = 14
   )
+
+  output$pdfDownload  <- downloadHandler(
+    filename = paste0("dashboard_output.pdf"),
+    content = function(file) {
+      # Add a loading modal, can probably make this prettier at a later date
+      showModal(modalDialog("Preparing PDF report...", footer=NULL))
+      on.exit(removeModal())
+
+      # List of parameters to pass from shiny to the report
+      params <- list(input_la_choice = input$LA_choice,
+                     input_phase_choice = input$phase_choice)
+      
+      # Render the pdf file from the rmarkdown template
+      rmarkdown::render("Summary_scorecard.Rmd", 
+                        output_file = file,
+                        params = params,
+                        output_format = 'pdf_document',
+                        envir = new.env(parent = globalenv())
+      )
+    }
+  ) 
+  
   
   # actionLinks
   observeEvent(input$linkQuantityTab, {
@@ -219,7 +241,7 @@ function(input, output, session) {
       pivot_wider()
 
     # create interactive stacked bar chart
-    plot_ly(
+    p <- plot_ly(
       places_chart_data,
       x = ~LA_name, y = ~QuanIn,
       marker = list(color = c("#12436D")),

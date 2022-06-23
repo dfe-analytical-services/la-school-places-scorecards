@@ -34,6 +34,8 @@ tidy_code_function <- function() {
   return(app_scripts)
 }
 
+source("0_variable_change.R")
+
 # ----------------------------------------------------------------------------
 # Setup loading screen and spinner
 # ----------------------------------------------------------------------------
