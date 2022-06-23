@@ -19,7 +19,6 @@ A shiny app to provide a way to view LA-level school places scorecard data and c
 
  - More information on environments/deploying to follow here
 
-
 ---
 
 ## Requirements
