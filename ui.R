@@ -321,6 +321,10 @@ fluidPage(
           tableOutput("notesTableQuant") # made in global.R file
         ), # end of tabPanel
         tabPanel(
+          "Pupil Forecast Accuracy",
+          tableOutput("notesTableQuant") # made in global.R file
+        ), # end of tabPanel
+        tabPanel(
           "Preference",
           tableOutput("notesTablePref") # made in global.R file
         ), # end of tabPanel

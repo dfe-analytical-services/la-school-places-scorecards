@@ -144,6 +144,11 @@ notesTableQuant <- read.xlsx(
   sheet = "Quantity"
 )
 
+notesTableQuant <- read.xlsx(
+  xlsxFile = "data/tech_guidance.xlsx",
+  sheet = "Pupil Forecast Accuracy"
+)
+
 notesTablePref <- read.xlsx(
   xlsxFile = "data/tech_guidance.xlsx",
   sheet = "Preference"
