@@ -317,10 +317,6 @@ fluidPage(
         title = "",
         id = "tabs_tech_notes", width = "12",
         tabPanel(
-          "Overall",
-          tableOutput("notesTable") # made in global.R file
-        ), # end of tabPanel
-        tabPanel(
           "Quantity",
           tableOutput("notesTableQuant") # made in global.R file
         ), # end of tabPanel
