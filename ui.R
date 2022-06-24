@@ -309,10 +309,9 @@ fluidPage(
       ),
       h2("Technical notes"),
       br("Use this dashboard to view school places scorecards for local authorities in England"),
-      br("All dates refer to the academic year."),
-      br("There is no scorecard for Dorset (838) and Bournemouth, Christchurch and Poole (839) as they are new local authorities, following changes to LA boundaries in this region in April 2019. As these two new local authorities are not directly comparable with their pre LGR 2019 local authorities, we were unable to produce complete figures for the majority of individual indictors included in the School Places Scorecard,
-                           however the relevant data for these pre and post LGR 2019 local authorities are included in the England data and Summary data tabs."),
-      br("The source code for this application can be found in our ", a(href = "https://github.com/dfe-analytical-services/la-school-places-scorecards", "GitHub repository.")),
+      br("All dates refer to the academic year, apart from basic need funding years which refer to financial year."),
+      br("There is no scorecard for North Northamptonshire and West Northamptonshire as they are new local authorities, following the split from one local authority into two in April 2021. As these two new local authorities are not directly comparable with the pre LGR 2021 Northamptonshire, we were unable to produce complete figures for the majority of individual indictors included in the School Places Scorecard,
+                           however the relevant data for these pre and post LGR 2021 local authorities are included in the England data and Summary data tabs on explore education statistics."),
       br(),
       tabBox(
         title = "",
@@ -374,12 +373,42 @@ fluidPage(
       )),
       h3("Feedback"),
       br(
-        "If you have any feedback on how we could further improve the accessibility of this application, please contact us at",
+        "If you have any feedback on how we could further improve the accessibility of this application, please contact ",
         a(href = "mailto:SCAP.PPP@education.gov.uk", "SCAP.PPP@education.gov.uk")
       )
     ),
     tabPanel(
-      "Support & Feedback"
+      "Support & Feedback",
+      div(
+        h2("Give us feedback"),
+        "This dashboard is hosted on a new platform that will continue to be developed. If you have any feedback or suggestions for improvements, please submit them using this ",
+        a(
+          href = "https://forms.office.com/r/wEWr5KCrTQ",
+          "feedback form", .noWS = c("after")
+        ), ".", br(),
+        "If you spot any errors or bugs while using this dashboard, please screenshot and email them to ",
+        a(href = "mailto:scap.ppp@education.gov.uk", "scap.ppp@education.gov.uk", .noWS = c("after")), ".",
+        br(),
+        h2("Find more information on the data"),
+        "The data used to produce the dashboard, along with methodological information can be found on ",
+        a(href = "https://explore-education-statistics.service.gov.uk/", "Explore Education Statistics", .noWS = c("after")),
+        ".",
+        br(),
+        h2("Contact us"),
+        "If you have questions about the dashboard or data within it, please contact ",
+        a(href = "mailto:scap.ppp@education.gov.uk", "scap.ppp@education.gov.uk", .noWS = c("after")), 
+        br(),
+        h2("See the source code"),
+        "The source code for this dashboard is available in our ",
+        a(href = "https://github.com/dfe-analytical-services/la-school-places-scorecards", "GitHub repository", .noWS = c("after")),
+        ".",
+        br(),
+        br(),
+        br(),
+        br(),
+        br(),
+        br()
+      )
     ),
     shinyGovstyle::footer(TRUE)
   )
