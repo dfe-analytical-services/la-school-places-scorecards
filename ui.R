@@ -322,7 +322,7 @@ fluidPage(
         ), # end of tabPanel
         tabPanel(
           "Pupil Forecast Accuracy",
-          tableOutput("notesTableQuant") # made in global.R file
+          tableOutput("notesTableforacc") # made in global.R file
         ), # end of tabPanel
         tabPanel(
           "Preference",

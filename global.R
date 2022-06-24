@@ -144,7 +144,7 @@ notesTableQuant <- read.xlsx(
   sheet = "Quantity"
 )
 
-notesTableQuant <- read.xlsx(
+notesTableforacc <- read.xlsx(
   xlsxFile = "data/tech_guidance.xlsx",
   sheet = "Pupil Forecast Accuracy"
 )
