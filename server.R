@@ -111,7 +111,7 @@ function(input, output, session) {
   ## create header so users know what the data is showing
 
   output$data_description <- renderText({
-    paste0("Data for ", str_to_lower(input$phase_choice), " state-funded school places in ", input$LA_choice, ": ")
+    paste0("Data for ", str_to_lower(input$phase_choice), " state-funded school places in ", input$LA_choice)
   })
 
 
@@ -145,14 +145,14 @@ function(input, output, session) {
         paste0("Total primary and secondary basic need funding ", funding_year),
         # get different icons for background here: https://fontawesome.com/v5.15/icons?d=gallery&p=2
         # icon = icon("fas fa-pound-sign"),
-        color = "light-blue"
+        color = "blue"
       )
     } else {
       shinydashboard::valueBox(
         paste0("£", total_funding, "m"),
         paste0("Total primary and secondary basic need funding ", funding_year),
         # icon = icon("fas fa-pound-sign"),
-        color = "light-blue"
+        color = "blue"
       )
     }
   })
@@ -172,7 +172,7 @@ function(input, output, session) {
       paste0(growth_perc, "%"),
       paste0("Growth in ", str_to_lower(input$phase_choice), " pupil numbers 2009/10 to ", plan_year),
       # icon = icon("fas fa-chart-line"),
-      color = "light-blue"
+      color = "blue"
     )
   })
 
@@ -207,7 +207,7 @@ function(input, output, session) {
       paste0(scales::comma(additional_places_perc)),
       paste0("Estimated additional ", str_to_lower(input$phase_choice), " places needed to meet demand in ", plan_year),
       # icon = icon("fas fa-signal"),
-      color = "light-blue"
+      color = "blue"
     )
   })
 
@@ -228,7 +228,7 @@ function(input, output, session) {
       paste0(spare_places_per, "%"),
       paste0("Estimated percentage of spare ", str_to_lower(input$phase_choice), " places in ", plan_year),
       # icon = icon("fas fa-school"),
-      color = "light-blue"
+      color = "blue"
     )
   })
 
@@ -361,63 +361,73 @@ function(input, output, session) {
     }
   })
 
-  output$for1year_table <- renderTable({
-    scorecards_data_pivot %>%
-      filter(
-        name == "For_1",
-        Phase == input$phase_choice
-      ) %>%
-      mutate(
-        Median = median(value, na.rm = TRUE),
-        Median = roundFiveUp(Median, 3) * 100,
-        Median = paste0(Median, "%"),
-        Twentyfifthpercentile = quantile(value, 0.25, na.rm = TRUE),
-        Twentyfifthpercentile = roundFiveUp(Twentyfifthpercentile, 3) * 100,
-        Twentyfifthpercentile = paste0(Twentyfifthpercentile, "%"),
-        Seventyfifthpercentile = quantile(value, 0.75, na.rm = TRUE),
-        Seventyfifthpercentile = roundFiveUp(Seventyfifthpercentile, 3) * 100,
-        Seventyfifthpercentile = paste0(Seventyfifthpercentile, "%"),
-        Minimum = min(value, na.rm = TRUE),
-        Minimum = roundFiveUp(Minimum, 3) * 100,
-        Minimum = paste0(Minimum, "%"),
-        Maximum = max(value, na.rm = TRUE),
-        Maximum = roundFiveUp(Maximum, 3) * 100,
-        Maximum = paste0(Maximum, "%")
-      ) %>%
-      filter(
-        LA_name == "England"
-      ) %>%
-      select(Minimum, Twentyfifthpercentile, Median, Seventyfifthpercentile, Maximum)
-  })
+  output$for1year_table <- renderDataTable(
+    {
+      scorecards_data_pivot %>%
+        filter(
+          name == "For_1",
+          Phase == input$phase_choice
+        ) %>%
+        mutate(
+          Median = format_perc(median(value, na.rm = TRUE)),
+          Twentyfifthpercentile = format_perc(quantile(value, 0.25, na.rm = TRUE)),
+          Seventyfifthpercentile = format_perc(quantile(value, 0.75, na.rm = TRUE)),
+          Minimum = format_perc(min(value, na.rm = TRUE)),
+          Maximum = format_perc(max(value, na.rm = TRUE)),
+        ) %>%
+        filter(
+          LA_name == "England"
+        ) %>%
+        select(Minimum,
+          `25th percentile` = Twentyfifthpercentile,
+          Median,
+          `75th percentile` = Seventyfifthpercentile,
+          Maximum
+        )
+    },
+    options = list(
+      scrollX = TRUE,
+      paging = FALSE,
+      orderFixed = TRUE,
+      searching = FALSE,
+      dom = "t",
+      style = "bootstrap"
+    )
+  )
 
-  output$for3year_table <- renderTable({
-    scorecards_data_pivot %>%
-      filter(
-        name == "For_3",
-        Phase == input$phase_choice
-      ) %>%
-      mutate(
-        Median = median(value, na.rm = TRUE),
-        Median = roundFiveUp(Median, 3) * 100,
-        Median = paste0(Median, "%"),
-        Twentyfifthpercentile = quantile(value, 0.25, na.rm = TRUE),
-        Twentyfifthpercentile = roundFiveUp(Twentyfifthpercentile, 3) * 100,
-        Twentyfifthpercentile = paste0(Twentyfifthpercentile, "%"),
-        Seventyfifthpercentile = quantile(value, 0.75, na.rm = TRUE),
-        Seventyfifthpercentile = roundFiveUp(Seventyfifthpercentile, 3) * 100,
-        Seventyfifthpercentile = paste0(Seventyfifthpercentile, "%"),
-        Minimum = min(value, na.rm = TRUE),
-        Minimum = roundFiveUp(Minimum, 3) * 100,
-        Minimum = paste0(Minimum, "%"),
-        Maximum = max(value, na.rm = TRUE),
-        Maximum = roundFiveUp(Maximum, 3) * 100,
-        Maximum = paste0(Maximum, "%")
-      ) %>%
-      filter(
-        LA_name == "England"
-      ) %>%
-      select(Minimum, Twentyfifthpercentile, Median, Seventyfifthpercentile, Maximum)
-  })
+  output$for3year_table <- renderDataTable(
+    {
+      scorecards_data_pivot %>%
+        filter(
+          name == "For_3",
+          Phase == input$phase_choice
+        ) %>%
+        mutate(
+          Median = format_perc(median(value, na.rm = TRUE)),
+          Twentyfifthpercentile = format_perc(quantile(value, 0.25, na.rm = TRUE)),
+          Seventyfifthpercentile = format_perc(quantile(value, 0.75, na.rm = TRUE)),
+          Minimum = format_perc(min(value, na.rm = TRUE)),
+          Maximum = format_perc(max(value, na.rm = TRUE)),
+        ) %>%
+        filter(
+          LA_name == "England"
+        ) %>%
+        select(Minimum,
+          `25th percentile` = Twentyfifthpercentile,
+          Median,
+          `75th percentile` = Seventyfifthpercentile,
+          Maximum
+        )
+    },
+    options = list(
+      scrollX = TRUE,
+      paging = FALSE,
+      orderFixed = TRUE,
+      searching = FALSE,
+      dom = "t",
+      style = "bootstrap"
+    )
+  )
 
 
   ## Forecast accuracy three years ahead
@@ -566,7 +576,7 @@ function(input, output, session) {
       paste0(PrefT3_E, "%"),
       paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England"),
       # icon = icon("fas fa-chart-line"),
-      color = "light-blue"
+      color = "blue"
     )
   })
 
@@ -585,7 +595,7 @@ function(input, output, session) {
       paste0(PrefT3, "%"),
       paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in ", (input$LA_choice)),
       # icon = icon("fas fa-sort-amount-up"),
-      color = "light-blue"
+      color = "blue"
     )
   })
 
@@ -712,7 +722,7 @@ function(input, output, session) {
       paste0(LA_comp(), "%"),
       paste0("Percentage of new places created in ", school_description(), str_to_lower(input$phase_choice), " schools in ", input$LA_choice),
       # icon = icon("fas fa-boxes"),
-      color = "light-blue"
+      color = "blue"
     )
   })
 
@@ -791,7 +801,7 @@ function(input, output, session) {
       paste0(england_comp(), "%"),
       paste0("Percentage of new places created in ", school_description(), str_to_lower(input$phase_choice), " schools in England"),
       # icon = icon("fas fa-equals"),
-      color = "light-blue"
+      color = "blue"
     )
   })
 
@@ -849,7 +859,7 @@ function(input, output, session) {
       LA_ranking(),
       paste0("LA Rank out of ", LA_denom(), " LAs that created new places between ", last_year, " and ", this_year, " (ranks can be tied)"),
       # icon = icon("fas fa-bars"),
-      color = "light-blue"
+      color = "blue"
     )
   })
 
@@ -1329,7 +1339,7 @@ function(input, output, session) {
       paste0(scales::comma(perm_fig)),
       paste0("Permanent ", str_to_lower(input$phase_choice), " expansion projects in England"),
       # icon = icon("fas fa-school"),
-      color = "light-blue"
+      color = "blue"
     )
   })
 
@@ -1357,7 +1367,7 @@ function(input, output, session) {
       paste0(temp_fig),
       paste0("Temporary ", str_to_lower(input$phase_choice), " expansion projects in England "),
       # icon = icon("fas fa-campground"),
-      color = "light-blue"
+      color = "blue"
     )
   })
 
@@ -1386,7 +1396,7 @@ function(input, output, session) {
       paste0(new_fig),
       paste0("New ", str_to_lower(input$phase_choice), " schools projects in England"),
       # icon = icon("fas fa-plus"),
-      color = "light-blue"
+      color = "blue"
     )
   })
 

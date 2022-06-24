@@ -6,15 +6,15 @@
     "tabs": "Quantity"
   },
   "output": {
-    "data_description": "Data for primary state-funded school places in England: ",
+    "data_description": "Data for primary state-funded school places in England",
     "estimated_additional_places": {
-      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>40,970<\/h3>\n    <p>Estimated additional primary places needed to meet demand in 2021/22<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>40,970<\/h3>\n    <p>Estimated additional primary places needed to meet demand in 2021/22<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "estimated_spare_places": {
-      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>10%<\/h3>\n    <p>Estimated percentage of spare primary places in 2021/22<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>10%<\/h3>\n    <p>Estimated percentage of spare primary places in 2021/22<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
@@ -270,13 +270,13 @@
       ]
     },
     "pupil_growth": {
-      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>19%<\/h3>\n    <p>Growth in primary pupil numbers 2009/10 to 2021/22<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>19%<\/h3>\n    <p>Growth in primary pupil numbers 2009/10 to 2021/22<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "total_funding_box": {
-      "html": "<div class=\"small-box bg-light-blue\">\n  <div class=\"inner\">\n    <h3>£12.3bn<\/h3>\n    <p>Total primary and secondary basic need funding 2011 to 2022<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>£12.3bn<\/h3>\n    <p>Total primary and secondary basic need funding 2011 to 2022<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
