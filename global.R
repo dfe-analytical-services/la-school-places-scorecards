@@ -142,12 +142,12 @@ dfe_colours <- c(
 notesTableQuant <- read.xlsx(
   xlsxFile = "data/tech_guidance.xlsx",
   sheet = "Quantity"
-)
+  )
 
 notesTableforacc <- read.xlsx(
   xlsxFile = "data/tech_guidance.xlsx",
-  sheet = "Pupil Forecast Accuracy"
-)
+  sheet = "ForecastAccuracy"
+  )
 
 notesTablePref <- read.xlsx(
   xlsxFile = "data/tech_guidance.xlsx",

@@ -1433,10 +1433,10 @@ function(input, output, session) {
 
   # Tech guidance tables ----------------------------------------------------
 
-  output$notesTable <- function() {
-    notesTable[is.na(notesTable)] <- " "
+  output$notesTableforacc <- function() {
+    notesTableforacc[is.na(notesTableforacc)] <- " "
 
-    kable(notesTable, "html", align = "l", escape = FALSE) %>%
+    kable(notesTableforacc, "html", align = "l", escape = FALSE) %>%
       kable_styling(full_width = F) %>%
       # collapse_rows(columns = 1:2) %>%
       column_spec(1, bold = T, width = "20em", extra_css = "vertical-align: top !important;") %>%
@@ -1481,7 +1481,10 @@ function(input, output, session) {
       kable_styling(full_width = F) %>%
       # collapse_rows(columns = 1:2) %>%
       column_spec(1, bold = T, width = "20em", extra_css = "vertical-align: top !important;") %>%
-      column_spec(2, width = "20em")
+      column_spec(2, width = "20em") %>%
+      column_spec(3, width = "20em") %>%
+      column_spec(4, width = "20em") %>%
+    column_spec(5, width_max = "50em")
   }
 
 
