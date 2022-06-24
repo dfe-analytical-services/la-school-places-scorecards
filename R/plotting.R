@@ -1,17 +1,12 @@
 plot_forecast <- function(dfScorecards,dfScorecardsPivot,la_choice,phase,years){
-  print(dfScorecards)
   forecast <- paste0("For_",years)
-  print(forecast)
-  
+
   # Calculate the data range - for this we're using Primary and Seconday together.
   range_allphases <- dfScorecardsPivot %>%
     filter(name == forecast)
-  print(range_allphases)
   max_scale <- max(c(abs(min(range_allphases$value,na.rm=TRUE)),max(range_allphases$value,na.rm=TRUE)))
-  print(max_scale)
   max_scale <- ceiling(100.*max_scale)/100.
-  print(max_scale)
-  
+
   # Derive the tickmark positions based on the scale.
   scale_increment <- floor(100.*abs(max_scale))/100./2.
   x_scale <- seq(-2.*scale_increment,2.1*scale_increment,scale_increment)
