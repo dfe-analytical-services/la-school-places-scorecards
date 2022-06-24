@@ -22,10 +22,10 @@ forecast_accuracy_desclabel <- function(forecast_accuracy,la,summary_stats){
     la == "Isles Of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly", 
     la != "England" ~
               case_when(
-                params$input_la_choice != "England" & forecast_accuracy > 0 & forecast_accuracy > summary_stats$accuracy[4] ~ "Overestimate of pupil numbers, larger overestimate than at least 75% of local authorities", 
-                params$input_la_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < summary_stats$accuracy[4] ~ "Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores", 
-                params$input_la_choice != "England" & forecast_accuracy < 0 & forecast_accuracy < summary_stats$accuracy[2] ~ "Underestimate of pupil numbers, larger underestimation than at least 75% of local authorities", 
-                params$input_la_choice != "England" & forecast_accuracy < 0 & forecast_accuracy > summary_stats$accuracy[2] ~ "Underestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores", 
+                params$input_la_choice != "England" & forecast_accuracy > 0 & forecast_accuracy > summary_stats$accuracy[4] ~ "Overestimate of pupil numbers, larger overestimate than at least 75\\% of local authorities", 
+                params$input_la_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < summary_stats$accuracy[4] ~ "Overestimate of pupil numbers, within the middle 25-75\\% of local authorities' forecast accuracy scores", 
+                params$input_la_choice != "England" & forecast_accuracy < 0 & forecast_accuracy < summary_stats$accuracy[2] ~ "Underestimate of pupil numbers, larger underestimation than at least 75\\% of local authorities", 
+                params$input_la_choice != "England" & forecast_accuracy < 0 & forecast_accuracy > summary_stats$accuracy[2] ~ "Underestimate of pupil numbers, within the middle 25-75\\% of local authorities' forecast accuracy scores", 
                 TRUE ~ "No overestimate/underestimate therefore accurate" 
               ),
             la == "England" ~

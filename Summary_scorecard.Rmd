@@ -1,16 +1,16 @@
 ---
 params: 
-    input_la_choice: England
+    input_la_choice: Wokingham
     input_phase_choice: Secondary
      # Keep this as Ofsted for 2021 scorecard as only option
     input_quality_chart: 'Ofsted'
 header-includes:
   # Here be dragons, edit these header items at your own risk.
    - \usepackage{graphics}
-   - \usepackage{expl3}
+#   - \usepackage{expl3}
    - \usepackage{xparse}
    - \usepackage{tcolorbox}
-   - \usepackage{amsmath,amsfonts,amsthm}
+#   - \usepackage{amsmath,amsfonts,amsthm}
    - \usepackage{wrapfig}
    - \usepackage{helvet}
    - \usepackage{sectsty}
@@ -269,68 +269,41 @@ summary_stats_3yr <- forecast_summary_stats(dfScorecardsAll,3,
 
 ``` {r forecast7,echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
    ## Forecast accuracy labels 
-     forecast_accuracy <- dfScorecardArea %>% 
+     forecast_accuracy_1yr <- dfScorecardArea %>% 
        filter(name == "For_1") %>% 
        pull(value) %>% 
        roundFiveUp(., 3) * 100 
 
-    label_desc_1yr <- forecast_accuracy_desclabel(forecast_accuracy,
+    label_desc_1yr <- forecast_accuracy_desclabel(forecast_accuracy_1yr,
                                                   params$input_la_choice,
                                                   summary_stats_1yr)
      oneyearlabel <-
      if (label_desc_1yr != "accurate") { 
-       paste0("One year ahead: ", forecast_accuracy, "\\% ") 
+       paste0("One year ahead: ", forecast_accuracy_1yr, "\\% ") 
      } else { 
        paste0("<b>One year ahead: ") 
      } 
-```
 
-
-``` {r forecast5,echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
-  
-     forecast_accuracy <- dfScorecardArea %>% 
+     forecast_accuracy_3yr <- dfScorecardArea %>% 
        filter(name == "For_3") %>% 
        pull(value) %>% 
        roundFiveUp(., 3) * 100 
 
-     Foracc3year <- scorecards_data_pivot %>% 
-       filter( 
-         name == "For_3", 
-         Phase == params$input_phase_choice)  %>% 
-       pull(value) %>% 
-       roundFiveUp(., 3) * 100 
-
-     medianaccuracy2 <- median(Foracc3year, na.rm = TRUE)  
-
-     Twentyfifthpercentile2 <- quantile(Foracc3year,0.25, na.rm = TRUE) 
-
-     Seventyfifthpercentile2 <- quantile(Foracc3year,0.75, na.rm = TRUE) 
-
-     label <- case_when( 
-       params$input_la_choice != "England" & forecast_accuracy > 0 & forecast_accuracy >  Seventyfifthpercentile2 ~ "Overestimate of pupil numbers, larger overestimate than at least 75% of local authorities", 
-       params$input_la_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < Seventyfifthpercentile2 ~ "Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores", 
-       params$input_la_choice != "England" & forecast_accuracy < 0 & forecast_accuracy < Twentyfifthpercentile2 ~ "Underestimate of pupil numbers, larger underestimation than at least 75% of local authorities", 
-       params$input_la_choice != "England" & forecast_accuracy < 0 & forecast_accuracy > Twentyfifthpercentile2 ~ "Underestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores", 
-           params$input_la_choice == "England" &  forecast_accuracy > 0  ~ "Overestimate of pupil numbers", 
-       params$input_la_choice == "England" &  forecast_accuracy < 0  ~ "Underestimate of pupil numbers", 
-       params$input_la_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London", 
-       params$input_la_choice == "Isles Of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly", 
-       TRUE ~ "No overestimate/underestimate therefore accurate" 
-     ) 
-
-     
+    label_desc_3yr <- forecast_accuracy_desclabel(forecast_accuracy_3yr,
+                                                  params$input_la_choice,
+                                                  summary_stats_1yr)
      threeyearlabel <-
-     if (label != "accurate") { 
-       paste0("Three years ahead: ", forecast_accuracy, "\\%") 
+     if (label_desc_3yr != "accurate") { 
+       paste0("Three years ahead: ", forecast_accuracy_3yr, "\\% ") 
      } else { 
-       paste("<b>Three years ahead : </b>", label) 
+       paste0("<b>Three years ahead: ") 
      } 
 
-``` 
+```
+
 
 ``` {r forecast_statshead,echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
-cat('\\begin{tabular}{ l l }')
-cat("\\hspace{8cm} & \\hspace{8cm} \\\\")
+cat('\\begin{tabular}{p{0.48\\linewidth} p{0.48\\linewidth} }')
 cat('\\bf\\large\\color{dfeheadingblue} ')
 cat(oneyearlabel)
 cat('\\ & \\bf\\large\\color{dfeheadingblue} ')
@@ -338,7 +311,7 @@ cat(threeyearlabel)
 cat("\\ \\\\")
 cat(label_desc_1yr)
 cat('&')
-cat(label)
+cat(label_desc_3yr)
 cat(" \\\\")
 cat('\\end{tabular}')
 ```
@@ -366,16 +339,15 @@ cat('\\end{tabular}')
       pivot_wider(names_from=quantile,values_from=accuracy)
     )
 
-cat('\\begin{center}')
-cat('\\begin{tabular}{ c c }')
-cat("\\hspace{8cm} & \\hspace{8cm} \\\\")
-cat('\\footnotesize')
+cat('\\begin{tabular}{p{0.48\\linewidth} p{0.48\\linewidth} }')
+cat('\\footnotesize ')
+cat('\\centering ')
 print(knitr::kable(facc_table1,"latex",booktabs = T))
 cat('&')
-cat('\\footnotesize')
+cat('\\footnotesize ')
+cat('\\centering ')
 print(knitr::kable(facc_table3,"latex",booktabs = T))
 cat('\\end{tabular}')
-cat('\\end{center}')
 ```
 
 \newpage
