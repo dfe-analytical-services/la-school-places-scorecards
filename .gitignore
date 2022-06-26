@@ -5,5 +5,7 @@
 data/scorecards_data_2021.csv
 file*.log
 hc.*
+Summary_scorecard.aux
 Summary_scorecard.log
+Summary_scorecard.tex
 Summary_scorecard.pdf

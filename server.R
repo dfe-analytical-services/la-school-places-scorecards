@@ -454,20 +454,24 @@ function(input, output, session) {
 
 
   output$forecast_1y_bar <- renderPlotly({
-    p <- plot_forecast(live_scorecard_data(),
-                       scorecards_data_pivot,
-                       input$la_choice,
-                       input$phase_choice,1)
+    p <- plot_forecast(
+      live_scorecard_data(),
+      scorecards_data_pivot,
+      input$la_choice,
+      input$phase_choice, 1
+    )
     ggplotly(p, tooltip = c("text")) %>%
       layout(font = font_choice) %>%
       config(displayModeBar = FALSE)
   })
 
   output$forecast_3y_bar <- renderPlotly({
-    p <- plot_forecast(live_scorecard_data(),
-                       scorecards_data_pivot,
-                       input$la_choice,
-                       input$phase_choice,3)
+    p <- plot_forecast(
+      live_scorecard_data(),
+      scorecards_data_pivot,
+      input$la_choice,
+      input$phase_choice, 3
+    )
     ggplotly(p, tooltip = c("text")) %>%
       layout(font = font_choice) %>%
       config(displayModeBar = FALSE)
