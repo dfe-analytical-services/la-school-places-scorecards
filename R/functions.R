@@ -1,7 +1,7 @@
-format_perc <- function(x,output='dashboard') {
-  if (output=='dashboard'){
+format_perc <- function(x, output = "dashboard") {
+  if (output == "dashboard") {
     paste0(sprintf("%+.1f", 100. * roundFiveUp(x, 3)), "%")
-  } else if (output=='latex'){
+  } else if (output == "latex") {
     paste0(sprintf("%+.1f", 100. * roundFiveUp(x, 3)), "\\%")
   }
 }

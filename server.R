@@ -1406,7 +1406,7 @@ function(input, output, session) {
       column_spec(2, width = "20em") %>%
       column_spec(3, width = "20em") %>%
       column_spec(4, width = "20em") %>%
-    column_spec(5, width_max = "50em")
+      column_spec(5, width_max = "50em")
   }
 
 
