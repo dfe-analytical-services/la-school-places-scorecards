@@ -285,7 +285,7 @@ function(input, output, session) {
     forecast_accuracy <- live_scorecard_data() %>%
       filter(name == "For_1") %>%
       pull(value) %>%
-      roundFiveUp(., 3) * 100
+      roundFiveUp(., 3)
 
 
     Foracc1year <- scorecards_data_pivot %>%
@@ -294,7 +294,7 @@ function(input, output, session) {
         Phase == input$phase_choice
       ) %>%
       pull(value) %>%
-      roundFiveUp(., 3) * 100
+      roundFiveUp(., 3)
 
     medianaccuracy1 <- median(Foracc1year, na.rm = TRUE)
 
@@ -315,7 +315,7 @@ function(input, output, session) {
     )
 
     if (label != "accurate") {
-      paste0("<h1>One year ahead: ", forecast_accuracy, "%</h1> ", label)
+      paste0("<h1>One year ahead: ", format_perc(forecast_accuracy), "</h1> ", label)
     } else {
       paste0("<b>One year ahead: ", label)
     }
@@ -326,7 +326,7 @@ function(input, output, session) {
     forecast_accuracy <- live_scorecard_data() %>%
       filter(name == "For_3") %>%
       pull(value) %>%
-      roundFiveUp(., 3) * 100
+      roundFiveUp(., 3)
 
     Foracc3year <- scorecards_data_pivot %>%
       filter(
@@ -334,7 +334,7 @@ function(input, output, session) {
         Phase == input$phase_choice
       ) %>%
       pull(value) %>%
-      roundFiveUp(., 3) * 100
+      roundFiveUp(., 3)
 
     medianaccuracy2 <- median(Foracc3year, na.rm = TRUE)
 
@@ -355,9 +355,9 @@ function(input, output, session) {
     )
 
     if (label != "accurate") {
-      paste0("<h1>Three years ahead: ", forecast_accuracy, "%</h1> ", label)
+      paste0("<h1>Three years ahead: ", format_perc(forecast_accuracy), "</h1> ", label)
     } else {
-      paste("<b>Three years ahead : </b>", label)
+      paste("<b>Three years ahead: </b>", label)
     }
   })
 
@@ -454,102 +454,24 @@ function(input, output, session) {
 
 
   output$forecast_1y_bar <- renderPlotly({
-    forecast_accuracy <- live_scorecard_data() %>%
-      filter(name == "For_1") %>%
-      as.data.frame()
-
-    forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
-
-    forecast_range <- scorecards_data_pivot %>%
-      filter(
-        name == "For_1",
-        Phase == input$phase_choice
-      )
-
-
-    range_values <- forecast_range %>%
-      summarise(
-        quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
-        accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
-      ) %>%
-      as.data.frame()
-
-    range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
-    range_values$accuracy[1] <- (ceiling(abs(range_values$accuracy[1])) * range_values$accuracy[1] / abs(range_values$accuracy[1]))
-    p <- ggplot(
-      forecast_accuracy,
-      aes(name, value,
-        fill = value,
-        text = paste0(input$LA_choice, ": ", value, "%")
-      )
-    ) +
-      geom_bar(stat = "identity", width = 100) +
-      scale_fill_gradientn(
-        colors = divergent_gradient,
-        space = "Lab",
-        limits = c(-0.75 * abs(range_values$accuracy[5]), 1.08 * abs(range_values$accuracy[5])),
-      ) +
-      ylim(range_values$accuracy[1], range_values$accuracy[5]) +
-      theme_bw() +
-      theme(
-        legend.position = "none", axis.text.y = element_blank(),
-        axis.ticks.y = element_blank(),
-        text = element_text(size = 12)
-      ) +
-      geom_hline(yintercept = 0, linetype = "dotted") +
-      geom_hline(aes(yintercept = range_values$accuracy[2], text = "25th percentile"), linetype = "dashed", color = "Grey") +
-      # geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value) +
-      geom_hline(aes(yintercept = range_values$accuracy[4], text = "75th percentile"), linetype = "dashed", color = "Grey") +
-      geom_hline(yintercept = forecast_accuracy$value, size = 1.) +
-      labs(x = "", y = "Accuracy (%)") +
-      coord_flip()
+    p <- plot_forecast(
+      live_scorecard_data(),
+      scorecards_data_pivot,
+      input$la_choice,
+      input$phase_choice, 1
+    )
     ggplotly(p, tooltip = c("text")) %>%
       layout(font = font_choice) %>%
       config(displayModeBar = FALSE)
   })
 
   output$forecast_3y_bar <- renderPlotly({
-    forecast_accuracy <- live_scorecard_data() %>%
-      filter(name == "For_3")
-    forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
-
-    forecast_range <- scorecards_data_pivot %>%
-      filter(
-        name == "For_3",
-        Phase == input$phase_choice
-      )
-
-    range_values <- forecast_range %>%
-      summarise(
-        quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
-        accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
-      ) %>%
-      as.data.frame()
-
-    range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
-    range_values$accuracy[1] <- (ceiling(abs(range_values$accuracy[1])) * range_values$accuracy[1] / abs(range_values$accuracy[1]))
-
-    p <- ggplot(forecast_accuracy, aes(name, value, fill = value, text = paste0(input$LA_choice, ": ", value, "%"))) +
-      geom_bar(stat = "identity", width = 100) +
-      scale_fill_gradientn(
-        colors = divergent_gradient,
-        space = "Lab",
-        limits = c(-0.75 * abs(range_values$accuracy[5]), 1.08 * abs(range_values$accuracy[5])),
-      ) +
-      ylim(c(range_values$accuracy[1], range_values$accuracy[5])) +
-      theme_bw() +
-      theme(
-        legend.position = "none", axis.text.y = element_blank(),
-        axis.ticks.y = element_blank(),
-        text = element_text(size = 12)
-      ) +
-      geom_hline(yintercept = 0, linetype = "dotted", color = "Black") +
-      geom_hline(aes(yintercept = range_values$accuracy[2], text = "25th percentile"), linetype = "dashed", color = "Grey") +
-      # geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value) +
-      geom_hline(aes(yintercept = range_values$accuracy[4], text = "75th percentile"), linetype = "dashed", color = "Grey") +
-      geom_hline(yintercept = forecast_accuracy$value, size = 1.) +
-      labs(x = "", y = "Accuracy (%)") +
-      coord_flip()
+    p <- plot_forecast(
+      live_scorecard_data(),
+      scorecards_data_pivot,
+      input$la_choice,
+      input$phase_choice, 3
+    )
     ggplotly(p, tooltip = c("text")) %>%
       layout(font = font_choice) %>%
       config(displayModeBar = FALSE)

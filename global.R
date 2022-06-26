@@ -46,6 +46,7 @@ tidy_code_function <- function() {
 
 source("0_variable_change.R")
 source("R/functions.R")
+source("R/plotting.R")
 
 # ----------------------------------------------------------------------------
 # Setup loading screen and spinner
