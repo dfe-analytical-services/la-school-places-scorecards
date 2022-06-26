@@ -254,7 +254,7 @@ quality_places <- plot_ly(
 ### Forecast accuracy of pupil projections for `r forecast_year`, made one year and three years previously
 
 The shaded area in each chart ending at the thick vertical line shows the forecasting accuracy for `r  params$input_la_choice`.
-The starting point is 0, an accurate score, indicated by a dotted line.
+The starting point is 0, an accurate score, indicated by a thin vertical line.
 A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.\
 The grey dashed lines show the 25th and 75th percentile score for all local authorities.
 
