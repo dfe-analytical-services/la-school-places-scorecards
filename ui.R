@@ -396,7 +396,7 @@ fluidPage(
         br(),
         h2("Contact us"),
         "If you have questions about the dashboard or data within it, please contact ",
-        a(href = "mailto:scap.ppp@education.gov.uk", "scap.ppp@education.gov.uk", .noWS = c("after")), 
+        a(href = "mailto:scap.ppp@education.gov.uk", "scap.ppp@education.gov.uk", .noWS = c("after")),
         br(),
         h2("See the source code"),
         "The source code for this dashboard is available in our ",

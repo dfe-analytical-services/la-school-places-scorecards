@@ -1,16 +1,16 @@
 ---
 params: 
-    input_la_choice: England
+    input_la_choice: Wokingham
     input_phase_choice: Secondary
      # Keep this as Ofsted for 2021 scorecard as only option
     input_quality_chart: 'Ofsted'
 header-includes:
   # Here be dragons, edit these header items at your own risk.
    - \usepackage{graphics}
-   - \usepackage{expl3}
+#   - \usepackage{expl3}
    - \usepackage{xparse}
    - \usepackage{tcolorbox}
-   - \usepackage{amsmath,amsfonts,amsthm}
+#   - \usepackage{amsmath,amsfonts,amsthm}
    - \usepackage{wrapfig}
    - \usepackage{helvet}
    - \usepackage{sectsty}
@@ -258,246 +258,96 @@ The starting point is 0, an accurate score, indicated by a dotted line.
 A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.\
 The grey dashed lines show the 25th and 75th percentile score for all local authorities.
 
+``` {r forecast_setup,echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
+summary_stats_1yr <- forecast_summary_stats(dfScorecardsAll,1,
+                                            params$input_phase_choice)
+summary_stats_3yr <- forecast_summary_stats(dfScorecardsAll,3,
+                                            params$input_phase_choice)
+
+
+```
+
 ``` {r forecast7,echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
    ## Forecast accuracy labels 
-
-  
-     forecast_accuracy <- dfScorecardArea %>% 
+     forecast_accuracy_1yr <- dfScorecardArea %>% 
        filter(name == "For_1") %>% 
        pull(value) %>% 
        roundFiveUp(., 3) * 100 
 
-
-     Foracc1year <- dfScorecardsAll %>% 
-       filter(name == "For_1")  %>% 
-       pull(value) %>% 
-       roundFiveUp(., 3) * 100 
-
-     medianaccuracy1 <- median(Foracc1year, na.rm = TRUE)  
-
-     Twentyfifthpercentile1  <-  quantile(Foracc1year,0.25, na.rm = TRUE) 
-
-     Seventyfifthpercentile1  <-  quantile(Foracc1year,0.75, na.rm = TRUE) 
-
-     label1 <- case_when( 
-       params$input_la_choice != "England" & forecast_accuracy > 0 & forecast_accuracy >  Seventyfifthpercentile1 ~ "Overestimate of pupil numbers, larger overestimate than at least 75% of local authorities", 
-       params$input_la_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < Seventyfifthpercentile1 ~ "Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores", 
-       params$input_la_choice != "England" & forecast_accuracy < 0 & forecast_accuracy < Twentyfifthpercentile1 ~ "Underestimate of pupil numbers, larger underestimation than at least 75% of local authorities", 
-       params$input_la_choice != "England" & forecast_accuracy < 0 & forecast_accuracy > Twentyfifthpercentile1 ~ "Underestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores", 
-       params$input_la_choice == "England" &  forecast_accuracy > 0  ~ "Overestimate of pupil numbers", 
-       params$input_la_choice == "England" &  forecast_accuracy < 0  ~ "Underestimate of pupil numbers", 
-       params$input_la_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London", 
-       params$input_la_choice == "Isles Of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly", 
-       TRUE ~ "No overestimate/underestimate therefore accurate" 
-     ) 
-
+    label_desc_1yr <- forecast_accuracy_desclabel(forecast_accuracy_1yr,
+                                                  params$input_la_choice,
+                                                  summary_stats_1yr)
      oneyearlabel <-
-     if (label1 != "accurate") { 
-       paste0("One year ahead: ", forecast_accuracy, "% ") 
+     if (label_desc_1yr != "accurate") { 
+       paste0("One year ahead: ", forecast_accuracy_1yr, "\\% ") 
      } else { 
        paste0("<b>One year ahead: ") 
      } 
-  
-   
 
-```
-
-### `r oneyearlabel`
- `r label1`
-
-  
-
-
-``` {r forecast1,echo = FALSE, warning = FALSE, message=FALSE, results='asis', fig.height=1}
-
-
-     forecast_accuracy <- dfScorecardArea %>%
-      filter(name == "For_1") %>%
-      as.data.frame()
-
-    forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100
-
-    forecast_range <- dfScorecardsAll %>%
-      filter(name == "For_1")
-
-
-    range_values <- forecast_range %>%
-      summarise(
-        quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)),
-        accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE)
-      ) %>%
-      as.data.frame()
-
-    range_values$accuracy[5] <- (ceiling(range_values$accuracy[5]))
-    range_values$accuracy[1] <- (ceiling(abs(range_values$accuracy[1])) * range_values$accuracy[1] / abs(range_values$accuracy[1]))
-     ggplot(
-      forecast_accuracy,
-      aes(name, value,
-          fill = value,
-          text = paste0(params$input_la_choice, ": ", value, "%")
-      )
-    ) +
-      geom_bar(stat = "identity", width = 100) +
-      scale_fill_gradientn(
-        colors = divergent_gradient,
-        space = "Lab",
-        limits = c(-0.75 * abs(range_values$accuracy[5]), 1.08 * abs(range_values$accuracy[5])),
-      ) +
-      ylim(range_values$accuracy[1], range_values$accuracy[5]) +
-      theme_bw() +
-      theme(
-        legend.position = "none", axis.text.y = element_blank(),
-        axis.ticks.y = element_blank(),
-        text = element_text(size = 12)
-      ) +
-      geom_hline(yintercept = 0, linetype = "dotted") +
-      geom_hline(yintercept = range_values$accuracy[2], color="Grey", linetype = "dashed") +
-     # geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value) +
-      geom_hline(yintercept = range_values$accuracy[4], color="Grey", linetype = "dashed") +
-      geom_hline(yintercept = forecast_accuracy$value, size = 1.) +
-      labs(x = "", y = "Accuracy (%)") +
-      coord_flip()
-
-
-```
- 
-The table below shows the range in accuracy scores one year ahead across all England LAs
- 
-``` {r forecast3,echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
-  facc_table1 <- 
-     dfScorecardsAll %>% 
-       filter(name == "For_1") %>% 
-       mutate( 
-         Median  = format_perc(median(value, na.rm = TRUE)), 
-         Twentyfifthpercentile = format_perc(quantile(value,0.25, na.rm = TRUE)), 
-         Seventyfifthpercentile = format_perc(quantile(value,0.75, na.rm = TRUE)), 
-         Minimum = format_perc(min(value, na.rm = TRUE)), 
-         Maximum = format_perc(max(value, na.rm = TRUE)), 
-        ) %>% 
-       filter(LA_name == "England") %>%  
-     select(` `=LA_name,
-            Minimum, 
-            `25th percentile`=Twentyfifthpercentile, 
-            Median, 
-            `75th percentile`=Seventyfifthpercentile, 
-            Maximum)
-kable(facc_table1,"latex",booktabs = T)
-```
- 
-
- 
-``` {r forecast5,echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
-  
-     forecast_accuracy <- dfScorecardArea %>% 
+     forecast_accuracy_3yr <- dfScorecardArea %>% 
        filter(name == "For_3") %>% 
        pull(value) %>% 
        roundFiveUp(., 3) * 100 
 
-     Foracc3year <- scorecards_data_pivot %>% 
-       filter( 
-         name == "For_3", 
-         Phase == params$input_phase_choice)  %>% 
-       pull(value) %>% 
-       roundFiveUp(., 3) * 100 
-
-     medianaccuracy2 <- median(Foracc3year, na.rm = TRUE)  
-
-     Twentyfifthpercentile2 <- quantile(Foracc3year,0.25, na.rm = TRUE) 
-
-     Seventyfifthpercentile2 <- quantile(Foracc3year,0.75, na.rm = TRUE) 
-
-     label <- case_when( 
-       params$input_la_choice != "England" & forecast_accuracy > 0 & forecast_accuracy >  Seventyfifthpercentile2 ~ "Overestimate of pupil numbers, larger overestimate than at least 75% of local authorities", 
-       params$input_la_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < Seventyfifthpercentile2 ~ "Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores", 
-       params$input_la_choice != "England" & forecast_accuracy < 0 & forecast_accuracy < Twentyfifthpercentile2 ~ "Underestimate of pupil numbers, larger underestimation than at least 75% of local authorities", 
-       params$input_la_choice != "England" & forecast_accuracy < 0 & forecast_accuracy > Twentyfifthpercentile2 ~ "Underestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores", 
-           params$input_la_choice == "England" &  forecast_accuracy > 0  ~ "Overestimate of pupil numbers", 
-       params$input_la_choice == "England" &  forecast_accuracy < 0  ~ "Underestimate of pupil numbers", 
-       params$input_la_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London", 
-       params$input_la_choice == "Isles Of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly", 
-       TRUE ~ "No overestimate/underestimate therefore accurate" 
-     ) 
-
-     
+    label_desc_3yr <- forecast_accuracy_desclabel(forecast_accuracy_3yr,
+                                                  params$input_la_choice,
+                                                  summary_stats_1yr)
      threeyearlabel <-
-     if (label != "accurate") { 
-       paste0("Three years ahead: ", forecast_accuracy, "%") 
+     if (label_desc_3yr != "accurate") { 
+       paste0("Three years ahead: ", forecast_accuracy_3yr, "\\% ") 
      } else { 
-       paste("<b>Three years ahead : </b>", label) 
+       paste0("<b>Three years ahead: ") 
      } 
 
-``` 
- 
-### `r threeyearlabel`
- `r label`
-
-``` {r forecast22,echo = FALSE, warning = FALSE, message=FALSE, results='asis', fig.height=1}
-     forecast_accuracy <- dfScorecardArea %>% 
-       filter(name == "For_3") 
-
-     forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3) * 100 
-
-     forecast_range <- scorecards_data_pivot %>% 
-       filter( 
-         name == "For_3", 
-         Phase == params$input_phase_choice 
-       ) 
-
-     range_values <- forecast_range %>% 
-       summarise( 
-         quantile = scales::percent(c(0., 0.25, 0.5, 0.75, 1.0)), 
-         accuracy = 100. * quantile(value, c(0., 0.25, 0.5, 0.75, 1.0), na.rm = TRUE) 
-       ) %>% 
-       as.data.frame() 
-
-     range_values$accuracy[5] <- (ceiling(range_values$accuracy[5])) 
-     range_values$accuracy[1] <- (ceiling(abs(range_values$accuracy[1])) * range_values$accuracy[1] / abs(range_values$accuracy[1])) 
-
-      ggplot(forecast_accuracy, aes(name, value, fill = value, text = paste0(params$input_la_choice, ": ", value, "%"))) + 
-       geom_bar(stat = "identity", width = 100) + 
-       scale_fill_gradientn( 
-         colors = divergent_gradient, 
-         space = "Lab", 
-         limits = c(-0.75 * abs(range_values$accuracy[5]), 1.08 * abs(range_values$accuracy[5])), 
-       ) + 
-       ylim(c(range_values$accuracy[1], range_values$accuracy[5])) + 
-       theme_bw() + 
-       theme( 
-         legend.position = "none", axis.text.y = element_blank(), 
-         axis.ticks.y = element_blank(), 
-         text = element_text(size = 12) 
-       ) + 
-       geom_hline(yintercept = 0, linetype = "dotted") + 
-       geom_hline(yintercept = range_values$accuracy[2], color="Grey", linetype = "dashed") + 
-     #  geom_hline(yintercept = 100. * (forecast_range %>% filter(LA_name == "England"))$value) + 
-       geom_hline(yintercept = range_values$accuracy[4], color="Grey", linetype = "dashed") + 
-       geom_hline(yintercept = forecast_accuracy$value, size = 1.) + 
-       labs(x = "", y = "Accuracy (%)") + 
-       coord_flip() 
 ```
 
-The table below shows the range in accuracy scores three years ahead across all England LAs
- 
-``` {r forecast4,echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
-  facc_table3 <- 
-     dfScorecardsAll %>% 
-       filter(name == "For_3") %>% 
-       mutate( 
-         Median  = format_perc(median(value, na.rm = TRUE)), 
-         Twentyfifthpercentile = format_perc(quantile(value,0.25, na.rm = TRUE)), 
-         Seventyfifthpercentile = format_perc(quantile(value,0.75, na.rm = TRUE)), 
-         Minimum = format_perc(min(value, na.rm = TRUE)), 
-         Maximum = format_perc(max(value, na.rm = TRUE)), 
-        ) %>% 
-       filter( 
-                LA_name == "England" 
-       ) %>%  
-     select(` `=LA_name,
-            Minimum, 
-            `25th percentile`=Twentyfifthpercentile, 
-            Median, `75th percentile`=Seventyfifthpercentile, Maximum) 
 
- kable(facc_table3,"latex",booktabs = T)
+``` {r forecast_statshead,echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
+cat('\\begin{tabular}{p{0.48\\linewidth} p{0.48\\linewidth} }')
+cat('\\bf\\large\\color{dfeheadingblue} ')
+cat(oneyearlabel)
+cat('\\ & \\bf\\large\\color{dfeheadingblue} ')
+cat(threeyearlabel)
+cat("\\ \\\\")
+cat(label_desc_1yr)
+cat('&')
+cat(label_desc_3yr)
+cat(" \\\\")
+cat('\\end{tabular}')
+```
+ 
+
+``` {r forecast22,echo = FALSE, warning = FALSE, message=FALSE, results='asis', fig.height=1,fig.show="hold", out.width="50%"}
+    plot_forecast(dfScorecardArea,
+                       dfScorecardsAll,
+                       params$input_la_choice,
+                       params$input_phase_choice,1)
+    plot_forecast(dfScorecardArea,
+                       dfScorecardsAll,
+                       params$input_la_choice,
+                       params$input_phase_choice,3)
+```
+
+
+``` {r forecast4,echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
+  facc_table1 <- as.data.frame(
+    summary_stats_1yr %>% mutate(accuracy=format_perc(accuracy)) %>%
+      pivot_wider(names_from=quantile,values_from=accuracy)
+    )
+  facc_table3 <- as.data.frame(
+    summary_stats_3yr %>% mutate(accuracy=format_perc(accuracy)) %>%
+      pivot_wider(names_from=quantile,values_from=accuracy)
+    )
+
+cat('\\begin{tabular}{p{0.48\\linewidth} p{0.48\\linewidth} }')
+cat('\\footnotesize ')
+cat('\\centering ')
+print(knitr::kable(facc_table1,"latex",booktabs = T))
+cat('&')
+cat('\\footnotesize ')
+cat('\\centering ')
+print(knitr::kable(facc_table3,"latex",booktabs = T))
+cat('\\end{tabular}')
 ```
 
 \newpage
