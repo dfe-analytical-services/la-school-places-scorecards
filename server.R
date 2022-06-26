@@ -142,7 +142,7 @@ function(input, output, session) {
     if (input$LA_choice == "England") {
       shinydashboard::valueBox(
         paste0("£", total_funding, "bn"),
-        paste0("Total primary and secondary basic need funding ", funding_year),
+        paste0("Total primary and secondary basic need funding to create new places ", funding_year),
         # get different icons for background here: https://fontawesome.com/v5.15/icons?d=gallery&p=2
         # icon = icon("fas fa-pound-sign"),
         color = "blue"
@@ -150,7 +150,7 @@ function(input, output, session) {
     } else {
       shinydashboard::valueBox(
         paste0("£", total_funding, "m"),
-        paste0("Total primary and secondary basic need funding ", funding_year),
+        paste0("Total primary and secondary basic need funding to create new places ", funding_year),
         # icon = icon("fas fa-pound-sign"),
         color = "blue"
       )
@@ -170,7 +170,7 @@ function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(growth_perc, "%"),
-      paste0("Growth in ", str_to_lower(input$phase_choice), " pupil numbers 2009/10 to ", plan_year),
+      paste0("Anticipated growth in ", str_to_lower(input$phase_choice), " pupil numbers 2009/10 to ", plan_year),
       # icon = icon("fas fa-chart-line"),
       color = "blue"
     )
@@ -437,13 +437,13 @@ function(input, output, session) {
   output$forecasting.bartext <- renderUI(
     if (input$LA_choice != "England") {
       tagList(p(paste0("The shaded area ending at the thick vertical line in each chart shows the forecasting accuracy for ", input$LA_choice, ".
-                     The starting point is 0, an accurate score, indicated by a dotted line.
+                     The starting point is 0, an accurate score, indicated by the thin vertical line.
                      A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.
                      The dashed lines show the 25th and 75th percentiles across all local authorities i.e. half of all local authorities were
   found to have a forecasting accuracy falling between the two dashed lines.")))
     } else if (input$LA_choice == "England") {
       tagList(p(paste0("The shaded area ending at the thick vertical line in each chart shows the average forecasting accuracy for local authorities in England.
-                     The starting point is 0, an accurate score, indicated by a dotted line.
+                     The starting point is 0, an accurate score, indicated by the thin vertical line.
                      A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.
                      The dashed lines show the 25th and 75th percentiles across all local authorities i.e. half of all local authorities were
   found to have a forecasting accuracy falling between the two dashed lines.")))
@@ -835,7 +835,7 @@ function(input, output, session) {
       )) %>%
       # Create Ofsted ratings out of the names
       mutate(rating = case_when(
-        str_detect(name, "1") ~ "Oustanding",
+        str_detect(name, "1") ~ "Outstanding",
         str_detect(name, "2") ~ "Good",
         str_detect(name, "3") ~ "Requires Improvement",
         str_detect(name, "4") ~ "Inadequate",
@@ -859,7 +859,7 @@ function(input, output, session) {
       filter(rating != "No rating") %>%
       ggplot(aes(
         y = value, x = place_type,
-        fill = factor(rating, levels = c("Oustanding", "Good", "Requires Improvement", "Inadequate")),
+        fill = factor(rating, levels = c("Outstanding", "Good", "Requires Improvement", "Inadequate")),
         text = paste(rating, ": ", places, " places")
       )) +
       geom_bar(stat = "identity", position = position_fill(reverse = TRUE)) +
@@ -1106,7 +1106,7 @@ function(input, output, session) {
 
   output$cost.bartext <- renderUI({
     if (input$LA_choice != "England") {
-      paste0("Region column shows England averages, adjusted for regional location factors: see technical notes")
+      paste0("Region column shows England averages, adjusted for regional location factors. See technical notes for more information.")
     } else {
       paste("")
     }

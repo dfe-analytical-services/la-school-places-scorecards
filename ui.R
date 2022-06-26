@@ -97,16 +97,16 @@ fluidPage(
       sidebarLayout(
         sidebarPanel(
           width = 2,
-          p("View a LA School Places Scorecard using the drop downs below."),
+          p("View a local authority school places scorecard using the drop downs below."),
           p("Switch between different school place metrics using the tabs on the right."),
           selectInput("LA_choice",
-            label = p(strong("Choose a geography")),
+            label = p(strong("Choose a local authority")),
             choices = levels(LA_options),
             selected = "Darlington"
           ),
           br(),
           selectInput("phase_choice",
-            label = p(strong("Choose a phase")),
+            label = p(strong("Choose primary or secondary")),
             choices = c("Primary", "Secondary"),
             selected = "Primary"
           ),
@@ -117,14 +117,14 @@ fluidPage(
           #  ),
           br(),
           br(),
-          p(strong("Download data for all geographies and phases using the button below", style = "color:white")),
+          p(strong("Download data for all local authorities", style = "color:white")),
           myDownloadButton(
             "download_ud",
             "Download data"
           ),
           br(),
           br(),
-          p(strong("Download summary pdf for the chosen geography and phase using the button below", style = "color:white")),
+          p(strong("Download summary pdf for chosen local authority", style = "color:white")),
           myDownloadButton(
             "pdfDownload",
             "Download report"
@@ -168,8 +168,7 @@ fluidPage(
                     fluidRow(
                       column(
                         12,
-                        p(strong("Funding allocated for creation of new places, anticipated increase in pupils"))
-                      )
+                       )
                     ),
                     fluidRow(
                       column(
@@ -273,7 +272,7 @@ fluidPage(
                   br(),
                   p(strong("Average cost of additional mainstream school places")),
                   p("Based on local authority reported projects between ", cost_year_1, " and ", cost_year_2, ", adjusted for inflation and regional variation"),
-                  p("Not new data: see technical notes")
+                  p("Because there is no new data, only national average costs are shown. Local authority average costs are not shown. ")
                 ),
                 fluidRow(
                   valueBoxOutput("perm_box", width = 4),
