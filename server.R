@@ -450,14 +450,11 @@ function(input, output, session) {
     }
   )
 
-
-
-
   output$forecast_1y_bar <- renderPlotly({
     p <- plot_forecast(
       live_scorecard_data(),
       scorecards_data_pivot,
-      input$la_choice,
+      input$LA_choice,
       input$phase_choice, 1
     )
     ggplotly(p, tooltip = c("text")) %>%
@@ -469,7 +466,7 @@ function(input, output, session) {
     p <- plot_forecast(
       live_scorecard_data(),
       scorecards_data_pivot,
-      input$la_choice,
+      input$LA_choice,
       input$phase_choice, 3
     )
     ggplotly(p, tooltip = c("text")) %>%
