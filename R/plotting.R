@@ -24,9 +24,13 @@ plot_forecast <- function(dfScorecards, dfScorecardsPivot, la_choice, phase, yea
     filter(name == forecast)
   forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3)
 
-  p <- ggplot(forecast_accuracy, 
-              aes(name, value, fill = value, 
-                  text = paste0(la_choice, ": ", format_perc(value)))) +
+  p <- ggplot(
+    forecast_accuracy,
+    aes(name, value,
+      fill = value,
+      text = paste0(la_choice, ": ", format_perc(value))
+    )
+  ) +
     geom_bar(stat = "identity", width = 100) +
     scale_fill_gradientn(
       colors = divergent_gradient,
