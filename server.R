@@ -165,7 +165,7 @@ function(input, output, session) {
     growth_perc <- live_scorecard_data() %>%
       filter(name == "Bangro") %>%
       pull(value) %>%
-      roundFiveUp(., 2) * 100
+      roundFiveUp(., 3) * 100
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -221,7 +221,7 @@ function(input, output, session) {
     spare_places_per <- live_scorecard_data() %>%
       filter(name == "QuanSu") %>%
       pull(value) %>%
-      roundFiveUp(., 2) * 100
+      roundFiveUp(., 3) * 100
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -310,7 +310,7 @@ function(input, output, session) {
       input$LA_choice == "England" & forecast_accuracy > 0 ~ "Overestimate of pupil numbers",
       input$LA_choice == "England" & forecast_accuracy < 0 ~ "Underestimate of pupil numbers",
       input$LA_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London",
-      input$LA_choice == "Isles Of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly",
+      input$LA_choice == "Isles of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly",
       TRUE ~ "No Overestimate/underestimate therefore accurate"
     )
 
@@ -350,7 +350,7 @@ function(input, output, session) {
       input$LA_choice == "England" & forecast_accuracy > 0 ~ "Overestimate of pupil numbers",
       input$LA_choice == "England" & forecast_accuracy < 0 ~ "Underestimate of pupil numbers",
       input$LA_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London",
-      input$LA_choice == "Isles Of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly",
+      input$LA_choice == "Isles of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly",
       TRUE ~ "No Overestimate/underestimate therefore accurate"
     )
 
@@ -612,22 +612,22 @@ function(input, output, session) {
       live_scorecard_data() %>%
         filter(name == "QualProp") %>%
         pull(value) %>%
-        roundFiveUp(., 2) * 100
+        roundFiveUp(., 3) * 100
     } else if (chart_choice == "Progress 8") {
       live_scorecard_data() %>%
         filter(name == "Qual_KS4_Prop") %>%
         pull(value) %>%
-        roundFiveUp(., 2) * 100
+        roundFiveUp(., 3) * 100
     } else if (chart_choice == "Reading Progress") {
       live_scorecard_data() %>%
         filter(name == "Qual_KS2Read_Prop") %>%
         pull(value) %>%
-        roundFiveUp(., 2) * 100
+        roundFiveUp(., 3) * 100
     } else if (chart_choice == "Maths Progress") {
       live_scorecard_data() %>%
         filter(name == "Qual_KS2Mat_Prop") %>%
         pull(value) %>%
-        roundFiveUp(., 2) * 100
+        roundFiveUp(., 3) * 100
     }
   })
 
