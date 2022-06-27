@@ -246,18 +246,18 @@ function(input, output, session) {
     p <- plot_ly(
       places_chart_data,
       x = ~LA_name, y = ~QuanIn,
-      marker = list(color = c("#12436D")),
+      marker = list(color = c("#08519c")),
       type = "bar", name = paste0("Total places created between 2009/10 and ", this_year),
       text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF"),
       hoverinfo = "text"
     ) %>%
       add_trace(
-        y = ~QuanPP, marker = list(color = c("#F46A25")),
+        y = ~QuanPP, marker = list(color = c("#3182bd")),
         name = paste0("New places planned for delivery between ", this_year, " and ", plan_year),
         text = ~ scales::comma(QuanPP), textposition = "inside"
       ) %>%
       add_trace(
-        y = ~QuanRP, marker = list(color = c("#801650")),
+        y = ~QuanRP, marker = list(color = c("#6baed6")),
         name = paste0("Estimated additional places still needed to meet demand in ", plan_year),
         text = ~ scales::comma(QuanRP), textposition = "inside"
       ) %>%
@@ -569,7 +569,7 @@ function(input, output, session) {
       geom_text(aes(label = value_label), colour = "#ffffff", size = 4, position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
-      scale_fill_manual(values = dfe_colours) +
+      scale_fill_manual(values = c("#08519c","#3182bd","#6baed6","#9ecae1")) +
       scale_y_continuous(labels = scales::percent) +
       theme_minimal() +
       theme(
@@ -868,7 +868,7 @@ function(input, output, session) {
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
-      scale_fill_manual(values = dfe_colours) +
+      scale_fill_manual(values = c("#08519c","#3182bd","#6baed6","#9ecae1")) +
       scale_y_continuous(labels = scales::percent) +
       theme_minimal() +
       theme(
@@ -936,7 +936,7 @@ function(input, output, session) {
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
-      scale_fill_manual(values = dfe_colours) +
+      scale_fill_manual(values = c("#08519c","#3182bd","#6baed6","#9ecae1")) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
@@ -1001,7 +1001,7 @@ function(input, output, session) {
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
-      scale_fill_manual(values = dfe_colours) +
+      scale_fill_manual(values = c("#08519c","#3182bd","#6baed6","#9ecae1")) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
@@ -1067,7 +1067,7 @@ function(input, output, session) {
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
-      scale_fill_manual(values = dfe_colours) +
+      scale_fill_manual(values = c("#08519c","#3182bd","#6baed6","#9ecae1")) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
