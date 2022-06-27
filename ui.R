@@ -148,7 +148,7 @@ fluidPage(
           ),
           br(),
           selectInput("phase_choice",
-            label = p(strong("Choose primary or secondary")),
+            label = p(strong("Choose between primary or secondary school places")),
             choices = c("Primary", "Secondary"),
             selected = "Primary"
           ),
@@ -314,7 +314,7 @@ fluidPage(
                   br(),
                   p(strong("Average cost of additional mainstream school places")),
                   p("Based on local authority reported projects between ", cost_year_1, " and ", cost_year_2, ", adjusted for inflation and regional variation"),
-                  p("Because there is no new data, only national average costs are shown. Local authority average costs are not shown. ")
+                  p("Local authority average costs are not shown because there is no new data. Only national average costs and number of projects for England are shown.")
                 ),
                 fluidRow(
                   valueBoxOutput("perm_box", width = 4),
