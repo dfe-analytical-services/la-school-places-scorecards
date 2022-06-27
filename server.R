@@ -849,7 +849,7 @@ function(input, output, session) {
       group_by(LA_name, place_type) %>%
       mutate(
         places_perc = places / sum(places, na.rm = TRUE),
-        value_label = if_else(places_perc > 0.05, places, NA_integer_)
+        value_label = if_else(places_perc > 0.045, places, NA_integer_)
       )
 
 
@@ -1142,7 +1142,9 @@ function(input, output, session) {
       ) %>%
       select(Region, Type = exp_type, cost_per_place) %>%
       pivot_wider(names_from = Region, values_from = cost_per_place)
-  })
+  },
+  align = 'r'
+  )
 
 
 
