@@ -187,7 +187,8 @@ fluidPage(
           tabsetPanel(
             id = "tabs",
             tabPanel(
-              "Quantity",
+              value = "quantity",
+              title = "Quantity",
               fluidPage(
                 fluidRow(
                   column(width = 12, br()),
