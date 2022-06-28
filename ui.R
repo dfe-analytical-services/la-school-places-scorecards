@@ -6,6 +6,7 @@ function(request) {
 
   navbarPage(
     title = "School places scorecards",
+    tags$head(includeHTML(("google-analytics.html"))),
     tabPanel(
       "LA scorecards",
       includeCSS("www/shiny_gov_style.css"),
