@@ -95,7 +95,7 @@ This document presents school places figures for `r params$input_la_choice` cove
     growth_perc <- dfScorecardArea %>%
       filter(name == "Bangro") %>%
       pull(value) %>%
-      roundFiveUp(., 2) * 100
+      roundFiveUp(., 3) * 100
 
     # PDisplay growth in pupil numbers
    textTopLineGrowth <- paste0("Growth in ", str_to_lower(params$input_phase_choice), " pupil numbers 2009/10 to ", plan_year, ": ", growth_perc, "%")
@@ -176,7 +176,7 @@ A local authority can have both ‘spare places’ and ‘additional places need
     spare_places_per <- dfScorecardArea %>%
       filter(name == "QuanSu") %>%
       pull(value) %>%
-      roundFiveUp(., 2) * 100
+      roundFiveUp(., 3) * 100
 ```            
 
 \makebox[1.0\linewidth]{
@@ -526,22 +526,22 @@ cat("
       dfScorecardArea %>%
         filter(name == "QualProp") %>%
         pull(value) %>%
-        roundFiveUp(., 2) * 100
+        roundFiveUp(., 3) * 100
     } else if (params$input_quality_chart == "Progress 8") {
       dfScorecardArea %>%
         filter(name == "Qual_KS4_Prop") %>%
         pull(value) %>%
-        roundFiveUp(., 2) * 100
+        roundFiveUp(., 3) * 100
     } else if (params$input_quality_chart == "Reading Progress") {
       dfScorecardArea %>%
         filter(name == "Qual_KS2Read_Prop") %>%
         pull(value) %>%
-        roundFiveUp(., 2) * 100
+        roundFiveUp(., 3) * 100
     } else if (params$input_quality_chart== "Maths Progress") {
       dfScorecardArea %>%
         filter(name == "Qual_KS2Mat_Prop") %>%
         pull(value) %>%
-        roundFiveUp(., 2) * 100
+        roundFiveUp(., 3) * 100
     }
   
              # Scorecard data for ALL LAs, filtered only on phase choice
