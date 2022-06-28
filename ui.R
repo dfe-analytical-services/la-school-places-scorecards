@@ -66,13 +66,13 @@ fluidPage(
           #  h4("Quantity"),
           br("This measure shows how much progress the chosen local authority is making in providing sufficient school places for academic year 2023/24. This is based on published 
              ", a(href = "https://www.gov.uk/government/statistics/school-capacity-in-england-academic-year-2020-to-2021", "school capacity 20/21 data"), "as collected in the 2021 the School Capacity Survey (SCAP21)."),
-          br("The chart shows"),
-          br("•the places already added since the academic year 2009/10;"), 
-          "•the additional places planned to be added up to the 2023/24 academic year; and", 
-          br("•the estimated number of additional places still needed to meet demand in 2023/24, based on the local authority’s forecast demand."), 
-          br("The four headline boxes show:"),
-          br(" •	the estimated number of additional places still needed to meet demand in 2023/24, based on the local authority’s forecast demand (same figure shown in the chart);"), 
-          " •	the estimated percentage of spare places. It is common for a local authority to have both a need for additional places and spare capacity, 
+          br("The chart shows the:"),
+          br("•places already added since the academic year 2009/10;"), 
+          "•additional places planned to be added up to the 2023/24 academic year; and", 
+          br("•estimated number of additional places still needed to meet demand in 2023/24, based on the local authority’s forecast demand."), 
+          br("The four headline boxes show the:"),
+          br(" •	estimated number of additional places still needed to meet demand in 2023/24, based on the local authority’s forecast demand (same figure shown in the chart);"), 
+          " •	estimated percentage of spare places. It is common for a local authority to have both a need for additional places and spare capacity, 
              reflecting pockets of localised need for places or pockets of localised spare places;",
           br(" •	the total amount of basic need capital funding allocated to each local authority to create new places from 2011 to 2024; and"),
           " •	the anticipated percentage increase in pupil numbers in primary or secondary provision between 2009/10 to 2023/24.", 
@@ -82,8 +82,8 @@ fluidPage(
             whereas for others it has emerged more recently. Those experiencing long-standing place pressures will have had more chance to demonstrate 
             that they can add large quantities of places."),
            br(" Local authorities with relatively fewer places still needed are making good progress in delivering the places they anticipate are needed,
-              however they may be good reasons for a local authority showing a significant number of places still needed to be created 
-              (such as a new school due to open in September 2023, which is not included in these calculations, 
+              however they may be good reasons for a local authority showing a significant number of places still needed to be created. 
+              For example a new school due to open in September 2023, which is not included in these calculations, 
               or projects that have since been planned that were not in the latest school capacity survey."),
                  
         br(),
@@ -97,7 +97,7 @@ fluidPage(
              Local authorities would have taken account of these factors in their forecasts for SCAP21 as far as possible, 
              some with more certainty than others. However, because local authorities submitted their forecasts in July 2021, 
              there has been and/or will be significant changes in some areas due to the increased inward migration from Hong Kong, 
-             Afghanistan, Ukraine, and Asylum Seekers. This may affect one year ahead forecast accuracy scores for some Local Authorities 
+             Afghanistan, Ukraine, and Asylum Seekers. This may affect one year ahead forecast accuracy scores for some local authorities 
              and will mean the scorecards are not a representation of the current state of play. "),
        br("Some factors affecting both pupil numbers in January 2022 and SCAP21 forecasts are:"),
           br("•	impacts from the pandemic such as a decrease in 2021 primary enrolment numbers, which is expected to be temporary;"), 
