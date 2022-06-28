@@ -93,40 +93,44 @@ fluidPage(
              The scorecard illustrates the forecasting accuracy of the selected local authority for forecasts made one year ago and provided in SCAP21, and three years ago in SCAP19.  
              These pupil forecasts have been compared with pupils on roll from the January 2022 school census numbers to produce a forecast accuracy score for one and three years ahead.
              A negative forecast accuracy score indicates an underestimation of pupils, a positive score indicates an overestimation."),
-          br("   Many factors have impacted pupil numbers in January 2022, due to causes such as the pandemic, the UK’s exit from the EU,
-             and arrivals in the UK from places such as Hong Kong and Afghanistan (arrivals from Ukraine will not yet be in the school census data).
-             Local authorities would have taken account of these factors in their forecasts for SCAP21 as far as possible, some with more certainty than others.  Some factors affecting both pupil numbers in January 2022 and SCAP21 forecasts are:"),
-          br("•	faster than expected declines in birth rates;"), 
+          br("   Many factors have impacted pupil numbers in January 2022. 
+             Local authorities would have taken account of these factors in their forecasts for SCAP21 as far as possible, 
+             some with more certainty than others. However, because local authorities submitted their forecasts in July 2021, 
+             there has been and/or will be significant changes in some areas due to the increased inward migration from Hong Kong, 
+             Afghanistan, Ukraine, and Asylum Seekers. This may affect one year ahead forecast accuracy scores for some Local Authorities 
+             and will mean the scorecards are not a representation of the current state of play. "),
+       br("Some factors affecting both pupil numbers in January 2022 and SCAP21 forecasts are:"),
+          br("•	impacts from the pandemic such as a decrease in 2021 primary enrolment numbers, which is expected to be temporary;"), 
           "•	decrease in 2021 primary enrolment numbers that is expected to be temporary;",
          br( "•	delays to housing developments in some areas; and"),
-        "•	faster than expected declines in birth rates.",
+        "•	changes in trends in international migration and movement between areas of the country. ",
         br(),
-       br("Caution should also be taken with three year ahead accuracy, as forecasts were submitted in summer 2019, before the Covid-19 pandemic and prior to the unforeseen faster decline in birth rates. Because of this, there was a significant shift in forecast trends between SCAP19 and SCAP21, so you would expect there to be more divergence than usual  between the 1 year ahead score and the 3 year ahead score."),
+       br("Caution should also be taken with three year ahead accuracy, as forecasts were submitted in summer 2019, before the Covid-19 pandemic and prior to the unforeseen faster decline in birth rates. Because of this, there was a significant shift in forecast trends between SCAP19 and SCAP21, so you would expect there to be more divergence than usual between the 1 year ahead score and the 3 year ahead score."),
            br(),
           h4(actionLink("linkPreferenceTab", "Preference")),
           br("You can use the scorecard to see how well the chosen local authority is able to meet parental preference, 
              based on published",  a(href = "https://www.gov.uk/government/statistics/secondary-and-primary-school-applications-and-offers-2021",  "school applications and offers 2021 data."), 
-          "The headline box shows the percentage of applicants who received an offer of a place in one of their top three preferences for entry in September 2021, in the local authority. 
+          "The headline box shows the percentage of applicants, in the local authority, who received an offer of a place in one of their top three preferences for entry in September 2021. 
              The adjacent headline box shows the same percentage for England."),
           br("The chart breaks this down further into to those who received an offer of their first, second or third preferences. 
-             ‘Other’ offers include  pupils who received an offer of a lower preference (where a local authority allows four or more preferences) or did not receive a preferred offer. 
+             ‘Other’ offers include pupils who received an offer of a lower preference (where a local authority allows four or more preferences) or did not receive a preferred offer. 
              The latter can include applicants who were made an alternative offer and those who were not made any offer."),
           br(),
           h4(actionLink("linkQualityTab", "Quality")),
-          br("You can use this measure to see the quality of the schools where the chosen local authority has added school places, based on published school capacity data for 2018/19 and 2020/21 and school Ofsted rating."),
+          br("You can use this measure to see the quality of the schools where the chosen local authority has added school places, based on the change between the 2018/19 and the 2020/21 published school capacity data and school Ofsted rating."),
           br("The chart shows the number of new places added in the local authority, between May 2019 and May 2021, according to the Ofsted rating of the school in which they have been added. There are 4 possible Ofsted ratings: outstanding, good, requires improvement and inadequate."),
           br("It is important to take care when making comparisons using the quality measure as:"),
-       "•	Ofsted inspections may have been delayed due to the pandemic, therefore local authorities may use other data/own local knowledge when deciding which schools to expand;",
-          br("•	The starting position for local authorities is different and some have more good or outstanding schools to add places to; which is why the overall distribution of existing school places by Ofsted rating in the local authority chosen is shown;"),
-          "•	When deciding upon which schools to expand, some good or outstanding schools may be on sites that are not suitable for expansion;",
-          br("•	The Ofsted rating used was available at 31 August 2021 and places may have been added before or after that rating was given; and "),
-          "•	Where schools have amalgamated, the Ofsted rating is only used when we can be sure the rating is for the post-amalgamation school.",
+       "•	many Ofsted inspections have been delayed due to the pandemic, therefore local authorities may use other data/own local knowledge when deciding which schools to expand;",
+          br("•	the starting position for local authorities is different and some have more good or outstanding schools to add places to; which is why the overall distribution of existing school places by Ofsted rating in the local authority chosen is shown;"),
+          "•	when deciding upon which schools to expand, some good or outstanding schools may be on sites that are not suitable for expansion;",
+          br("•	the Ofsted rating used was available at 31 August 2021 and places may have been added before or after that rating was given; and "),
+          "•	where schools have amalgamated, the Ofsted rating is only used when we can be sure the rating is for the post-amalgamation school.",
           br(),
        br(),
           h4(actionLink("linkCostTab", "Cost")),
           br("The Capital Spend Survey that replaced the SCAP Capital Spend Data now collects data on project costs, however due to incomplete coverage it has not yet been incorporated into the scorecard.  The cost data used in the scorecard remains the Capital Spend Data from SCAP18. This was used in the 2018 and 2019 scorecards; there has been no change in the sample of projects. As done in 2019, for the 2021 Scorecard, the data has been adjusted for inflation (uprated to 1st quarter 2022 prices – see technical notes for details)."),
-          br("You can use the scorecard to view the national average cost per place for both primary and secondary school places. These are shown for permanent expansions, temporary expansions and new schools separately. You can also view, for the first time, the national averages adjusted for 2021 regional location factors. "),
-          br("Because the sample of projects are from 2018, the local authority average costs are not shown in the 2021 scorecard. However, you can find these in the underlying data if needed."),
+          br(strong("You can use the scorecard to view the national average cost per place for both primary and secondary school places. These are shown for permanent expansions, temporary expansions and new schools separately. You can also view, for the first time, the national averages adjusted for 2021 regional location factors. ")),
+          br("Because the sample of projects are from 2018, the local authority average costs are not shown in the 2021 scorecard. However, you can find these in the underlying data on explore education statistics if needed."),
           br("There is further guidance on converting costs into current or future prices in the scorecard ‘Technical notes’.")
                  )
       )
@@ -260,7 +264,7 @@ fluidPage(
                   )
                 ),
                 br(),
-                p(em("Caution should be taken with forecast accuracy scores due to unforseen circumstances. See Homepage for more information.")),
+                p(em("Caution should be taken with forecast accuracy scores, due to unforseen impacts on pupil numbers after the forecasts were made. See Homepage for more information.")),
               )
             ),
             tabPanel(
@@ -304,7 +308,7 @@ fluidPage(
                 ),
                 textOutput("no_rating_line"),
                 br(),
-                p(em("Caution should be taken with quality data as Ofsted inspections may have been delayed due to Covid-19."))
+                p(em("Caution should be taken with quality data as many Ofsted inspections have been delayed due to Covid-19."))
               )
             ),
             tabPanel(
@@ -315,7 +319,7 @@ fluidPage(
                   br(),
                   p(strong("Average cost of additional mainstream school places")),
                   p("Based on local authority reported projects between ", cost_year_1, " and ", cost_year_2, ", adjusted for inflation and regional variation"),
-                  p("Local authority average costs are not shown because there is no new data. Only national average costs and number of projects for England are shown.")
+                  p(em("Local authority average costs are not shown because there is no new data. Only national average costs and number of projects for England are shown."))
                 ),
                 fluidRow(
                   valueBoxOutput("perm_box", width = 4),
@@ -353,7 +357,7 @@ fluidPage(
       br("Use this dashboard to view school places scorecards for local authorities in England"),
       br("All dates refer to the academic year, apart from basic need funding years which refer to financial year."),
       br("There is no scorecard for North Northamptonshire and West Northamptonshire as they are new local authorities, following the split from one local authority into two in April 2021. As these two new local authorities are not directly comparable with the pre LGR 2021 Northamptonshire, we were unable to produce complete figures for the majority of individual indictors included in the School Places Scorecard,
-                           however the relevant data for these pre and post LGR 2021 local authorities are included in the England data and Summary data tabs on explore education statistics."),
+                           however the relevant data for these pre and post LGR 2021 local authorities are included in the England data and can be found in the summary data on explore education statistics."),
       br(),
       tabBox(
         title = "",
