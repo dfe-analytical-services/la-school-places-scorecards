@@ -743,7 +743,7 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
       )) %>%
       # Create Ofsted ratings out of the names
       mutate(rating = case_when(
-        str_detect(name, "1") ~ "Oustanding",
+        str_detect(name, "1") ~ "Outstanding",
         str_detect(name, "2") ~ "Good",
         str_detect(name, "3") ~ "Requires Improvement",
         str_detect(name, "4") ~ "Inadequate",
@@ -764,7 +764,7 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
       filter(rating != "No rating") %>%
       ggplot(aes(
         y = value, x = place_type,
-        fill = factor(rating, levels = c("Oustanding", "Good", "Requires Improvement", "Inadequate")),
+        fill = factor(rating, levels = c("Outstanding", "Good", "Requires Improvement", "Inadequate")),
         text = paste(rating, ": ", places, " places")
       )) +
       geom_bar(stat = "identity", position = position_fill(reverse = TRUE)) +
