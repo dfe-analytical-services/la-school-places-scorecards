@@ -23,7 +23,7 @@ header-includes:
    - \renewcommand{\familydefault}{\sfdefault}
    - \allsectionsfont{\color{dfeheadingblue}}
    - \sectionfont{\color{dfeheadingblue}\fontsize{24}{30}\selectfont}
-   - \fancyhead[C]{*** Note that this is a draft document and does not contain genuine data ***}
+  # - \fancyhead[C]{*** Note that this is a draft document and does not contain genuine data ***}
    - \fancyhead[L,R]{}
    - \fancyfoot[R]{\nouppercase{\emph{\rightmark}}}
    - \fancyfoot[L]{\nouppercase{\emph{\leftmark}}}
@@ -225,12 +225,12 @@ quality_places <- plot_ly(
       places_chart_data,
       width = 520, height = 560,
       x = ~LA_name, y = ~QuanIn,
-      marker = list(color = c("#12436D")),
+      marker = list(color = c("#08519c")),
       type = "bar", name = paste0("Total places created between 2009/10 and ", this_year),
       text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF")
     ) %>%
-      add_trace(y = ~QuanPP, marker = list(color = c("#F46A25")), name = paste0("New places already planned for delivery between ", this_year, " and ", plan_year), text = ~ scales::comma(QuanPP), textposition = "inside") %>%
-      add_trace(y = ~QuanRP, marker = list(color = c("#801650")), name = paste0("Estimated additional places still needed to meet demand in ", plan_year), text = ~ scales::comma(QuanRP), textposition = "inside") %>%
+      add_trace(y = ~QuanPP, marker = list(color = c("#3182bd")), name = paste0("New places already planned for delivery between ", this_year, " and ", plan_year), text = ~ scales::comma(QuanPP), textposition = "inside") %>%
+      add_trace(y = ~QuanRP, marker = list(color = c("#6baed6")), name = paste0("Estimated additional places still needed to meet demand in ", plan_year), text = ~ scales::comma(QuanRP), textposition = "inside") %>%
       layout(
         yaxis = list(title = ""),
         xaxis = list(title = ""),
@@ -272,7 +272,7 @@ summary_stats_3yr <- forecast_summary_stats(dfScorecardsAll,3,
      forecast_accuracy_1yr <- dfScorecardArea %>% 
        filter(name == "For_1") %>% 
        pull(value) %>% 
-       roundFiveUp(., 3) * 100 
+       roundFiveUp(., 3) #* 100 
 
     label_desc_1yr <- forecast_accuracy_desclabel(forecast_accuracy_1yr,
                                                   params$input_la_choice,
@@ -287,7 +287,7 @@ summary_stats_3yr <- forecast_summary_stats(dfScorecardsAll,3,
      forecast_accuracy_3yr <- dfScorecardArea %>% 
        filter(name == "For_3") %>% 
        pull(value) %>% 
-       roundFiveUp(., 3) * 100 
+       roundFiveUp(., 3) #* 100 
 
     label_desc_3yr <- forecast_accuracy_desclabel(forecast_accuracy_3yr,
                                                   params$input_la_choice,
@@ -479,7 +479,7 @@ cat("
                 position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
-      scale_fill_manual(values = dfe_colours) +
+        scale_fill_manual(values = c("#08519c","#3182bd","#6baed6","#9ecae1")) +
          scale_y_continuous(labels = scales::percent) +
       theme_minimal() +
       theme(
@@ -757,7 +757,7 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
       group_by(LA_name, place_type) %>%
       mutate(
         places_perc = places / sum(places, na.rm = TRUE),
-        value_label = if_else(places_perc > 0.05, places, NA_integer_)
+        value_label = if_else(places_perc > 0.045, places, NA_integer_)
       )
 
     ofsted_p <- ofsted_data %>%
@@ -773,7 +773,7 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
-      scale_fill_manual(values = dfe_colours) +
+         scale_fill_manual(values = c("#08519c","#3182bd","#6baed6","#9ecae1")) +
   scale_y_continuous(labels = scales::percent) +
       theme_minimal() +
       theme(
@@ -842,7 +842,7 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
-      scale_fill_manual(values = dfe_colours) +
+         scale_fill_manual(values = c("#08519c","#3182bd","#6baed6","#9ecae1")) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
@@ -907,7 +907,7 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
-      scale_fill_manual(values = dfe_colours) +
+        scale_fill_manual(values = c("#08519c","#3182bd","#6baed6","#9ecae1")) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
@@ -973,7 +973,7 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
-      scale_fill_manual(values = dfe_colours) +
+         scale_fill_manual(values = c("#08519c","#3182bd","#6baed6","#9ecae1")) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
