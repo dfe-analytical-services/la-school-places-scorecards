@@ -33,6 +33,7 @@ fluidPage(
                            }
                            ")))
   ),
+  tags$head(includeHTML(("google-analytics.html"))),
   navbarPage(
     id = "navbar",
     title = "",
