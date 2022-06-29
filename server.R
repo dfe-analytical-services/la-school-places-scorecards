@@ -1124,7 +1124,7 @@ function(input, output, session) {
       mutate(exp_type = case_when(
         str_detect(name, "EP") ~ "Permanent Expansion",
         str_detect(name, "ET") ~ "Temporary Expansion",
-        str_detect(name, "NS") ~ "New school"
+        str_detect(name, "NS") ~ "New School"
       )) %>%
       select(Region, data_type, exp_type, value) %>%
       # pivot the data wider
@@ -1159,7 +1159,7 @@ function(input, output, session) {
       mutate(exp_type = case_when(
         str_detect(name, "EP") ~ "Permanent",
         str_detect(name, "ET") ~ "Temporary",
-        str_detect(name, "NS") ~ "New school"
+        str_detect(name, "NS") ~ "New School"
       )) %>%
       select(LA_name, data_type, exp_type, value) %>%
       pivot_wider(names_from = data_type, values_from = value) %>%
