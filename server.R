@@ -49,7 +49,14 @@ function(input, output, session) {
     updateTabsetPanel(session, "navbar", selected = "la_scorecards")
     updateTabsetPanel(session, "tabs", selected = "cost")
   })
-
+  observeEvent(input$linkTechnicalnotesTab, {
+    updateTabsetPanel(session, "navbar", selected = "technical_notes")
+    updateTabsetPanel(session, "tabs_tech_notes", selected = "cost")
+      })
+  observeEvent(input$linklascorecardsTab, {
+    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+  
+  })
 
   # Data calculations - reactive --------------------------------------------
 
@@ -188,7 +195,7 @@ function(input, output, session) {
              Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for Dorset.")
     } else if (input$LA_choice == "Bournemouth, Christchurch and Poole") {
       paste0("2009/10 data is not comparable because of 2019 boundary changes.
-             Therefore total places created since 2009/10 and 'growth in pupil numbers since 2009/10 are not shown for Bournemouth, Christchurch and Poole .")
+             Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for Bournemouth, Christchurch and Poole .")
     }
   })
 
@@ -304,14 +311,14 @@ function(input, output, session) {
 
     label <- case_when(
       input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy > Seventyfifthpercentile1 ~ "Overestimate of pupil numbers, larger overestimate than at least 75% of local authorities",
-      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < Seventyfifthpercentile1 ~ "Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy <= Seventyfifthpercentile1 ~ "Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
       input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy < Twentyfifthpercentile1 ~ "Underestimate of pupil numbers, larger underestimation than at least 75% of local authorities",
-      input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy > Twentyfifthpercentile1 ~ "Underestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
+      input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy >= Twentyfifthpercentile1 ~ "Underestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
       input$LA_choice == "England" & forecast_accuracy > 0 ~ "Overestimate of pupil numbers",
       input$LA_choice == "England" & forecast_accuracy < 0 ~ "Underestimate of pupil numbers",
       input$LA_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London",
       input$LA_choice == "Isles of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly",
-      TRUE ~ "No Overestimate/underestimate therefore accurate"
+      TRUE ~ "No overestimate/underestimate therefore accurate"
     )
 
     if (label != "accurate") {
@@ -344,14 +351,14 @@ function(input, output, session) {
 
     label <- case_when(
       input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy > Seventyfifthpercentile2 ~ "Overestimate of pupil numbers, larger overestimate than at least 75% of local authorities",
-      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy < Seventyfifthpercentile2 ~ "Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
+      input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy <= Seventyfifthpercentile2 ~ "Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
       input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy < Twentyfifthpercentile2 ~ "Underestimate of pupil numbers, larger underestimation than at least 75% of local authorities",
-      input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy > Twentyfifthpercentile2 ~ "Underestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
+      input$LA_choice != "England" & forecast_accuracy < 0 & forecast_accuracy >= Twentyfifthpercentile2 ~ "Underestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
       input$LA_choice == "England" & forecast_accuracy > 0 ~ "Overestimate of pupil numbers",
       input$LA_choice == "England" & forecast_accuracy < 0 ~ "Underestimate of pupil numbers",
       input$LA_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London",
       input$LA_choice == "Isles of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly",
-      TRUE ~ "No Overestimate/underestimate therefore accurate"
+      TRUE ~ "No overestimate/underestimate therefore accurate"
     )
 
     if (label != "accurate") {
@@ -1372,7 +1379,8 @@ function(input, output, session) {
       kable_styling(full_width = F) %>%
       # collapse_rows(columns = 1:2) %>%
       column_spec(1, bold = T, extra_css = "vertical-align: top !important;") %>%
-      column_spec(2, width_min = "20em") %>%
+      column_spec(2, width_max = "20em") %>%
+      column_spec(3, width_max = "20em") %>%
       column_spec(5, width_max = "40em")
   }
 
