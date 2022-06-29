@@ -420,7 +420,8 @@ fluidPage(
       br(
         "If you have any feedback on how we could further improve the accessibility of this application, please contact ",
         a(href = "mailto:SCAP.PPP@education.gov.uk", "SCAP.PPP@education.gov.uk")
-      )
+      ),
+      br()
     ),
     tabPanel(
       "Support & Feedback",
@@ -455,6 +456,6 @@ fluidPage(
         br()
       )
     ),
-    shinyGovstyle::footer(TRUE)
-  )
+  ),
+  shinyGovstyle::footer(TRUE)
 )

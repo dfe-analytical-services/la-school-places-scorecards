@@ -5,7 +5,7 @@ library(shinyGovstyle)
 library(shiny)
 library(dplyr)
 library(data.table)
-
+library(shinya11y)
 library(shinycssloaders)
 library(tidyr)
 library(stringr)
