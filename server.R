@@ -438,13 +438,13 @@ function(input, output, session) {
     if (input$LA_choice != "England") {
       tagList(p(paste0("The shaded area ending at the thick vertical line in each chart shows the forecasting accuracy for ", input$LA_choice, ".
                      The starting point is 0, an accurate score, indicated by the thin vertical line.
-                     A shaded area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.
+                     A shaded area to the right of 0 indicates an overestimate, a shaded area to the left of 0 indicates an underestimate.
                      The dashed lines show the 25th and 75th percentiles across all local authorities i.e. half of all local authorities were
   found to have a forecasting accuracy falling between the two dashed lines.")))
     } else if (input$LA_choice == "England") {
       tagList(p(paste0("The shaded area ending at the thick vertical line in each chart shows the average forecasting accuracy for local authorities in England.
                      The starting point is 0, an accurate score, indicated by the thin vertical line.
-                     A shaded area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.
+                     A shaded area to the right of 0 indicates an overestimate, a shaded area to the left of 0 indicates an underestimate.
                      The dashed lines show the 25th and 75th percentiles across all local authorities i.e. half of all local authorities were
   found to have a forecasting accuracy falling between the two dashed lines.")))
     }
