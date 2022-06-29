@@ -354,8 +354,8 @@ fluidPage(
       ),
       h2("Technical notes"),
       br("Use this dashboard to view school places scorecards for local authorities in England"),
-      br("All dates refer to the academic year, apart from basic need funding years which refer to financial year."),
-      br("There is no scorecard for North Northamptonshire and West Northamptonshire as they are new local authorities, following the split from one local authority into two in April 2021. As these two new local authorities are not directly comparable with the pre LGR 2021 Northamptonshire, we were unable to produce complete figures for the majority of individual indictors included in the School Places Scorecard,
+      br("All dates refer to the academic year, apart from basic need funding years which refer to the financial year."),
+      br("There is no scorecard for North Northamptonshire and West Northamptonshire as they are new local authorities, following the split from one local authority into two in April 2021. As these two new local authorities are not directly comparable with the pre LGR 2021 Northamptonshire, we were unable to produce complete figures for the majority of individual indictors included in the school places scorecard,
                            however the relevant data for these pre and post LGR 2021 local authorities are included in the England data and can be found in the summary data on explore education statistics."),
       br(),
       tabBox(
