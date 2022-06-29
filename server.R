@@ -195,7 +195,7 @@ function(input, output, session) {
              Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for Dorset.")
     } else if (input$LA_choice == "Bournemouth, Christchurch and Poole") {
       paste0("2009/10 data is not comparable because of 2019 boundary changes.
-             Therefore total places created since 2009/10 and 'growth in pupil numbers since 2009/10 are not shown for Bournemouth, Christchurch and Poole .")
+             Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for Bournemouth, Christchurch and Poole .")
     }
   })
 
