@@ -41,7 +41,7 @@ fluidPage(
       h2("Local authority school places scorecards: academic year 2020/21"),
       br("Scorecards display a snapshot of the progress each local authority across England is making towards ensuring there are sufficient, good quality, school places."),
       br("You can view the progress for England as a whole or for an individual local authority. 
-         To do this click on ‘LA scorecards’ at the top, after reading all the information on this homepage. 
+         To do this click on", actionLink("linklascorecardsTab", "LA scorecards"), "after reading all the information on this homepage. 
          Use the drop-down list at the top left of the ‘LA scorecards’, or type in the box, to select the national option or your chosen local authority. 
          You can view primary or secondary places by using the drop-down further below. "),
       br("When a different local authority is selected, or the primary or secondary option is changed, the figures and charts in the scorecard will automatically update. 
@@ -127,11 +127,11 @@ fluidPage(
           br("•	where schools have amalgamated, the Ofsted rating is only used when we can be sure the rating is for the post-amalgamation school."),
                 br(),
           h4(actionLink("linkCostTab", "Cost")),
-          br("The Capital Spend Survey that replaced the SCAP Capital Spend Data now collects data on project costs, however due to incomplete coverage it has not yet been incorporated into the scorecard.  The cost data used in the scorecard remains the Capital Spend Data from SCAP18. This was used in the 2018 and 2019 scorecards; there has been no change in the sample of projects. As done in 2019, for the 2021 Scorecard, the data has been adjusted for inflation (uprated to 1st quarter 2022 prices – see technical notes for details)."),
+          br("The Capital Spend Survey that replaced the SCAP Capital Spend Data now collects data on project costs, however due to incomplete coverage it has not yet been incorporated into the scorecard.  The cost data used in the scorecard remains the Capital Spend Data from SCAP18. This was used in the 2018 and 2019 scorecards; there has been no change in the sample of projects. As done in 2019, for the 2021 Scorecard, the data has been adjusted for inflation (uprated to 1st quarter 2022 prices)."),
           br(strong("You can use the scorecard to view the national average cost per place for both primary and secondary school places. These are shown for permanent expansions, temporary expansions and new schools separately. You can also view, for the first time, the national averages adjusted for 2021 regional location factors. ")),
           br("Because the sample of projects are from 2018, the local authority average costs are not shown in the 2021 scorecard. However, you can find these in the underlying data on explore education statistics if needed."),
-          br("There is further guidance on converting costs into current or future prices in the scorecard ‘Technical notes’.")
-                 )
+          br("There is further guidance on converting costs into current or future prices in ", actionLink("linkTechnicalnotesTab", "Technical notes"), ".")
+                      )
       )
     ),
     # scorecard---------------------------------------------------------------------
@@ -342,7 +342,8 @@ fluidPage(
     ),
     # Create the tech notes-----------------
     tabPanel(
-      "Technical notes",
+      value = "technical_notes",
+      title = "Technical notes",
       meta_general(
         application_name = "LA scorecards",
         description = "Scorecards for school places by local authority in England",
@@ -378,7 +379,8 @@ fluidPage(
           tableOutput("notesTableQual") # made in global.R file
         ), # end of tabPanel
         tabPanel(
-          "Cost",
+          value = "cost",
+          title = "Cost",
           tableOutput("notesTableCost") # made in global.R file
         ) # end of tabPanel
       ) # end of tabBox
