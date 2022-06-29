@@ -318,7 +318,7 @@ function(input, output, session) {
       input$LA_choice == "England" & forecast_accuracy < 0 ~ "Underestimate of pupil numbers",
       input$LA_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London",
       input$LA_choice == "Isles of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly",
-      TRUE ~ "No Overestimate/underestimate therefore accurate"
+      TRUE ~ "No overestimate/underestimate therefore accurate"
     )
 
     if (label != "accurate") {
@@ -358,7 +358,7 @@ function(input, output, session) {
       input$LA_choice == "England" & forecast_accuracy < 0 ~ "Underestimate of pupil numbers",
       input$LA_choice == "City of London" ~ "No forecast accuracy score due to smaller numbers of pupils in City of London",
       input$LA_choice == "Isles of Scilly" ~ "No forecast accuracy score due to smaller numbers of pupils in Isles of Scilly",
-      TRUE ~ "No Overestimate/underestimate therefore accurate"
+      TRUE ~ "No overestimate/underestimate therefore accurate"
     )
 
     if (label != "accurate") {
