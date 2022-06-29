@@ -573,7 +573,7 @@ function(input, output, session) {
       geom_text(aes(label = value_label), colour = "#ffffff", size = 4, position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
-      scale_fill_manual(values = c("#08519c","#3182bd","#6baed6","#9ecae1")) +
+      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1")) +
       scale_y_continuous(labels = scales::percent) +
       theme_minimal() +
       theme(
@@ -872,7 +872,7 @@ function(input, output, session) {
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
-      scale_fill_manual(values = c("#08519c","#3182bd","#6baed6","#9ecae1")) +
+      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1")) +
       scale_y_continuous(labels = scales::percent) +
       theme_minimal() +
       theme(
@@ -940,7 +940,7 @@ function(input, output, session) {
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
-      scale_fill_manual(values = c("#08519c","#3182bd","#6baed6","#9ecae1")) +
+      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1")) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
@@ -1005,7 +1005,7 @@ function(input, output, session) {
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
-      scale_fill_manual(values = c("#08519c","#3182bd","#6baed6","#9ecae1")) +
+      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1")) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
@@ -1071,7 +1071,7 @@ function(input, output, session) {
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
       guides(fill = guide_legend(title = "")) +
-      scale_fill_manual(values = c("#08519c","#3182bd","#6baed6","#9ecae1")) +
+      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1")) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
@@ -1118,36 +1118,37 @@ function(input, output, session) {
 
 
   # Comparison table - average cost of projects per place
-  output$cost_table <- renderTable({
-    live_scorecard_data_england_comp() %>%
-      # Filter for Cost, places and project data
-      filter(str_detect(name, "Cost|Places|Projects")) %>%
-      # Create new column called data_type, based on the name of the data
-      mutate(data_type = case_when(
-        str_detect(name, "Cost") ~ "Cost",
-        str_detect(name, "Place") ~ "Place",
-        str_detect(name, "Project") ~ "Project"
-      )) %>%
-      mutate(exp_type = case_when(
-        str_detect(name, "EP") ~ "Permanent Expansion",
-        str_detect(name, "ET") ~ "Temporary Expansion",
-        str_detect(name, "NS") ~ "New School"
-      )) %>%
-      select(Region, data_type, exp_type, value) %>%
-      # pivot the data wider
-      pivot_wider(names_from = data_type, values_from = value) %>%
-      # calculate cost per place
-      mutate(
-        cost_per_place = roundFiveUp(Cost / Place, 0),
-        # format it nicely with £ sign
-        cost_per_place = paste0("£", cs_num(cost_per_place)),
-        # Nicely format any NA
-        cost_per_place = str_replace(cost_per_place, "£NaN", "-")
-      ) %>%
-      select(Region, Type = exp_type, cost_per_place) %>%
-      pivot_wider(names_from = Region, values_from = cost_per_place)
-  },
-  align = 'r'
+  output$cost_table <- renderTable(
+    {
+      live_scorecard_data_england_comp() %>%
+        # Filter for Cost, places and project data
+        filter(str_detect(name, "Cost|Places|Projects")) %>%
+        # Create new column called data_type, based on the name of the data
+        mutate(data_type = case_when(
+          str_detect(name, "Cost") ~ "Cost",
+          str_detect(name, "Place") ~ "Place",
+          str_detect(name, "Project") ~ "Project"
+        )) %>%
+        mutate(exp_type = case_when(
+          str_detect(name, "EP") ~ "Permanent Expansion",
+          str_detect(name, "ET") ~ "Temporary Expansion",
+          str_detect(name, "NS") ~ "New School"
+        )) %>%
+        select(Region, data_type, exp_type, value) %>%
+        # pivot the data wider
+        pivot_wider(names_from = data_type, values_from = value) %>%
+        # calculate cost per place
+        mutate(
+          cost_per_place = roundFiveUp(Cost / Place, 0),
+          # format it nicely with £ sign
+          cost_per_place = paste0("£", cs_num(cost_per_place)),
+          # Nicely format any NA
+          cost_per_place = str_replace(cost_per_place, "£NaN", "-")
+        ) %>%
+        select(Region, Type = exp_type, cost_per_place) %>%
+        pivot_wider(names_from = Region, values_from = cost_per_place)
+    },
+    align = "r"
   )
 
 
