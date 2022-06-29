@@ -1,6 +1,6 @@
 ---
 params: 
-    input_la_choice: Wokingham
+    input_la_choice: England
     input_phase_choice: Secondary
      # Keep this as Ofsted for 2021 scorecard as only option
     input_quality_chart: 'Ofsted'
@@ -255,7 +255,7 @@ quality_places <- plot_ly(
 
 The shaded area in each chart ending at the thick vertical line shows the forecasting accuracy for `r  params$input_la_choice`.
 The starting point is 0, an accurate score, indicated by a thin vertical line.
-A shared area to the right of 0 indicates an overestimate, a shared area to the left of 0 indicates an underestimate.\
+A shaded area to the right of 0 indicates an overestimate, a shaded area to the left of 0 indicates an underestimate.\
 The grey dashed lines show the 25th and 75th percentile score for all local authorities.
 
 ``` {r forecast_setup,echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
