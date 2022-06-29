@@ -1227,7 +1227,7 @@ cost_text <-
       mutate(exp_type = case_when(
         str_detect(name, "EP") ~ "Permanent Expansion",
         str_detect(name, "ET") ~ "Temporary Expansion",
-        str_detect(name, "NS") ~ "New school"
+        str_detect(name, "NS") ~ "New School"
       )) %>%
       select(Region, data_type, exp_type, value) %>%
       # pivot the data wider
