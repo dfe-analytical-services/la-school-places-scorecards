@@ -74,7 +74,7 @@ fluidPage(
           br(" •	estimated number of additional places still needed to meet demand in 2023/24, based on the local authority’s forecast demand (same figure shown in the chart);"), 
           " •	estimated percentage of spare places. It is common for a local authority to have both a need for additional places and spare capacity, 
              reflecting pockets of localised need for places or pockets of localised spare places;",
-          br(" •	the total amount of basic need capital funding allocated to each local authority to create new places from 2011 to 2024; and"),
+          br(" •	the total amount of", a(href = "https://www.gov.uk/government/publications/basic-need-allocations", "basic need capital funding"), "allocated to each local authority to create new places from 2011 to 2024; and"),
           " •	the anticipated percentage increase in pupil numbers in primary or secondary provision between 2009/10 to 2023/24.", 
           "This is important context when looking at places that have been and are still to be delivered.",  
           br(),
@@ -84,14 +84,14 @@ fluidPage(
            br(" Local authorities with relatively fewer places still needed are making good progress in delivering the places they anticipate are needed,
               however they may be good reasons for a local authority showing a significant number of places still needed to be created. 
               For example, a new school due to open in September 2023 would not be included in these calculations, 
-              or projects which have only recently been planned and/or confirmed would not have been included in the latest school capacity survey."),
+              or projects which have only recently been planned and/or confirmed would not have been included in the latest school capacity survey. For more information on how estimates are calculated see ", a(href = "https://content.explore-education-statistics.service.gov.uk/api/releases/8f353ba3-5d7c-4d86-ae05-08d9ebca404d/files/02ff830c-1ed4-458d-0f06-08da0359ce81", "Place planning technical guidance"),"."),
                  
         br(),
           h4(actionLink("linkForecastTab", "Forecast Accuracy")),
        
           br(" Estimating place pressure in future years relies on the forecasts of pupil numbers made by local authorities, as provided in the annual school capacity survey. 
              The scorecard illustrates the forecasting accuracy of the selected local authority for forecasts made one year ago and provided in SCAP21, and three years ago in SCAP19.  
-             These pupil forecasts have been compared with pupils on roll from the January 2022 school census numbers to produce a forecast accuracy score for one and three years ahead.
+             These pupil forecasts have been compared with pupils on roll from the", a(href = "https://www.gov.uk/government/statistics/schools-pupils-and-their-characteristics-january-2022", "January 2022 school census"), "to produce a forecast accuracy score for one and three years ahead.
              A negative forecast accuracy score indicates an underestimation of pupils, a positive score indicates an overestimation."),
           br("   Many factors have impacted pupil numbers in January 2022. 
              Local authorities would have taken account of these factors in their forecasts for SCAP21 as far as possible, 
@@ -117,7 +117,7 @@ fluidPage(
              The latter can include applicants who were made an alternative offer and those who were not made any offer."),
           br(),
           h4(actionLink("linkQualityTab", "Quality")),
-          br("You can use this measure to see the quality of the schools where the chosen local authority has added school places, based on the change between the 2018/19 and the 2020/21 published school capacity data and school Ofsted rating."),
+          br("You can use this measure to see the quality of the schools where the chosen local authority has added school places, based on the change between the 2018/19 and the 2020/21 published school capacity data and", a(href ="https://www.gov.uk/government/statistics/state-funded-schools-inspections-and-outcomes-as-at-31-august-2021", "published school Ofsted rating."),),
           br("The chart shows the number of new places added in the local authority, between May 2019 and May 2021, according to the Ofsted rating of the school in which they have been added. There are 4 possible Ofsted ratings: outstanding, good, requires improvement and inadequate."),
           br("It is important to take care when making comparisons using the quality measure as:"),
        br("•	many Ofsted inspections have been delayed due to the pandemic, therefore local authorities may use other data/own local knowledge when deciding which schools to expand;"),
