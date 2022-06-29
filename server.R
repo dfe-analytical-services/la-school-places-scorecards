@@ -1378,7 +1378,8 @@ function(input, output, session) {
       kable_styling(full_width = F) %>%
       # collapse_rows(columns = 1:2) %>%
       column_spec(1, bold = T, extra_css = "vertical-align: top !important;") %>%
-      column_spec(2, width_min = "20em") %>%
+      column_spec(2, width_max = "20em") %>%
+      column_spec(3, width_max = "20em") %>%
       column_spec(5, width_max = "40em")
   }
 
