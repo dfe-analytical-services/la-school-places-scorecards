@@ -49,7 +49,14 @@ function(input, output, session) {
     updateTabsetPanel(session, "navbar", selected = "la_scorecards")
     updateTabsetPanel(session, "tabs", selected = "cost")
   })
-
+  observeEvent(input$linkTechnicalnotesTab, {
+    updateTabsetPanel(session, "navbar", selected = "technical_notes")
+    updateTabsetPanel(session, "tabs_tech_notes", selected = "cost")
+      })
+  observeEvent(input$linklascorecardsTab, {
+    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+  
+  })
 
   # Data calculations - reactive --------------------------------------------
 
