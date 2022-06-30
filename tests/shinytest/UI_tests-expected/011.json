@@ -7,12 +7,12 @@
   },
   "output": {
     "England_GO_places": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>88.2%<\/h3>\n    <p>Percentage of new places created in good and outstanding secondary schools in England<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>87.7%<\/h3>\n    <p>Percentage of new places created in good and outstanding secondary schools in England<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
-    "no_rating_line": "New places with no rating = 30,445",
+    "no_rating_line": "New places with no rating = 33,585",
     "quality_chart": {
       "x": {
         "data": [
@@ -27,28 +27,29 @@
               0
             ],
             "x": [
-              0.290886942641715,
-              0.238142405143364
+              0.321402244246048,
+              0.232763787899839
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "Oustanding :  13850  places",
-              "Oustanding :  837639  places"
+              "Outstanding :  23544  places",
+              "Outstanding :  815882  places"
             ],
             "type": "bar",
+            "textposition": "none",
             "marker": {
               "autocolorscale": false,
-              "color": "rgba(18,67,109,1)",
+              "color": "rgba(8,81,156,1)",
               "line": {
                 "width": 1.88976377952756,
                 "color": "transparent"
               }
             },
-            "name": "Oustanding",
-            "legendgroup": "Oustanding",
+            "name": "Outstanding",
+            "legendgroup": "Outstanding",
             "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
@@ -62,25 +63,26 @@
               0.9
             ],
             "base": [
-              0.290886942641715,
-              0.238142405143364
+              0.321402244246048,
+              0.232763787899839
             ],
             "x": [
-              0.590910045575788,
-              0.558595912249633
+              0.5553553389576,
+              0.580622807360394
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "Good :  28135  places",
-              "Good :  1964798  places"
+              "Good :  40682  places",
+              "Good :  2035195  places"
             ],
             "type": "bar",
+            "textposition": "none",
             "marker": {
               "autocolorscale": false,
-              "color": "rgba(244,119,56,1)",
+              "color": "rgba(49,130,189,1)",
               "line": {
                 "width": 1.88976377952756,
                 "color": "transparent"
@@ -101,25 +103,26 @@
               0.9
             ],
             "base": [
-              0.881796988217504,
-              0.796738317392997
+              0.876757583203648,
+              0.813386595260232
             ],
             "x": [
-              0.096129208409468,
-              0.161065302168911
+              0.111693559396074,
+              0.1583059763043
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "Requires Improvement :  4577  places",
-              "Requires Improvement :  566529  places"
+              "Requires Improvement :  8182  places",
+              "Requires Improvement :  554893  places"
             ],
             "type": "bar",
+            "textposition": "none",
             "marker": {
               "autocolorscale": false,
-              "color": "rgba(128,22,80,1)",
+              "color": "rgba(107,174,214,1)",
               "line": {
                 "width": 1.88976377952756,
                 "color": "transparent"
@@ -140,25 +143,26 @@
               0.9
             ],
             "base": [
-              0.977926196626972,
-              0.957803619561908
+              0.988451142599722,
+              0.971692571564533
             ],
             "x": [
-              0.0220738033730283,
-              0.0421963804380923
+              0.0115488574002784,
+              0.0283074284354671
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "Inadequate :  1051  places",
-              "Inadequate :  148421  places"
+              "Inadequate :  846  places",
+              "Inadequate :  99223  places"
             ],
             "type": "bar",
+            "textposition": "none",
             "marker": {
               "autocolorscale": false,
-              "color": "rgba(40,161,151,1)",
+              "color": "rgba(158,202,225,1)",
               "line": {
                 "width": 1.88976377952756,
                 "color": "transparent"
@@ -174,20 +178,20 @@
           },
           {
             "x": [
-              0.145443471320858,
-              0.119071202571682
+              0.160701122123024,
+              0.116381893949919
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "13,850",
-              "837,639"
+              "23,544",
+              "815,882"
             ],
             "hovertext": [
-              "Oustanding :  13850  places",
-              "Oustanding :  837639  places"
+              "Outstanding :  23544  places",
+              "Outstanding :  815882  places"
             ],
             "textfont": {
               "size": 15.1181102362205,
@@ -196,8 +200,8 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
-            "name": "Oustanding",
-            "legendgroup": "Oustanding",
+            "name": "Outstanding",
+            "legendgroup": "Outstanding",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -206,20 +210,20 @@
           },
           {
             "x": [
-              0.58634196542961,
-              0.51744036126818
+              0.599079913724848,
+              0.523075191580036
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "28,135",
-              "1,964,798"
+              "40,682",
+              "2,035,195"
             ],
             "hovertext": [
-              "Good :  28135  places",
-              "Good :  1964798  places"
+              "Good :  40682  places",
+              "Good :  2035195  places"
             ],
             "textfont": {
               "size": 15.1181102362205,
@@ -238,20 +242,20 @@
           },
           {
             "x": [
-              0.929861592422238,
-              0.877270968477452
+              0.932604362901685,
+              0.892539583412383
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "4,577",
-              "566,529"
+              "8,182",
+              "554,893"
             ],
             "hovertext": [
-              "Requires Improvement :  4577  places",
-              "Requires Improvement :  566529  places"
+              "Requires Improvement :  8182  places",
+              "Requires Improvement :  554893  places"
             ],
             "textfont": {
               "size": 15.1181102362205,
@@ -270,8 +274,8 @@
           },
           {
             "x": [
-              0.988963098313486,
-              0.978901809780954
+              0.994225571299861,
+              0.985846285782267
             ],
             "y": [
               2,
@@ -282,8 +286,8 @@
               null
             ],
             "hovertext": [
-              "Inadequate :  1051  places",
-              "Inadequate :  148421  places"
+              "Inadequate :  846  places",
+              "Inadequate :  99223  places"
             ],
             "textfont": {
               "size": 15.1181102362205,
@@ -488,8 +492,16 @@
               "family": "Arial",
               "size": 14
             },
-            "y": -0.1,
+            "title": {
+              "text": "",
+              "font": {
+                "color": "rgba(0,0,0,1)",
+                "family": "Arial",
+                "size": 18.5969281859693
+              }
+            },
             "orientation": "h",
+            "y": -0.1,
             "x": 0.2
           },
           "hovermode": "closest",
@@ -503,6 +515,10 @@
         },
         "config": {
           "doubleClick": "reset",
+          "modeBarButtonsToAdd": [
+            "hoverclosest",
+            "hovercompare"
+          ],
           "showSendToCloud": false,
           "displayModeBar": false
         },
@@ -581,22 +597,22 @@
         },
         {
           "name": "crosstalk",
-          "version": "1.1.1",
+          "version": "1.2.0",
           "src": {
-            "href": "crosstalk-1.1.1"
+            "href": "crosstalk-1.2.0"
           },
           "meta": null,
           "script": "js/crosstalk.min.js",
-          "stylesheet": "css/crosstalk.css",
+          "stylesheet": "css/crosstalk.min.css",
           "head": null,
           "attachment": null,
           "all_files": true
         },
         {
           "name": "plotly-htmlwidgets-css",
-          "version": "1.57.1",
+          "version": "2.5.1",
           "src": {
-            "href": "plotly-htmlwidgets-css-1.57.1"
+            "href": "plotly-htmlwidgets-css-2.5.1"
           },
           "meta": null,
           "script": null,
@@ -607,9 +623,9 @@
         },
         {
           "name": "plotly-main",
-          "version": "1.57.1",
+          "version": "2.5.1",
           "src": {
-            "href": "plotly-main-1.57.1"
+            "href": "plotly-main-2.5.1"
           },
           "meta": null,
           "script": "plotly-latest.min.js",
