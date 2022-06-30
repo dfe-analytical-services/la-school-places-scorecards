@@ -148,7 +148,7 @@ fluidPage(
           selectInput("LA_choice",
             label = p(strong("Choose a local authority")),
             choices = levels(LA_options),
-            selected = "Darlington"
+            selected = "England"
           ),
           br(),
           selectInput("phase_choice",
