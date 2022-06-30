@@ -220,7 +220,7 @@ places_chart_data <- dfScorecardArea %>%
       filter(name %in% c("QuanIn", "QuanPP", "QuanRP")) %>%
       select(LA_name, name, value) %>%
       pivot_wider()  
-   
+
 plot_ly(
       places_chart_data,
       width = 520, height = 560,
