@@ -1,4 +1,10 @@
 {
+  "input": {
+    "LA_choice": "England",
+    "navbar": "la_scorecards",
+    "phase_choice": "Secondary",
+    "tabs": "preference"
+  },
   "output": {
     "preference_p": {
       "x": {
@@ -182,7 +188,7 @@
         ],
         "layout": {
           "margin": {
-            "t": 40.6187906461879,
+            "t": 52.3082883630829,
             "r": 7.30593607305936,
             "b": 28.2717586827176,
             "l": 10.958904109589
@@ -206,11 +212,11 @@
             ],
             "tickmode": "array",
             "ticktext": [
-              "0.00",
-              "0.25",
-              "0.50",
-              "0.75",
-              "1.00"
+              "0%",
+              "25%",
+              "50%",
+              "75%",
+              "100%"
             ],
             "tickvals": [
               0,
@@ -221,18 +227,18 @@
             ],
             "categoryorder": "array",
             "categoryarray": [
-              "0.00",
-              "0.25",
-              "0.50",
-              "0.75",
-              "1.00"
+              "0%",
+              "25%",
+              "50%",
+              "75%",
+              "100%"
             ],
             "nticks": null,
             "ticks": "",
             "tickcolor": null,
             "ticklen": 3.65296803652968,
             "tickwidth": 0,
-            "showticklabels": false,
+            "showticklabels": true,
             "tickfont": {
               "color": "rgba(77,77,77,1)",
               "family": "Arial",
@@ -323,7 +329,7 @@
               "x0": 0,
               "x1": 1,
               "y0": 0,
-              "y1": 26.5670402656704,
+              "y1": 38.2565379825654,
               "yanchor": 1,
               "ysizemode": "pixel"
             }
@@ -339,7 +345,7 @@
               "font": {
                 "color": "rgba(26,26,26,1)",
                 "family": "Arial",
-                "size": 14.8775425487754
+                "size": 26.5670402656704
               },
               "xref": "paper",
               "yref": "paper",
@@ -495,13 +501,13 @@
       ]
     },
     "prefT3_ENG": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>93%<\/h3>\n    <p>Percentage of applicants who recieved an offer of one of their top three preferred secondary schools in England<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>93%<\/h3>\n    <p>Percentage of applicants who received an offer of one of their top three preferred secondary schools in England<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "PrefT3_LA": {
-      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>93%<\/h3>\n    <p>Percentage of applicants who recieved an offer of one of their top three preferred secondary schools in England<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>93%<\/h3>\n    <p>Percentage of applicants who received an offer of one of their top three preferred secondary schools in England<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]

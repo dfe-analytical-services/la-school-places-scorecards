@@ -1,0 +1,22 @@
+% Tried the code below, but associated code in rmd file didn't display anything..
+\usepackage{color}
+\usepackage{framed}
+\setlength{\fboxsep}{.8em}
+
+\newenvironment{blackbox}{
+  \definecolor{shadecolor}{rgb}{32,115,188} % mid-blue (GSS)
+  \color{white}
+  \begin{shaded}}
+ {\end{shaded}}
+ 
+
+
+% Tried tcolorbox but just threw an error.
+% \usepackage{tcolorbox}
+% 
+% \newtcolorbox{blackbox}{
+%   colback=black,
+%   colframe=orange,
+%   coltext=white,
+%   boxsep=5pt,
+%   arc=4pt}

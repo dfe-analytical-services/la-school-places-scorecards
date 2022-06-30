@@ -1,10 +1,11 @@
 # ---------------------------------------------------------------------------
 # Library calls
 # ----------------------------------------------------------------------------
-
+library(shinyGovstyle)
 library(shiny)
 library(dplyr)
 library(data.table)
+# library(shinya11y)
 library(shinycssloaders)
 library(tidyr)
 library(stringr)
@@ -22,6 +23,9 @@ library(metathis)
 library(shinyWidgets)
 library(styler)
 library(rsconnect)
+library(bit64)
+library(webshot)
+webshot::install_phantomjs(force = FALSE)
 
 # tidy_code_function -------------------------------------------------------------------------------
 
@@ -30,8 +34,19 @@ tidy_code_function <- function() {
   message("App scripts")
   message("----------------------------------------")
   app_scripts <- eval(styler::style_dir(recursive = FALSE)$changed)
-  return(app_scripts)
+  message("R scripts")
+  message("----------------------------------------")
+  r_scripts <- eval(styler::style_dir("R/")$changed)
+  message("Test scripts")
+  message("----------------------------------------")
+  test_scripts <- eval(styler::style_dir("tests/", filetype = "r")$changed)
+  script_changes <- c(app_scripts, r_scripts, test_scripts)
+  return(script_changes)
 }
+
+source("0_variable_change.R")
+source("R/functions.R")
+source("R/plotting.R")
 
 # ----------------------------------------------------------------------------
 # Setup loading screen and spinner
@@ -55,6 +70,9 @@ options(spinner.type = 5)
 options(spinner.color = "#c8c8c8")
 options(spinner.size = .5)
 
+seq_gradient <- c("#8c2d04", "#cc4c02", "#ec7014", "#fe9929", "#fec44f", "#d9f0a3")
+divergent_gradient <- c(seq_gradient, rev(seq_gradient))
+
 
 # Enable bookmarking ---------------------------------------------------------
 
@@ -69,8 +87,8 @@ scorecards_data <- fread("data/scorecards_data.csv")
 
 # pivot data around to long format
 scorecards_data_pivot <- scorecards_data %>%
-  mutate_at(vars(-("LA_name")), as.numeric) %>%
-  pivot_longer(cols = !starts_with("LA")) %>%
+  mutate_at(vars(-c("Region", "LA_name")), as.numeric) %>%
+  pivot_longer(cols = !starts_with(c("Region", "LA"))) %>%
   # assign phase based on names of columns
   mutate(
     Phase = ifelse(
@@ -121,15 +139,15 @@ dfe_colours <- c(
 
 # Notes tables----------------------------------
 
-notesTable <- read.xlsx(
-  xlsxFile = "data/tech_guidance.xlsx",
-  sheet = "Overall"
-) # %>%
-# fill(everything()) #collapse_Rows currently broken in kable. When fixed we can add back in.
 
 notesTableQuant <- read.xlsx(
   xlsxFile = "data/tech_guidance.xlsx",
   sheet = "Quantity"
+)
+
+notesTableforacc <- read.xlsx(
+  xlsxFile = "data/tech_guidance.xlsx",
+  sheet = "ForecastAccuracy"
 )
 
 notesTablePref <- read.xlsx(

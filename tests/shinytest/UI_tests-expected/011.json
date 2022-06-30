@@ -1,12 +1,18 @@
 {
+  "input": {
+    "LA_choice": "England",
+    "navbar": "la_scorecards",
+    "phase_choice": "Secondary",
+    "tabs": "quality"
+  },
   "output": {
     "England_GO_places": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>44.8%<\/h3>\n    <p>Percentage of new places in well above and above average secondary schools in England<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>88.2%<\/h3>\n    <p>Percentage of new places created in good and outstanding secondary schools in England<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
-    "no_rating_line": "New places with no rating = 35,970",
+    "no_rating_line": "New places with no rating = 30,445",
     "quality_chart": {
       "x": {
         "data": [
@@ -21,16 +27,16 @@
               0
             ],
             "x": [
-              0.21571469302414,
-              0.147788554182832
+              0.290886942641715,
+              0.238142405143364
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "Well above average :  9079  places",
-              "Well above average :  489151  places"
+              "Oustanding :  13850  places",
+              "Oustanding :  837639  places"
             ],
             "type": "bar",
             "marker": {
@@ -41,8 +47,8 @@
                 "color": "transparent"
               }
             },
-            "name": "Well above average",
-            "legendgroup": "Well above average",
+            "name": "Oustanding",
+            "legendgroup": "Oustanding",
             "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
@@ -56,20 +62,20 @@
               0.9
             ],
             "base": [
-              0.21571469302414,
-              0.147788554182832
+              0.290886942641715,
+              0.238142405143364
             ],
             "x": [
-              0.232322752328455,
-              0.186772747501891
+              0.590910045575788,
+              0.558595912249633
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "Above average :  9778  places",
-              "Above average :  618181  places"
+              "Good :  28135  places",
+              "Good :  1964798  places"
             ],
             "type": "bar",
             "marker": {
@@ -80,8 +86,8 @@
                 "color": "transparent"
               }
             },
-            "name": "Above average",
-            "legendgroup": "Above average",
+            "name": "Good",
+            "legendgroup": "Good",
             "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
@@ -95,20 +101,20 @@
               0.9
             ],
             "base": [
-              0.448037445352595,
-              0.334561301684723
+              0.881796988217504,
+              0.796738317392997
             ],
             "x": [
-              0.286162326553887,
-              0.371343249129933
+              0.096129208409468,
+              0.161065302168911
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "Average :  12044  places",
-              "Average :  1229073  places"
+              "Requires Improvement :  4577  places",
+              "Requires Improvement :  566529  places"
             ],
             "type": "bar",
             "marker": {
@@ -119,8 +125,8 @@
                 "color": "transparent"
               }
             },
-            "name": "Average",
-            "legendgroup": "Average",
+            "name": "Requires Improvement",
+            "legendgroup": "Requires Improvement",
             "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
@@ -134,20 +140,20 @@
               0.9
             ],
             "base": [
-              0.734199771906482,
-              0.705904550814656
+              0.977926196626972,
+              0.957803619561908
             ],
             "x": [
-              0.192548945067478,
-              0.192628987284137
+              0.0220738033730283,
+              0.0421963804380923
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "Below average :  8104  places",
-              "Below average :  637564  places"
+              "Inadequate :  1051  places",
+              "Inadequate :  148421  places"
             ],
             "type": "bar",
             "marker": {
@@ -158,47 +164,8 @@
                 "color": "transparent"
               }
             },
-            "name": "Below average",
-            "legendgroup": "Below average",
-            "showlegend": true,
-            "xaxis": "x",
-            "yaxis": "y",
-            "hoverinfo": "text",
-            "frame": null
-          },
-          {
-            "orientation": "h",
-            "width": [
-              0.9,
-              0.9
-            ],
-            "base": [
-              0.926748716973959,
-              0.898533538098793
-            ],
-            "x": [
-              0.0732512830260407,
-              0.101466461901207
-            ],
-            "y": [
-              2,
-              1
-            ],
-            "text": [
-              "Well below average :  3083  places",
-              "Well below average :  335834  places"
-            ],
-            "type": "bar",
-            "marker": {
-              "autocolorscale": false,
-              "color": "rgba(76,44,146,1)",
-              "line": {
-                "width": 1.88976377952756,
-                "color": "transparent"
-              }
-            },
-            "name": "Well below average",
-            "legendgroup": "Well below average",
+            "name": "Inadequate",
+            "legendgroup": "Inadequate",
             "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
@@ -207,20 +174,20 @@
           },
           {
             "x": [
-              0.10785734651207,
-              0.073894277091416
+              0.145443471320858,
+              0.119071202571682
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "9,079",
-              "489,151"
+              "13,850",
+              "837,639"
             ],
             "hovertext": [
-              "Well above average :  9079  places",
-              "Well above average :  489151  places"
+              "Oustanding :  13850  places",
+              "Oustanding :  837639  places"
             ],
             "textfont": {
               "size": 15.1181102362205,
@@ -229,8 +196,8 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
-            "name": "Well above average",
-            "legendgroup": "Well above average",
+            "name": "Oustanding",
+            "legendgroup": "Oustanding",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -239,20 +206,20 @@
           },
           {
             "x": [
-              0.331876069188367,
-              0.241174927933777
+              0.58634196542961,
+              0.51744036126818
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "9,778",
-              "618,181"
+              "28,135",
+              "1,964,798"
             ],
             "hovertext": [
-              "Above average :  9778  places",
-              "Above average :  618181  places"
+              "Good :  28135  places",
+              "Good :  1964798  places"
             ],
             "textfont": {
               "size": 15.1181102362205,
@@ -261,8 +228,8 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
-            "name": "Above average",
-            "legendgroup": "Above average",
+            "name": "Good",
+            "legendgroup": "Good",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -271,20 +238,20 @@
           },
           {
             "x": [
-              0.591118608629538,
-              0.520232926249689
+              0.929861592422238,
+              0.877270968477452
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "12,044",
-              "1,229,073"
+              "4,577",
+              "566,529"
             ],
             "hovertext": [
-              "Average :  12044  places",
-              "Average :  1229073  places"
+              "Requires Improvement :  4577  places",
+              "Requires Improvement :  566529  places"
             ],
             "textfont": {
               "size": 15.1181102362205,
@@ -293,8 +260,8 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
-            "name": "Average",
-            "legendgroup": "Average",
+            "name": "Requires Improvement",
+            "legendgroup": "Requires Improvement",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -303,40 +270,8 @@
           },
           {
             "x": [
-              0.83047424444022,
-              0.802219044456725
-            ],
-            "y": [
-              2,
-              1
-            ],
-            "text": [
-              "8,104",
-              "637,564"
-            ],
-            "hovertext": [
-              "Below average :  8104  places",
-              "Below average :  637564  places"
-            ],
-            "textfont": {
-              "size": 15.1181102362205,
-              "color": "rgba(255,255,255,1)"
-            },
-            "type": "scatter",
-            "mode": "text",
-            "hoveron": "points",
-            "name": "Below average",
-            "legendgroup": "Below average",
-            "showlegend": false,
-            "xaxis": "x",
-            "yaxis": "y",
-            "hoverinfo": "text",
-            "frame": null
-          },
-          {
-            "x": [
-              0.96337435848698,
-              0.949266769049397
+              0.988963098313486,
+              0.978901809780954
             ],
             "y": [
               2,
@@ -344,11 +279,11 @@
             ],
             "text": [
               null,
-              "335,834"
+              null
             ],
             "hovertext": [
-              "Well below average :  3083  places",
-              "Well below average :  335834  places"
+              "Inadequate :  1051  places",
+              "Inadequate :  148421  places"
             ],
             "textfont": {
               "size": 15.1181102362205,
@@ -357,8 +292,8 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
-            "name": "Well below average",
-            "legendgroup": "Well below average",
+            "name": "Inadequate",
+            "legendgroup": "Inadequate",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -368,7 +303,7 @@
         ],
         "layout": {
           "margin": {
-            "t": 40.6187906461879,
+            "t": 52.3082883630829,
             "r": 7.30593607305936,
             "b": 28.2717586827176,
             "l": 70.4690743046907
@@ -392,11 +327,11 @@
             ],
             "tickmode": "array",
             "ticktext": [
-              "0.00",
-              "0.25",
-              "0.50",
-              "0.75",
-              "1.00"
+              "0%",
+              "25%",
+              "50%",
+              "75%",
+              "100%"
             ],
             "tickvals": [
               0,
@@ -407,18 +342,18 @@
             ],
             "categoryorder": "array",
             "categoryarray": [
-              "0.00",
-              "0.25",
-              "0.50",
-              "0.75",
-              "1.00"
+              "0%",
+              "25%",
+              "50%",
+              "75%",
+              "100%"
             ],
             "nticks": null,
             "ticks": "",
             "tickcolor": null,
             "ticklen": 3.65296803652968,
             "tickwidth": 0,
-            "showticklabels": false,
+            "showticklabels": true,
             "tickfont": {
               "color": "rgba(77,77,77,1)",
               "family": "Arial",
@@ -518,7 +453,7 @@
               "x0": 0,
               "x1": 1,
               "y0": 0,
-              "y1": 26.5670402656704,
+              "y1": 38.2565379825654,
               "yanchor": 1,
               "ysizemode": "pixel"
             }
@@ -534,7 +469,7 @@
               "font": {
                 "color": "rgba(26,26,26,1)",
                 "family": "Arial",
-                "size": 14.8775425487754
+                "size": 26.5670402656704
               },
               "xref": "paper",
               "yref": "paper",
