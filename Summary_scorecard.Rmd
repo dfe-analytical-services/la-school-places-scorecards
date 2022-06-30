@@ -220,8 +220,8 @@ places_chart_data <- dfScorecardArea %>%
       filter(name %in% c("QuanIn", "QuanPP", "QuanRP")) %>%
       select(LA_name, name, value) %>%
       pivot_wider()  
-   
-quality_places <- plot_ly(
+
+plot_ly(
       places_chart_data,
       width = 520, height = 560,
       x = ~LA_name, y = ~QuanIn,
@@ -243,8 +243,6 @@ quality_places <- plot_ly(
         )
       ) %>%
       config(displayModeBar = FALSE)
-      htmlwidgets::saveWidget(widget = quality_places, file = "hc.html")
-      webshot(url = "hc.html", file = "hc.png", delay = 1, zoom = 4, vheight = 500)
 ```
 
 \newpage

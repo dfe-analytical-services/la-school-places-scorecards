@@ -13,13 +13,14 @@
             "orientation": "h",
             "width": 0.9,
             "base": 0,
-            "x": 0.809,
+            "x": 0.811,
             "y": 1,
-            "text": "First :  80.9 %",
+            "text": "First :  81.1 %",
             "type": "bar",
+            "textposition": "none",
             "marker": {
               "autocolorscale": false,
-              "color": "rgba(18,67,109,1)",
+              "color": "rgba(8,81,156,1)",
               "line": {
                 "width": 1.88976377952756,
                 "color": "transparent"
@@ -36,14 +37,15 @@
           {
             "orientation": "h",
             "width": 0.9,
-            "base": 0.809,
+            "base": 0.811,
             "x": 0.09,
             "y": 1,
             "text": "Second :  9 %",
             "type": "bar",
+            "textposition": "none",
             "marker": {
               "autocolorscale": false,
-              "color": "rgba(244,119,56,1)",
+              "color": "rgba(49,130,189,1)",
               "line": {
                 "width": 1.88976377952756,
                 "color": "transparent"
@@ -60,14 +62,15 @@
           {
             "orientation": "h",
             "width": 0.9,
-            "base": 0.899,
-            "x": 0.032,
+            "base": 0.901,
+            "x": 0.033,
             "y": 1,
-            "text": "Third :  3.2 %",
+            "text": "Third :  3.3 %",
             "type": "bar",
+            "textposition": "none",
             "marker": {
               "autocolorscale": false,
-              "color": "rgba(128,22,80,1)",
+              "color": "rgba(107,174,214,1)",
               "line": {
                 "width": 1.88976377952756,
                 "color": "transparent"
@@ -84,14 +87,15 @@
           {
             "orientation": "h",
             "width": 0.9,
-            "base": 0.931,
-            "x": 0.069,
+            "base": 0.934,
+            "x": 0.0660000000000001,
             "y": 1,
-            "text": "Other :  6.9 %",
+            "text": "Other :  6.6 %",
             "type": "bar",
+            "textposition": "none",
             "marker": {
               "autocolorscale": false,
-              "color": "rgba(40,161,151,1)",
+              "color": "rgba(158,202,225,1)",
               "line": {
                 "width": 1.88976377952756,
                 "color": "transparent"
@@ -106,10 +110,10 @@
             "frame": null
           },
           {
-            "x": 0.4045,
+            "x": 0.4055,
             "y": 1,
-            "text": "80.9%",
-            "hovertext": "First :  80.9 %",
+            "text": "81.1%",
+            "hovertext": "First :  81.1 %",
             "textfont": {
               "size": 15.1181102362205,
               "color": "rgba(255,255,255,1)"
@@ -126,7 +130,7 @@
             "frame": null
           },
           {
-            "x": 0.854,
+            "x": 0.856,
             "y": 1,
             "text": "9%",
             "hovertext": "Second :  9 %",
@@ -146,10 +150,10 @@
             "frame": null
           },
           {
-            "x": 0.915,
+            "x": 0.9175,
             "y": 1,
-            "text": "3.2%",
-            "hovertext": "Third :  3.2 %",
+            "text": "3.3%",
+            "hovertext": "Third :  3.3 %",
             "textfont": {
               "size": 15.1181102362205,
               "color": "rgba(255,255,255,1)"
@@ -166,10 +170,10 @@
             "frame": null
           },
           {
-            "x": 0.9655,
+            "x": 0.967,
             "y": 1,
-            "text": "6.9%",
-            "hovertext": "Other :  6.9 %",
+            "text": "6.6%",
+            "hovertext": "Other :  6.6 %",
             "textfont": {
               "size": 15.1181102362205,
               "color": "rgba(255,255,255,1)"
@@ -364,8 +368,16 @@
               "family": "Arial",
               "size": 14
             },
-            "y": -0.1,
+            "title": {
+              "text": "",
+              "font": {
+                "color": "rgba(0,0,0,1)",
+                "family": "Arial",
+                "size": 18.5969281859693
+              }
+            },
             "orientation": "h",
+            "y": -0.1,
             "x": 0.33
           },
           "hovermode": "closest",
@@ -383,6 +395,10 @@
         },
         "config": {
           "doubleClick": "reset",
+          "modeBarButtonsToAdd": [
+            "hoverclosest",
+            "hovercompare"
+          ],
           "showSendToCloud": false,
           "displayModeBar": false
         },
@@ -461,22 +477,22 @@
         },
         {
           "name": "crosstalk",
-          "version": "1.1.1",
+          "version": "1.2.0",
           "src": {
-            "href": "crosstalk-1.1.1"
+            "href": "crosstalk-1.2.0"
           },
           "meta": null,
           "script": "js/crosstalk.min.js",
-          "stylesheet": "css/crosstalk.css",
+          "stylesheet": "css/crosstalk.min.css",
           "head": null,
           "attachment": null,
           "all_files": true
         },
         {
           "name": "plotly-htmlwidgets-css",
-          "version": "1.57.1",
+          "version": "2.5.1",
           "src": {
-            "href": "plotly-htmlwidgets-css-1.57.1"
+            "href": "plotly-htmlwidgets-css-2.5.1"
           },
           "meta": null,
           "script": null,
@@ -487,9 +503,9 @@
         },
         {
           "name": "plotly-main",
-          "version": "1.57.1",
+          "version": "2.5.1",
           "src": {
-            "href": "plotly-main-1.57.1"
+            "href": "plotly-main-2.5.1"
           },
           "meta": null,
           "script": "plotly-latest.min.js",
@@ -501,13 +517,13 @@
       ]
     },
     "prefT3_ENG": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>93%<\/h3>\n    <p>Percentage of applicants who received an offer of one of their top three preferred secondary schools in England<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>93.4%<\/h3>\n    <p>Percentage of applicants who received an offer of one of their top three preferred secondary schools in England<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "PrefT3_LA": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>93%<\/h3>\n    <p>Percentage of applicants who received an offer of one of their top three preferred secondary schools in England<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>93.4%<\/h3>\n    <p>Percentage of applicants who received an offer of one of their top three preferred secondary schools in England<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]

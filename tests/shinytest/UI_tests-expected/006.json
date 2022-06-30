@@ -13,13 +13,14 @@
             "orientation": "h",
             "width": 0.9,
             "base": 0,
-            "x": 0.746,
+            "x": 0.777777777777778,
             "y": 1,
-            "text": "First :  74.6 %",
+            "text": "First :  77.7 %",
             "type": "bar",
+            "textposition": "none",
             "marker": {
               "autocolorscale": false,
-              "color": "rgba(18,67,109,1)",
+              "color": "rgba(8,81,156,1)",
               "line": {
                 "width": 1.88976377952756,
                 "color": "transparent"
@@ -37,13 +38,14 @@
             "orientation": "h",
             "width": 0.9,
             "base": 0,
-            "x": 0.809,
+            "x": 0.811,
             "y": 1,
-            "text": "First :  80.9 %",
+            "text": "First :  81.1 %",
             "type": "bar",
+            "textposition": "none",
             "marker": {
               "autocolorscale": false,
-              "color": "rgba(18,67,109,1)",
+              "color": "rgba(8,81,156,1)",
               "line": {
                 "width": 1.88976377952756,
                 "color": "transparent"
@@ -60,14 +62,15 @@
           {
             "orientation": "h",
             "width": 0.9,
-            "base": 0.746,
-            "x": 0.11,
+            "base": 0.777777777777778,
+            "x": 0.108108108108108,
             "y": 1,
-            "text": "Second :  11 %",
+            "text": "Second :  10.8 %",
             "type": "bar",
+            "textposition": "none",
             "marker": {
               "autocolorscale": false,
-              "color": "rgba(244,119,56,1)",
+              "color": "rgba(49,130,189,1)",
               "line": {
                 "width": 1.88976377952756,
                 "color": "transparent"
@@ -84,14 +87,15 @@
           {
             "orientation": "h",
             "width": 0.9,
-            "base": 0.809,
+            "base": 0.811,
             "x": 0.09,
             "y": 1,
             "text": "Second :  9 %",
             "type": "bar",
+            "textposition": "none",
             "marker": {
               "autocolorscale": false,
-              "color": "rgba(244,119,56,1)",
+              "color": "rgba(49,130,189,1)",
               "line": {
                 "width": 1.88976377952756,
                 "color": "transparent"
@@ -108,14 +112,15 @@
           {
             "orientation": "h",
             "width": 0.9,
-            "base": 0.856,
-            "x": 0.0449999999999999,
+            "base": 0.885885885885886,
+            "x": 0.0410410410410411,
             "y": 1,
-            "text": "Third :  4.5 %",
+            "text": "Third :  4.1 %",
             "type": "bar",
+            "textposition": "none",
             "marker": {
               "autocolorscale": false,
-              "color": "rgba(128,22,80,1)",
+              "color": "rgba(107,174,214,1)",
               "line": {
                 "width": 1.88976377952756,
                 "color": "transparent"
@@ -126,30 +131,6 @@
             "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
-            "hoverinfo": "text",
-            "frame": null
-          },
-          {
-            "orientation": "h",
-            "width": 0.9,
-            "base": 0.899,
-            "x": 0.032,
-            "y": 1,
-            "text": "Third :  3.2 %",
-            "type": "bar",
-            "marker": {
-              "autocolorscale": false,
-              "color": "rgba(128,22,80,1)",
-              "line": {
-                "width": 1.88976377952756,
-                "color": "transparent"
-              }
-            },
-            "name": "Third",
-            "legendgroup": "Third",
-            "showlegend": false,
-            "xaxis": "x",
-            "yaxis": "y2",
             "hoverinfo": "text",
             "frame": null
           },
@@ -157,13 +138,39 @@
             "orientation": "h",
             "width": 0.9,
             "base": 0.901,
-            "x": 0.0990000000000001,
+            "x": 0.033,
             "y": 1,
-            "text": "Other :  9.9 %",
+            "text": "Third :  3.3 %",
             "type": "bar",
+            "textposition": "none",
             "marker": {
               "autocolorscale": false,
-              "color": "rgba(40,161,151,1)",
+              "color": "rgba(107,174,214,1)",
+              "line": {
+                "width": 1.88976377952756,
+                "color": "transparent"
+              }
+            },
+            "name": "Third",
+            "legendgroup": "Third",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y2",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": 0.9,
+            "base": 0.926926926926927,
+            "x": 0.0730730730730731,
+            "y": 1,
+            "text": "Other :  7.3 %",
+            "type": "bar",
+            "textposition": "none",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(158,202,225,1)",
               "line": {
                 "width": 1.88976377952756,
                 "color": "transparent"
@@ -180,14 +187,15 @@
           {
             "orientation": "h",
             "width": 0.9,
-            "base": 0.931,
-            "x": 0.069,
+            "base": 0.934,
+            "x": 0.0660000000000001,
             "y": 1,
-            "text": "Other :  6.9 %",
+            "text": "Other :  6.6 %",
             "type": "bar",
+            "textposition": "none",
             "marker": {
               "autocolorscale": false,
-              "color": "rgba(40,161,151,1)",
+              "color": "rgba(158,202,225,1)",
               "line": {
                 "width": 1.88976377952756,
                 "color": "transparent"
@@ -202,10 +210,10 @@
             "frame": null
           },
           {
-            "x": 0.373,
+            "x": 0.388888888888889,
             "y": 1,
-            "text": "74.6%",
-            "hovertext": "First :  74.6 %",
+            "text": "77.7%",
+            "hovertext": "First :  77.7 %",
             "textfont": {
               "size": 15.1181102362205,
               "color": "rgba(255,255,255,1)"
@@ -222,10 +230,10 @@
             "frame": null
           },
           {
-            "x": 0.4045,
+            "x": 0.4055,
             "y": 1,
-            "text": "80.9%",
-            "hovertext": "First :  80.9 %",
+            "text": "81.1%",
+            "hovertext": "First :  81.1 %",
             "textfont": {
               "size": 15.1181102362205,
               "color": "rgba(255,255,255,1)"
@@ -242,10 +250,10 @@
             "frame": null
           },
           {
-            "x": 0.801,
+            "x": 0.831831831831832,
             "y": 1,
-            "text": "11%",
-            "hovertext": "Second :  11 %",
+            "text": "10.8%",
+            "hovertext": "Second :  10.8 %",
             "textfont": {
               "size": 15.1181102362205,
               "color": "rgba(255,255,255,1)"
@@ -262,7 +270,7 @@
             "frame": null
           },
           {
-            "x": 0.854,
+            "x": 0.856,
             "y": 1,
             "text": "9%",
             "hovertext": "Second :  9 %",
@@ -282,10 +290,10 @@
             "frame": null
           },
           {
-            "x": 0.8785,
+            "x": 0.906406406406406,
             "y": 1,
-            "text": "4.5%",
-            "hovertext": "Third :  4.5 %",
+            "text": "4.1%",
+            "hovertext": "Third :  4.1 %",
             "textfont": {
               "size": 15.1181102362205,
               "color": "rgba(255,255,255,1)"
@@ -302,10 +310,10 @@
             "frame": null
           },
           {
-            "x": 0.915,
+            "x": 0.9175,
             "y": 1,
-            "text": "3.2%",
-            "hovertext": "Third :  3.2 %",
+            "text": "3.3%",
+            "hovertext": "Third :  3.3 %",
             "textfont": {
               "size": 15.1181102362205,
               "color": "rgba(255,255,255,1)"
@@ -322,10 +330,10 @@
             "frame": null
           },
           {
-            "x": 0.9505,
+            "x": 0.963463463463463,
             "y": 1,
-            "text": "9.9%",
-            "hovertext": "Other :  9.9 %",
+            "text": "7.3%",
+            "hovertext": "Other :  7.3 %",
             "textfont": {
               "size": 15.1181102362205,
               "color": "rgba(255,255,255,1)"
@@ -342,10 +350,10 @@
             "frame": null
           },
           {
-            "x": 0.9655,
+            "x": 0.967,
             "y": 1,
-            "text": "6.9%",
-            "hovertext": "Other :  6.9 %",
+            "text": "6.6%",
+            "hovertext": "Other :  6.6 %",
             "textfont": {
               "size": 15.1181102362205,
               "color": "rgba(255,255,255,1)"
@@ -633,8 +641,16 @@
               "family": "Arial",
               "size": 14
             },
-            "y": -0.1,
+            "title": {
+              "text": "",
+              "font": {
+                "color": "rgba(0,0,0,1)",
+                "family": "Arial",
+                "size": 18.5969281859693
+              }
+            },
             "orientation": "h",
+            "y": -0.1,
             "x": 0.33
           },
           "hovermode": "closest",
@@ -652,6 +668,10 @@
         },
         "config": {
           "doubleClick": "reset",
+          "modeBarButtonsToAdd": [
+            "hoverclosest",
+            "hovercompare"
+          ],
           "showSendToCloud": false,
           "displayModeBar": false
         },
@@ -730,22 +750,22 @@
         },
         {
           "name": "crosstalk",
-          "version": "1.1.1",
+          "version": "1.2.0",
           "src": {
-            "href": "crosstalk-1.1.1"
+            "href": "crosstalk-1.2.0"
           },
           "meta": null,
           "script": "js/crosstalk.min.js",
-          "stylesheet": "css/crosstalk.css",
+          "stylesheet": "css/crosstalk.min.css",
           "head": null,
           "attachment": null,
           "all_files": true
         },
         {
           "name": "plotly-htmlwidgets-css",
-          "version": "1.57.1",
+          "version": "2.5.1",
           "src": {
-            "href": "plotly-htmlwidgets-css-1.57.1"
+            "href": "plotly-htmlwidgets-css-2.5.1"
           },
           "meta": null,
           "script": null,
@@ -756,9 +776,9 @@
         },
         {
           "name": "plotly-main",
-          "version": "1.57.1",
+          "version": "2.5.1",
           "src": {
-            "href": "plotly-main-1.57.1"
+            "href": "plotly-main-2.5.1"
           },
           "meta": null,
           "script": "plotly-latest.min.js",
@@ -770,13 +790,13 @@
       ]
     },
     "prefT3_ENG": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>93%<\/h3>\n    <p>Percentage of applicants who received an offer of one of their top three preferred secondary schools in England<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>93.4%<\/h3>\n    <p>Percentage of applicants who received an offer of one of their top three preferred secondary schools in England<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "PrefT3_LA": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>90.1%<\/h3>\n    <p>Percentage of applicants who received an offer of one of their top three preferred secondary schools in Hertfordshire<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>92.7%<\/h3>\n    <p>Percentage of applicants who received an offer of one of their top three preferred secondary schools in Hertfordshire<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]

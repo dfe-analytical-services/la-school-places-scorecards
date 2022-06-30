@@ -3,18 +3,18 @@
     "LA_choice": "Hertfordshire",
     "navbar": "la_scorecards",
     "phase_choice": "Secondary",
-    "tabs": "Quantity"
+    "tabs": "quantity"
   },
   "output": {
     "data_description": "Data for secondary state-funded school places in Hertfordshire",
     "estimated_additional_places": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>1,090<\/h3>\n    <p>Estimated additional secondary places needed to meet demand in 2021/22<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>870<\/h3>\n    <p>Estimated additional secondary places needed to meet demand in 2023/24<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "estimated_spare_places": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>12%<\/h3>\n    <p>Estimated percentage of spare secondary places in 2021/22<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>9.6%<\/h3>\n    <p>Estimated percentage of spare secondary places in 2023/24<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
@@ -70,26 +70,30 @@
         },
         "source": "A",
         "config": {
+          "modeBarButtonsToAdd": [
+            "hoverclosest",
+            "hovercompare"
+          ],
           "showSendToCloud": false,
           "displayModeBar": false
         },
         "data": [
           {
             "x": "Hertfordshire",
-            "y": 10668,
+            "y": 14451,
             "marker": {
-              "color": "#12436D",
+              "color": "#08519c",
               "line": {
                 "color": "rgba(31,119,180,1)"
               }
             },
-            "text": "10,668",
+            "text": "14,451",
             "textposition": "inside",
             "textfont": {
               "color": "#FFF"
             },
             "hoverinfo": "text",
-            "name": "Total places created between 2009/10 and 2018/19",
+            "name": "Total places created between 2009/10 and 2020/21",
             "type": "bar",
             "error_y": {
               "color": "rgba(31,119,180,1)"
@@ -103,20 +107,20 @@
           },
           {
             "x": "Hertfordshire",
-            "y": 2679,
+            "y": 1530,
             "marker": {
-              "color": "#F46A25",
+              "color": "#3182bd",
               "line": {
                 "color": "rgba(255,127,14,1)"
               }
             },
-            "text": "2,679",
+            "text": "1,530",
             "textposition": "inside",
             "textfont": {
               "color": "#FFF"
             },
             "hoverinfo": "text",
-            "name": "New places planned for delivery between 2018/19 and 2021/22",
+            "name": "New places planned for delivery between 2020/21 and 2023/24",
             "type": "bar",
             "error_y": {
               "color": "rgba(255,127,14,1)"
@@ -130,20 +134,20 @@
           },
           {
             "x": "Hertfordshire",
-            "y": 1090,
+            "y": 870,
             "marker": {
-              "color": "#801650",
+              "color": "#6baed6",
               "line": {
                 "color": "rgba(44,160,44,1)"
               }
             },
-            "text": "1,090",
+            "text": "870",
             "textposition": "inside",
             "textfont": {
               "color": "#FFF"
             },
             "hoverinfo": "text",
-            "name": "Estimated additional places still needed to meet demand in 2021/22",
+            "name": "Estimated additional places still needed to meet demand in 2023/24",
             "type": "bar",
             "error_y": {
               "color": "rgba(44,160,44,1)"
@@ -230,22 +234,22 @@
         },
         {
           "name": "crosstalk",
-          "version": "1.1.1",
+          "version": "1.2.0",
           "src": {
-            "href": "crosstalk-1.1.1"
+            "href": "crosstalk-1.2.0"
           },
           "meta": null,
           "script": "js/crosstalk.min.js",
-          "stylesheet": "css/crosstalk.css",
+          "stylesheet": "css/crosstalk.min.css",
           "head": null,
           "attachment": null,
           "all_files": true
         },
         {
           "name": "plotly-htmlwidgets-css",
-          "version": "1.57.1",
+          "version": "2.5.1",
           "src": {
-            "href": "plotly-htmlwidgets-css-1.57.1"
+            "href": "plotly-htmlwidgets-css-2.5.1"
           },
           "meta": null,
           "script": null,
@@ -256,9 +260,9 @@
         },
         {
           "name": "plotly-main",
-          "version": "1.57.1",
+          "version": "2.5.1",
           "src": {
-            "href": "plotly-main-1.57.1"
+            "href": "plotly-main-2.5.1"
           },
           "meta": null,
           "script": "plotly-latest.min.js",
@@ -270,13 +274,13 @@
       ]
     },
     "pupil_growth": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>19%<\/h3>\n    <p>Growth in secondary pupil numbers 2009/10 to 2021/22<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>20%<\/h3>\n    <p>Anticipated growth in secondary pupil numbers 2009/10 to 2023/24<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "total_funding_box": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>£284m<\/h3>\n    <p>Total primary and secondary basic need funding 2011 to 2022<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>£319m<\/h3>\n    <p>Total primary and secondary basic need funding to create new places 2011 to 2024<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
