@@ -289,7 +289,7 @@ summary_stats_3yr <- forecast_summary_stats(dfScorecardsAll,3,
 
     label_desc_3yr <- forecast_accuracy_desclabel(forecast_accuracy_3yr,
                                                   params$input_la_choice,
-                                                  summary_stats_1yr)
+                                                  summary_stats_3yr)
      threeyearlabel <-
      if (label_desc_3yr != "accurate") { 
        paste0("Three years ahead: ", format_perc(forecast_accuracy_3yr, output='latex')) 
