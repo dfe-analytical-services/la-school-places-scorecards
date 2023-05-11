@@ -107,62 +107,68 @@ tabPanel(
   value = "la_scorecards",
   title = "LA scorecards",
   # Sidebar---------------------------------------------------------------------
-  sidebarLayout(
-    sidebarPanel(
-      width = 2,
-      p("View a local authority school places scorecard using the drop downs below."),
-      p("Switch between different school place metrics using the tabs on the right."),
+  gov_main_layout(
+    gov_row(
+      column(
+        width = 12,
+        div(
+          class = "well",
+          style = "min-height: 100%; height: 100%; overflow-y: visible",
+          gov_row(
+          column(
+            width=12,
+            p("View a local authority school places scorecard using the drop downs below and switch between different school place metrics using the tabs on the underneath."),
+      )),
+      gov_row(
+      column(
+        width=6,
       selectInput("LA_choice",
                   label = p(strong("Choose a local authority")),
                   choices = levels(LA_options),
                   selected = "England"
+      )
       ),
-      br(),
-      selectInput("phase_choice",
+      column(
+        width=6,
+        selectInput("phase_choice",
                   label = p(strong("Choose between primary or secondary school places")),
                   choices = c("Primary", "Secondary"),
                   selected = "Primary"
-      ),
-      #  br(),
-      #  selectInput("chart_choice",
-      #   label = p(strong("Choose a quality measure")),
-      #  choices = c("Ofsted", "Reading Progress", "Maths Progress")
-      #  ),
-      br(),
-      br(),
+      )
+      )),
+      gov_row(
+      column(
+        width=6,
       p(strong("Download data for all local authorities", style = "color:white")),
       myDownloadButton(
         "download_ud",
         "Download data"
+      )
       ),
-      br(),
-      br(),
+      column(
+        width=6,
       p(strong("Download summary pdf for chosen local authority", style = "color:white")),
       myDownloadButton(
         "pdfDownload",
         "Download report"
       )
+      )
+    ))
+    )
     ), # end of panel
     
-    # fluidRow(
-    # valueBoxOutput("total_funding_box", width = 6),
-    # valueBoxOutput("pupil_growth", width = 6)
-    # ),
-    
-    
     # Create the main content-----------------
-    mainPanel(
-      width = 10,
+    gov_row(
+      column(
+        width=12,
       h2(textOutput("data_description")),
-      br(),
       tabsetPanel(
         id = "tabs",
         tabPanel(
           value = "quantity",
           title = "Quantity",
-          fluidPage(
-            fluidRow(
-              column(width = 12, br()),
+          gov_main_layout(
+            gov_row(
               column(
                 6,
                 p(strong("School places created, planned future places, additional places still needed, as at May", SCAP_ref)),
@@ -170,7 +176,7 @@ tabPanel(
               ),
               column(
                 6,
-                fluidRow(
+                gov_row(
                   column(
                     12,
                     p(strong(paste0("Estimated future school place demand"))),
@@ -179,29 +185,25 @@ tabPanel(
                     valueBoxOutput("estimated_spare_places", width = 6)
                   )
                 ),
-                fluidRow(
-                  column(
-                    12,
-                  )
-                ),
-                fluidRow(
+                gov_row(
                   column(
                     12,
                     valueBoxOutput("total_funding_box", width = 6),
-                    valueBoxOutput("pupil_growth", width = 6)
+                    valueBoxOutput("pupil_growth", width = 6),
+                    uiOutput("quantity.bartext")
                   )
                 )
               )
-            ),
-            uiOutput("quantity.bartext")
+            )
           )
         ),
         tabPanel(
           value = "forecast",
           title = "Pupil forecast accuracy",
-          fluidPage(
-            fluidRow(
-              br(),
+          gov_main_layout(
+            gov_row(
+              column(
+                width=12,
               p(strong("Forecast accuracy of pupil projections for", forecast_year, ", made one year and three years previously")),
               uiOutput("forecasting.bartext"),
               column(
@@ -233,19 +235,22 @@ tabPanel(
             br(),
             p(em("Caution should be taken with forecast accuracy scores, due to unforseen impacts on pupil numbers after the forecasts were made. See Homepage for more information.")),
           )
+          )
         ),
         tabPanel(
           value = "preference",
           title = "Preference",
-          fluidPage(
-            fluidRow(
-              br(),
+          gov_main_layout(
+            gov_row(
+              column(
+                width=12,
               p(strong(paste0("School applications and offers for September ", preference_year, " entry"))),
               # preference content to go here
               valueBoxOutput("prefT3_ENG", width = 6),
               valueBoxOutput("PrefT3_LA", width = 6)
+            )
             ),
-            fluidRow(
+            gov_row(
               column(
                 12,
                 p(strong(paste0("Proportion of applicants who received an offer of a school place in their first, second and third preferences"))),
@@ -257,16 +262,18 @@ tabPanel(
         tabPanel(
           value = "quality",
           title = "Quality",
-          fluidPage(
-            fluidRow(
-              br(),
+          gov_main_layout(
+            gov_row(
+              column(
+                width=12,
               strong(textOutput("quality_description")),
               br(),
               valueBoxOutput("England_GO_places", width = 4),
               valueBoxOutput("LA_GO_places", width = 4),
               valueBoxOutput("LA_GO_ran", width = 4)
+            )
             ),
-            fluidRow(
+            gov_row(
               column(
                 12,
                 p(strong(paste0("Number of new places created in schools of each category and number of existing school places in each category"))),
@@ -281,22 +288,26 @@ tabPanel(
         tabPanel(
           value = "cost",
           title = "Cost",
-          fluidPage(
-            fluidRow(
-              br(),
+          gov_main_layout(
+            gov_row(
+              column(
+                width=12,
               p(strong("Average cost of additional mainstream school places")),
               p("Based on local authority reported projects between ", cost_year_1, " and ", cost_year_2, ", adjusted for inflation and regional variation"),
               p(em("Local authority average costs are not shown because there is no new data. Only national average costs and number of projects for England are shown."))
+            )
             ),
-            fluidRow(
+            gov_row(
+              column(
+                width=12,
               valueBoxOutput("perm_box", width = 4),
               valueBoxOutput("temp_box", width = 4),
               valueBoxOutput("new_box", width = 4),
             ),
             p(strong("Average cost per place for permanent, temporary and new school projects")),
             uiOutput("cost.bartext"),
-            br(),
-            fluidRow(
+            br()),
+            gov_row(
               column(
                 4,
                 tableOutput("cost_table")
@@ -307,6 +318,7 @@ tabPanel(
       ) # end of tabset
     )
   )
+)
 )
 
 }
