@@ -7,7 +7,7 @@
     "linkPreferenceTab": 0,
     "linkQualityTab": 0,
     "linkQuantityTab": 0,
-    "navbar": "Homepage",
+    "navlistPanel": "Homepage",
     "phase_choice": "Primary",
     "tabs": "quantity",
     "tabs_tech_notes": "Quantity"

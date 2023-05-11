@@ -27,7 +27,6 @@ library(bit64)
 library(webshot)
 library(checkmate)
 
-webshot::install_phantomjs(force = FALSE)
 
 # tidy_code_function -------------------------------------------------------------------------------
 

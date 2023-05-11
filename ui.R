@@ -72,4 +72,3 @@ ui <- function(input, output, session) {
     footer(full = TRUE)
   )
 }
-  
