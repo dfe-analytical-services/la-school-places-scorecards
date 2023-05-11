@@ -131,7 +131,6 @@ function(input, output, session) {
   ## Total funding
 
   output$total_funding_box <- renderValueBox({
-
     # Take data, get total funding and divide by billion if it's England, million if it's not
     total_funding <- scorecards_data %>%
       filter(LA_name == input$LA_choice) %>%
@@ -166,7 +165,6 @@ function(input, output, session) {
   ## Growth in pupil numbers
 
   output$pupil_growth <- renderValueBox({
-
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     growth_perc <- live_scorecard_data() %>%
       filter(name == "Bangro") %>%
@@ -202,7 +200,6 @@ function(input, output, session) {
   # Box to go here (use pupil growth as template)
 
   output$estimated_additional_places <- renderValueBox({
-
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     additional_places_perc <- live_scorecard_data() %>%
       filter(name == "QuanRP") %>%
@@ -222,7 +219,6 @@ function(input, output, session) {
   # Box to go here (use pupil growth as template)
 
   output$estimated_spare_places <- renderValueBox({
-
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     spare_places_per <- live_scorecard_data() %>%
       filter(name == "QuanSu") %>%
@@ -241,7 +237,6 @@ function(input, output, session) {
   ## Places stacked bar
 
   output$places_chart <- renderPlotly({
-
     # Take filtered data, filter for the variables we want to plot and pivot data round
     places_chart_data <- live_scorecard_data() %>%
       filter(name %in% c("QuanIn", "QuanPP", "QuanRP")) %>%
@@ -488,7 +483,6 @@ function(input, output, session) {
   # Box for England % preference
 
   output$prefT3_ENG <- renderValueBox({
-
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     PrefT3_E <- live_scorecard_data_all_la() %>%
       filter(name == "PrefT3") %>%
@@ -508,7 +502,6 @@ function(input, output, session) {
   # Box for LA % preference
 
   output$PrefT3_LA <- renderValueBox({
-
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     PrefT3 <- live_scorecard_data() %>%
       filter(name == "PrefT3") %>%
@@ -527,8 +520,6 @@ function(input, output, session) {
   # Stacked bar instead of pie here for preference?
   # Easier for users to interpret
   output$preference_p <- renderPlotly({
-
-
     # reshape the data so it plots neatly!
     preference_data <- live_scorecard_data_england_comp() %>%
       # select only preference values
@@ -641,7 +632,6 @@ function(input, output, session) {
 
   # box for % of new places in good and outstanding schools
   output$LA_GO_places <- renderValueBox({
-
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(LA_comp(), "%"),
@@ -720,7 +710,6 @@ function(input, output, session) {
 
   # box for % of new places in top schools - England
   output$England_GO_places <- renderValueBox({
-
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(england_comp(), "%"),
@@ -778,7 +767,6 @@ function(input, output, session) {
   # box for % of new places in top schools - LA Ranking
 
   output$LA_GO_ran <- renderValueBox({
-
     # Put value into box to plug into app
     shinydashboard::valueBox(
       LA_ranking(),
@@ -821,7 +809,6 @@ function(input, output, session) {
 
 
   observe({
-
     # Bar chart comparison - Ofsted
 
     # reshape the data so it plots neatly!
