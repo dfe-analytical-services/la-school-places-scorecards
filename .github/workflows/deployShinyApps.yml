@@ -34,7 +34,6 @@ jobs:
       - name: Cache renv packages
         uses: actions/cache@v1
         with:
-          r-version: '4.2.1'
           path: ${{ env.RENV_PATHS_ROOT }}
           key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
           restore-keys: |
