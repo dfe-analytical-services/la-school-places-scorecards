@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - main
+      - development
 
 name: deployShinyApps
 
@@ -16,14 +17,24 @@ jobs:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@master
         with: 
-         r-version: '4.1.1'
+         r-version: '4.2.1'
+         
+      - name: Set env vars (dev)
+        if: endsWith(github.ref, '/development')
+        run: |
+          echo "SHINYAPP_NAME='dev-la-school-places-scorecards'" >> $GITHUB_ENV
+      - name: Set env vars (prod)
+        if: endsWith(github.ref, '/main')
+        run: |
+          echo "SHINYAPP_NAME='la-school-places-scorecards'">> $GITHUB_ENV
+
       - name: Install Curl
         run: sudo apt install libcurl4-openssl-dev libssl-dev
         
       - name: Cache renv packages
         uses: actions/cache@v1
         with:
-          r-version: '4.1.1'
+          r-version: '4.2.1'
           path: ${{ env.RENV_PATHS_ROOT }}
           key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
           restore-keys: |
@@ -38,4 +49,4 @@ jobs:
         run: >
           Rscript
           -e "rsconnect::setAccountInfo(name='department-for-education', token='${{secrets.SHINYAPPS_TOKEN}}', secret='${{secrets.SHINYAPPS_SECRET}}')"
-          -e "rsconnect::deployApp()"
+          -e "rsconnect::deployApp(appName=${{env.SHINYAPP_NAME}})"
