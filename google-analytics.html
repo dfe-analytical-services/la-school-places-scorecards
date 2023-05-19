@@ -6,4 +6,47 @@
   gtag('js', new Date());
 
   gtag('config', 'G-1RK7T205RS');
+
+  $(document).on('change', 'select#phase_choice', function(e) {
+    gtag('event', 'select phase', {'event_category' : 'choose Phase',
+    'event_label' : document.querySelector('select#selectPhase').value
+    });
+  });
+
+  $(document).on('change', 'select#LA_choice', function(e) {
+    gtag('event', 'select area', {'event_category' : 'choose Area',
+    'event_label' : document.querySelector('select#selectArea').value
+    });
+  });
+
+  $(document).on('click', 'ul#navlistPanel', function(e) {
+    gtag('event', 'navlistPanel', {'event_category' : 'navbar click',
+    'event_label' : document.querySelector('ul#navlistPanel > li.active > a').getAttribute('data-value')
+    });
+  });
+
+  $(document).on('click', 'ul#tabs', function(e) {
+    gtag('event', 'tab panels', {'event_category' : 'tab panel clicks',
+    'event_label' : document.querySelector('ul#tabs > li.active > a').getAttribute('data-value')
+    });
+  });
+
+  $(document).on('click', 'a#download_ud', function(e) {
+    gtag('event', 'Download button', {'event_category' : 'Download data click'
+    });
+  });
+
+  $(document).on('click', 'a#pdfDownload', function(e) {
+    gtag('event', 'Download button', {'event_category' : 'Download pdf click'
+    });
+  });
+
+  $(document).on('shiny:disconnected', function(e) {
+    gtag('event', 'disconnect', {
+      'event_label' : 'Disconnect',
+      'event_category' : 'Disconnect'
+    });
+  });
+
 </script>
+
