@@ -6,7 +6,7 @@ function(input, output, session) {
   )
 
 
-# Cookie control ----------------------------------------------------------
+  # Cookie control ----------------------------------------------------------
 
   # output if cookie is unspecified
   observeEvent(input$cookies, {
@@ -46,7 +46,7 @@ function(input, output, session) {
       }
     }
   })
-  
+
   observeEvent(input$cookie_consent, {
     msg <- list(
       name = "dfe_analytics",
@@ -63,17 +63,17 @@ function(input, output, session) {
       }
     }
   })
-  
+
   observeEvent(input$remove, {
     msg <- list(name = "dfe_analytics", value = "denied")
     session$sendCustomMessage("cookie-remove", msg)
     session$sendCustomMessage("analytics-consent", msg)
   })
-  
+
   cookies_data <- reactive({
     input$cookies
   })
-  
+
   output$cookie_status <- renderText({
     cookie_text_stem <- "To better understand the reach of our dashboard tools, this site uses cookies to
 identify numbers of unique users as part of Google Analytics. You have chosen to"
@@ -90,12 +90,12 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       "Cookies consent has not been confirmed."
     }
   })
-  
-  
 
-# Dashboard control -------------------------------------------------------
 
-  
+
+  # Dashboard control -------------------------------------------------------
+
+
   output$pdfDownload <- downloadHandler(
     filename = paste0("dashboard_output.pdf"),
     content = function(file) {

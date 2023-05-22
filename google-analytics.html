@@ -9,13 +9,13 @@
 
   $(document).on('change', 'select#phase_choice', function(e) {
     gtag('event', 'select phase', {'event_category' : 'choose Phase',
-    'event_label' : document.querySelector('select#selectPhase').value
+    'event_label' : document.querySelector('select#phase_choice').value
     });
   });
 
   $(document).on('change', 'select#LA_choice', function(e) {
     gtag('event', 'select area', {'event_category' : 'choose Area',
-    'event_label' : document.querySelector('select#selectArea').value
+    'event_label' : document.querySelector('select#LA_choice').value
     });
   });
 
