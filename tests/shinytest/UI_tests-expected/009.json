@@ -1,7 +1,7 @@
 {
   "input": {
     "LA_choice": "England",
-    "navbar": "la_scorecards",
+    "navlistPanel": "la_scorecards",
     "phase_choice": "Primary",
     "tabs": "preference"
   },
