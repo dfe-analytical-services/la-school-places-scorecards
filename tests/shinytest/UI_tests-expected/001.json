@@ -1,21 +1,8 @@
 {
   "input": {
     "LA_choice": "England",
-    "linkCostTab": 0,
-    "linkForecastTab": 0,
-    "linklascorecardsTab": 0,
-    "linkPreferenceTab": 0,
-    "linkQualityTab": 0,
-    "linkQuantityTab": 0,
     "navlistPanel": "Homepage",
     "phase_choice": "Primary",
-    "tabs": "quantity",
-    "tabs_tech_notes": "Quantity"
-  },
-  "output": {
-
-  },
-  "export": {
-
+    "tabs": "quantity"
   }
 }
