@@ -1,5 +1,9 @@
 {
   "input": {
+    "cookies": {
+      "_ga_1RK7T205RS": "GS1.1.1684761926.1.0.1684761926.0.0.0",
+      "_ga": "GA1.1.821541305.1684761926"
+    },
     "LA_choice": "England",
     "linkCostTab": 0,
     "linkForecastTab": 0,
@@ -7,7 +11,7 @@
     "linkPreferenceTab": 0,
     "linkQualityTab": 0,
     "linkQuantityTab": 0,
-    "navlistPanel": "Homepage",
+    "navbar": "Homepage",
     "phase_choice": "Primary",
     "tabs": "quantity",
     "tabs_tech_notes": "Quantity"

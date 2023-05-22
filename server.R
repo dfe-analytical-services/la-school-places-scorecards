@@ -121,31 +121,31 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
 
   # actionLinks
   observeEvent(input$linkQuantityTab, {
-    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "navlistPanel", selected = "la_scorecards")
     updateTabsetPanel(session, "tabs", selected = "quantity")
   })
   observeEvent(input$linkForecastTab, {
-    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "navlistPanel", selected = "la_scorecards")
     updateTabsetPanel(session, "tabs", selected = "forecast")
   })
   observeEvent(input$linkPreferenceTab, {
-    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "navlistPanel", selected = "la_scorecards")
     updateTabsetPanel(session, "tabs", selected = "preference")
   })
   observeEvent(input$linkQualityTab, {
-    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "navlistPanel", selected = "la_scorecards")
     updateTabsetPanel(session, "tabs", selected = "quality")
   })
   observeEvent(input$linkCostTab, {
-    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "navlistPanel", selected = "la_scorecards")
     updateTabsetPanel(session, "tabs", selected = "cost")
   })
   observeEvent(input$linkTechnicalnotesTab, {
-    updateTabsetPanel(session, "navbar", selected = "technical_notes")
+    updateTabsetPanel(session, "navlistPanel", selected = "technical_notes")
     updateTabsetPanel(session, "tabs_tech_notes", selected = "cost")
   })
   observeEvent(input$linklascorecardsTab, {
-    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "navlistPanel", selected = "la_scorecards")
   })
 
   # Data calculations - reactive --------------------------------------------

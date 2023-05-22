@@ -1,14 +1,14 @@
 app <- ShinyDriver$new("../../", loadTimeout = 1.e5)
 app$snapshotInit("UI_tests", screenshot = FALSE)
 
-listInputs <- c("LA_choice", "navbar", "phase_choice", "tabs")
+listInputs <- c("LA_choice", "navlistPanel", "phase_choice", "tabs")
 
 # 1. Does it load  -------------------------------------------------------------------------------------------------------------------
 Sys.sleep(1)
 app$snapshot()
 
 # 2. Is England, Primary the default?--------------------------------------------
-app$setInputs(navbar = "la_scorecards")
+app$setInputs(navlistPanel = "la_scorecards")
 app$setInputs(LA_choice = "England")
 app$snapshot(list(
   input = listInputs,

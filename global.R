@@ -26,7 +26,8 @@ library(styler)
 library(rsconnect)
 library(bit64)
 library(webshot)
-webshot::install_phantomjs(force = FALSE)
+library(checkmate)
+
 
 # tidy_code_function -------------------------------------------------------------------------------
 
@@ -48,6 +49,14 @@ tidy_code_function <- function() {
 source("0_variable_change.R")
 source("R/functions.R")
 source("R/plotting.R")
+
+site_title <- "Local Authority School Places Scorecards"
+site_primary <- "https://department-for-education.shinyapps.io/la-school-places-scorecards/"
+site_overflow <- NA
+sites_list <- c(site_primary) # We can add further mirrors where necessary. Each one can generally handle about 2,500 users simultaneously
+ees_pub_name <- "Statistical publication" # Update this with your parent publication name (e.g. the EES publication)
+ees_publication <- "https://explore-education-statistics.service.gov.uk/find-statistics/local-authority-school-places-scorecards" # Update with parent publication link
+google_analytics_key <- "1RK7T205RS"
 
 # ----------------------------------------------------------------------------
 # Setup loading screen and spinner
@@ -78,6 +87,8 @@ divergent_gradient <- c(seq_gradient, rev(seq_gradient))
 # Enable bookmarking ---------------------------------------------------------
 
 enableBookmarking(store = "url")
+
+
 
 
 # ----------------------------------------------------------------------------
