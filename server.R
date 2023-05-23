@@ -356,7 +356,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       layout(
         yaxis = list(title = ""),
         xaxis = list(title = ""),
-        barmode = "stack",
+        barmode = "bar",
         uniformtext = list(minsize = 12, mode = "hide"),
         legend = list(orientation = "h"),
         font = font_choice,
