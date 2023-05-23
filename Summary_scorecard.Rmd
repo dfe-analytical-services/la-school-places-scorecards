@@ -4,6 +4,7 @@ params:
     input_phase_choice: Secondary
      # Keep this as Ofsted for 2021 scorecard as only option
     input_quality_chart: 'Ofsted'
+    always_allow_html: true
 header-includes:
   # Here be dragons, edit these header items at your own risk.
    - \usepackage{graphics}
