@@ -28,6 +28,8 @@ library(bit64)
 library(webshot)
 library(checkmate)
 
+# Phantom js needed for pdf compile to work. Note this works even on the shinyapps server.
+webshot::install_phantomjs()
 
 # tidy_code_function -------------------------------------------------------------------------------
 
