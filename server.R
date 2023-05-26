@@ -5,6 +5,97 @@ function(input, output, session) {
     size = 14
   )
 
+
+  # Cookie control ----------------------------------------------------------
+
+  # output if cookie is unspecified
+  observeEvent(input$cookies, {
+    if (!is.null(input$cookies)) {
+      if (!("dfe_analytics" %in% names(input$cookies))) {
+        shinyalert(
+          inputId = "cookie_consent",
+          title = "Cookie consent",
+          text = "This site uses cookies to record traffic flow using Google Analytics",
+          size = "s",
+          closeOnEsc = TRUE,
+          closeOnClickOutside = FALSE,
+          html = FALSE,
+          type = "",
+          showConfirmButton = TRUE,
+          showCancelButton = TRUE,
+          confirmButtonText = "Accept",
+          confirmButtonCol = "#AEDEF4",
+          timer = 0,
+          imageUrl = "",
+          animation = TRUE
+        )
+      } else {
+        msg <- list(
+          name = "dfe_analytics",
+          value = input$cookies$dfe_analytics
+        )
+        session$sendCustomMessage("analytics-consent", msg)
+        if ("cookies" %in% names(input)) {
+          if ("dfe_analytics" %in% names(input$cookies)) {
+            if (input$cookies$dfe_analytics == "denied") {
+              ga_msg <- list(name = paste0("_ga_", google_analytics_key))
+              session$sendCustomMessage("cookie-remove", ga_msg)
+            }
+          }
+        }
+      }
+    }
+  })
+
+  observeEvent(input$cookie_consent, {
+    msg <- list(
+      name = "dfe_analytics",
+      value = ifelse(input$cookie_consent, "granted", "denied")
+    )
+    session$sendCustomMessage("cookie-set", msg)
+    session$sendCustomMessage("analytics-consent", msg)
+    if ("cookies" %in% names(input)) {
+      if ("dfe_analytics" %in% names(input$cookies)) {
+        if (input$cookies$dfe_analytics == "denied") {
+          ga_msg <- list(name = paste0("_ga_", google_analytics_key))
+          session$sendCustomMessage("cookie-remove", ga_msg)
+        }
+      }
+    }
+  })
+
+  observeEvent(input$remove, {
+    msg <- list(name = "dfe_analytics", value = "denied")
+    session$sendCustomMessage("cookie-remove", msg)
+    session$sendCustomMessage("analytics-consent", msg)
+  })
+
+  cookies_data <- reactive({
+    input$cookies
+  })
+
+  output$cookie_status <- renderText({
+    cookie_text_stem <- "To better understand the reach of our dashboard tools, this site uses cookies to
+identify numbers of unique users as part of Google Analytics. You have chosen to"
+    cookie_text_tail <- "the use of cookies on this website."
+    if ("cookies" %in% names(input)) {
+      if ("dfe_analytics" %in% names(input$cookies)) {
+        if (input$cookies$dfe_analytics == "granted") {
+          paste(cookie_text_stem, "accept", cookie_text_tail)
+        } else {
+          paste(cookie_text_stem, "reject", cookie_text_tail)
+        }
+      }
+    } else {
+      "Cookies consent has not been confirmed."
+    }
+  })
+
+
+
+  # Dashboard control -------------------------------------------------------
+
+
   output$pdfDownload <- downloadHandler(
     filename = paste0("dashboard_output.pdf"),
     content = function(file) {
@@ -30,31 +121,31 @@ function(input, output, session) {
 
   # actionLinks
   observeEvent(input$linkQuantityTab, {
-    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "navlistPanel", selected = "la_scorecards")
     updateTabsetPanel(session, "tabs", selected = "quantity")
   })
   observeEvent(input$linkForecastTab, {
-    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "navlistPanel", selected = "la_scorecards")
     updateTabsetPanel(session, "tabs", selected = "forecast")
   })
   observeEvent(input$linkPreferenceTab, {
-    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "navlistPanel", selected = "la_scorecards")
     updateTabsetPanel(session, "tabs", selected = "preference")
   })
   observeEvent(input$linkQualityTab, {
-    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "navlistPanel", selected = "la_scorecards")
     updateTabsetPanel(session, "tabs", selected = "quality")
   })
   observeEvent(input$linkCostTab, {
-    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "navlistPanel", selected = "la_scorecards")
     updateTabsetPanel(session, "tabs", selected = "cost")
   })
   observeEvent(input$linkTechnicalnotesTab, {
-    updateTabsetPanel(session, "navbar", selected = "technical_notes")
+    updateTabsetPanel(session, "navlistPanel", selected = "technical_notes")
     updateTabsetPanel(session, "tabs_tech_notes", selected = "cost")
   })
   observeEvent(input$linklascorecardsTab, {
-    updateTabsetPanel(session, "navbar", selected = "la_scorecards")
+    updateTabsetPanel(session, "navlistPanel", selected = "la_scorecards")
   })
 
   # Data calculations - reactive --------------------------------------------
@@ -131,7 +222,6 @@ function(input, output, session) {
   ## Total funding
 
   output$total_funding_box <- renderValueBox({
-
     # Take data, get total funding and divide by billion if it's England, million if it's not
     total_funding <- scorecards_data %>%
       filter(LA_name == input$LA_choice) %>%
@@ -166,7 +256,6 @@ function(input, output, session) {
   ## Growth in pupil numbers
 
   output$pupil_growth <- renderValueBox({
-
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     growth_perc <- live_scorecard_data() %>%
       filter(name == "Bangro") %>%
@@ -202,7 +291,6 @@ function(input, output, session) {
   # Box to go here (use pupil growth as template)
 
   output$estimated_additional_places <- renderValueBox({
-
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     additional_places_perc <- live_scorecard_data() %>%
       filter(name == "QuanRP") %>%
@@ -222,7 +310,6 @@ function(input, output, session) {
   # Box to go here (use pupil growth as template)
 
   output$estimated_spare_places <- renderValueBox({
-
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     spare_places_per <- live_scorecard_data() %>%
       filter(name == "QuanSu") %>%
@@ -241,7 +328,6 @@ function(input, output, session) {
   ## Places stacked bar
 
   output$places_chart <- renderPlotly({
-
     # Take filtered data, filter for the variables we want to plot and pivot data round
     places_chart_data <- live_scorecard_data() %>%
       filter(name %in% c("QuanIn", "QuanPP", "QuanRP")) %>%
@@ -488,7 +574,6 @@ function(input, output, session) {
   # Box for England % preference
 
   output$prefT3_ENG <- renderValueBox({
-
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     PrefT3_E <- live_scorecard_data_all_la() %>%
       filter(name == "PrefT3") %>%
@@ -508,7 +593,6 @@ function(input, output, session) {
   # Box for LA % preference
 
   output$PrefT3_LA <- renderValueBox({
-
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     PrefT3 <- live_scorecard_data() %>%
       filter(name == "PrefT3") %>%
@@ -527,8 +611,6 @@ function(input, output, session) {
   # Stacked bar instead of pie here for preference?
   # Easier for users to interpret
   output$preference_p <- renderPlotly({
-
-
     # reshape the data so it plots neatly!
     preference_data <- live_scorecard_data_england_comp() %>%
       # select only preference values
@@ -641,7 +723,6 @@ function(input, output, session) {
 
   # box for % of new places in good and outstanding schools
   output$LA_GO_places <- renderValueBox({
-
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(LA_comp(), "%"),
@@ -720,7 +801,6 @@ function(input, output, session) {
 
   # box for % of new places in top schools - England
   output$England_GO_places <- renderValueBox({
-
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(england_comp(), "%"),
@@ -778,7 +858,6 @@ function(input, output, session) {
   # box for % of new places in top schools - LA Ranking
 
   output$LA_GO_ran <- renderValueBox({
-
     # Put value into box to plug into app
     shinydashboard::valueBox(
       LA_ranking(),
@@ -821,7 +900,6 @@ function(input, output, session) {
 
 
   observe({
-
     # Bar chart comparison - Ofsted
 
     # reshape the data so it plots neatly!

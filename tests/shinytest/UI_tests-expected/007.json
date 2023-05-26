@@ -1,7 +1,7 @@
 {
   "input": {
     "LA_choice": "England",
-    "navbar": "la_scorecards",
+    "navlistPanel": "la_scorecards",
     "phase_choice": "Secondary",
     "tabs": "preference"
   },
@@ -26,9 +26,7 @@
                 "color": "transparent"
               }
             },
-            "name": "First",
-            "legendgroup": "First",
-            "showlegend": true,
+            "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
             "hoverinfo": "text",
@@ -51,9 +49,7 @@
                 "color": "transparent"
               }
             },
-            "name": "Second",
-            "legendgroup": "Second",
-            "showlegend": true,
+            "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
             "hoverinfo": "text",
@@ -76,9 +72,7 @@
                 "color": "transparent"
               }
             },
-            "name": "Third",
-            "legendgroup": "Third",
-            "showlegend": true,
+            "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
             "hoverinfo": "text",
@@ -101,9 +95,7 @@
                 "color": "transparent"
               }
             },
-            "name": "Other",
-            "legendgroup": "Other",
-            "showlegend": true,
+            "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
             "hoverinfo": "text",
@@ -121,8 +113,6 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
-            "name": "First",
-            "legendgroup": "First",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -141,8 +131,6 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
-            "name": "Second",
-            "legendgroup": "Second",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -161,8 +149,6 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
-            "name": "Third",
-            "legendgroup": "Third",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -181,8 +167,6 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
-            "name": "Other",
-            "legendgroup": "Other",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -358,7 +342,7 @@
               "yanchor": "bottom"
             }
           ],
-          "showlegend": true,
+          "showlegend": false,
           "legend": {
             "bgcolor": null,
             "bordercolor": null,
@@ -490,9 +474,9 @@
         },
         {
           "name": "plotly-htmlwidgets-css",
-          "version": "2.5.1",
+          "version": "2.11.1",
           "src": {
-            "href": "plotly-htmlwidgets-css-2.5.1"
+            "href": "plotly-htmlwidgets-css-2.11.1"
           },
           "meta": null,
           "script": null,
@@ -503,9 +487,9 @@
         },
         {
           "name": "plotly-main",
-          "version": "2.5.1",
+          "version": "2.11.1",
           "src": {
-            "href": "plotly-main-2.5.1"
+            "href": "plotly-main-2.11.1"
           },
           "meta": null,
           "script": "plotly-latest.min.js",

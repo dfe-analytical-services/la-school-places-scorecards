@@ -1,14 +1,16 @@
 app <- ShinyDriver$new("../../", loadTimeout = 1.e5)
 app$snapshotInit("UI_tests", screenshot = FALSE)
 
-listInputs <- c("LA_choice", "navbar", "phase_choice", "tabs")
+listInputs <- c("LA_choice", "navlistPanel", "phase_choice", "tabs")
 
 # 1. Does it load  -------------------------------------------------------------------------------------------------------------------
+message("Running test 1.")
 Sys.sleep(1)
-app$snapshot()
+app$snapshot(list(input = listInputs))
 
 # 2. Is England, Primary the default?--------------------------------------------
-app$setInputs(navbar = "la_scorecards")
+message("Running test 2.")
+app$setInputs(navlistPanel = "la_scorecards")
 app$setInputs(LA_choice = "England")
 app$snapshot(list(
   input = listInputs,
@@ -20,6 +22,7 @@ app$snapshot(list(
 ))
 
 # 3. Do the values change when you select a different LA?-------------------------------
+message("Running test 3.")
 app$setInputs(LA_choice = "Hertfordshire")
 app$snapshot(list(
   input = listInputs,
@@ -43,6 +46,7 @@ app$snapshot(list(
 
 
 # 5. Do the values stay the same when you select a different quality measure?-------------------------------
+message("Running test 5.")
 app$setInputs(tabs = "forecast")
 app$snapshot(list(
   input = listInputs,
@@ -54,6 +58,7 @@ app$snapshot(list(
 ))
 
 # 6. Does the preference tab load correctly? ------------------------------
+message("Running test 6.")
 app$setInputs(tabs = "preference")
 app$snapshot(list(
   input = listInputs,
@@ -61,6 +66,7 @@ app$snapshot(list(
 ))
 
 # 7. Does the values in the preference tab change when you select England? ------------------------------
+message("Running test 7.")
 app$setInputs(LA_choice = "England")
 app$snapshot(list(
   input = listInputs,
@@ -68,6 +74,7 @@ app$snapshot(list(
 ))
 
 # 8. Does the values in the preference tab change when you select a different Phase? ------------------------------
+message("Running test 8.")
 app$setInputs(phase_choice = "Primary")
 app$snapshot(list(
   input = listInputs,
@@ -76,12 +83,14 @@ app$snapshot(list(
 
 # 9. Does the values in the preference tab stay the same when you select a different quality measure? ------------------------------
 # app$setInputs(chart_choice = "Ofsted",wait_=FALSE, values_=FALSE)
+message("Running test 9.")
 app$snapshot(list(
   input = listInputs,
   output = c("prefT3_ENG", "PrefT3_LA", "preference_p")
 ))
 
 # 10. Does the quality tab load correctly? ------------------------------
+message("Running test 10.")
 app$setInputs(tabs = "quality")
 app$snapshot(list(
   input = listInputs,
@@ -89,6 +98,7 @@ app$snapshot(list(
 ))
 
 # 11. Do the values in the quality tab change when you select Progress 8? ------------------------------
+message("Running test 11.")
 app$setInputs(phase_choice = "Secondary")
 # app$setInputs(chart_choice = "Progress 8")
 app$snapshot(list(
@@ -97,6 +107,7 @@ app$snapshot(list(
 ))
 
 # 12. Do the values in the quality tab change when you select Reading? Are these options available for Primary?------------------------------
+message("Running test 12.")
 app$setInputs(phase_choice = "Primary")
 # app$setInputs(chart_choice = "Reading Progress")
 app$snapshot(list(
@@ -106,12 +117,14 @@ app$snapshot(list(
 
 # 13. Do the values in the quality tab change when you select Maths?  Are these options available for Primary?------------------------------
 # app$setInputs(chart_choice = "Maths Progress")
+message("Running test 13.")
 app$snapshot(list(
   input = listInputs,
   output = c("England_GO_places", "quality_chart", "no_rating_line")
 ))
 
 # 14. Do the values in the quality tab change when you select an LA?------------------------------
+message("Running test 14.")
 app$setInputs(LA_choice = "Cheshire East")
 app$snapshot(list(
   input = listInputs,

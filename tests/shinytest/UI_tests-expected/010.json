@@ -1,7 +1,7 @@
 {
   "input": {
     "LA_choice": "England",
-    "navbar": "la_scorecards",
+    "navlistPanel": "la_scorecards",
     "phase_choice": "Primary",
     "tabs": "quality"
   },
@@ -48,9 +48,7 @@
                 "color": "transparent"
               }
             },
-            "name": "Outstanding",
-            "legendgroup": "Outstanding",
-            "showlegend": true,
+            "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
             "hoverinfo": "text",
@@ -88,9 +86,7 @@
                 "color": "transparent"
               }
             },
-            "name": "Good",
-            "legendgroup": "Good",
-            "showlegend": true,
+            "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
             "hoverinfo": "text",
@@ -128,9 +124,7 @@
                 "color": "transparent"
               }
             },
-            "name": "Requires Improvement",
-            "legendgroup": "Requires Improvement",
-            "showlegend": true,
+            "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
             "hoverinfo": "text",
@@ -168,9 +162,7 @@
                 "color": "transparent"
               }
             },
-            "name": "Inadequate",
-            "legendgroup": "Inadequate",
-            "showlegend": true,
+            "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
             "hoverinfo": "text",
@@ -200,8 +192,6 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
-            "name": "Outstanding",
-            "legendgroup": "Outstanding",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -232,8 +222,6 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
-            "name": "Good",
-            "legendgroup": "Good",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -264,8 +252,6 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
-            "name": "Requires Improvement",
-            "legendgroup": "Requires Improvement",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -296,8 +282,6 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
-            "name": "Inadequate",
-            "legendgroup": "Inadequate",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -482,7 +466,7 @@
               "yanchor": "bottom"
             }
           ],
-          "showlegend": true,
+          "showlegend": false,
           "legend": {
             "bgcolor": null,
             "bordercolor": null,
@@ -610,9 +594,9 @@
         },
         {
           "name": "plotly-htmlwidgets-css",
-          "version": "2.5.1",
+          "version": "2.11.1",
           "src": {
-            "href": "plotly-htmlwidgets-css-2.5.1"
+            "href": "plotly-htmlwidgets-css-2.11.1"
           },
           "meta": null,
           "script": null,
@@ -623,9 +607,9 @@
         },
         {
           "name": "plotly-main",
-          "version": "2.5.1",
+          "version": "2.11.1",
           "src": {
-            "href": "plotly-main-2.5.1"
+            "href": "plotly-main-2.11.1"
           },
           "meta": null,
           "script": "plotly-latest.min.js",
