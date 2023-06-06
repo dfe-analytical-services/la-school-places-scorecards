@@ -184,7 +184,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   })
 
 ##scorecard data, filtered on user input and benchmarking choice Las as a comparison  
-  live_scorecard_data_reactive_Benchmark <- reactive({
+  live_scorecard_data_reactive_benchmark <- reactive({
     scorecards_data_pivot %>%
       filter(
         LA_name %in% c(input$LA_choice, input$selectBenchLAs),
@@ -337,7 +337,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
 
   output$places_chart <- renderPlotly({
     # Take filtered data, filter for the variables we want to plot and pivot data round
-    places_chart_data <- live_scorecard_data() %>%
+    places_chart_data <-  live_scorecard_data_reactive_benchmark() %>%
       filter(name %in% c("QuanIn", "QuanPP", "QuanRP")) %>%
       select(LA_name, name, value) %>%
       pivot_wider()
