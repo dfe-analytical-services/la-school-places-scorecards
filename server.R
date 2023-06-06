@@ -183,6 +183,14 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     scorecards_data_pivot %>% filter(Phase == input$phase_choice)
   })
 
+##scorecard data, filtered on user input and benchmarking choice Las as a comparison  
+  live_scorecard_data_reactive_Benchmark <- reactive({
+    scorecards_data_pivot %>%
+      filter(
+        LA_name %in% c(input$LA_choice, input$selectBenchLAs),
+        Phase == input$phase_choice
+            )
+  })
   # Options for chart choice - dependent on phase choice
 
   # chart_options <- reactive({
