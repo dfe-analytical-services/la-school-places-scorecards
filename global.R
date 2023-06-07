@@ -29,7 +29,7 @@ library(webshot)
 library(checkmate)
 
 # Phantom js needed for pdf compile to work. Note this works even on the shinyapps server.
-webshot::install_phantomjs(force=FALSE)
+webshot::install_phantomjs(force = FALSE)
 
 # tidy_code_function -------------------------------------------------------------------------------
 
