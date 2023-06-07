@@ -174,18 +174,16 @@ panel_scorecard <- function() {
                 gov_row(
                   column(
                     6,
-                    p(strong("School places created, planned future places, additional places still needed, as at May", SCAP_ref)),
-                    plotlyOutput("places_chart") %>% withSpinner()
-                  ),
-                  column (
-                    6,
+                                     p(strong("School places created, planned future places, additional places still needed, as at May", SCAP_ref)),
                     selectizeInput("selectBenchLAs",
-                                   "Select benchmark LAs",
+                                   "Select up to three benchmark LAs",
                                    choices = levels(LA_options),
                                    multiple = TRUE,
                                    options = list(maxItems = 3)
                     ),
-                  column(
+                    plotlyOutput("places_chart") %>% withSpinner()
+                  ),
+                                column(
                     6,
                     gov_row(
                       column(
