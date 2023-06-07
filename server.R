@@ -673,7 +673,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
           orientation = "h",
           y = -0.1, x = 0.33,
           font = font_choice,
-          title = 'Preference'
+          title = "Preference"
         ),
         title = list(
           text = "Chart showing percentage of pupils recieving an offer from their first, second, third or other place schools, by Local Authority compared to England",
@@ -884,7 +884,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
           orientation = "h",
           y = -0.1, x = 0.2,
           font = font_choice,
-          title=''
+          title = ""
         ),
         title = list(
           text = "Chart showing the quality of new and existing school places and estimated additional places, by Local Authority compared to England",
@@ -949,7 +949,6 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       facet_wrap(~LA_name, nrow = 2) +
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
-
       scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1")) +
       scale_y_continuous(labels = scales::percent) +
       theme_minimal() +
@@ -1017,7 +1016,6 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       facet_wrap(~LA_name, nrow = 2) +
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
-
       scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1")) +
       theme_minimal() +
       theme(
@@ -1082,7 +1080,6 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       facet_wrap(~LA_name, nrow = 2) +
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
-
       scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1")) +
       theme_minimal() +
       theme(
@@ -1148,7 +1145,6 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       facet_wrap(~LA_name, nrow = 2) +
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
-
       scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1")) +
       theme_minimal() +
       theme(
