@@ -177,7 +177,7 @@ panel_scorecard <- function() {
                                      p(strong("School places created, planned future places, additional places still needed, as at May", SCAP_ref)),
                     selectizeInput("selectBenchLAs",
                                    "Select up to three benchmark LAs",
-                                   choices = levels(LA_options),
+                                   choices = levels(LA_benchmark_options),
                                    multiple = TRUE,
                                    options = list(maxItems = 3)
                     ),

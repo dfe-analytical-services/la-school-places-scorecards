@@ -154,6 +154,15 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   LA_options <- sort(unique(scorecards_data$LA_name)) %>%
     as.factor() %>%
     relevel("England")
+  
+  
+  La_data_benchmark <- scorecards_data %>%
+   filter (LA_name != "England")
+  
+  LA_benchmark_options <- 
+    sort(unique(La_data_benchmark$LA_name)) %>%
+           as.factor() %>%
+       relevel("Barking and Dagenham")
 
   # Scorecard data, filtered on user input
   live_scorecard_data <- reactive({
