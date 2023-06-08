@@ -157,8 +157,13 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   
   
   La_data_benchmark <- scorecards_data %>%
-   filter (LA_name != "England")
+   filter (LA_name != c("England")) 
   
+ # La_data_benchmark2 <- reactive({
+    #scorecards_data %>%
+   # filter (LA_name != input$LA_choice)
+  #})
+    
   LA_benchmark_options <- 
     sort(unique(La_data_benchmark$LA_name)) %>%
            as.factor() %>%
@@ -197,8 +202,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     scorecards_data_pivot %>%
       filter(
         LA_name %in% c(input$LA_choice, input$selectBenchLAs),
-        Phase == input$phase_choice
-            )
+        Phase == input$phase_choice) 
   })
   # Options for chart choice - dependent on phase choice
 
@@ -342,7 +346,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     )
   })
 
-  ## Places stacked bar
+  ## Places bar
 
   output$places_chart <- renderPlotly({
     # Take filtered data, filter for the variables we want to plot and pivot data round
@@ -390,7 +394,54 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       config(displayModeBar = FALSE)
   })
 
-
+  ## Places bar
+  
+  output$places_chart_england <- renderPlotly({
+    # Take filtered data, filter for the variables we want to plot and pivot data round
+    places_chart_England_data <-  live_scorecard_data() %>%
+      filter(name %in% c("QuanIn", "QuanPP", "QuanRP")) %>%
+      select(LA_name, name, value) %>%
+      pivot_wider()
+    
+    # create interactive  bar chart
+    p <- plot_ly(
+      places_chart_England_data,
+      type = "bar",
+      hoverinfo = "text"
+    ) %>%
+      add_trace(
+        x = ~LA_name, y = ~QuanIn, marker = list(color = c("#08519c")),
+        name = paste0("Total places created between 2009/10 and ", this_year),
+        text = ~ scales::comma(QuanIn),       textposition = "inside", textfont = list(color = "#FFF"),
+        width=0.2
+      )%>%
+      add_trace(
+        x = ~LA_name, y = ~QuanPP, marker = list(color = c("#3182bd")),
+        name = paste0("New places planned for delivery between ", this_year, " and ", plan_year),
+        text = ~ scales::comma(QuanPP), textposition = "outside", textfont = list(color = "#000"),
+        width=0.2
+      ) %>%
+      add_trace(
+        x = ~LA_name, y = ~QuanRP, marker = list(color = c("#6baed6")),
+        name = paste0("Estimated additional places still needed to meet demand in ", plan_year),
+        text = ~ scales::comma(QuanRP), textposition = "outside", textfont = list(color = "#000"),
+        width=0.2
+      ) %>%
+      layout(
+        yaxis = list(title = ""),
+        xaxis = list(title = ""),
+        barmode = "bar",
+        uniformtext = list(minsize = 12, mode = "hide"),
+        legend = list(orientation = "h"),
+        font = font_choice,
+        title = list(
+          text = "Chart showing total places created, new places planned for delivery and estimated additional places needed to meet demand, by Local Authority compared to England",
+          font = list(color = "#ffffff")
+        )
+      ) %>%
+      config(displayModeBar = FALSE)
+  })
+  
 
   ## Forecast accuracy labels
 
@@ -1521,12 +1572,16 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   observe({
     if (input$LA_choice == "England") {
       shinyjs::hide("LA_GO_places")
+      shinyjs::hide("places_chart")
+      shinyjs::show("places_chart_england")
       shinyjs::hide("LA_GO_ran")
       shinyjs::hide("PrefT3_LA")
     } else {
       shinyjs::show("LA_GO_places")
       shinyjs::show("LA_GO_ran")
       shinyjs::show("PrefT3_LA")
+      shinyjs::show("places_chart")
+      shinyjs::hide("places_chart_england")
     }
   })
 
