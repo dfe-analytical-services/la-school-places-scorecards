@@ -188,7 +188,7 @@ panel_scorecard <- function() {
                     gov_row(
                       column(
                         12,
-                        p(strong(paste0("Estimated future school place demand"))),
+                        strong(textOutput("quantitysubtitle")),
                         p("A local authority can have both ‘spare places’ and ‘additional places needed’ due to localised or specific year group demand"),
                         valueBoxOutput("estimated_additional_places", width = 6),
                         valueBoxOutput("estimated_spare_places", width = 6)
@@ -263,7 +263,12 @@ panel_scorecard <- function() {
                   column(
                     12,
                     p(strong(paste0("Proportion of applicants who received an offer of a school place in their first, second and third preferences"))),
-                    plotlyOutput("preference_p") %>% withSpinner()
+                    conditionalPanel(condition = "input.LA_choice != 'England'", selectizeInput("selectBenchLAs",
+                                                                                                "Select up to three benchmark LAs",
+                                                                                                choices = levels(LA_benchmark_options),
+                                                                                                multiple = TRUE,
+                                                                                                options = list(maxItems = 3))),
+                                       plotlyOutput("preference_p") %>% withSpinner()
                   )
                 )
               )

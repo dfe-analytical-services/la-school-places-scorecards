@@ -181,7 +181,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   live_scorecard_data_england_comp <- reactive({
     scorecards_data_pivot %>%
       filter(
-        LA_name %in% c(input$LA_choice, "England"),
+        LA_name %in% c(input$LA_choice, "England", input$selectBenchLAs),
         Phase == input$phase_choice
       ) %>%
       mutate(
@@ -202,7 +202,8 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     scorecards_data_pivot %>%
       filter(
         LA_name %in% c(input$LA_choice, input$selectBenchLAs),
-        Phase == input$phase_choice) 
+        Phase == input$phase_choice) %>%
+      mutate (LA_name = factor(LA_name,levels=c(input$LA_choice, input$selectBenchLAs)))
   })
   # Options for chart choice - dependent on phase choice
 
@@ -232,6 +233,10 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     paste0("Data for ", str_to_lower(input$phase_choice), " state-funded school places in ", input$LA_choice)
   })
 
+  output$quantitysubtitle <- renderText({
+    paste0("Estimated future school place demand for ", input$LA_choice)
+  })
+  
 
 
   ## create quality heading
