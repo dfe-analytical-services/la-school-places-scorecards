@@ -291,6 +291,11 @@ panel_scorecard <- function() {
                   column(
                     12,
                     p(strong(paste0("Number of new places created in schools of each category and number of existing school places in each category"))),
+                    conditionalPanel(condition = "input.LA_choice != 'England'", selectizeInput("selectBenchLAsquality",
+                                                                                                "Select England and/or LAs to benchmark",
+                                                                                                choices = levels(LA_benchmark_options_pref),
+                                                                                                multiple = TRUE,
+                                                                                                options = list(maxItems = 3))),
                     plotlyOutput("quality_chart") %>% withSpinner()
                   )
                 ),
