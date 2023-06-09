@@ -177,7 +177,7 @@ panel_scorecard <- function() {
                                      p(strong("School places created, planned future places, additional places still needed, as at May", SCAP_ref)),
                    conditionalPanel(condition = "input.LA_choice != 'England'", selectizeInput("selectBenchLAs",
                                    "Select up to three benchmark LAs",
-                                   choices = levels(LA_benchmark_options),
+                                   choices = levels(LA_benchmark_options_pref),
                                    multiple = TRUE,
                                    options = list(maxItems = 3))),
                                    plotlyOutput("places_chart") ,
@@ -263,9 +263,9 @@ panel_scorecard <- function() {
                   column(
                     12,
                     p(strong(paste0("Proportion of applicants who received an offer of a school place in their first, second and third preferences"))),
-                    conditionalPanel(condition = "input.LA_choice != 'England'", selectizeInput("selectBenchLAs",
-                                                                                                "Select up to three benchmark LAs",
-                                                                                                choices = levels(LA_benchmark_options),
+                    conditionalPanel(condition = "input.LA_choice != 'England'", selectizeInput("selectBenchLAspref",
+                                                                                                "Select England and/or LAs to benchmark",
+                                                                                                choices = levels(LA_benchmark_options_pref),
                                                                                                 multiple = TRUE,
                                                                                                 options = list(maxItems = 3))),
                                        plotlyOutput("preference_p") %>% withSpinner()

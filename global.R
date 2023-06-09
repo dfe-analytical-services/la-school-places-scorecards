@@ -135,6 +135,11 @@ LA_benchmark_options <-
   as.factor() %>%
   relevel("Barking and Dagenham")
 
+LA_benchmark_options_pref <- 
+  sort(unique(scorecards_data$LA_name)) %>%
+  as.factor() %>%
+  relevel("England")
+
 # Functions ---------------------------------------------------------------
 
 # Create rounding function as baseR one rounds fives down

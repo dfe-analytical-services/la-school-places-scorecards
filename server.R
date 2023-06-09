@@ -168,6 +168,11 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     sort(unique(La_data_benchmark$LA_name)) %>%
            as.factor() %>%
        relevel("Barking and Dagenham")
+  
+  LA_benchmark_options_pref <- 
+    sort(unique(scorecards_data$LA_name)) %>%
+    as.factor() %>%
+    relevel("England")
 
   # Scorecard data, filtered on user input
   live_scorecard_data <- reactive({
@@ -181,13 +186,14 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   live_scorecard_data_england_comp <- reactive({
     scorecards_data_pivot %>%
       filter(
-        LA_name %in% c(input$LA_choice, "England", input$selectBenchLAs),
-        Phase == input$phase_choice
+        LA_name %in% ifelse(input$LA_choice = "England", input$LA_choice,
+        c(input$LA_choice, input$selectBenchLAspref)),
+              # Phase == input$phase_choice
       ) %>%
-      mutate(
+         mutate(
         LA_name = as.factor(LA_name),
         # This step just makes sure that the LA is FIRST when it comes to plots/tables
-        LA_name = relevel(LA_name, "England"),
+        #LA_name = relevel(LA_name),
         LA_name = factor(LA_name, levels = rev(levels(LA_name)))
       )
   })
