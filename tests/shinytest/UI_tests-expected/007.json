@@ -26,7 +26,9 @@
                 "color": "transparent"
               }
             },
-            "showlegend": false,
+            "name": "First",
+            "legendgroup": "First",
+            "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
             "hoverinfo": "text",
@@ -49,7 +51,9 @@
                 "color": "transparent"
               }
             },
-            "showlegend": false,
+            "name": "Second",
+            "legendgroup": "Second",
+            "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
             "hoverinfo": "text",
@@ -72,7 +76,9 @@
                 "color": "transparent"
               }
             },
-            "showlegend": false,
+            "name": "Third",
+            "legendgroup": "Third",
+            "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
             "hoverinfo": "text",
@@ -95,7 +101,9 @@
                 "color": "transparent"
               }
             },
-            "showlegend": false,
+            "name": "Other",
+            "legendgroup": "Other",
+            "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
             "hoverinfo": "text",
@@ -113,6 +121,8 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
+            "name": "First",
+            "legendgroup": "First",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -131,6 +141,8 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
+            "name": "Second",
+            "legendgroup": "Second",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -149,6 +161,8 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
+            "name": "Third",
+            "legendgroup": "Third",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -167,6 +181,8 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
+            "name": "Other",
+            "legendgroup": "Other",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -342,7 +358,7 @@
               "yanchor": "bottom"
             }
           ],
-          "showlegend": false,
+          "showlegend": true,
           "legend": {
             "bgcolor": null,
             "bordercolor": null,
@@ -352,14 +368,7 @@
               "family": "Arial",
               "size": 14
             },
-            "title": {
-              "text": "",
-              "font": {
-                "color": "rgba(0,0,0,1)",
-                "family": "Arial",
-                "size": 18.5969281859693
-              }
-            },
+            "title": "Preference",
             "orientation": "h",
             "y": -0.1,
             "x": 0.33
