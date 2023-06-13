@@ -207,7 +207,7 @@ panel_scorecard <- function() {
                 gov_row(
                   column(
                     width = 12,
-                    p(strong("Forecast accuracy of pupil projections for", forecast_year, ", made one year and three years previously")),
+                    p(strong("Forecast accuracy of pupil projections for", forecast_year, ", made one year and two years previously")),
                     uiOutput("forecasting.bartext"),
                     column(
                       6,
@@ -228,11 +228,11 @@ panel_scorecard <- function() {
                     ),
                     column(
                       6,
-                      htmlOutput("label_estimate_y3"),
-                      plotlyOutput("forecast_3y_bar", height = "120px"),
+                      htmlOutput("label_estimate_y2"),
+                      plotlyOutput("forecast_2y_bar", height = "120px"),
                       br(),
-                      p("Three year ahead: range of forecast accuracy scores"),
-                      dataTableOutput("for3year_table")
+                      p("Two year ahead: range of forecast accuracy scores"),
+                      dataTableOutput("for2year_table")
                     )
                   ),
                   br(),

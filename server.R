@@ -414,25 +414,25 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   })
 
 
-  output$label_estimate_y3 <- renderText({
+  output$label_estimate_y2 <- renderText({
     forecast_accuracy <- live_scorecard_data() %>%
-      filter(name == "For_3") %>%
+      filter(name == "For_2") %>%
       pull(value) %>%
       roundFiveUp(., 3)
 
-    Foracc3year <- scorecards_data_pivot %>%
+    Foracc2year <- scorecards_data_pivot %>%
       filter(
-        name == "For_3",
+        name == "For_2",
         Phase == input$phase_choice
       ) %>%
       pull(value) %>%
       roundFiveUp(., 3)
 
-    medianaccuracy2 <- median(Foracc3year, na.rm = TRUE)
+    medianaccuracy2 <- median(Foracc2year, na.rm = TRUE)
 
-    Twentyfifthpercentile2 <- quantile(Foracc3year, 0.25, na.rm = TRUE)
+    Twentyfifthpercentile2 <- quantile(Foracc2year, 0.25, na.rm = TRUE)
 
-    Seventyfifthpercentile2 <- quantile(Foracc3year, 0.75, na.rm = TRUE)
+    Seventyfifthpercentile2 <- quantile(Foracc2year, 0.75, na.rm = TRUE)
 
     label <- case_when(
       input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy > Seventyfifthpercentile2 ~ "Overestimate of pupil numbers, larger overestimate than at least 75% of local authorities",
@@ -447,9 +447,9 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     )
 
     if (label != "accurate") {
-      paste0("<h1>Three years ahead: ", format_perc(forecast_accuracy), "</h1> ", label)
+      paste0("<h1>Two years ahead: ", format_perc(forecast_accuracy), "</h1> ", label)
     } else {
-      paste("<b>Three years ahead: </b>", label)
+      paste("<b>Two years ahead: </b>", label)
     }
   })
 
@@ -487,11 +487,11 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     )
   )
 
-  output$for3year_table <- renderDataTable(
+  output$for2year_table <- renderDataTable(
     {
       scorecards_data_pivot %>%
         filter(
-          name == "For_3",
+          name == "For_2",
           Phase == input$phase_choice
         ) %>%
         mutate(
@@ -522,7 +522,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   )
 
 
-  ## Forecast accuracy three years ahead
+  ## Forecast accuracy two years ahead
 
   # Code to go here using above template
 
@@ -554,12 +554,12 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       config(displayModeBar = FALSE)
   })
 
-  output$forecast_3y_bar <- renderPlotly({
+  output$forecast_2y_bar <- renderPlotly({
     p <- plot_forecast(
       live_scorecard_data(),
       scorecards_data_pivot,
       input$LA_choice,
-      input$phase_choice, 3
+      input$phase_choice, 2
     )
     ggplotly(p, tooltip = c("text")) %>%
       layout(font = font_choice) %>%
