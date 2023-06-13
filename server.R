@@ -218,7 +218,17 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     paste0("Quality of school places created between ", last_year, " and ", this_year, " based on ", chart_choice)
   })
 
+  
+  # Quantity ----------------------------------------------------------------
 
+  
+  ## create quantity
+  output$pupil_subtitle <- renderText({
+    paste0("Pupils in places in ", input$LA_choice)
+  })
+  
+  
+  
   ## Total funding
 
   output$total_funding_box <- renderValueBox({
@@ -253,7 +263,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     }
   })
 
-  ## Growth in pupil numbers
+  ## Growth in pupil numbers (actual)
 
   output$pupil_growth <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
@@ -265,14 +275,30 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(growth_perc, "%"),
-      paste0("Anticipated growth in ", str_to_lower(input$phase_choice), " pupil numbers 2009/10 to ", plan_year),
+      paste0("Actual growth in ", str_to_lower(input$phase_choice), " pupil numbers 2009/10 to ", next_year),
       # icon = icon("fas fa-chart-line"),
       color = "blue"
     )
   })
 
-
-  # Quantity ----------------------------------------------------------------
+  #Anticipated pupil growth
+  
+  output$pupil_anticipated_growth <- renderValueBox({
+    # Take filtered data, search for growth rate, pull the value and tidy the number up
+    anticipated_growth_perc <- live_scorecard_data() %>%
+      filter(name == "Angro") %>%
+      pull(value) %>%
+      roundFiveUp(., 3) * 100
+    
+    # Put value into box to plug into app
+    shinydashboard::valueBox(
+      paste0(anticipated_growth_perc, "%"),
+      paste0("Anticipated growth in ", str_to_lower(input$phase_choice), " pupil numbers ", next_year, " to ", plan_year),
+      # icon = icon("fas fa-chart-line"),
+      color = "blue"
+    )
+  })
+  
 
   ## Estimated additional places - use QUAN_P_RP and QUAN_S_RP
 
@@ -286,9 +312,28 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
              Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for Bournemouth, Christchurch and Poole .")
     }
   })
+  # Current unfilled places
+  
+  output$current_unfilled_places <- renderValueBox({
+    # Take filtered data, search for growth rate, pull the value and tidy the number up
+    unfilled_places_perc <- live_scorecard_data() %>%
+      filter(name == "QuanUP") %>%
+      pull(value) %>%
+      roundFiveUp(., 1) 
+    
+    # Put value into box to plug into app
+    shinydashboard::valueBox(
+      paste0(unfilled_places_perc, "%"),
+      paste0("Current percentage of unfilled ", str_to_lower(input$phase_choice), " places ", this_year),
+      # icon = icon("fas fa-signal"),
+      color = "blue"
+    )
+  })
+  
 
 
-  # Box to go here (use pupil growth as template)
+
+  # Estimatd additional places
 
   output$estimated_additional_places <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
@@ -307,8 +352,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
 
   ## Estimated spare places
 
-  # Box to go here (use pupil growth as template)
-
+ 
   output$estimated_spare_places <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     spare_places_per <- live_scorecard_data() %>%
