@@ -573,17 +573,17 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
 
   # Box for England % preference
 
-  output$prefT3_ENG <- renderValueBox({
+  output$prefT3_CY_ENG <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
-    PrefT3_E <- live_scorecard_data_all_la() %>%
-      filter(name == "PrefT3") %>%
+    PrefT3_CY_E <- live_scorecard_data_all_la() %>%
+      filter(name == "PrefT3_CY") %>%
       filter(LA_name == "England") %>%
       pull(value) %>%
       roundFiveUp(., 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
-      paste0(PrefT3_E, "%"),
+      paste0(PrefT3_CY_E, "%"),
       paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England"),
       # icon = icon("fas fa-chart-line"),
       color = "blue"
@@ -592,16 +592,16 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
 
   # Box for LA % preference
 
-  output$PrefT3_LA <- renderValueBox({
+  output$PrefT3_CY_LA <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
-    PrefT3 <- live_scorecard_data() %>%
-      filter(name == "PrefT3") %>%
+    PrefT3_CY <- live_scorecard_data() %>%
+      filter(name == "PrefT3_CY") %>%
       pull(value) %>%
       roundFiveUp(., 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
-      paste0(PrefT3, "%"),
+      paste0(PrefT3_CY, "%"),
       paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in ", (input$LA_choice)),
       # icon = icon("fas fa-sort-amount-up"),
       color = "blue"
@@ -614,7 +614,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     # reshape the data so it plots neatly!
     preference_data <- live_scorecard_data_england_comp() %>%
       # select only preference values
-      filter(name %in% c("Pref1", "Pref2", "Pref3")) %>%
+      filter(name %in% c("Pref1_CY", "Pref2_CY", "Pref3_CY")) %>%
       # Create ratings out of the names
       mutate(rating = case_when(
         str_detect(name, "1") ~ "First",
@@ -1501,11 +1501,11 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     if (input$LA_choice == "England") {
       shinyjs::hide("LA_GO_places")
       shinyjs::hide("LA_GO_ran")
-      shinyjs::hide("PrefT3_LA")
+      shinyjs::hide("PrefT3_CY_LA")
     } else {
       shinyjs::show("LA_GO_places")
       shinyjs::show("LA_GO_ran")
-      shinyjs::show("PrefT3_LA")
+      shinyjs::show("PrefT3_CY_LA")
     }
   })
 

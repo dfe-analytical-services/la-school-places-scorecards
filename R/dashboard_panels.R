@@ -247,10 +247,10 @@ panel_scorecard <- function() {
                 gov_row(
                   column(
                     width = 12,
-                    p(strong(paste0("School applications and offers for September ", preference_year, " entry"))),
+                    p(strong(paste0("School applications and offers for September ", preference_current_year, " entry"))),
                     # preference content to go here
-                    valueBoxOutput("prefT3_ENG", width = 6),
-                    valueBoxOutput("PrefT3_LA", width = 6)
+                    valueBoxOutput("prefT3_CY_ENG", width = 6),
+                    valueBoxOutput("PrefT3_CY_LA", width = 6)
                   )
                 ),
                 gov_row(
