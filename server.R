@@ -302,7 +302,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
 
   ## Estimated additional places - use QUAN_P_RP and QUAN_S_RP
 
-  ## Caveats for BCP and Dorset
+  ## Caveats for BCP and Dorset and Northamptonshire
   output$quantity.bartext <- renderUI({
     if (input$LA_choice %in% c("Dorset","Bournemouth, Christchurch and Poole")) {
       paste0("2009/10 data is not comparable because of 2019 boundary changes.
