@@ -96,8 +96,25 @@ growth_perc <- dfScorecardArea %>%
   pull(value) %>%
   roundFiveUp(., 3) * 100
 
-# PDisplay growth in pupil numbers
-textTopLineGrowth <- paste0("Growth in ", str_to_lower(params$input_phase_choice), " pupil numbers 2009/10 to ", plan_year, ": ", growth_perc, "%")
+  anticipated_growth_perc <- dfScorecardArea %>%
+      filter(name == "Angro") %>%
+      pull(value) %>%
+      roundFiveUp(., 3) * 100
+
+  unfilled_places_perc <- dfScorecardArea %>%
+      filter(name == "QuanUP") %>%
+      pull(value) %>%
+      roundFiveUp(., 1) 
+
+
+# Display growth in pupil numbers
+textTopLineGrowth <- paste0("Growth in ", str_to_lower(params$input_phase_choice), " pupil numbers 2009/10 to ", next_year, ": ", growth_perc, "%")
+
+textTopLineAnticipatedGrowth <- paste0("Anticipated growth in ", str_to_lower(params$input_phase_choice), " pupil numbers ", next_year," to ", plan_year, ": ", anticipated_growth_perc, "%")
+
+textTopLineunfilledplaces <- paste0("Current percentage of unfilled ", str_to_lower(params$input_phase_choice), " places ", this_year, ": ", unfilled_places_perc, "%")
+
+
 
 dfTopLine <- data.frame(
   funding = ifelse(params$input_la_choice == "England",
@@ -105,11 +122,16 @@ dfTopLine <- data.frame(
     paste0(total_funding, "million")
   ),
   empty = "",
-  growth = paste0(growth_perc, "%")
+  growth = paste0(growth_perc, "%"),
+   anticipatedgrowth = paste0(anticipated_growth_perc, "%"),
+  unfilledplaces = paste0(unfilled_places_perc, "%"),
 )
 colnames(dfTopLine) <- c(
   paste0("Total primary and secondary basic need funding ", funding_year), " ",
-  paste0("Growth in", str_to_lower(params$input_phase_choice), "pupil numbers 2009/10 ", plan_year)
+  paste0("Current percentage of unfilled places", this_year),
+  paste0("Growth in", str_to_lower(params$input_phase_choice), "pupil numbers 2009/10 to ", next_year),
+   paste0("Anticipated growth in", str_to_lower(params$input_phase_choice), "pupil numbers", next_year, "to", plan_year)
+  
 )
 ```
 
@@ -135,6 +157,23 @@ colnames(dfTopLine) <- c(
 Total primary and secondary basic need funding `r funding_year`
 \end{tcolorbox}
 
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.49\linewidth,
+ boxrule=0pt,
+ equal height group=introbox
+ ]
+`r unfilled_places_perc`\%
+\tcblower
+Current percentage of unfilled `r str_to_lower(params$input_phase_choice)` places `r this_year`
+\end{tcolorbox}
+
 
 \begin{tcolorbox}[colback=gssmidblue, 
  leftright skip=0.1cm,
@@ -150,7 +189,24 @@ Total primary and secondary basic need funding `r funding_year`
  ]
 `r growth_perc`\%
 \tcblower
-Growth in `r str_to_lower(params$input_phase_choice)` pupil numbers 2009/10 to `r plan_year`
+Growth in `r str_to_lower(params$input_phase_choice)` pupil numbers 2009/10 to `r next_year`
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.49\linewidth,
+ boxrule=0pt,
+ equal height group=introbox
+ ]
+`r growth_perc`\%
+\tcblower
+Anticipated growth in `r str_to_lower(params$input_phase_choice)` pupil numbers `r next_year` to `r plan_year`
 \end{tcolorbox}
 }
 
