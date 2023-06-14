@@ -304,12 +304,12 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
 
   ## Caveats for BCP and Dorset
   output$quantity.bartext <- renderUI({
-    if (input$LA_choice == "Dorset") {
+    if (input$LA_choice %in% c("Dorset","Bournemouth, Christchurch and Poole")) {
       paste0("2009/10 data is not comparable because of 2019 boundary changes.
-             Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for Dorset.")
-    } else if (input$LA_choice == "Bournemouth, Christchurch and Poole") {
-      paste0("2009/10 data is not comparable because of 2019 boundary changes.
-             Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for Bournemouth, Christchurch and Poole .")
+             Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for this LA.")
+    } else if (input$LA_choice %in% c("West Northamptonshire","North Northamptonshire")) {
+      paste0("2009/10 data is not comparable because of 2021 boundary changes.
+             Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for this LA.")
     }
   })
   # Current unfilled places
