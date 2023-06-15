@@ -571,7 +571,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
 
   # to fill in here - use the output$pupil_growth as a template :)
 
-  # Box for England % preference
+  # Box for England % preference current year
 
   output$prefT3_CY_ENG <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
@@ -584,13 +584,31 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(PrefT3_CY_E, "%"),
-      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England"),
+      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England for ", preference_current_year),
       # icon = icon("fas fa-chart-line"),
       color = "blue"
     )
   })
 
-  # Box for LA % preference
+  # Box for England % preference next year 
+  output$prefT3_NY_ENG <- renderValueBox({
+    # Take filtered data, search for growth rate, pull the value and tidy the number up
+    PrefT3_NY_E <- live_scorecard_data_all_la() %>%
+      filter(name == "PrefT3_NY") %>%
+      filter(LA_name == "England") %>%
+      pull(value) %>%
+      roundFiveUp(., 1)
+    
+    # Put value into box to plug into app
+    shinydashboard::valueBox(
+      paste0(PrefT3_NY_E, "%"),
+      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England for ", preference_next_year),
+      # icon = icon("fas fa-chart-line"),
+      color = "blue"
+    )
+  })
+  
+  # Box for LA % preference current year
 
   output$PrefT3_CY_LA <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
@@ -602,7 +620,25 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(PrefT3_CY, "%"),
-      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in ", (input$LA_choice)),
+      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in ", (input$LA_choice), " for ", preference_current_year),
+      # icon = icon("fas fa-sort-amount-up"),
+      color = "blue"
+    )
+  })
+  
+  # Box for LA % preference next year
+  
+  output$PrefT3_NY_LA <- renderValueBox({
+    # Take filtered data, search for growth rate, pull the value and tidy the number up
+    PrefT3_NY <- live_scorecard_data() %>%
+      filter(name == "PrefT3_NY") %>%
+      pull(value) %>%
+      roundFiveUp(., 1)
+    
+    # Put value into box to plug into app
+    shinydashboard::valueBox(
+      paste0(PrefT3_NY, "%"),
+      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in ", (input$LA_choice), " for ", preference_next_year),
       # icon = icon("fas fa-sort-amount-up"),
       color = "blue"
     )
