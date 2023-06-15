@@ -9,6 +9,7 @@ funding_year <- "2011 to 2024"
 cost_year_1 <- "2015/16"
 cost_year_2 <- "2017/18"
 preference_current_year <- "2022"
+preference_next_year <- "2023"
 forecast_year <- "2021/22"
 chart_choice <- "Ofsted Rating"
 

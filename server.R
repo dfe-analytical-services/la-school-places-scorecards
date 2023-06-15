@@ -614,21 +614,27 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     # reshape the data so it plots neatly!
     preference_data <- live_scorecard_data_england_comp() %>%
       # select only preference values
-      filter(name %in% c("Pref1_CY", "Pref2_CY", "Pref3_CY")) %>%
-      # Create ratings out of the names
+      filter(name %in% c("Pref1_CY", "Pref2_CY", "Pref3_CY",
+                         "Pref1_NY", "Pref2_NY", "Pref3_NY")) %>%
+      # Create groups for "new" and "existing" places based on names
+      mutate(preference_year = case_when(
+        str_detect(name, "CY") ~ preference_current_year,
+        str_detect(name, "NY") ~ preference_next_year
+      )) %>%
+       # Create ratings out of the names
       mutate(rating = case_when(
         str_detect(name, "1") ~ "First",
         str_detect(name, "2") ~ "Second",
         str_detect(name, "3") ~ "Third"
       ))
-
+    
     # Get % not getting 1st 2nd or 3rd preference
     preference_data_sum <- preference_data %>%
-      group_by(LA_name, LANumber, Phase) %>%
+      group_by(preference_year, LA_name, LANumber, Phase) %>%
       summarise(value = 100 - sum(value)) %>%
       mutate(rating = "Other")
-
-
+    
+    
     preference_data <- preference_data %>%
       select(-name) %>%
       bind_rows(preference_data_sum) %>%
@@ -639,12 +645,12 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         value = as.numeric(roundFiveUp(value, 1)),
         value_label = if_else(value > 3, paste0(value, "%"), NA_character_)
       )
-
-
-
+    
+    
+    
     preference_p <- preference_data %>%
       ggplot(aes(
-        y = value, x = "",
+        y = value, x = preference_year,
         fill = factor(rating),
         text = paste(rating, ": ", value, "%")
       )) +
@@ -662,10 +668,10 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         text = element_text(size = 14, family = "Arial"),
         strip.text.x = element_text(size = 20)
       )
-
-
+    
+    
     ggplotly(preference_p,
-      tooltip = c("text")
+             tooltip = c("text")
     ) %>%
       layout(
         uniformtext = list(minsize = 12, mode = "hide"),
@@ -682,7 +688,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       ) %>%
       config(displayModeBar = FALSE)
   })
-
+  
   # Quality -----------------------------------------------------------------
 
   # Change name of what "better than average" is depending on chart choice:
