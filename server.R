@@ -616,7 +616,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       # select only preference values
       filter(name %in% c("Pref1_CY", "Pref2_CY", "Pref3_CY",
                          "Pref1_NY", "Pref2_NY", "Pref3_NY")) %>%
-      # Create groups for "new" and "existing" places based on names
+      # Create groups for "current year" and "next year" places based on names
       mutate(preference_year = case_when(
         str_detect(name, "CY") ~ preference_current_year,
         str_detect(name, "NY") ~ preference_next_year
@@ -1508,10 +1508,12 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       shinyjs::hide("LA_GO_places")
       shinyjs::hide("LA_GO_ran")
       shinyjs::hide("PrefT3_CY_LA")
+      shinyjs::hide("PrefT3_NY_LA")
     } else {
       shinyjs::show("LA_GO_places")
       shinyjs::show("LA_GO_ran")
       shinyjs::show("PrefT3_CY_LA")
+      shinyjs::show("PrefT3_NY_LA")
     }
   })
 
