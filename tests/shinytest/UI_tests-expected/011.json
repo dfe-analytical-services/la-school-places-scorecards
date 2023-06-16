@@ -48,7 +48,9 @@
                 "color": "transparent"
               }
             },
-            "showlegend": false,
+            "name": "Outstanding",
+            "legendgroup": "Outstanding",
+            "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
             "hoverinfo": "text",
@@ -86,7 +88,9 @@
                 "color": "transparent"
               }
             },
-            "showlegend": false,
+            "name": "Good",
+            "legendgroup": "Good",
+            "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
             "hoverinfo": "text",
@@ -124,7 +128,9 @@
                 "color": "transparent"
               }
             },
-            "showlegend": false,
+            "name": "Requires Improvement",
+            "legendgroup": "Requires Improvement",
+            "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
             "hoverinfo": "text",
@@ -162,7 +168,9 @@
                 "color": "transparent"
               }
             },
-            "showlegend": false,
+            "name": "Inadequate",
+            "legendgroup": "Inadequate",
+            "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
             "hoverinfo": "text",
@@ -192,6 +200,8 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
+            "name": "Outstanding",
+            "legendgroup": "Outstanding",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -222,6 +232,8 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
+            "name": "Good",
+            "legendgroup": "Good",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -252,6 +264,8 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
+            "name": "Requires Improvement",
+            "legendgroup": "Requires Improvement",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -282,6 +296,8 @@
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
+            "name": "Inadequate",
+            "legendgroup": "Inadequate",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -466,7 +482,7 @@
               "yanchor": "bottom"
             }
           ],
-          "showlegend": false,
+          "showlegend": true,
           "legend": {
             "bgcolor": null,
             "bordercolor": null,
@@ -476,14 +492,7 @@
               "family": "Arial",
               "size": 14
             },
-            "title": {
-              "text": "",
-              "font": {
-                "color": "rgba(0,0,0,1)",
-                "family": "Arial",
-                "size": 18.5969281859693
-              }
-            },
+            "title": "",
             "orientation": "h",
             "y": -0.1,
             "x": 0.2
