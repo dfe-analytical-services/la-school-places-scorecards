@@ -337,26 +337,31 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     # create interactive stacked bar chart
     p <- plot_ly(
       places_chart_data,
-      x = ~LA_name, y = ~QuanIn,
-      marker = list(color = c("#08519c")),
-      type = "bar", name = paste0("Total places created between 2009/10 and ", this_year),
-      text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF"),
+      type = "bar",
       hoverinfo = "text"
     ) %>%
       add_trace(
-        y = ~QuanPP, marker = list(color = c("#3182bd")),
-        name = paste0("New places planned for delivery between ", this_year, " and ", plan_year),
-        text = ~ scales::comma(QuanPP), textposition = "inside"
+        x = ~LA_name, y = ~QuanIn, marker = list(color = c("#08519c")),
+        name = paste0("Total places created between 2009/10 and ", this_year),
+        text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF"),
+        width = 0.2
       ) %>%
       add_trace(
-        y = ~QuanRP, marker = list(color = c("#6baed6")),
+        x = ~LA_name, y = ~QuanPP, marker = list(color = c("#3182bd")),
+        name = paste0("New places planned for delivery between ", this_year, " and ", plan_year),
+        text = ~ scales::comma(QuanPP), textposition = "outside", textfont = list(color = "#000"),
+        width = 0.2
+      ) %>%
+      add_trace(
+        x = ~LA_name, y = ~QuanRP, marker = list(color = c("#6baed6")),
         name = paste0("Estimated additional places still needed to meet demand in ", plan_year),
-        text = ~ scales::comma(QuanRP), textposition = "inside"
+        text = ~ scales::comma(QuanRP), textposition = "outside", textfont = list(color = "#000"),
+        width = 0.2
       ) %>%
       layout(
         yaxis = list(title = ""),
         xaxis = list(title = ""),
-        barmode = "stack",
+        barmode = "bar",
         uniformtext = list(minsize = 12, mode = "hide"),
         legend = list(orientation = "h"),
         font = font_choice,
