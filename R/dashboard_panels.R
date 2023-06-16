@@ -264,10 +264,10 @@ panel_scorecard <- function() {
                     12,
                     p(strong(paste0("Proportion of applicants who received an offer of a school place in their first, second and third preferences"))),
                     conditionalPanel(condition = "input.LA_choice != 'England'", selectizeInput("selectBenchLAspref",
-                                                                                                "Select England and/or LAs to benchmark",
+                                                                                                "Select England or a LA to benchmark",
                                                                                                 choices = levels(LA_benchmark_options_pref),
                                                                                                 multiple = TRUE,
-                                                                                                options = list(maxItems = 3))),
+                                                                                                options = list(maxItems = 1))),
                                        plotlyOutput("preference_p") %>% withSpinner()
                   )
                 )
@@ -292,10 +292,10 @@ panel_scorecard <- function() {
                     12,
                     p(strong(paste0("Number of new places created in schools of each category and number of existing school places in each category"))),
                     conditionalPanel(condition = "input.LA_choice != 'England'", selectizeInput("selectBenchLAsquality",
-                                                                                                "Select England and/or LAs to benchmark",
+                                                                                                "Select England or a LA to benchmark",
                                                                                                 choices = levels(LA_benchmark_options_pref),
                                                                                                 multiple = TRUE,
-                                                                                                options = list(maxItems = 3))),
+                                                                                                options = list(maxItems = 1))),
                     plotlyOutput("quality_chart") %>% withSpinner()
                   )
                 ),
