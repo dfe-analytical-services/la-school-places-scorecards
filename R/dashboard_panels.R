@@ -249,10 +249,10 @@ panel_scorecard <- function() {
                     width = 12,
                     p(strong(paste0("School applications and offers for September ", preference_current_year, " and " , preference_next_year, " entry"))),
                     # preference content to go here
-                    valueBoxOutput("prefT3_CY_ENG", width = 3),
-                    valueBoxOutput("PrefT3_CY_LA", width = 3),
                     valueBoxOutput("prefT3_NY_ENG", width = 3),
-                    valueBoxOutput("PrefT3_NY_LA", width = 3)
+                    valueBoxOutput("PrefT3_NY_LA", width = 3),
+                    valueBoxOutput("prefT3_CY_ENG", width = 3),
+                    valueBoxOutput("PrefT3_CY_LA", width = 3)
                   )
                 ),
                 gov_row(
