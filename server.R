@@ -183,7 +183,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   })
 
   # Scorecard data, filtered on user input AND including England as a comparison
-  live_scorecard_data_england_comp <- reactive({
+  live_scorecard_data_england_comp_pref <- reactive({
     scorecards_data_pivot %>%
       filter(case_when(input$LA_choice != "England" ~ LA_name %in% c(input$LA_choice, input$selectBenchLAspref) ,
               TRUE ~ LA_name %in% c(input$LA_choice)),
@@ -216,6 +216,21 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   # Scorecard data for ALL LAs, filtered only on phase choice
   live_scorecard_data_all_la <- reactive({
     scorecards_data_pivot %>% filter(Phase == input$phase_choice)
+  })
+  
+  # Scorecard data, filtered on user input AND including England as a comparison for cost data
+  live_scorecard_data_england_comp <- reactive({
+    scorecards_data_pivot %>%
+      filter(
+        LA_name %in% c(input$LA_choice, "England"),
+        Phase == input$phase_choice
+      ) %>%
+      mutate(
+        LA_name = as.factor(LA_name),
+        # This step just makes sure that the LA is FIRST when it comes to plots/tables
+        LA_name = relevel(LA_name, "England"),
+        LA_name = factor(LA_name, levels = rev(levels(LA_name)))
+      )
   })
 
 ##scorecard data, filtered on user input and benchmarking choice Las as a comparison  
@@ -710,7 +725,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   # Easier for users to interpret
   output$preference_p <- renderPlotly({
     # reshape the data so it plots neatly!
-    preference_data <- live_scorecard_data_england_comp() %>%
+    preference_data <- live_scorecard_data_england_comp_pref() %>%
       # select only preference values
       filter(name %in% c("Pref1", "Pref2", "Pref3")) %>%
       # Create ratings out of the names
