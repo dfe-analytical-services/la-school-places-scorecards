@@ -245,126 +245,80 @@ plot_ly(
   ) %>%
   config(displayModeBar = FALSE)
 ```
-\newpage
-  
-## Forecast Accuracy
 
-### Forecast accuracy of pupil projections for `r forecast_year`, made one year and three years previously
-
-The shaded area in each chart ending at the thick vertical line shows the forecasting accuracy for `r  params$input_la_choice`.
-The starting point is 0, an accurate score, indicated by a thin vertical line.
-A shaded area to the right of 0 indicates an overestimate, a shaded area to the left of 0 indicates an underestimate.\
-The grey dashed lines show the 25th and 75th percentile score for all local authorities.
-
-``` {r forecast_setup,echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
-summary_stats_1yr <- forecast_summary_stats(
-  dfScorecardsAll, 1,
-  params$input_phase_choice
-)
-summary_stats_3yr <- forecast_summary_stats(
-  dfScorecardsAll, 3,
-  params$input_phase_choice
-)
-```
-
-``` {r forecast7,echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
-## Forecast accuracy labels
-forecast_accuracy_1yr <- dfScorecardArea %>%
-  filter(name == "For_1") %>%
-  pull(value) %>%
-  roundFiveUp(., 3) #* 100
-
-label_desc_1yr <- forecast_accuracy_desclabel(
-  forecast_accuracy_1yr,
-  params$input_la_choice,
-  summary_stats_1yr
-)
-oneyearlabel <-
-  if (label_desc_1yr != "accurate") {
-    paste0("One year ahead: ", format_perc(forecast_accuracy_1yr, output = "latex"))
-  } else {
-    paste0("<b>One year ahead: ")
-  }
-
-forecast_accuracy_3yr <- dfScorecardArea %>%
-  filter(name == "For_3") %>%
-  pull(value) %>%
-  roundFiveUp(., 3) #* 100
-
-label_desc_3yr <- forecast_accuracy_desclabel(
-  forecast_accuracy_3yr,
-  params$input_la_choice,
-  summary_stats_3yr
-)
-threeyearlabel <-
-  if (label_desc_3yr != "accurate") {
-    paste0("Three years ahead: ", format_perc(forecast_accuracy_3yr, output = "latex"))
-  } else {
-    paste0("<b>Three years ahead: ")
-  }
-```
-
-
-``` {r forecast_statshead,echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
-cat("\\begin{tabular}{p{0.48\\linewidth} p{0.48\\linewidth} }")
-cat("\\bf\\large\\color{dfeheadingblue} ")
-cat(oneyearlabel)
-cat("\\ & \\bf\\large\\color{dfeheadingblue} ")
-cat(threeyearlabel)
-cat("\\ \\\\")
-cat(label_desc_1yr)
-cat("&")
-cat(label_desc_3yr)
-cat(" \\\\")
-cat("\\end{tabular}")
-```
- 
-
-``` {r forecast22,echo = FALSE, warning = FALSE, message=FALSE, results='asis', fig.height=1,fig.show="hold", out.width="50%"}
-plot_forecast(
-  dfScorecardArea,
-  dfScorecardsAll,
-  params$input_la_choice,
-  params$input_phase_choice, 1
-)
-plot_forecast(
-  dfScorecardArea,
-  dfScorecardsAll,
-  params$input_la_choice,
-  params$input_phase_choice, 3
-)
-```
-
-
-``` {r forecast4,echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
-facc_table1 <- as.data.frame(
-  summary_stats_1yr %>% mutate(accuracy = format_perc(accuracy)) %>%
-    pivot_wider(names_from = quantile, values_from = accuracy)
-)
-facc_table3 <- as.data.frame(
-  summary_stats_3yr %>% mutate(accuracy = format_perc(accuracy)) %>%
-    pivot_wider(names_from = quantile, values_from = accuracy)
-)
-
-cat("\\begin{tabular}{p{0.48\\linewidth} p{0.48\\linewidth} }")
-cat("\\footnotesize ")
-cat("\\centering ")
-print(knitr::kable(facc_table1, "latex", booktabs = T))
-cat("&")
-cat("\\footnotesize ")
-cat("\\centering ")
-print(knitr::kable(facc_table3, "latex", booktabs = T))
-cat("\\end{tabular}")
-```
 
 
 \newpage
 
 ## Preference
+### Proportion of applicants who received an offer of one of their top three preference schools for September `r preference_next_year` entry
 
+```{r preference_text_NY, echo = FALSE, message=FALSE}
+dfScorecardArea_all_la <- scorecards_data_pivot %>% filter(Phase == params$input_phase_choice)
+
+
+# Take filtered data, search for growth rate, pull the value and tidy the number up
+PrefT3_NY_E <- dfScorecardArea_all_la %>%
+  filter(name == "PrefT3_NY") %>%
+  filter(LA_name == "England") %>%
+  pull(value) %>%
+  roundFiveUp(., 1)
+
+# Take filtered data, search for growth rate, pull the value and tidy the number up
+PrefT3_NY <- dfScorecardArea %>%
+  filter(name == "PrefT3_NY") %>%
+  pull(value) %>%
+  roundFiveUp(., 1)
+```
+
+\makebox[1.0\linewidth]{
+\centering
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.49\linewidth,
+ boxrule=0pt ,
+ equal height group=prefbox
+ ]
+`r PrefT3_NY_E`\%
+\tcblower
+Percentage of applicants who received an offer of one of their top three preferred `r str_to_lower(params$input_phase_choice)` schools in England
+\end{tcolorbox}
+
+``` {r echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
+if (params$input_la_choice != "England") {
+  cat(paste0("\\begin{tcolorbox}[colback=gssmidblue,
+ leftright skip=0.1cm,
+ coltext=white,
+ halign=left,
+ fontupper={\\Huge \\bfseries},
+ fontlower={\\large \\bfseries},
+ sharp corners,
+ colframe=gssmidblue,
+ width=0.49\\linewidth,
+ boxrule=0pt,
+ equal height group=prefbox
+ ]
+", PrefT3_NY, "\\%
+\\tcblower
+Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(params$input_phase_choice), " schools in ", params$input_la_choice, "
+\\end{tcolorbox}
+}
+"))
+} else {
+  cat("
+}
+")
+}
+```
 ### Proportion of applicants who received an offer of one of their top three preference schools for September `r preference_current_year` entry
 
-```{r preference_text, echo = FALSE, message=FALSE}
+```{r preference_text_CY, echo = FALSE, message=FALSE}
 dfScorecardArea_all_la <- scorecards_data_pivot %>% filter(Phase == params$input_phase_choice)
 
 
