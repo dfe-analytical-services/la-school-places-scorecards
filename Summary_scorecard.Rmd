@@ -510,8 +510,14 @@ dfScorecardArea_england_comp <- scorecards_data_pivot %>%
 # reshape the data so it plots neatly!
 preference_data <- dfScorecardArea_england_comp %>%
   # select only preference values
-  filter(name %in% c("Pref1_CY", "Pref2_CY", "Pref3_CY")) %>%
-  # Create ratings out of the names
+  filter(name %in% c("Pref1_CY", "Pref2_CY", "Pref3_CY",
+                     "Pref1_NY", "Pref2_NY", "Pref3_NY")) %>%
+ # Create groups for "current year" and "next year" places based on names
+      mutate(preference_year = case_when(
+        str_detect(name, "CY") ~ preference_current_year,
+        str_detect(name, "NY") ~ preference_next_year
+      )) %>%
+   # Create ratings out of the names
   mutate(rating = case_when(
     str_detect(name, "1") ~ "First choice",
     str_detect(name, "2") ~ "Second choice",
@@ -520,7 +526,7 @@ preference_data <- dfScorecardArea_england_comp %>%
 
 # Get % not getting 1st 2nd or 3rd preference
 preference_data_sum <- preference_data %>%
-  group_by(LA_name, LANumber, Phase) %>%
+  group_by(preference_year, LA_name, LANumber, Phase) %>%
   summarise(value = 100 - sum(value)) %>%
   mutate(rating = "Other")
 
@@ -540,7 +546,7 @@ preference_data <- preference_data %>%
 # create charts
 preference_p <- preference_data %>%
   ggplot(aes(
-    y = value, x = "",
+    y = value, x = preference_year,
     fill = factor(rating),
     text = paste(rating, ": ", value, "%")
   )) +
