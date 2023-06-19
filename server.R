@@ -337,26 +337,31 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     # create interactive stacked bar chart
     p <- plot_ly(
       places_chart_data,
-      x = ~LA_name, y = ~QuanIn,
-      marker = list(color = c("#08519c")),
-      type = "bar", name = paste0("Total places created between 2009/10 and ", this_year),
-      text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF"),
+      type = "bar",
       hoverinfo = "text"
     ) %>%
       add_trace(
-        y = ~QuanPP, marker = list(color = c("#3182bd")),
-        name = paste0("New places planned for delivery between ", this_year, " and ", plan_year),
-        text = ~ scales::comma(QuanPP), textposition = "inside"
+        x = ~LA_name, y = ~QuanIn, marker = list(color = c("#08519c")),
+        name = paste0("Total places created between 2009/10 and ", this_year),
+        text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF"),
+        width = 0.2
       ) %>%
       add_trace(
-        y = ~QuanRP, marker = list(color = c("#6baed6")),
+        x = ~LA_name, y = ~QuanPP, marker = list(color = c("#3182bd")),
+        name = paste0("New places planned for delivery between ", this_year, " and ", plan_year),
+        text = ~ scales::comma(QuanPP), textposition = "outside", textfont = list(color = "#000"),
+        width = 0.2
+      ) %>%
+      add_trace(
+        x = ~LA_name, y = ~QuanRP, marker = list(color = c("#6baed6")),
         name = paste0("Estimated additional places still needed to meet demand in ", plan_year),
-        text = ~ scales::comma(QuanRP), textposition = "inside"
+        text = ~ scales::comma(QuanRP), textposition = "outside", textfont = list(color = "#000"),
+        width = 0.2
       ) %>%
       layout(
         yaxis = list(title = ""),
         xaxis = list(title = ""),
-        barmode = "stack",
+        barmode = "bar",
         uniformtext = list(minsize = 12, mode = "hide"),
         legend = list(orientation = "h"),
         font = font_choice,
@@ -653,7 +658,6 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       facet_wrap(~LA_name, nrow = 2) +
       geom_text(aes(label = value_label), colour = "#ffffff", size = 4, position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
-      guides(fill = guide_legend(title = "")) +
       scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1")) +
       scale_y_continuous(labels = scales::percent) +
       theme_minimal() +
@@ -673,7 +677,8 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         legend = list(
           orientation = "h",
           y = -0.1, x = 0.33,
-          font = font_choice
+          font = font_choice,
+          title = "Preference"
         ),
         title = list(
           text = "Chart showing percentage of pupils recieving an offer from their first, second, third or other place schools, by Local Authority compared to England",
@@ -883,7 +888,8 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         legend = list(
           orientation = "h",
           y = -0.1, x = 0.2,
-          font = font_choice
+          font = font_choice,
+          title = ""
         ),
         title = list(
           text = "Chart showing the quality of new and existing school places and estimated additional places, by Local Authority compared to England",
@@ -948,7 +954,6 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       facet_wrap(~LA_name, nrow = 2) +
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
-      guides(fill = guide_legend(title = "")) +
       scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1")) +
       scale_y_continuous(labels = scales::percent) +
       theme_minimal() +
@@ -1016,7 +1021,6 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       facet_wrap(~LA_name, nrow = 2) +
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
-      guides(fill = guide_legend(title = "")) +
       scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1")) +
       theme_minimal() +
       theme(
@@ -1081,7 +1085,6 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       facet_wrap(~LA_name, nrow = 2) +
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
-      guides(fill = guide_legend(title = "")) +
       scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1")) +
       theme_minimal() +
       theme(
@@ -1147,7 +1150,6 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       facet_wrap(~LA_name, nrow = 2) +
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
-      guides(fill = guide_legend(title = "")) +
       scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1")) +
       theme_minimal() +
       theme(
