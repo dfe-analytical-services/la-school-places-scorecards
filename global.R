@@ -97,7 +97,7 @@ enableBookmarking(store = "url")
 # Reading and manipulating data
 # ----------------------------------------------------------------------------
 
-scorecards_data <- fread("data/scorecards_data.dummy.csv")
+scorecards_data <- fread("data/scorecards_data_dummy.csv")
 
 # pivot data around to long format
 scorecards_data_pivot <- scorecards_data %>%
