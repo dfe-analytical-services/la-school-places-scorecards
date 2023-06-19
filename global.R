@@ -97,6 +97,7 @@ enableBookmarking(store = "url")
 # Reading and manipulating data
 # ----------------------------------------------------------------------------
 
+
 scorecards_data <- fread("data/scorecards_data_dummy.csv")
 
 

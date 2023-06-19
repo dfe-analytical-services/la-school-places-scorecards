@@ -576,38 +576,74 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
 
   # to fill in here - use the output$pupil_growth as a template :)
 
-  # Box for England % preference
+  # Box for England % preference current year
 
-  output$prefT3_ENG <- renderValueBox({
+  output$prefT3_CY_ENG <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
-    PrefT3_E <- live_scorecard_data_all_la() %>%
-      filter(name == "PrefT3") %>%
+    PrefT3_CY_E <- live_scorecard_data_all_la() %>%
+      filter(name == "PrefT3_CY") %>%
       filter(LA_name == "England") %>%
       pull(value) %>%
       roundFiveUp(., 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
-      paste0(PrefT3_E, "%"),
-      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England"),
+      paste0(PrefT3_CY_E, "%"),
+      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England for ", preference_current_year),
       # icon = icon("fas fa-chart-line"),
       color = "blue"
     )
   })
 
-  # Box for LA % preference
-
-  output$PrefT3_LA <- renderValueBox({
+  # Box for England % preference next year 
+  output$prefT3_NY_ENG <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
-    PrefT3 <- live_scorecard_data() %>%
-      filter(name == "PrefT3") %>%
+    PrefT3_NY_E <- live_scorecard_data_all_la() %>%
+      filter(name == "PrefT3_NY") %>%
+      filter(LA_name == "England") %>%
+      pull(value) %>%
+      roundFiveUp(., 1)
+    
+    # Put value into box to plug into app
+    shinydashboard::valueBox(
+      paste0(PrefT3_NY_E, "%"),
+      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England for ", preference_next_year),
+      # icon = icon("fas fa-chart-line"),
+      color = "blue"
+    )
+  })
+  
+  # Box for LA % preference current year
+
+  output$PrefT3_CY_LA <- renderValueBox({
+    # Take filtered data, search for growth rate, pull the value and tidy the number up
+    PrefT3_CY <- live_scorecard_data() %>%
+      filter(name == "PrefT3_CY") %>%
       pull(value) %>%
       roundFiveUp(., 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
-      paste0(PrefT3, "%"),
-      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in ", (input$LA_choice)),
+      paste0(PrefT3_CY, "%"),
+      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in ", (input$LA_choice), " for ", preference_current_year),
+      # icon = icon("fas fa-sort-amount-up"),
+      color = "blue"
+    )
+  })
+  
+  # Box for LA % preference next year
+  
+  output$PrefT3_NY_LA <- renderValueBox({
+    # Take filtered data, search for growth rate, pull the value and tidy the number up
+    PrefT3_NY <- live_scorecard_data() %>%
+      filter(name == "PrefT3_NY") %>%
+      pull(value) %>%
+      roundFiveUp(., 1)
+    
+    # Put value into box to plug into app
+    shinydashboard::valueBox(
+      paste0(PrefT3_NY, "%"),
+      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in ", (input$LA_choice), " for ", preference_next_year),
       # icon = icon("fas fa-sort-amount-up"),
       color = "blue"
     )
@@ -619,21 +655,27 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     # reshape the data so it plots neatly!
     preference_data <- live_scorecard_data_england_comp() %>%
       # select only preference values
-      filter(name %in% c("Pref1", "Pref2", "Pref3")) %>%
-      # Create ratings out of the names
+      filter(name %in% c("Pref1_CY", "Pref2_CY", "Pref3_CY",
+                         "Pref1_NY", "Pref2_NY", "Pref3_NY")) %>%
+      # Create groups for "current year" and "next year" places based on names
+      mutate(preference_year = case_when(
+        str_detect(name, "CY") ~ preference_current_year,
+        str_detect(name, "NY") ~ preference_next_year
+      )) %>%
+       # Create ratings out of the names
       mutate(rating = case_when(
         str_detect(name, "1") ~ "First",
         str_detect(name, "2") ~ "Second",
         str_detect(name, "3") ~ "Third"
       ))
-
+    
     # Get % not getting 1st 2nd or 3rd preference
     preference_data_sum <- preference_data %>%
-      group_by(LA_name, LANumber, Phase) %>%
+      group_by(preference_year, LA_name, LANumber, Phase) %>%
       summarise(value = 100 - sum(value)) %>%
       mutate(rating = "Other")
-
-
+    
+    
     preference_data <- preference_data %>%
       select(-name) %>%
       bind_rows(preference_data_sum) %>%
@@ -644,12 +686,12 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         value = as.numeric(roundFiveUp(value, 1)),
         value_label = if_else(value > 3, paste0(value, "%"), NA_character_)
       )
-
-
-
+    
+    
+    
     preference_p <- preference_data %>%
       ggplot(aes(
-        y = value, x = "",
+        y = value, x = preference_year,
         fill = factor(rating),
         text = paste(rating, ": ", value, "%")
       )) +
@@ -666,10 +708,10 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         text = element_text(size = 14, family = "Arial"),
         strip.text.x = element_text(size = 20)
       )
-
-
+    
+    
     ggplotly(preference_p,
-      tooltip = c("text")
+             tooltip = c("text")
     ) %>%
       layout(
         uniformtext = list(minsize = 12, mode = "hide"),
@@ -687,7 +729,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       ) %>%
       config(displayModeBar = FALSE)
   })
-
+  
   # Quality -----------------------------------------------------------------
 
   # Change name of what "better than average" is depending on chart choice:
@@ -1503,11 +1545,13 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     if (input$LA_choice == "England") {
       shinyjs::hide("LA_GO_places")
       shinyjs::hide("LA_GO_ran")
-      shinyjs::hide("PrefT3_LA")
+      shinyjs::hide("PrefT3_CY_LA")
+      shinyjs::hide("PrefT3_NY_LA")
     } else {
       shinyjs::show("LA_GO_places")
       shinyjs::show("LA_GO_ran")
-      shinyjs::show("PrefT3_LA")
+      shinyjs::show("PrefT3_CY_LA")
+      shinyjs::show("PrefT3_NY_LA")
     }
   })
 
