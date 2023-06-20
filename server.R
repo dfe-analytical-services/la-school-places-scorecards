@@ -387,6 +387,18 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     )
   })
 
+  observeEvent(input$LA_choice,{
+    message("Updating selectBenchLAs")
+    print(input$LA_choice)
+    print(input$selectBenchLAs)
+    updateSelectizeInput(
+      session,
+      "selectBenchLAs",
+      choices=LA_benchmark_options_pref[LA_benchmark_options_pref!=input$LA_choice]
+    )
+      }
+  )
+  
   ## Places bar
 
   output$places_chart <- renderPlotly({
