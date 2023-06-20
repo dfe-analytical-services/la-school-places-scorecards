@@ -177,7 +177,7 @@ panel_scorecard <- function() {
                                      p(strong("School places created, planned future places, additional places still needed, as at May", SCAP_ref)),
                    conditionalPanel(condition = "input.LA_choice != 'England'", selectizeInput("selectBenchLAs",
                                    "Select up to two benchmark LAs",
-                                   choices = LA_benchmark_options_pref,
+                                   choices = LA_benchmark_options,
                                    multiple = TRUE,
                                    options = list(maxItems = 2))),
                                    plotlyOutput("places_chart") ,
