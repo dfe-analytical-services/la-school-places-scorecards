@@ -387,20 +387,32 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     )
   })
 
+  # Stop users being able to select chosen LA as benchmark LA for quantity chart
   observeEvent(input$LA_choice,{
     updateSelectizeInput(
       session,
       "selectBenchLAs",
-      choices=LA_benchmark_options_pref[LA_benchmark_options_pref!=input$LA_choice]
+      choices=levels(LA_benchmark_options %>% droplevels(exclude=input$LA_choice))
     )
       }
   )
-
+  # Stop users being able to select chosen LA as benchmark LA for quality chart
+  observeEvent(input$LA_choice,{
+    updateSelectizeInput(
+      session,
+      "selectBenchLAsquality",
+      choices=levels(
+        LA_benchmark_options_pref %>% droplevels(exclude=input$LA_choice))
+    )
+  }
+  )
+  
+  # Stop users being able to select chosen LA as benchmark LA for preference chart
   observeEvent(input$LA_choice,{
     updateSelectizeInput(
       session,
       "selectBenchLAspref",
-      choices=LA_benchmark_options_pref[LA_benchmark_options_pref!=input$LA_choice]
+      choices=levels(LA_benchmark_options_pref %>% droplevels(exclude=input$LA_choice))
     )
   }
   )

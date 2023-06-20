@@ -177,7 +177,7 @@ panel_scorecard <- function() {
                                      p(strong("School places created, planned future places, additional places still needed, as at May", SCAP_ref)),
                    conditionalPanel(condition = "input.LA_choice != 'England'", selectizeInput("selectBenchLAs",
                                    "Select up to two benchmark LAs",
-                                   choices = LA_benchmark_options_pref,
+                                   choices = levels(LA_benchmark_options),
                                    multiple = TRUE,
                                    options = list(maxItems = 2))),
                                    plotlyOutput("places_chart") ,
@@ -265,7 +265,7 @@ panel_scorecard <- function() {
                     p(strong(paste0("Proportion of applicants who received an offer of a school place in their first, second and third preferences"))),
                     conditionalPanel(condition = "input.LA_choice != 'England'", selectizeInput("selectBenchLAspref",
                                                                                                 "Select England or a LA to benchmark",
-                                                                                                choices = LA_benchmark_options_pref,
+                                                                                                choices = levels(LA_benchmark_options_pref),
                                                                                                 multiple = TRUE,
                                                                                                 options = list(maxItems = 1))),
                                        plotlyOutput("preference_p") %>% withSpinner()
@@ -293,7 +293,7 @@ panel_scorecard <- function() {
                     p(strong(paste0("Number of new places created in schools of each category and number of existing school places in each category"))),
                     conditionalPanel(condition = "input.LA_choice != 'England'", selectizeInput("selectBenchLAsquality",
                                                                                                 "Select England or a LA to benchmark",
-                                                                                                choices = LA_benchmark_options_pref,
+                                                                                                choices = levels(LA_benchmark_options_pref),
                                                                                                 multiple = TRUE,
                                                                                                 options = list(maxItems = 1))),
                     plotlyOutput("quality_chart") %>% withSpinner()
