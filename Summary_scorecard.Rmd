@@ -91,27 +91,55 @@ total_funding <- scorecards_data %>%
   as.numeric()
 
 
-growth_perc <- dfScorecardArea %>%
-  filter(name == "Bangro") %>%
-  pull(value) %>%
-  roundFiveUp(., 3) * 100
-
-# PDisplay growth in pupil numbers
-textTopLineGrowth <- paste0("Growth in ", str_to_lower(params$input_phase_choice), " pupil numbers 2009/10 to ", plan_year, ": ", growth_perc, "%")
 
 dfTopLine <- data.frame(
   funding = ifelse(params$input_la_choice == "England",
     paste0(total_funding, "billion"),
     paste0(total_funding, "million")
   ),
-  empty = "",
-  growth = paste0(growth_perc, "%")
+  empty = ""
 )
 colnames(dfTopLine) <- c(
-  paste0("Total primary and secondary basic need funding ", funding_year), " ",
-  paste0("Growth in", str_to_lower(params$input_phase_choice), "pupil numbers 2009/10 ", plan_year)
+  paste0("Total primary and secondary basic need funding ", funding_year), " "
 )
 ```
+
+```{r growth in pupil number, echo = FALSE}
+# Display growth in pupil numbers
+
+growth_perc <- dfScorecardArea %>%
+  filter(name == "Bangro") %>%
+  pull(value) %>%
+  roundFiveUp(., 3) * 100
+
+  anticipated_growth_perc <- dfScorecardArea %>%
+      filter(name == "Angro") %>%
+      pull(value) %>%
+      roundFiveUp(., 3) * 100
+  
+  textTopLineGrowth <- paste0("Growth in ", str_to_lower(params$input_phase_choice), " pupil numbers 2009/10 to ", next_year, ": ", growth_perc, "%")
+
+textTopLineAnticipatedGrowth <- paste0("Anticipated growth in ", str_to_lower(params$input_phase_choice), " pupil numbers ", next_year," to ", plan_year, ": ", anticipated_growth_perc, "%")
+  
+  
+
+```
+
+
+```{r unfilled places, echo = FALSE}
+# Display growth in pupil numbers
+
+
+  unfilled_places_perc <- dfScorecardArea %>%
+      filter(name == "QuanUP") %>%
+      pull(value) %>%
+      roundFiveUp(., 1) 
+
+textTopLineunfilledplaces <- paste0("Current percentage of unfilled ", str_to_lower(params$input_phase_choice), " places ", this_year, ": ", unfilled_places_perc, "%")
+
+
+```
+
 
 
 \makebox[1.00\linewidth]{
@@ -135,6 +163,23 @@ colnames(dfTopLine) <- c(
 Total primary and secondary basic need funding `r funding_year`
 \end{tcolorbox}
 
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.49\linewidth,
+ boxrule=0pt,
+ equal height group=introbox
+ ]
+`r unfilled_places_perc`\%
+\tcblower
+Current percentage of unfilled `r str_to_lower(params$input_phase_choice)` places `r this_year`
+\end{tcolorbox}
+
 
 \begin{tcolorbox}[colback=gssmidblue, 
  leftright skip=0.1cm,
@@ -150,7 +195,24 @@ Total primary and secondary basic need funding `r funding_year`
  ]
 `r growth_perc`\%
 \tcblower
-Growth in `r str_to_lower(params$input_phase_choice)` pupil numbers 2009/10 to `r plan_year`
+Growth in `r str_to_lower(params$input_phase_choice)` pupil numbers 2009/10 to `r next_year`
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.49\linewidth,
+ boxrule=0pt,
+ equal height group=introbox
+ ]
+`r growth_perc`\%
+\tcblower
+Anticipated growth in `r str_to_lower(params$input_phase_choice)` pupil numbers `r next_year` to `r plan_year`
 \end{tcolorbox}
 }
 
@@ -261,8 +323,8 @@ summary_stats_1yr <- forecast_summary_stats(
   dfScorecardsAll, 1,
   params$input_phase_choice
 )
-summary_stats_3yr <- forecast_summary_stats(
-  dfScorecardsAll, 3,
+summary_stats_2yr <- forecast_summary_stats(
+  dfScorecardsAll, 2,
   params$input_phase_choice
 )
 ```
@@ -286,21 +348,21 @@ oneyearlabel <-
     paste0("<b>One year ahead: ")
   }
 
-forecast_accuracy_3yr <- dfScorecardArea %>%
-  filter(name == "For_3") %>%
+forecast_accuracy_2yr <- dfScorecardArea %>%
+  filter(name == "For_2") %>%
   pull(value) %>%
-  roundFiveUp(., 3) #* 100
+  roundFiveUp(., 2) #* 100
 
-label_desc_3yr <- forecast_accuracy_desclabel(
-  forecast_accuracy_3yr,
+label_desc_2yr <- forecast_accuracy_desclabel(
+  forecast_accuracy_2yr,
   params$input_la_choice,
-  summary_stats_3yr
+  summary_stats_2yr
 )
 threeyearlabel <-
-  if (label_desc_3yr != "accurate") {
-    paste0("Three years ahead: ", format_perc(forecast_accuracy_3yr, output = "latex"))
+  if (label_desc_2yr != "accurate") {
+    paste0("Two years ahead: ", format_perc(forecast_accuracy_2yr, output = "latex"))
   } else {
-    paste0("<b>Three years ahead: ")
+    paste0("<b>Two years ahead: ")
   }
 ```
 
@@ -314,7 +376,7 @@ cat(threeyearlabel)
 cat("\\ \\\\")
 cat(label_desc_1yr)
 cat("&")
-cat(label_desc_3yr)
+cat(label_desc_2yr)
 cat(" \\\\")
 cat("\\end{tabular}")
 ```
@@ -331,7 +393,7 @@ plot_forecast(
   dfScorecardArea,
   dfScorecardsAll,
   params$input_la_choice,
-  params$input_phase_choice, 3
+  params$input_phase_choice, 2
 )
 ```
 
@@ -341,8 +403,8 @@ facc_table1 <- as.data.frame(
   summary_stats_1yr %>% mutate(accuracy = format_perc(accuracy)) %>%
     pivot_wider(names_from = quantile, values_from = accuracy)
 )
-facc_table3 <- as.data.frame(
-  summary_stats_3yr %>% mutate(accuracy = format_perc(accuracy)) %>%
+facc_table2 <- as.data.frame(
+  summary_stats_2yr %>% mutate(accuracy = format_perc(accuracy)) %>%
     pivot_wider(names_from = quantile, values_from = accuracy)
 )
 
@@ -353,7 +415,7 @@ print(knitr::kable(facc_table1, "latex", booktabs = T))
 cat("&")
 cat("\\footnotesize ")
 cat("\\centering ")
-print(knitr::kable(facc_table3, "latex", booktabs = T))
+print(knitr::kable(facc_table2, "latex", booktabs = T))
 cat("\\end{tabular}")
 ```
 
