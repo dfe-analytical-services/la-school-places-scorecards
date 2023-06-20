@@ -167,7 +167,9 @@ panel_scorecard <- function() {
                   column(
                     6,
                     p(strong("School places created, planned future places, additional places still needed, as at May", SCAP_ref)),
-                    plotlyOutput("places_chart") %>% withSpinner()
+                    plotlyOutput("places_chart") %>% withSpinner(),
+                    uiOutput("quantity.bartext")
+                    
                   ),
                   column(
                     6,
@@ -188,8 +190,8 @@ panel_scorecard <- function() {
                       column(
                         12,
                         valueBoxOutput("total_funding_box", width = 6),
-                        valueBoxOutput("pupil_anticipated_growth", width = 6),
-                        uiOutput("quantity.bartext")
+                        valueBoxOutput("pupil_anticipated_growth", width = 6)#,
+                        #uiOutput("quantity.bartext")
                       )
                     )
                   )
