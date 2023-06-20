@@ -420,7 +420,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       select(LA_name, name, value) %>%
       pivot_wider() %>%
       mutate(LA_name=factor(LA_name) %>% relevel(input$LA_choice))
-      
+    
     # create interactive  bar chart
     p <- plot_ly(
       places_chart_data,
@@ -447,7 +447,11 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       ) %>%
       layout(
         yaxis = list(title = ""),
-        xaxis = list(title = ""),
+        xaxis = list(
+          title = "",
+          categoryorder="array",
+          categoryarray=c(input$LA_choice, input$selectBenchLAs)
+          ),
         barmode = "bar",
         uniformtext = list(minsize = 12, mode = "hide"),
         legend = list(orientation = "h"),
