@@ -164,10 +164,8 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
    # filter (LA_name != input$LA_choice)
   #})
     
-  LA_benchmark_options <- 
-    sort(unique(La_data_benchmark$LA_name)) %>%
-           as.factor() %>%
-       relevel("Barking and Dagenham")
+  LA_benchmark_options <- sort(unique(La_data_benchmark$LA_name)) %>%
+    factor()
   
   LA_benchmark_options_pref <- 
     sort(unique(scorecards_data$LA_name)) %>%
@@ -190,10 +188,8 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       Phase == input$phase_choice
       ) %>%
          mutate(
-        LA_name = as.factor(LA_name),
-        # This step just makes sure that the LA is FIRST when it comes to plots/tables
-        #LA_name = relevel(LA_name),
-        LA_name = factor(LA_name, levels = rev(levels(LA_name)))
+          # This step just makes sure that the LA is FIRST when it comes to plots/tables
+          LA_name = factor(LA_name) %>% relevel(input$LA_choice)
       )
   })
   
@@ -205,10 +201,8 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
              Phase == input$phase_choice
       ) %>%
       mutate(
-        LA_name = as.factor(LA_name),
         # This step just makes sure that the LA is FIRST when it comes to plots/tables
-        #LA_name = relevel(LA_name),
-        LA_name = factor(LA_name, levels = rev(levels(LA_name)))
+        LA_name = factor(LA_name) %>% relevel(input$LA_choice)
       )
   })
   
@@ -433,8 +427,9 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     places_chart_data <-  live_scorecard_data_reactive_benchmark() %>%
       filter(name %in% c("QuanIn", "QuanPP", "QuanRP")) %>%
       select(LA_name, name, value) %>%
-      pivot_wider()
-
+      pivot_wider() %>%
+      mutate(LA_name=factor(LA_name) %>% relevel(input$LA_choice))
+      
     # create interactive  bar chart
     p <- plot_ly(
       places_chart_data,
