@@ -795,6 +795,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
 
 
     preference_p <- preference_data %>%
+      mutate(LA_name=factor(LA_name) %>% relevel(input$LA_choice)) %>% 
       ggplot(aes(
         y = value, x = "",
         fill = factor(rating),
