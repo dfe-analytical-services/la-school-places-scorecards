@@ -176,7 +176,7 @@ panel_scorecard <- function() {
                     6,
                                      p(strong("School places created, planned future places, additional places still needed, as at May", SCAP_ref)),
                    conditionalPanel(condition = "input.LA_choice != 'England'", selectizeInput("selectBenchLAs",
-                                   "Select up to two benchmark LAs",
+                                   "Select up to two benchmark LAs in box below",
                                    choices = levels(LA_benchmark_options),
                                    multiple = TRUE,
                                    options = list(maxItems = 2))),
