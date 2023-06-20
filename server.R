@@ -387,6 +387,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     )
   })
 
+  # Stop users being able to select chosen LA as benchmark LA for quantity chart
   observeEvent(input$LA_choice,{
     message("Updating selectBenchLAs")
     print(input$LA_choice)
@@ -397,6 +398,31 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       choices=LA_benchmark_options_pref[LA_benchmark_options_pref!=input$LA_choice]
     )
       }
+  )
+  # Stop users being able to select chosen LA as benchmark LA for quality chart
+  observeEvent(input$LA_choice,{
+    message("Updating selectBenchLAsquality")
+    print(input$LA_choice)
+    print(input$selectBenchLAsquality)
+    updateSelectizeInput(
+      session,
+      "selectBenchLAsquality",
+      choices=LA_benchmark_options_pref[LA_benchmark_options_pref!=input$LA_choice]
+    )
+  }
+  )
+  
+  # Stop users being able to select chosen LA as benchmark LA for preference chart
+  observeEvent(input$LA_choice,{
+    message("Updating selectBenchLAspref")
+    print(input$LA_choice)
+    print(input$selectBenchLAspref)
+    updateSelectizeInput(
+      session,
+      "selectBenchLAspref",
+      choices=LA_benchmark_options_pref[LA_benchmark_options_pref!=input$LA_choice]
+    )
+  }
   )
   
   ## Places bar
