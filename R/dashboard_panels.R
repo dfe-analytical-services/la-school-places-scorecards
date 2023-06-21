@@ -7,7 +7,7 @@ panel_homepage <- function() {
          To do this click on", actionLink("linklascorecardsTab", "LA scorecards"), "after reading all the information on this homepage.
          Use the drop-down list, or type in the box, to select England or your chosen local authority. "),
     br("You can view primary or secondary places by using the adjacent drop down. The figures and charts in the scorecard will automatically update when these drop downs are changed."),
-    br("You can download a PDF version of the complete scorecard, by clicking the ‘download report’. Use the ‘download data’ button on the left of the scorecard to
+    br("You can download a PDF version of the complete scorecard, by clicking the ‘download report’. Use the ‘download data’ button to
          download underlying data for all local authorities and England."),
     br("There are five scorecard metrics and more information on each metric can be found below. Each scorecard metric is shown on a different tab within 'LA scorecards'
         and can be selected by clicking on the name of the metric."), 
@@ -41,14 +41,14 @@ panel_homepage <- function() {
        br(" •	the total amount of", a(href = "https://www.gov.uk/government/publications/basic-need-allocations", "basic need capital funding"), "allocated to each local authority to create new places from 2011 to 2024; and"),
         " •	the anticipated percentage increase in pupil numbers in primary or secondary state-funded mainstream provision between 2022/23 to 2024/25.",
         br(),
-        br("In a box above the chart, users can select up to three additional local authorities to view their data in the chart, alongside their chosen local authority. 
+        br("In the box above the chart, users can select up to two additional local authorities to view their data in the chart, alongside their chosen local authority. 
            Please note the headline boxes will not change when selecting local authorities to benchmark against."),
         br(),
-        br("It is important to take care when making comparisons using the quantity measure. Local authorities greatly vary in size and population and therefore the number of schools and school places. Some local authorities have long-standing place pressure,
+        br("It is important to take care when making comparisons using the quantity measure. Local authorities vary in size and population and therefore vary in the number of schools and school places. Some local authorities have long-standing place pressure,
            whereas for others it has emerged more recently. Those experiencing long-standing place pressures will have had more chance to demonstrate that they can add large quantities of places."),
         br(),
         br("Local authorities with relatively fewer places still needed are making good progress in delivering the places they anticipate are needed, however they may be good reasons for a local authority showing a significant number of places still needed to be created.
-           For example, places from the department’s centrally funded free schools due to open in September 24 onwards are not included in the calculations. Projects to add school places would not have been included in these calculations if they were only recently planned and/or confirmed. "),
+           For example, places from the department’s centrally funded free schools due to open in September 2024 onwards are not included in the calculations. Projects to add school places would not have been included in these calculations if they were only recently planned and/or confirmed. "),
         br(),
         br("Unfilled places can be evidence of local authorities having planned ahead for future need. Unfilled places can also be attributed to the building of whole new schools, which fill up from the bottom, leaving space in the upper years until those year groups work their way through. 
            In some areas, low or declining need for places will also contribute to the number of unfilled places."),
@@ -68,7 +68,7 @@ panel_homepage <- function() {
         br("The chart breaks this down further into to those who received an offer of their first, second or third preferences.
              ‘Other’ offers include pupils who received an offer of a lower preference (where a local authority allows four or more preferences) or did not receive a preferred offer.
              The latter can include applicants who were made an alternative offer and those who were not made any offer."),
-        br("In a box above the chart, users can select England or another local authority to view their data in the chart, alongside their chosen local authority. Please note the headline boxes will not change when selecting local authorities to benchmark against."),
+        br("In the box above the chart, users can select England or another local authority to view their data in the chart, alongside their chosen local authority. Please note the headline boxes will not change when selecting a local authority to benchmark against."),
         br(),
         h4(actionLink("linkQualityTab", "Quality")),
         br("You can use this measure to see the quality of the schools where the chosen local authority has added school places, based on the change between the 2020/21 and the 2021/22 published school capacity data and", a(href = "https://www.gov.uk/government/statistics/state-funded-schools-inspections-and-outcomes-as-at-31-august-2022", "published school Ofsted rating."), ),
@@ -79,13 +79,13 @@ panel_homepage <- function() {
         br("•	when deciding upon which schools to expand, some good or outstanding schools may be on sites that are not suitable for expansion;"),
         "•	the Ofsted rating used was available at 31 August 2022 and places may have been added before or after that rating was given: ",
         br(),
-        br("In a box above the chart, users can select England or another local authority to view their data in the chart, alongside their chosen local authority. Please note the headline boxes will not change when selecting local authorities to benchmark against."),
+        br("In the box above the chart, users can select England or another local authority to view their data in the chart, alongside their chosen local authority. Please note the headline boxes will not change when selecting a local authority to benchmark against."),
         br(),
         h4(actionLink("linkCostTab", "Cost")),
         br("The Capital Spend Survey that replaced the SCAP Capital Spend Data now collects data on project costs, however due to incomplete coverage it has not yet been incorporated into the scorecard.  The cost data used in the scorecard remains the Capital Spend Data from SCAP18. This was used in the 2018, 2019 and 2021 scorecards; there has been no change in the sample of projects. As done in 2021, for the 2022 Scorecard, the data has been adjusted for inflation (uprated to 1st quarter 2023 prices)."),
         br(strong("You can use the scorecard to view the national average cost per place for both primary and secondary school places. These are shown for permanent expansions, temporary expansions and new schools separately. You can also view, the national averages adjusted for 2022 regional location factors. ")),
         br("Because the sample of projects are from 2018, the local authority average costs are not shown in the 2022 scorecard. However, you can find these in the underlying data on explore education statistics if needed."),
-        br("There is further guidance on converting costs into current or future prices in the scorecard ‘Technical notes’.")
+        br("There is further guidance on converting costs into current or future prices in the scorecard", actionLink("linkTechnicalnotesTab", "Technical Notes")), #‘Technical notes’.")
       )
 )
   )
@@ -242,9 +242,7 @@ panel_scorecard <- function() {
                       dataTableOutput("for2year_table")
                     )
                   ),
-                  br(),
-                  p(em("Caution should be taken with forecast accuracy scores, due to unforseen impacts on pupil numbers after the forecasts were made. See Homepage for more information.")),
-                )
+                             )
               )
             ),
             tabPanel(
