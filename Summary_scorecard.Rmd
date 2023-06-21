@@ -91,27 +91,55 @@ total_funding <- scorecards_data %>%
   as.numeric()
 
 
-growth_perc <- dfScorecardArea %>%
-  filter(name == "Bangro") %>%
-  pull(value) %>%
-  roundFiveUp(., 3) * 100
-
-# PDisplay growth in pupil numbers
-textTopLineGrowth <- paste0("Growth in ", str_to_lower(params$input_phase_choice), " pupil numbers 2009/10 to ", plan_year, ": ", growth_perc, "%")
 
 dfTopLine <- data.frame(
   funding = ifelse(params$input_la_choice == "England",
     paste0(total_funding, "billion"),
     paste0(total_funding, "million")
   ),
-  empty = "",
-  growth = paste0(growth_perc, "%")
+  empty = ""
 )
 colnames(dfTopLine) <- c(
-  paste0("Total primary and secondary basic need funding ", funding_year), " ",
-  paste0("Growth in", str_to_lower(params$input_phase_choice), "pupil numbers 2009/10 ", plan_year)
+  paste0("Total primary and secondary basic need funding ", funding_year), " "
 )
 ```
+
+```{r growth in pupil number, echo = FALSE}
+# Display growth in pupil numbers
+
+growth_perc <- dfScorecardArea %>%
+  filter(name == "Bangro") %>%
+  pull(value) %>%
+  roundFiveUp(., 3) * 100
+
+  anticipated_growth_perc <- dfScorecardArea %>%
+      filter(name == "Angro") %>%
+      pull(value) %>%
+      roundFiveUp(., 3) * 100
+  
+  textTopLineGrowth <- paste0("Growth in ", str_to_lower(params$input_phase_choice), " pupil numbers 2009/10 to ", next_year, ": ", growth_perc, "%")
+
+textTopLineAnticipatedGrowth <- paste0("Anticipated growth in ", str_to_lower(params$input_phase_choice), " pupil numbers ", next_year," to ", plan_year, ": ", anticipated_growth_perc, "%")
+  
+  
+
+```
+
+
+```{r unfilled places, echo = FALSE}
+# Display growth in pupil numbers
+
+
+  unfilled_places_perc <- dfScorecardArea %>%
+      filter(name == "QuanUP") %>%
+      pull(value) %>%
+      roundFiveUp(., 1) 
+
+textTopLineunfilledplaces <- paste0("Current percentage of unfilled ", str_to_lower(params$input_phase_choice), " places ", this_year, ": ", unfilled_places_perc, "%")
+
+
+```
+
 
 
 \makebox[1.00\linewidth]{
@@ -135,6 +163,23 @@ colnames(dfTopLine) <- c(
 Total primary and secondary basic need funding `r funding_year`
 \end{tcolorbox}
 
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.49\linewidth,
+ boxrule=0pt,
+ equal height group=introbox
+ ]
+`r unfilled_places_perc`\%
+\tcblower
+Current percentage of unfilled `r str_to_lower(params$input_phase_choice)` places `r this_year`
+\end{tcolorbox}
+
 
 \begin{tcolorbox}[colback=gssmidblue, 
  leftright skip=0.1cm,
@@ -150,7 +195,24 @@ Total primary and secondary basic need funding `r funding_year`
  ]
 `r growth_perc`\%
 \tcblower
-Growth in `r str_to_lower(params$input_phase_choice)` pupil numbers 2009/10 to `r plan_year`
+Growth in `r str_to_lower(params$input_phase_choice)` pupil numbers 2009/10 to `r next_year`
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.49\linewidth,
+ boxrule=0pt,
+ equal height group=introbox
+ ]
+`r growth_perc`\%
+\tcblower
+Anticipated growth in `r str_to_lower(params$input_phase_choice)` pupil numbers `r next_year` to `r plan_year`
 \end{tcolorbox}
 }
 
@@ -245,7 +307,6 @@ plot_ly(
   ) %>%
   config(displayModeBar = FALSE)
 ```
-
 \newpage
   
 ## Forecast Accuracy
@@ -262,8 +323,8 @@ summary_stats_1yr <- forecast_summary_stats(
   dfScorecardsAll, 1,
   params$input_phase_choice
 )
-summary_stats_3yr <- forecast_summary_stats(
-  dfScorecardsAll, 3,
+summary_stats_2yr <- forecast_summary_stats(
+  dfScorecardsAll, 2,
   params$input_phase_choice
 )
 ```
@@ -287,21 +348,21 @@ oneyearlabel <-
     paste0("<b>One year ahead: ")
   }
 
-forecast_accuracy_3yr <- dfScorecardArea %>%
-  filter(name == "For_3") %>%
+forecast_accuracy_2yr <- dfScorecardArea %>%
+  filter(name == "For_2") %>%
   pull(value) %>%
-  roundFiveUp(., 3) #* 100
+  roundFiveUp(., 2) #* 100
 
-label_desc_3yr <- forecast_accuracy_desclabel(
-  forecast_accuracy_3yr,
+label_desc_2yr <- forecast_accuracy_desclabel(
+  forecast_accuracy_2yr,
   params$input_la_choice,
-  summary_stats_3yr
+  summary_stats_2yr
 )
 threeyearlabel <-
-  if (label_desc_3yr != "accurate") {
-    paste0("Three years ahead: ", format_perc(forecast_accuracy_3yr, output = "latex"))
+  if (label_desc_2yr != "accurate") {
+    paste0("Two years ahead: ", format_perc(forecast_accuracy_2yr, output = "latex"))
   } else {
-    paste0("<b>Three years ahead: ")
+    paste0("<b>Two years ahead: ")
   }
 ```
 
@@ -315,7 +376,7 @@ cat(threeyearlabel)
 cat("\\ \\\\")
 cat(label_desc_1yr)
 cat("&")
-cat(label_desc_3yr)
+cat(label_desc_2yr)
 cat(" \\\\")
 cat("\\end{tabular}")
 ```
@@ -332,7 +393,7 @@ plot_forecast(
   dfScorecardArea,
   dfScorecardsAll,
   params$input_la_choice,
-  params$input_phase_choice, 3
+  params$input_phase_choice, 2
 )
 ```
 
@@ -342,8 +403,8 @@ facc_table1 <- as.data.frame(
   summary_stats_1yr %>% mutate(accuracy = format_perc(accuracy)) %>%
     pivot_wider(names_from = quantile, values_from = accuracy)
 )
-facc_table3 <- as.data.frame(
-  summary_stats_3yr %>% mutate(accuracy = format_perc(accuracy)) %>%
+facc_table2 <- as.data.frame(
+  summary_stats_2yr %>% mutate(accuracy = format_perc(accuracy)) %>%
     pivot_wider(names_from = quantile, values_from = accuracy)
 )
 
@@ -354,30 +415,31 @@ print(knitr::kable(facc_table1, "latex", booktabs = T))
 cat("&")
 cat("\\footnotesize ")
 cat("\\centering ")
-print(knitr::kable(facc_table3, "latex", booktabs = T))
+print(knitr::kable(facc_table2, "latex", booktabs = T))
 cat("\\end{tabular}")
 ```
+
+
 
 \newpage
 
 ## Preference
+### Proportion of applicants who received an offer of one of their top three preference schools for September `r preference_next_year` entry
 
-### Proportion of applicants who received an offer of one of their top three preference schools for September `r preference_year` entry
-
-```{r preference_text, echo = FALSE, message=FALSE}
+```{r preference_text_NY, echo = FALSE, message=FALSE}
 dfScorecardArea_all_la <- scorecards_data_pivot %>% filter(Phase == params$input_phase_choice)
 
 
 # Take filtered data, search for growth rate, pull the value and tidy the number up
-PrefT3_E <- dfScorecardArea_all_la %>%
-  filter(name == "PrefT3") %>%
+PrefT3_NY_E <- dfScorecardArea_all_la %>%
+  filter(name == "PrefT3_NY") %>%
   filter(LA_name == "England") %>%
   pull(value) %>%
   roundFiveUp(., 1)
 
 # Take filtered data, search for growth rate, pull the value and tidy the number up
-PrefT3 <- dfScorecardArea %>%
-  filter(name == "PrefT3") %>%
+PrefT3_NY <- dfScorecardArea %>%
+  filter(name == "PrefT3_NY") %>%
   pull(value) %>%
   roundFiveUp(., 1)
 ```
@@ -396,7 +458,7 @@ PrefT3 <- dfScorecardArea %>%
  boxrule=0pt ,
  equal height group=prefbox
  ]
-`r PrefT3_E`\%
+`r PrefT3_NY_E`\%
 \tcblower
 Percentage of applicants who received an offer of one of their top three preferred `r str_to_lower(params$input_phase_choice)` schools in England
 \end{tcolorbox}
@@ -415,7 +477,72 @@ if (params$input_la_choice != "England") {
  boxrule=0pt,
  equal height group=prefbox
  ]
-", PrefT3, "\\%
+", PrefT3_NY, "\\%
+\\tcblower
+Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(params$input_phase_choice), " schools in ", params$input_la_choice, "
+\\end{tcolorbox}
+}
+"))
+} else {
+  cat("
+}
+")
+}
+```
+### Proportion of applicants who received an offer of one of their top three preference schools for September `r preference_current_year` entry
+
+```{r preference_text_CY, echo = FALSE, message=FALSE}
+dfScorecardArea_all_la <- scorecards_data_pivot %>% filter(Phase == params$input_phase_choice)
+
+
+# Take filtered data, search for growth rate, pull the value and tidy the number up
+PrefT3_CY_E <- dfScorecardArea_all_la %>%
+  filter(name == "PrefT3_CY") %>%
+  filter(LA_name == "England") %>%
+  pull(value) %>%
+  roundFiveUp(., 1)
+
+# Take filtered data, search for growth rate, pull the value and tidy the number up
+PrefT3_CY <- dfScorecardArea %>%
+  filter(name == "PrefT3_CY") %>%
+  pull(value) %>%
+  roundFiveUp(., 1)
+```
+
+\makebox[1.0\linewidth]{
+\centering
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.49\linewidth,
+ boxrule=0pt ,
+ equal height group=prefbox
+ ]
+`r PrefT3_CY_E`\%
+\tcblower
+Percentage of applicants who received an offer of one of their top three preferred `r str_to_lower(params$input_phase_choice)` schools in England
+\end{tcolorbox}
+
+``` {r echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
+if (params$input_la_choice != "England") {
+  cat(paste0("\\begin{tcolorbox}[colback=gssmidblue,
+ leftright skip=0.1cm,
+ coltext=white,
+ halign=left,
+ fontupper={\\Huge \\bfseries},
+ fontlower={\\large \\bfseries},
+ sharp corners,
+ colframe=gssmidblue,
+ width=0.49\\linewidth,
+ boxrule=0pt,
+ equal height group=prefbox
+ ]
+", PrefT3_CY, "\\%
 \\tcblower
 Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(params$input_phase_choice), " schools in ", params$input_la_choice, "
 \\end{tcolorbox}
@@ -445,8 +572,14 @@ dfScorecardArea_england_comp <- scorecards_data_pivot %>%
 # reshape the data so it plots neatly!
 preference_data <- dfScorecardArea_england_comp %>%
   # select only preference values
-  filter(name %in% c("Pref1", "Pref2", "Pref3")) %>%
-  # Create ratings out of the names
+  filter(name %in% c("Pref1_CY", "Pref2_CY", "Pref3_CY",
+                     "Pref1_NY", "Pref2_NY", "Pref3_NY")) %>%
+ # Create groups for "current year" and "next year" places based on names
+      mutate(preference_year = case_when(
+        str_detect(name, "CY") ~ preference_current_year,
+        str_detect(name, "NY") ~ preference_next_year
+      )) %>%
+   # Create ratings out of the names
   mutate(rating = case_when(
     str_detect(name, "1") ~ "First choice",
     str_detect(name, "2") ~ "Second choice",
@@ -455,7 +588,7 @@ preference_data <- dfScorecardArea_england_comp %>%
 
 # Get % not getting 1st 2nd or 3rd preference
 preference_data_sum <- preference_data %>%
-  group_by(LA_name, LANumber, Phase) %>%
+  group_by(preference_year, LA_name, LANumber, Phase) %>%
   summarise(value = 100 - sum(value)) %>%
   mutate(rating = "Other")
 
@@ -475,7 +608,7 @@ preference_data <- preference_data %>%
 # create charts
 preference_p <- preference_data %>%
   ggplot(aes(
-    y = value, x = "",
+    y = value, x = preference_year,
     fill = factor(rating),
     text = paste(rating, ": ", value, "%")
   )) +
