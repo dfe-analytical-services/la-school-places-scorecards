@@ -366,6 +366,8 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     } else if (input$LA_choice %in% c("West Northamptonshire","North Northamptonshire")) {
       paste0("2009/10 data is not comparable because of 2021 boundary changes.
              Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for this LA.")
+    } else if (input$LA_choice %in% c("Kent")) {
+      paste0("Caution should be taken with Kent's estimated additional places needed to meet demand in 2024/25 and estimated percentage of spare places in 2024/25 as at the time of the 2022 School Capacity publication, planning area level forecasts for Kent were yet to be signed off and were subject to change.")
     }
   })
   # Current unfilled places
