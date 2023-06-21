@@ -42,14 +42,14 @@ panel_homepage <- function() {
         " •	the anticipated percentage increase in pupil numbers in primary or secondary state-funded mainstream provision between 2022/23 to 2024/25.",
         br(),
         br("In the box above the chart, users can select up to two additional local authorities to view their data in the chart, alongside their chosen local authority. 
-           Please note the headline boxes will not change when selecting local authorities to benchmark against."),
-        br(),
+           Please note the headline boxes will not change when selecting local authorities to benchmark against. Users may wish to benchmark local authorities against their statistical neighbours found in the", a(href = "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/975117/Childrens_services_statistical_neighbour_benchmarking_tool_-_LGR_Version__April_2021_.xlsx", "Children's services statistical neighbour benchmarking tool.")),
+       # br(),
         br("It is important to take care when making comparisons using the quantity measure. Local authorities vary in size and population and therefore vary in the number of schools and school places. Some local authorities have long-standing place pressure,
            whereas for others it has emerged more recently. Those experiencing long-standing place pressures will have had more chance to demonstrate that they can add large quantities of places."),
-        br(),
+       # br(),
         br("Local authorities with relatively fewer places still needed are making good progress in delivering the places they anticipate are needed, however they may be good reasons for a local authority showing a significant number of places still needed to be created.
            For example, places from the department’s centrally funded free schools due to open in September 2024 onwards are not included in the calculations. Projects to add school places would not have been included in these calculations if they were only recently planned and/or confirmed. "),
-        br(),
+       # br(),
         br("Unfilled places can be evidence of local authorities having planned ahead for future need. Unfilled places can also be attributed to the building of whole new schools, which fill up from the bottom, leaving space in the upper years until those year groups work their way through. 
            In some areas, low or declining need for places will also contribute to the number of unfilled places."),
         br(),
@@ -353,8 +353,6 @@ panel_technical <- function() {
     h2("Technical notes"),
     br("Use this dashboard to view school places scorecards for local authorities in England"),
     br("All dates refer to the academic year, apart from basic need funding years which refer to the financial year."),
-    br("There is no scorecard for North Northamptonshire and West Northamptonshire as they are new local authorities, following the split from one local authority into two in April 2021. As these two new local authorities are not directly comparable with the pre LGR 2021 Northamptonshire, we were unable to produce complete figures for the majority of individual indictors included in the school places scorecard,
-                           however the relevant data for these pre and post LGR 2021 local authorities are included in the England data and can be found in the summary data on explore education statistics."),
     br(),
     tabBox(
       title = "",
