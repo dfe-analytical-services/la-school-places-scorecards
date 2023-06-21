@@ -140,28 +140,12 @@ textTopLineunfilledplaces <- paste0("Current percentage of unfilled ", str_to_lo
 
 ```
 
-
+Pupils in places
 
 \makebox[1.00\linewidth]{
 \centering
 
 
-\begin{tcolorbox}[colback=gssmidblue, 
- leftright skip=0.1cm,
- coltext=white, 
- halign=left, 
- fontupper={\Huge \bfseries},
- fontlower={\large \bfseries},
- sharp corners, 
- colframe=gssmidblue,
- width=0.49\linewidth,
- boxrule=0pt,
- equal height group=introbox
- ]
-£`r ifelse(params$input_la_choice== "England",paste0(total_funding, "billion"),paste0(total_funding, "million"))`
-\tcblower
-Total primary and secondary basic need funding `r funding_year`
-\end{tcolorbox}
 
 \begin{tcolorbox}[colback=gssmidblue, 
  leftright skip=0.1cm,
@@ -198,22 +182,7 @@ Current percentage of unfilled `r str_to_lower(params$input_phase_choice)` place
 Growth in `r str_to_lower(params$input_phase_choice)` pupil numbers 2009/10 to `r next_year`
 \end{tcolorbox}
 
-\begin{tcolorbox}[colback=gssmidblue, 
- leftright skip=0.1cm,
- coltext=white, 
- halign=left, 
- fontupper={\Huge \bfseries},
- fontlower={\large \bfseries},
- sharp corners, 
- colframe=gssmidblue,
- width=0.49\linewidth,
- boxrule=0pt,
- equal height group=introbox
- ]
-`r growth_perc`\%
-\tcblower
-Anticipated growth in `r str_to_lower(params$input_phase_choice)` pupil numbers `r next_year` to `r plan_year`
-\end{tcolorbox}
+
 }
 
 ### Places created since 2009/10, places planned to `r plan_year` and estimated place pressure in `r plan_year`
@@ -278,6 +247,48 @@ Estimated percentage of spare `r str_to_lower(params$input_phase_choice)` places
 \end{tcolorbox}
 }
 
+\makebox[1.0\linewidth]{
+\centering
+
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.49\linewidth,
+ boxrule=0pt,
+ equal height group=introbox
+ ]
+£`r ifelse(params$input_la_choice== "England",paste0(total_funding, "billion"),paste0(total_funding, "million"))`
+\tcblower
+Total primary and secondary basic need funding `r funding_year`
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.49\linewidth,
+ boxrule=0pt,
+ equal height group=introbox
+ ]
+`r growth_perc`\%
+\tcblower
+Anticipated growth in `r str_to_lower(params$input_phase_choice)` pupil numbers `r next_year` to `r plan_year`
+\end{tcolorbox}
+
+}
+
+
+
+
 ``` {r quantity_b, echo = FALSE, fig.show="hold", out.width = "100%",crop=TRUE}
 places_chart_data <- dfScorecardArea %>%
   filter(name %in% c("QuanIn", "QuanPP", "QuanRP")) %>%
@@ -290,14 +301,14 @@ plot_ly(
   x = ~LA_name, y = ~QuanIn,
   marker = list(color = c("#08519c")),
   type = "bar", name = paste0("Total places created between 2009/10 and ", this_year),
-  text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF")
+  text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF",width = 0.2)
 ) %>%
-  add_trace(y = ~QuanPP, marker = list(color = c("#3182bd")), name = paste0("New places already planned for delivery between ", this_year, " and ", plan_year), text = ~ scales::comma(QuanPP), textposition = "inside") %>%
-  add_trace(y = ~QuanRP, marker = list(color = c("#6baed6")), name = paste0("Estimated additional places still needed to meet demand in ", plan_year), text = ~ scales::comma(QuanRP), textposition = "inside") %>%
+  add_trace(y = ~QuanPP, marker = list(color = c("#3182bd")), name = paste0("New places already planned for delivery between ", this_year, " and ", plan_year), text = ~ scales::comma(QuanPP), textposition = "outside", textfont = list(color = "#000"), width = 0.2) %>%
+  add_trace(y = ~QuanRP, marker = list(color = c("#6baed6")), name = paste0("Estimated additional places still needed to meet demand in ", plan_year), text = ~ scales::comma(QuanRP), textposition = "outside", textfont = list(color = "#000"), width = 0.2) %>%
   layout(
     yaxis = list(title = ""),
     xaxis = list(title = ""),
-    barmode = "stack",
+    barmode = "bar",
     uniformtext = list(minsize = 12, mode = "hide"),
     legend = list(orientation = "h"),
     title = list(
