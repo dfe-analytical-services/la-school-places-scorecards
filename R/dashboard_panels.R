@@ -28,18 +28,19 @@ panel_homepage <- function() {
         br("This measure shows how much progress the chosen local authority is making in providing sufficient school places for academic year 2024/25. This is based on published
              ", a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/school-capacity", "school capacity data"), "as collected in the 2022 the School Capacity Survey (SCAP22)."),
         br("The chart shows the:"),
-        br("•places already added since the academic year 2009/10;"),
+        br("•places already added since the academic year 2009/10;",
         "•additional places planned to be added up to the 2024/25 academic year; and",
-        br("•estimated number of additional places still needed to meet demand in 2024/25, based on the local authority’s forecast demand."),
+        "•estimated number of additional places still needed to meet demand in 2024/25, based on the local authority’s forecast demand."),
         br("The ‘pupils in place’s headline boxes show the:"),
-        br("•the percentage increase in pupil numbers in primary or secondary state-funded mainstream provision between 2009/10 to 2022/23; and"),
+        br("•the percentage increase in pupil numbers in primary or secondary state-funded mainstream provision between 2009/10 to 2022/23; and",
         "•the percentage of unfilled places in 2021/22; based on reported school capacity and pupil number on roll."),
         br("The ‘estimated future school place demand’ headline boxes are based on the local authority’s forecast demand. They show the:"),
-        br(" •	estimated number of additional places still needed to meet demand in 2024/25 (same figure shown in the chart);"),
+        br(" •	estimated number of additional places still needed to meet demand in 2024/25 (same figure shown in the chart);",
         " •	estimated percentage of spare places in 2024/25. It is common for a local authority to have both a need for additional places and spare capacity,
              reflecting pockets of localised need for places or pockets of localised spare places;",
-        br(" •	the total amount of", a(href = "https://www.gov.uk/government/publications/basic-need-allocations", "basic need capital funding"), "allocated to each local authority to create new places from 2011 to 2024; and"),
+        " •	the total amount of", a(href = "https://www.gov.uk/government/publications/basic-need-allocations", "basic need capital funding"), "allocated to each local authority to create new places from 2011 to 2024; and",
         " •	the anticipated percentage increase in pupil numbers in primary or secondary state-funded mainstream provision between 2022/23 to 2024/25."),
+        br(),
         br("In a box above the chart, users can select up to three additional local authorities to view their data in the chart, alongside their chosen local authority. 
            Please note the headline boxes will not change when selecting local authorities to benchmark against."),
         br(),
@@ -86,7 +87,8 @@ panel_homepage <- function() {
         br("Because the sample of projects are from 2018, the local authority average costs are not shown in the 2022 scorecard. However, you can find these in the underlying data on explore education statistics if needed."),
         br("There is further guidance on converting costs into current or future prices in the scorecard ‘Technical notes’.")
       )
-
+)
+  )
     
   
 }
