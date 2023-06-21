@@ -168,12 +168,19 @@ panel_scorecard <- function() {
                 gov_row(
                   column(
                     6,
-                    p(strong("School places created, planned future places, additional places still needed, as at May", SCAP_ref)),
-                    plotlyOutput("places_chart") %>% withSpinner(),
-                    uiOutput("quantity.bartext")
-                    
-                  ),
-                  column(
+
+                                     p(strong("School places created, planned future places, additional places still needed, as at May", SCAP_ref)),
+                   conditionalPanel(condition = "input.LA_choice != 'England'", selectizeInput("selectBenchLAs",
+                                   "Select up to two benchmark LAs in box below",
+                                   choices = levels(LA_benchmark_options),
+                                   multiple = TRUE,
+                                   options = list(maxItems = 2))),
+                                   plotlyOutput("places_chart") ,
+                                   plotlyOutput("places_chart_england") ,
+                     uiOutput("quantity.bartext")
+                              ),
+                                column(
+
                     6,
                     gov_row(
                       column(
@@ -182,7 +189,7 @@ panel_scorecard <- function() {
                         br(),
                         valueBoxOutput("pupil_growth", width = 6),
                         valueBoxOutput("current_unfilled_places", width = 6),
-                        p(strong(paste0("Estimated future school place demand"))),
+                       strong(textOutput("quantitysubtitle")),
                         p("A local authority can have both ‘spare places’ and ‘additional places needed’ due to localised or specific year group demand"),
                         valueBoxOutput("estimated_additional_places", width = 6),
                         valueBoxOutput("estimated_spare_places", width = 6)
@@ -259,7 +266,12 @@ panel_scorecard <- function() {
                   column(
                     12,
                     p(strong(paste0("Proportion of applicants who received an offer of a school place in their first, second and third preferences"))),
-                    plotlyOutput("preference_p") %>% withSpinner()
+                    conditionalPanel(condition = "input.LA_choice != 'England'", selectizeInput("selectBenchLAspref",
+                                                                                                "Select England or a LA to benchmark",
+                                                                                                choices = levels(LA_benchmark_options_pref),
+                                                                                                multiple = TRUE,
+                                                                                                options = list(maxItems = 1))),
+                                       plotlyOutput("preference_p") %>% withSpinner()
                   )
                 )
               )
@@ -282,6 +294,11 @@ panel_scorecard <- function() {
                   column(
                     12,
                     p(strong(paste0("Number of new places created in schools of each category and number of existing school places in each category"))),
+                    conditionalPanel(condition = "input.LA_choice != 'England'", selectizeInput("selectBenchLAsquality",
+                                                                                                "Select England or a LA to benchmark",
+                                                                                                choices = levels(LA_benchmark_options_pref),
+                                                                                                multiple = TRUE,
+                                                                                                options = list(maxItems = 1))),
                     plotlyOutput("quality_chart") %>% withSpinner()
                   )
                 ),

@@ -123,6 +123,30 @@ LA_options <- sort(unique(scorecards_data$LA_name)) %>%
   as.factor() %>%
   relevel("England")
 
+# LA options - for benchmarking
+La_data_benchmark <- scorecards_data %>%
+  filter (LA_name != c("England")) 
+
+# La_data_benchmark2 <- reactive({
+#scorecards_data %>%
+# filter (LA_name != input$LA_choice)
+#})
+
+LA_benchmark_options <- 
+  sort(unique(La_data_benchmark$LA_name)) %>%
+  as.factor() %>%
+  relevel("Barking and Dagenham")
+
+LA_benchmark_options_pref <- 
+  sort(unique(scorecards_data$LA_name)) %>%
+  as.factor() %>%
+  relevel("England")
+
+LA_benchmark_options_quality <- 
+  sort(unique(scorecards_data$LA_name)) %>%
+  as.factor() %>%
+  relevel("England")
+
 
 # Functions ---------------------------------------------------------------
 
