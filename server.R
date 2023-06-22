@@ -482,13 +482,13 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       add_trace(
         x = ~LA_name, y = ~QuanPP, marker = list(color = c("#3182bd")),
         name = paste0("New places planned for delivery between ", this_year, " and ", plan_year),
-        text = ~ scales::comma(QuanPP), textposition = "outside", textfont = list(color = "#000"),
+        text = ~ scales::comma(QuanPP), textposition = "outside", cliponaxis = FALSE, textfont = list(color = "#000"),
         width = 0.2
       ) %>%
       add_trace(
         x = ~LA_name, y = ~QuanRP, marker = list(color = c("#6baed6")),
         name = paste0("Estimated additional places still needed to meet demand in ", plan_year),
-        text = ~ scales::comma(QuanRP), textposition = "outside", textfont = list(color = "#000"),
+        text = ~ scales::comma(QuanRP), textposition = "outside", cliponaxis = FALSE, textfont = list(color = "#000"),
         width=0.2
       ) %>%
       layout(
