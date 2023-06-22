@@ -83,7 +83,7 @@ panel_homepage <- function() {
         br(),
         h4(actionLink("linkCostTab", "Cost")),
         br("The Capital Spend Survey that replaced the SCAP Capital Spend Data now collects data on project costs, however due to incomplete coverage it has not yet been incorporated into the scorecard.  The cost data used in the scorecard remains the Capital Spend Data from SCAP18. This was used in the 2018, 2019 and 2021 scorecards; there has been no change in the sample of projects. As done in 2021, for the 2022 Scorecard, the data has been adjusted for inflation (uprated to 1st quarter 2023 prices)."),
-        br(strong("You can use the scorecard to view the national average cost per place for both primary and secondary school places. These are shown for permanent expansions, temporary expansions and new schools separately. You can also view, the national averages adjusted for 2022 regional location factors. ")),
+        br(strong("You can use the scorecard to view the national average cost per place for both primary and secondary school places. These are shown for permanent expansions, temporary expansions and new schools separately. You can also view, the national averages adjusted for 2023 regional location factors. ")),
         br("Because the sample of projects are from 2018, the local authority average costs are not shown in the 2022 scorecard. However, you can find these in the underlying data on explore education statistics if needed."),
         br("There is further guidance on converting costs into current or future prices in the scorecard", actionLink("linkTechnicalnotesTab", "Technical Notes")), #‘Technical notes’.")
       )
