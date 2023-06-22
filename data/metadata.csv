@@ -8,10 +8,10 @@ Quan_P_Su,Estimated percentage of spare primary places in 24/25
 Quan_S_Su,Estimated percentage of spare secondary places in 24/25
 Quan_P_PP,New primary places planned for delivery for 24/25
 Quan_S_PP,New secondary places planned for delivery for 24/25
-Ban_P_gro,Primary actual growth in pupil numbers 09/10 to 22/23
-Ban_S_gro,Secondary Actual/Forecast growth in pupil numbers 09/10 to 22/23
-An_P_gro,Primary anticipated growth in pupil numbers 22/23 to 24/25
-An_S_gro,Secondary Forecast growth in pupil numbers 22/23 to 24/25
+Ban_P_gro,Primary actual change in pupil numbers 09/10 to 22/23
+Ban_S_gro,Secondary actual change in pupil numbers 09/10 to 22/23
+An_P_gro,Primary anticipated change in pupil numbers 22/23 to 24/25
+An_S_gro,Secondary anticipated change in pupil numbers 22/23 to 24/25
 Quan_P_UP,Percentage of unfilled primary places in 21/22
 Quan_S_UP,Percentage of unfilled secondary places in 21/22
 Funding,Total basic need allocation 2011 to 2024 
