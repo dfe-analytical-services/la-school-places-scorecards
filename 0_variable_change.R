@@ -12,4 +12,3 @@ preference_current_year <- "2022"
 preference_next_year <- "2023"
 forecast_year <- "2022/23"
 chart_choice <- "Ofsted Rating"
-

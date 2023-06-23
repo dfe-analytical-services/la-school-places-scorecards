@@ -109,22 +109,19 @@ colnames(dfTopLine) <- c(
 
 growth_perc <- dfScorecardArea %>%
   filter(name == "Bangro") %>%
-  pull(value)#%>%
- # roundFiveUp(., 3) * 100
+  pull(value) # %>%
+# roundFiveUp(., 3) * 100
 
-  anticipated_growth_perc <- dfScorecardArea %>%
-      filter(name == "Angro") %>%
-      pull(value)# %>%
-     # roundFiveUp(., 3) * 100
-  
-  anticipated_growth_perc1 <-   format_perc(anticipated_growth_perc) 
-  
-  textTopLineGrowth <- paste0("Growth in ", str_to_lower(params$input_phase_choice), " pupil numbers 2009/10 to ", next_year, ": ", format_perc(growth_perc), "%")
+anticipated_growth_perc <- dfScorecardArea %>%
+  filter(name == "Angro") %>%
+  pull(value) # %>%
+# roundFiveUp(., 3) * 100
 
-textTopLineAnticipatedGrowth <- paste0("Anticipated growth in ", str_to_lower(params$input_phase_choice), " pupil numbers ", next_year," to ", plan_year, ": ", format_perc(anticipated_growth_perc), "%")
-  
-  
+anticipated_growth_perc1 <- format_perc(anticipated_growth_perc)
 
+textTopLineGrowth <- paste0("Growth in ", str_to_lower(params$input_phase_choice), " pupil numbers 2009/10 to ", next_year, ": ", format_perc(growth_perc), "%")
+
+textTopLineAnticipatedGrowth <- paste0("Anticipated growth in ", str_to_lower(params$input_phase_choice), " pupil numbers ", next_year, " to ", plan_year, ": ", format_perc(anticipated_growth_perc), "%")
 ```
 
 
@@ -132,14 +129,12 @@ textTopLineAnticipatedGrowth <- paste0("Anticipated growth in ", str_to_lower(pa
 # Display growth in pupil numbers
 
 
-  unfilled_places_perc <- dfScorecardArea %>%
-      filter(name == "QuanUP") %>%
-      pull(value) %>%
-      roundFiveUp(., 1) 
+unfilled_places_perc <- dfScorecardArea %>%
+  filter(name == "QuanUP") %>%
+  pull(value) %>%
+  roundFiveUp(., 1)
 
 textTopLineunfilledplaces <- paste0("Current percentage of unfilled ", str_to_lower(params$input_phase_choice), " places ", this_year, ": ", unfilled_places_perc, "%")
-
-
 ```
 
 Pupils in places
@@ -304,7 +299,7 @@ plot_ly(
   x = ~LA_name, y = ~QuanIn,
   marker = list(color = c("#08519c")),
   type = "bar", name = paste0("Total places created between 2009/10 and ", this_year),
-  text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF",width = 0.2)
+  text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF", width = 0.2)
 ) %>%
   add_trace(y = ~QuanPP, marker = list(color = c("#3182bd")), name = paste0("New places already planned for delivery between ", this_year, " and ", plan_year), text = ~ scales::comma(QuanPP), textposition = "outside", cliponaxis = FALSE, textfont = list(color = "#000"), width = 0.2) %>%
   add_trace(y = ~QuanRP, marker = list(color = c("#6baed6")), name = paste0("Estimated additional places still needed to meet demand in ", plan_year), text = ~ scales::comma(QuanRP), textposition = "outside", cliponaxis = FALSE, textfont = list(color = "#000"), width = 0.2) %>%
@@ -586,14 +581,16 @@ dfScorecardArea_england_comp <- scorecards_data_pivot %>%
 # reshape the data so it plots neatly!
 preference_data <- dfScorecardArea_england_comp %>%
   # select only preference values
-  filter(name %in% c("Pref1_CY", "Pref2_CY", "Pref3_CY",
-                     "Pref1_NY", "Pref2_NY", "Pref3_NY")) %>%
- # Create groups for "current year" and "next year" places based on names
-      mutate(preference_year = case_when(
-        str_detect(name, "CY") ~ preference_current_year,
-        str_detect(name, "NY") ~ preference_next_year
-      )) %>%
-   # Create ratings out of the names
+  filter(name %in% c(
+    "Pref1_CY", "Pref2_CY", "Pref3_CY",
+    "Pref1_NY", "Pref2_NY", "Pref3_NY"
+  )) %>%
+  # Create groups for "current year" and "next year" places based on names
+  mutate(preference_year = case_when(
+    str_detect(name, "CY") ~ preference_current_year,
+    str_detect(name, "NY") ~ preference_next_year
+  )) %>%
+  # Create ratings out of the names
   mutate(rating = case_when(
     str_detect(name, "1") ~ "First choice",
     str_detect(name, "2") ~ "Second choice",

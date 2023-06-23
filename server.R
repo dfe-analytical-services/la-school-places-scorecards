@@ -154,20 +154,20 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   LA_options <- sort(unique(scorecards_data$LA_name)) %>%
     as.factor() %>%
     relevel("England")
-  
-  
+
+
   La_data_benchmark <- scorecards_data %>%
-   filter (LA_name != c("England")) 
-  
- # La_data_benchmark2 <- reactive({
-    #scorecards_data %>%
-   # filter (LA_name != input$LA_choice)
-  #})
-    
+    filter(LA_name != c("England"))
+
+  # La_data_benchmark2 <- reactive({
+  # scorecards_data %>%
+  # filter (LA_name != input$LA_choice)
+  # })
+
   LA_benchmark_options <- sort(unique(La_data_benchmark$LA_name)) %>%
     factor()
-  
-  LA_benchmark_options_pref <- 
+
+  LA_benchmark_options_pref <-
     sort(unique(scorecards_data$LA_name)) %>%
     as.factor() %>%
     relevel("England")
@@ -183,35 +183,41 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   # Scorecard data, filtered on user input AND including England as a comparison
   live_scorecard_data_england_comp_pref <- reactive({
     scorecards_data_pivot %>%
-      filter(case_when(input$LA_choice != "England" ~ LA_name %in% c(input$LA_choice, input$selectBenchLAspref) ,
-              TRUE ~ LA_name %in% c(input$LA_choice)),
-      Phase == input$phase_choice
-      ) %>%
-         mutate(
-          # This step just makes sure that the LA is FIRST when it comes to plots/tables
-          LA_name = factor(LA_name) %>% relevel(input$LA_choice)
-      )
-  })
-  
-  # Scorecard data, filtered on user input AND including England as a comparison
-  live_scorecard_data_england_comp_quality <- reactive({
-    scorecards_data_pivot %>%
-      filter(case_when(input$LA_choice != "England" ~ LA_name %in% c(input$LA_choice, input$selectBenchLAsquality) ,
-                       TRUE ~ LA_name %in% c(input$LA_choice)),
-             Phase == input$phase_choice
+      filter(
+        case_when(
+          input$LA_choice != "England" ~ LA_name %in% c(input$LA_choice, input$selectBenchLAspref),
+          TRUE ~ LA_name %in% c(input$LA_choice)
+        ),
+        Phase == input$phase_choice
       ) %>%
       mutate(
         # This step just makes sure that the LA is FIRST when it comes to plots/tables
         LA_name = factor(LA_name) %>% relevel(input$LA_choice)
       )
   })
-  
+
+  # Scorecard data, filtered on user input AND including England as a comparison
+  live_scorecard_data_england_comp_quality <- reactive({
+    scorecards_data_pivot %>%
+      filter(
+        case_when(
+          input$LA_choice != "England" ~ LA_name %in% c(input$LA_choice, input$selectBenchLAsquality),
+          TRUE ~ LA_name %in% c(input$LA_choice)
+        ),
+        Phase == input$phase_choice
+      ) %>%
+      mutate(
+        # This step just makes sure that the LA is FIRST when it comes to plots/tables
+        LA_name = factor(LA_name) %>% relevel(input$LA_choice)
+      )
+  })
+
 
   # Scorecard data for ALL LAs, filtered only on phase choice
   live_scorecard_data_all_la <- reactive({
     scorecards_data_pivot %>% filter(Phase == input$phase_choice)
   })
-  
+
   # Scorecard data, filtered on user input AND including England as a comparison for cost data
   live_scorecard_data_england_comp <- reactive({
     scorecards_data_pivot %>%
@@ -227,13 +233,14 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       )
   })
 
-##scorecard data, filtered on user input and benchmarking choice Las as a comparison  
+  ## scorecard data, filtered on user input and benchmarking choice Las as a comparison
   live_scorecard_data_reactive_benchmark <- reactive({
     scorecards_data_pivot %>%
       filter(
         LA_name %in% c(input$LA_choice, input$selectBenchLAs),
-        Phase == input$phase_choice) %>%
-      mutate (LA_name = factor(LA_name,levels=c(input$LA_choice, input$selectBenchLAs)))
+        Phase == input$phase_choice
+      ) %>%
+      mutate(LA_name = factor(LA_name, levels = c(input$LA_choice, input$selectBenchLAs)))
   })
   # Options for chart choice - dependent on phase choice
 
@@ -266,7 +273,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   output$quantitysubtitle <- renderText({
     paste0("Estimated future school place demand for ", input$LA_choice)
   })
-  
+
 
 
   ## create quality heading
@@ -274,17 +281,17 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     paste0("Quality of school places created between ", last_year, " and ", this_year, " based on ", chart_choice)
   })
 
-  
+
   # Quantity ----------------------------------------------------------------
 
-  
+
   ## create quantity
   output$pupil_subtitle <- renderText({
     paste0("Pupils in places in ", input$LA_choice)
   })
-  
-  
-  
+
+
+
   ## Total funding
 
   output$total_funding_box <- renderValueBox({
@@ -325,8 +332,8 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     growth_perc <- live_scorecard_data() %>%
       filter(name == "Bangro") %>%
-      pull(value) #%>%
-     # roundFiveUp(., 3) * 100
+      pull(value) # %>%
+    # roundFiveUp(., 3) * 100
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -337,15 +344,15 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     )
   })
 
-  #Anticipated pupil growth
-  
+  # Anticipated pupil growth
+
   output$pupil_anticipated_growth <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     anticipated_growth_perc <- live_scorecard_data() %>%
       filter(name == "Angro") %>%
-      pull(value) #%>%
-     # roundFiveUp(., 3) * 100
-    
+      pull(value) # %>%
+    # roundFiveUp(., 3) * 100
+
     # Put value into box to plug into app
     shinydashboard::valueBox(
       format_perc(anticipated_growth_perc),
@@ -354,16 +361,16 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       color = "blue"
     )
   })
-  
+
 
   ## Estimated additional places - use QUAN_P_RP and QUAN_S_RP
 
   ## Caveats for BCP and Dorset and Northamptonshire
   output$quantity.bartext <- renderUI({
-    if (input$LA_choice %in% c("Dorset","Bournemouth, Christchurch and Poole")) {
+    if (input$LA_choice %in% c("Dorset", "Bournemouth, Christchurch and Poole")) {
       paste0("2009/10 data is not comparable because of 2019 boundary changes.
              Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for this LA.")
-    } else if (input$LA_choice %in% c("West Northamptonshire","North Northamptonshire")) {
+    } else if (input$LA_choice %in% c("West Northamptonshire", "North Northamptonshire")) {
       paste0("2009/10 data is not comparable because of 2021 boundary changes.
              Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for this LA.")
     } else if (input$LA_choice %in% c("Kent")) {
@@ -371,14 +378,14 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     }
   })
   # Current unfilled places
-  
+
   output$current_unfilled_places <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     unfilled_places_perc <- live_scorecard_data() %>%
       filter(name == "QuanUP") %>%
       pull(value) %>%
-      roundFiveUp(., 1) 
-    
+      roundFiveUp(., 1)
+
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(unfilled_places_perc, "%"),
@@ -387,7 +394,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       color = "blue"
     )
   })
-  
+
 
 
 
@@ -410,7 +417,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
 
   ## Estimated spare places
 
- 
+
   output$estimated_spare_places <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     spare_places_per <- live_scorecard_data() %>%
@@ -428,45 +435,43 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   })
 
   # Stop users being able to select chosen LA as benchmark LA for quantity chart
-  observeEvent(input$LA_choice,{
+  observeEvent(input$LA_choice, {
     updateSelectizeInput(
       session,
       "selectBenchLAs",
-      choices=levels(LA_benchmark_options %>% droplevels(exclude=input$LA_choice))
+      choices = levels(LA_benchmark_options %>% droplevels(exclude = input$LA_choice))
     )
-      }
-  )
+  })
   # Stop users being able to select chosen LA as benchmark LA for quality chart
-  observeEvent(input$LA_choice,{
+  observeEvent(input$LA_choice, {
     updateSelectizeInput(
       session,
       "selectBenchLAsquality",
-      choices=levels(
-        LA_benchmark_options_pref %>% droplevels(exclude=input$LA_choice))
+      choices = levels(
+        LA_benchmark_options_pref %>% droplevels(exclude = input$LA_choice)
+      )
     )
-  }
-  )
-  
+  })
+
   # Stop users being able to select chosen LA as benchmark LA for preference chart
-  observeEvent(input$LA_choice,{
+  observeEvent(input$LA_choice, {
     updateSelectizeInput(
       session,
       "selectBenchLAspref",
-      choices=levels(LA_benchmark_options_pref %>% droplevels(exclude=input$LA_choice))
+      choices = levels(LA_benchmark_options_pref %>% droplevels(exclude = input$LA_choice))
     )
-  }
-  )
-  
+  })
+
   ## Places bar
 
   output$places_chart <- renderPlotly({
     # Take filtered data, filter for the variables we want to plot and pivot data round
-    places_chart_data <-  live_scorecard_data_reactive_benchmark() %>%
+    places_chart_data <- live_scorecard_data_reactive_benchmark() %>%
       filter(name %in% c("QuanIn", "QuanPP", "QuanRP")) %>%
       select(LA_name, name, value) %>%
       pivot_wider() %>%
-      mutate(LA_name=factor(LA_name) %>% relevel(input$LA_choice))
-    
+      mutate(LA_name = factor(LA_name) %>% relevel(input$LA_choice))
+
     # create interactive  bar chart
     p <- plot_ly(
       places_chart_data,
@@ -489,15 +494,15 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         x = ~LA_name, y = ~QuanRP, marker = list(color = c("#6baed6")),
         name = paste0("Estimated additional places still needed to meet demand in ", plan_year),
         text = ~ scales::comma(QuanRP), textposition = "outside", cliponaxis = FALSE, textfont = list(color = "#000"),
-        width=0.2
+        width = 0.2
       ) %>%
       layout(
         yaxis = list(title = ""),
         xaxis = list(
           title = "",
-          categoryorder="array",
-          categoryarray=c(input$LA_choice, input$selectBenchLAs)
-          ),
+          categoryorder = "array",
+          categoryarray = c(input$LA_choice, input$selectBenchLAs)
+        ),
         barmode = "bar",
         uniformtext = list(minsize = 12, mode = "hide"),
         legend = list(orientation = "h"),
@@ -511,14 +516,14 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   })
 
   ## Places bar
-  
+
   output$places_chart_england <- renderPlotly({
     # Take filtered data, filter for the variables we want to plot and pivot data round
-    places_chart_England_data <-  live_scorecard_data() %>%
+    places_chart_England_data <- live_scorecard_data() %>%
       filter(name %in% c("QuanIn", "QuanPP", "QuanRP")) %>%
       select(LA_name, name, value) %>%
       pivot_wider()
-    
+
     # create interactive  bar chart
     p <- plot_ly(
       places_chart_England_data,
@@ -528,20 +533,20 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       add_trace(
         x = ~LA_name, y = ~QuanIn, marker = list(color = c("#08519c")),
         name = paste0("Total places created between 2009/10 and ", this_year),
-        text = ~ scales::comma(QuanIn),       textposition = "inside", textfont = list(color = "#FFF"),
-        width=0.2
-      )%>%
+        text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF"),
+        width = 0.2
+      ) %>%
       add_trace(
         x = ~LA_name, y = ~QuanPP, marker = list(color = c("#3182bd")),
         name = paste0("New places planned for delivery between ", this_year, " and ", plan_year),
         text = ~ scales::comma(QuanPP), textposition = "outside", textfont = list(color = "#000"),
-        width=0.2
+        width = 0.2
       ) %>%
       add_trace(
         x = ~LA_name, y = ~QuanRP, marker = list(color = c("#6baed6")),
         name = paste0("Estimated additional places still needed to meet demand in ", plan_year),
         text = ~ scales::comma(QuanRP), textposition = "outside", textfont = list(color = "#000"),
-        width=0.2
+        width = 0.2
       ) %>%
       layout(
         yaxis = list(title = ""),
@@ -557,7 +562,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       ) %>%
       config(displayModeBar = FALSE)
   })
-  
+
 
   ## Forecast accuracy labels
 
@@ -778,7 +783,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     )
   })
 
-  # Box for England % preference next year 
+  # Box for England % preference next year
   output$prefT3_NY_ENG <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     PrefT3_NY_E <- live_scorecard_data_all_la() %>%
@@ -786,7 +791,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       filter(LA_name == "England") %>%
       pull(value) %>%
       roundFiveUp(., 1)
-    
+
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(PrefT3_NY_E, "%"),
@@ -795,7 +800,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       color = "blue"
     )
   })
-  
+
   # Box for LA % preference current year
 
   output$PrefT3_CY_LA <- renderValueBox({
@@ -813,16 +818,16 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       color = "blue"
     )
   })
-  
+
   # Box for LA % preference next year
-  
+
   output$PrefT3_NY_LA <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     PrefT3_NY <- live_scorecard_data() %>%
       filter(name == "PrefT3_NY") %>%
       pull(value) %>%
       roundFiveUp(., 1)
-    
+
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(PrefT3_NY, "%"),
@@ -838,27 +843,29 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     # reshape the data so it plots neatly!
     preference_data <- live_scorecard_data_england_comp_pref() %>%
       # select only preference values
-      filter(name %in% c("Pref1_CY", "Pref2_CY", "Pref3_CY",
-                         "Pref1_NY", "Pref2_NY", "Pref3_NY")) %>%
+      filter(name %in% c(
+        "Pref1_CY", "Pref2_CY", "Pref3_CY",
+        "Pref1_NY", "Pref2_NY", "Pref3_NY"
+      )) %>%
       # Create groups for "current year" and "next year" places based on names
       mutate(preference_year = case_when(
         str_detect(name, "CY") ~ preference_current_year,
         str_detect(name, "NY") ~ preference_next_year
       )) %>%
-       # Create ratings out of the names
+      # Create ratings out of the names
       mutate(rating = case_when(
         str_detect(name, "1") ~ "First",
         str_detect(name, "2") ~ "Second",
         str_detect(name, "3") ~ "Third"
       ))
-    
+
     # Get % not getting 1st 2nd or 3rd preference
     preference_data_sum <- preference_data %>%
       group_by(preference_year, LA_name, LANumber, Phase) %>%
       summarise(value = 100 - sum(value)) %>%
       mutate(rating = "Other")
-    
-    
+
+
     preference_data <- preference_data %>%
       select(-name) %>%
       bind_rows(preference_data_sum) %>%
@@ -869,11 +876,11 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         value = as.numeric(roundFiveUp(value, 1)),
         value_label = if_else(value > 3, paste0(value, "%"), NA_character_)
       )
-    
-    
-    
+
+
+
     preference_p <- preference_data %>%
-      mutate(LA_name=factor(LA_name) %>% relevel(input$LA_choice)) %>% 
+      mutate(LA_name = factor(LA_name) %>% relevel(input$LA_choice)) %>%
       ggplot(aes(
         y = value, x = preference_year,
         fill = factor(rating),
@@ -892,10 +899,10 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         text = element_text(size = 14, family = "Arial"),
         strip.text.x = element_text(size = 20)
       )
-    
-    
+
+
     ggplotly(preference_p,
-             tooltip = c("text")
+      tooltip = c("text")
     ) %>%
       layout(
         uniformtext = list(minsize = 12, mode = "hide"),
@@ -913,7 +920,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       ) %>%
       config(displayModeBar = FALSE)
   })
-  
+
   # Quality -----------------------------------------------------------------
 
   # Change name of what "better than average" is depending on chart choice:

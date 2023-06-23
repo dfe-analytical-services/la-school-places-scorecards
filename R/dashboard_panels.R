@@ -10,7 +10,7 @@ panel_homepage <- function() {
     br("You can download a PDF version of the complete scorecard, by clicking the ‘download report’. Use the ‘download data’ button to
          download underlying data for all local authorities and England."),
     br("There are five scorecard metrics and more information on each metric can be found below. Each scorecard metric is shown on a different tab within 'LA scorecards'
-        and can be selected by clicking on the name of the metric."), 
+        and can be selected by clicking on the name of the metric."),
     br(),
     div(
       class = "panel panel-info",
@@ -38,24 +38,24 @@ panel_homepage <- function() {
         br(" •	estimated number of additional places still needed to meet demand in 2024/25 (same figure shown in the chart);"),
         " •	estimated percentage of spare places in 2024/25. It is common for a local authority to have both a need for additional places and spare capacity,
              reflecting pockets of localised need for places or pockets of localised spare places;",
-       br(" •	the total amount of", a(href = "https://www.gov.uk/government/publications/basic-need-allocations", "basic need capital funding"), "allocated to each local authority to create new places from 2011 to 2024; and"),
+        br(" •	the total amount of", a(href = "https://www.gov.uk/government/publications/basic-need-allocations", "basic need capital funding"), "allocated to each local authority to create new places from 2011 to 2024; and"),
         " •	the anticipated percentage change in pupil numbers in primary or secondary state-funded mainstream provision between 2022/23 to 2024/25.",
         br(),
-        br("In the box above the chart, users can select up to two additional local authorities to view their data in the chart, alongside their chosen local authority. 
+        br("In the box above the chart, users can select up to two additional local authorities to view their data in the chart, alongside their chosen local authority.
            Please note the headline boxes will not change when selecting local authorities to benchmark against. Users may wish to benchmark local authorities against their statistical neighbours found in the", a(href = "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/975117/Childrens_services_statistical_neighbour_benchmarking_tool_-_LGR_Version__April_2021_.xlsx", "Children's services statistical neighbour benchmarking tool.")),
-       # br(),
+        # br(),
         br("It is important to take care when making comparisons using the quantity measure. Local authorities vary in size and population and therefore vary in the number of schools and school places. Some local authorities have long-standing place pressure,
            whereas for others it has emerged more recently. Those experiencing long-standing place pressures will have had more chance to demonstrate that they can add large quantities of places."),
-       # br(),
+        # br(),
         br("Local authorities with relatively fewer places still needed are making good progress in delivering the places they anticipate are needed, however they may be good reasons for a local authority showing a significant number of places still needed to be created.
            For example, places from the department’s centrally funded free schools due to open in September 2024 onwards are not included in the calculations. Projects to add school places would not have been included in these calculations if they were only recently planned and/or confirmed. "),
-       # br(),
-        br("Unfilled places can be evidence of local authorities having planned ahead for future need. Unfilled places can also be attributed to the building of whole new schools, which fill up from the bottom, leaving space in the upper years until those year groups work their way through. 
+        # br(),
+        br("Unfilled places can be evidence of local authorities having planned ahead for future need. Unfilled places can also be attributed to the building of whole new schools, which fill up from the bottom, leaving space in the upper years until those year groups work their way through.
            In some areas, low or declining need for places will also contribute to the number of unfilled places."),
         br(),
         h4(actionLink("linkForecastTab", "Forecast Accuracy")),
-        br("Estimating place pressure in future years relies on the forecasts of pupil numbers made by local authorities, as provided in the annual school capacity survey. The scorecard illustrates the forecasting accuracy of the selected local authority for forecasts made one year ago and provided in SCAP22, 
-           and two years ago in SCAP21. These pupil forecasts have been compared with pupils on roll from the January 2023 school census numbers to produce a forecast accuracy score for one and two years ahead. A negative forecast accuracy score indicates an underestimation of pupils, 
+        br("Estimating place pressure in future years relies on the forecasts of pupil numbers made by local authorities, as provided in the annual school capacity survey. The scorecard illustrates the forecasting accuracy of the selected local authority for forecasts made one year ago and provided in SCAP22,
+           and two years ago in SCAP21. These pupil forecasts have been compared with pupils on roll from the January 2023 school census numbers to produce a forecast accuracy score for one and two years ahead. A negative forecast accuracy score indicates an underestimation of pupils,
            a positive score indicates an overestimation."),
         br(),
         h4(actionLink("linkPreferenceTab", "Preference")),
@@ -85,12 +85,10 @@ panel_homepage <- function() {
         br("The Capital Spend Survey that replaced the SCAP Capital Spend Data now collects data on project costs, however due to incomplete coverage it has not yet been incorporated into the scorecard.  The cost data used in the scorecard remains the Capital Spend Data from SCAP18. This was used in the 2018, 2019 and 2021 scorecards; there has been no change in the sample of projects. As done in 2021, for the 2022 Scorecard, the data has been adjusted for inflation (uprated to 1st quarter 2023 prices)."),
         br(strong("You can use the scorecard to view the national average cost per place for both primary and secondary school places. These are shown for permanent expansions, temporary expansions and new schools separately. You can also view, the national averages adjusted for 2023 regional location factors. ")),
         br("Because the sample of projects are from 2018, the local authority average costs are not shown in the 2022 scorecard. However, you can find these in the underlying data on explore education statistics if needed."),
-        br("There is further guidance on converting costs into current or future prices in the scorecard", actionLink("linkTechnicalnotesTab", "Technical Notes")), #‘Technical notes’.")
+        br("There is further guidance on converting costs into current or future prices in the scorecard", actionLink("linkTechnicalnotesTab", "Technical Notes")), # ‘Technical notes’.")
       )
-)
+    )
   )
-    
-  
 }
 
 
@@ -168,19 +166,18 @@ panel_scorecard <- function() {
                 gov_row(
                   column(
                     6,
-
-                                     p(strong("School places created, planned future places, additional places still needed, as at May", SCAP_ref)),
-                   conditionalPanel(condition = "input.LA_choice != 'England'", selectizeInput("selectBenchLAs",
-                                   "Select up to two benchmark LAs in box below",
-                                   choices = levels(LA_benchmark_options),
-                                   multiple = TRUE,
-                                   options = list(maxItems = 2))),
-                                   plotlyOutput("places_chart") ,
-                                   plotlyOutput("places_chart_england") ,
-                     uiOutput("quantity.bartext")
-                              ),
-                                column(
-
+                    p(strong("School places created, planned future places, additional places still needed, as at May", SCAP_ref)),
+                    conditionalPanel(condition = "input.LA_choice != 'England'", selectizeInput("selectBenchLAs",
+                      "Select up to two benchmark LAs in box below",
+                      choices = levels(LA_benchmark_options),
+                      multiple = TRUE,
+                      options = list(maxItems = 2)
+                    )),
+                    plotlyOutput("places_chart"),
+                    plotlyOutput("places_chart_england"),
+                    uiOutput("quantity.bartext")
+                  ),
+                  column(
                     6,
                     gov_row(
                       column(
@@ -189,7 +186,7 @@ panel_scorecard <- function() {
                         br(),
                         valueBoxOutput("pupil_growth", width = 6),
                         valueBoxOutput("current_unfilled_places", width = 6),
-                       strong(textOutput("quantitysubtitle")),
+                        strong(textOutput("quantitysubtitle")),
                         p("A local authority can have both ‘spare places’ and ‘additional places needed’ due to localised or specific year group demand"),
                         valueBoxOutput("estimated_additional_places", width = 6),
                         valueBoxOutput("estimated_spare_places", width = 6)
@@ -199,8 +196,8 @@ panel_scorecard <- function() {
                       column(
                         12,
                         valueBoxOutput("total_funding_box", width = 6),
-                        valueBoxOutput("pupil_anticipated_growth", width = 6)#,
-                        #uiOutput("quantity.bartext")
+                        valueBoxOutput("pupil_anticipated_growth", width = 6) # ,
+                        # uiOutput("quantity.bartext")
                       )
                     )
                   )
@@ -242,7 +239,7 @@ panel_scorecard <- function() {
                       dataTableOutput("for2year_table")
                     )
                   ),
-                             )
+                )
               )
             ),
             tabPanel(
@@ -252,7 +249,7 @@ panel_scorecard <- function() {
                 gov_row(
                   column(
                     width = 12,
-                    p(strong(paste0("School applications and offers for September ", preference_current_year, " and " , preference_next_year, " entry"))),
+                    p(strong(paste0("School applications and offers for September ", preference_current_year, " and ", preference_next_year, " entry"))),
                     # preference content to go here
                     valueBoxOutput("prefT3_NY_ENG", width = 3),
                     valueBoxOutput("PrefT3_NY_LA", width = 3),
@@ -265,11 +262,12 @@ panel_scorecard <- function() {
                     12,
                     p(strong(paste0("Proportion of applicants who received an offer of a school place in their first, second and third preferences"))),
                     conditionalPanel(condition = "input.LA_choice != 'England'", selectizeInput("selectBenchLAspref",
-                                                                                                "Select England or a LA to benchmark",
-                                                                                                choices = levels(LA_benchmark_options_pref),
-                                                                                                multiple = TRUE,
-                                                                                                options = list(maxItems = 1))),
-                                       plotlyOutput("preference_p") %>% withSpinner()
+                      "Select England or a LA to benchmark",
+                      choices = levels(LA_benchmark_options_pref),
+                      multiple = TRUE,
+                      options = list(maxItems = 1)
+                    )),
+                    plotlyOutput("preference_p") %>% withSpinner()
                   )
                 )
               )
@@ -293,10 +291,11 @@ panel_scorecard <- function() {
                     12,
                     p(strong(paste0("Number of new places created in schools of each category and number of existing school places in each category"))),
                     conditionalPanel(condition = "input.LA_choice != 'England'", selectizeInput("selectBenchLAsquality",
-                                                                                                "Select England or a LA to benchmark",
-                                                                                                choices = levels(LA_benchmark_options_pref),
-                                                                                                multiple = TRUE,
-                                                                                                options = list(maxItems = 1))),
+                      "Select England or a LA to benchmark",
+                      choices = levels(LA_benchmark_options_pref),
+                      multiple = TRUE,
+                      options = list(maxItems = 1)
+                    )),
                     plotlyOutput("quality_chart") %>% withSpinner()
                   )
                 ),
