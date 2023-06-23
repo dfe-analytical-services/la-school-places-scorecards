@@ -29,7 +29,7 @@ library(webshot)
 library(checkmate)
 
 # Phantom js needed for pdf compile to work. Note this works even on the shinyapps server.
-webshot::install_phantomjs()
+webshot::install_phantomjs(force = FALSE)
 
 # tidy_code_function -------------------------------------------------------------------------------
 
@@ -97,7 +97,9 @@ enableBookmarking(store = "url")
 # Reading and manipulating data
 # ----------------------------------------------------------------------------
 
-scorecards_data <- fread("data/scorecards_data.csv")
+
+scorecards_data <- fread("data/scorecards_data_dummy.csv")
+
 
 # pivot data around to long format
 scorecards_data_pivot <- scorecards_data %>%
@@ -106,7 +108,7 @@ scorecards_data_pivot <- scorecards_data %>%
   # assign phase based on names of columns
   mutate(
     Phase = ifelse(
-      str_detect(name, "_S_") | str_detect(name, "KS4") | name %in% c("For_3_S", "For_1_S"), "Secondary", "Primary"
+      str_detect(name, "_S_") | str_detect(name, "KS4") | name %in% c("For_2_S", "For_1_S"), "Secondary", "Primary"
     ),
     # remove the _S_, _P_ name identifiers so we can instead use the phase column to get data
     name = str_replace_all(name, "_S_", ""),
@@ -118,6 +120,30 @@ scorecards_data_pivot <- scorecards_data %>%
 
 # LA options - reordered
 LA_options <- sort(unique(scorecards_data$LA_name)) %>%
+  as.factor() %>%
+  relevel("England")
+
+# LA options - for benchmarking
+La_data_benchmark <- scorecards_data %>%
+  filter(LA_name != c("England"))
+
+# La_data_benchmark2 <- reactive({
+# scorecards_data %>%
+# filter (LA_name != input$LA_choice)
+# })
+
+LA_benchmark_options <-
+  sort(unique(La_data_benchmark$LA_name)) %>%
+  as.factor() %>%
+  relevel("Barking and Dagenham")
+
+LA_benchmark_options_pref <-
+  sort(unique(scorecards_data$LA_name)) %>%
+  as.factor() %>%
+  relevel("England")
+
+LA_benchmark_options_quality <-
+  sort(unique(scorecards_data$LA_name)) %>%
   as.factor() %>%
   relevel("England")
 
