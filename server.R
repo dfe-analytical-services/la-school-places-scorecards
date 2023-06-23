@@ -325,13 +325,13 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     growth_perc <- live_scorecard_data() %>%
       filter(name == "Bangro") %>%
-      pull(value) %>%
-      roundFiveUp(., 3) * 100
+      pull(value) #%>%
+     # roundFiveUp(., 3) * 100
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
-      paste0(growth_perc, "%"),
-      paste0("Actual growth in ", str_to_lower(input$phase_choice), " pupil numbers 2009/10 to ", next_year),
+      format_perc(growth_perc),
+      paste0("Actual change in ", str_to_lower(input$phase_choice), " pupil numbers 2009/10 to ", next_year),
       # icon = icon("fas fa-chart-line"),
       color = "blue"
     )
@@ -343,13 +343,13 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     anticipated_growth_perc <- live_scorecard_data() %>%
       filter(name == "Angro") %>%
-      pull(value) %>%
-      roundFiveUp(., 3) * 100
+      pull(value) #%>%
+     # roundFiveUp(., 3) * 100
     
     # Put value into box to plug into app
     shinydashboard::valueBox(
-      paste0(anticipated_growth_perc, "%"),
-      paste0("Anticipated growth in ", str_to_lower(input$phase_choice), " pupil numbers ", next_year, " to ", plan_year),
+      format_perc(anticipated_growth_perc),
+      paste0("Anticipated change in ", str_to_lower(input$phase_choice), " pupil numbers ", next_year, " to ", plan_year),
       # icon = icon("fas fa-chart-line"),
       color = "blue"
     )
