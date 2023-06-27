@@ -287,7 +287,7 @@ Anticipated change in `r str_to_lower(params$input_phase_choice)` pupil numbers 
 
 
 
-``` {r quantity_b, echo = FALSE, fig.show="hold", out.width = "100%",crop=TRUE}
+``` {r quantity_b, echo = FALSE, warning = FALSE, fig.show="hold", out.width = "100%",crop=TRUE}
 places_chart_data <- dfScorecardArea %>%
   filter(name %in% c("QuanIn", "QuanPP", "QuanRP")) %>%
   select(LA_name, name, value) %>%
