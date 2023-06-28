@@ -39,7 +39,7 @@ urlcolor: blue
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
 knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
 source("global.R")
 
@@ -564,7 +564,7 @@ Percentage of applicants who received an offer of one of their top three preferr
 }
 ```
 
-```{r preference_barchart, echo = FALSE, message=FALSE, out.width="100%", crop=TRUE}
+```{r preference_barchart, echo = FALSE, message=FALSE, fig.width=8, fig.height=4.2, crop=TRUE}
 # Scorecard data, filtered on user input AND including England as a comparison
 dfScorecardArea_england_comp <- scorecards_data_pivot %>%
   filter(
@@ -617,7 +617,7 @@ preference_data <- preference_data %>%
 
 
 # create charts
-preference_p <- preference_data %>%
+preference_data %>%
   ggplot(aes(
     y = value, x = preference_year,
     fill = factor(rating),
@@ -637,24 +637,9 @@ preference_p <- preference_data %>%
   theme_minimal() +
   theme(
     legend.position = "bottom",
-    text = element_text(size = 14, family = "Arial"),
-    strip.text.x = element_text(size = 20)
+    text = element_text(size = 12),
+    strip.text.x = element_text(size = 16)
   )
-ggplotly(preference_p,
-  width = 960, height = 480
-) %>%
-  layout(
-    uniformtext = list(minsize = 12, mode = "hide"),
-    xaxis = list(showticklabels = TRUE),
-    legend = list(
-      orientation = "h",
-      y = -0.1, x = 0.
-    ),
-    title = list(
-      font = list(color = "#ffffff")
-    )
-  ) %>%
-  config(displayModeBar = FALSE)
 ```
 
 \newpage
@@ -863,7 +848,7 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
 }
 
 
-``` {r quality_chart, out.width="92%", crop=TRUE}           
+``` {r quality_chart, fig.width=8, fig.height=4.2, crop=TRUE}           
 # Scorecard data, filtered on user input AND including England as a comparison
 dfScorecardArea_england_comp <- scorecards_data_pivot %>%
   filter(
@@ -928,7 +913,7 @@ ofsted_p <- ofsted_data %>%
   theme_minimal() +
   theme(
     legend.position = "bottom",
-    text = element_text(size = 14, family = "Arial"),
+    text = element_text(size = 14),
     strip.text.x = element_text(size = 20)
   )
 
@@ -996,7 +981,7 @@ progress_8_p <- progress_8_data %>%
   theme_minimal() +
   theme(
     legend.position = "bottom",
-    text = element_text(size = 14, family = "Arial")
+    text = element_text(size = 14)
   )
 
 if (params$input_la_choice == "England" & params$input_quality_chart == "Progress 8") {
@@ -1061,7 +1046,7 @@ progress_reading_p <- progress_reading_data %>%
   theme_minimal() +
   theme(
     legend.position = "bottom",
-    text = element_text(size = 14, family = "Arial")
+    text = element_text(size = 14)
   )
 
 
@@ -1127,7 +1112,7 @@ progress_maths_p <- progress_maths_data %>%
   theme_minimal() +
   theme(
     legend.position = "bottom",
-    text = element_text(size = 14, family = "Arial")
+    text = element_text(size = 14)
   )
 
 if (params$input_la_choice == "England" & params$input_quality_chart == "Maths Progress") {
@@ -1158,22 +1143,7 @@ if (params$input_quality_chart == "Ofsted") {
 }
 
 
-ggplotly(quality_chart_choice,
-  width = 900, height = 480,
-) %>%
-  layout(
-    xaxis = list(showticklabels = TRUE),
-    scale_y_continuous(labels = scales::percent_format(accuracy = 1)),
-    legend = list(
-      orientation = "h",
-      y = -0.1, x = 0.2
-    ),
-    title = list(
-      text = "Chart showing the quality of new and existing school places, by Local Authority compared to England",
-      font = list(color = "#ffffff")
-    )
-  ) %>%
-  config(displayModeBar = FALSE)
+quality_chart_choice
 ```
 
 New places with no rating =  `r scales::comma(no_rating)` 
