@@ -186,12 +186,12 @@ panel_scorecard <- function() {
                         br(),
                         valueBoxOutput("pupil_growth", width = 6),
                         valueBoxOutput("current_unfilled_places", width = 6)
-                        )
-                      ),
-                        gov_row(
-                          column(
-                            12,
-                            strong(textOutput("quantitysubtitle")),
+                      )
+                    ),
+                    gov_row(
+                      column(
+                        12,
+                        strong(textOutput("quantitysubtitle")),
                         p("A local authority can have both ‘spare places’ and ‘additional places needed’ due to localised or specific year group demand"),
                         valueBoxOutput("estimated_additional_places", width = 6),
                         valueBoxOutput("estimated_spare_places", width = 6)
