@@ -1,4 +1,4 @@
-ui <- function(input, output, session) {
+renui <- function(input, output, session) {
   fluidPage(
     #    use_tota11y(),
     title = tags$head(

@@ -39,7 +39,7 @@ urlcolor: blue
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
 knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
 source("global.R")
 
@@ -91,32 +91,75 @@ total_funding <- scorecards_data %>%
   as.numeric()
 
 
-growth_perc <- dfScorecardArea %>%
-  filter(name == "Bangro") %>%
-  pull(value) %>%
-  roundFiveUp(., 3) * 100
-
-# PDisplay growth in pupil numbers
-textTopLineGrowth <- paste0("Growth in ", str_to_lower(params$input_phase_choice), " pupil numbers 2009/10 to ", plan_year, ": ", growth_perc, "%")
 
 dfTopLine <- data.frame(
   funding = ifelse(params$input_la_choice == "England",
     paste0(total_funding, "billion"),
     paste0(total_funding, "million")
   ),
-  empty = "",
-  growth = paste0(growth_perc, "%")
+  empty = ""
 )
 colnames(dfTopLine) <- c(
-  paste0("Total primary and secondary basic need funding ", funding_year), " ",
-  paste0("Growth in", str_to_lower(params$input_phase_choice), "pupil numbers 2009/10 ", plan_year)
+  paste0("Total primary and secondary basic need funding ", funding_year), " "
 )
 ```
 
+```{r growth in pupil number, echo = FALSE}
+# Display growth in pupil numbers
+
+growth_perc <- dfScorecardArea %>%
+  filter(name == "Bangro") %>%
+  pull(value) # %>%
+# roundFiveUp(., 3) * 100
+
+anticipated_growth_perc <- dfScorecardArea %>%
+  filter(name == "Angro") %>%
+  pull(value) # %>%
+# roundFiveUp(., 3) * 100
+
+anticipated_growth_perc1 <- format_perc(anticipated_growth_perc)
+
+textTopLineGrowth <- paste0("Growth in ", str_to_lower(params$input_phase_choice), " pupil numbers 2009/10 to ", next_year, ": ", format_perc(growth_perc), "%")
+
+textTopLineAnticipatedGrowth <- paste0("Anticipated growth in ", str_to_lower(params$input_phase_choice), " pupil numbers ", next_year, " to ", plan_year, ": ", format_perc(anticipated_growth_perc), "%")
+```
+
+
+```{r unfilled places, echo = FALSE}
+# Display growth in pupil numbers
+
+
+unfilled_places_perc <- dfScorecardArea %>%
+  filter(name == "QuanUP") %>%
+  pull(value) %>%
+  roundFiveUp(., 1)
+
+textTopLineunfilledplaces <- paste0("Current percentage of unfilled ", str_to_lower(params$input_phase_choice), " places ", this_year, ": ", unfilled_places_perc, "%")
+```
+
+Pupils in places
 
 \makebox[1.00\linewidth]{
 \centering
 
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.49\linewidth,
+ boxrule=0pt,
+ equal height group=introbox
+ ]
+`r format_perc(growth_perc,output = "latex")`
+\tcblower
+Change in `r str_to_lower(params$input_phase_choice)` pupil numbers 2009/10 to `r next_year`
+\end{tcolorbox}
+
+
 
 \begin{tcolorbox}[colback=gssmidblue, 
  leftright skip=0.1cm,
@@ -130,28 +173,14 @@ colnames(dfTopLine) <- c(
  boxrule=0pt,
  equal height group=introbox
  ]
-£`r ifelse(params$input_la_choice== "England",paste0(total_funding, "billion"),paste0(total_funding, "million"))`
+`r unfilled_places_perc`\%
 \tcblower
-Total primary and secondary basic need funding `r funding_year`
+Current percentage of unfilled `r str_to_lower(params$input_phase_choice)` places `r this_year`
 \end{tcolorbox}
 
 
-\begin{tcolorbox}[colback=gssmidblue, 
- leftright skip=0.1cm,
- coltext=white, 
- halign=left, 
- fontupper={\Huge \bfseries},
- fontlower={\large \bfseries},
- sharp corners, 
- colframe=gssmidblue,
- width=0.49\linewidth,
- boxrule=0pt,
- equal height group=introbox
- ]
-`r growth_perc`\%
-\tcblower
-Growth in `r str_to_lower(params$input_phase_choice)` pupil numbers 2009/10 to `r plan_year`
-\end{tcolorbox}
+
+
 }
 
 ### Places created since 2009/10, places planned to `r plan_year` and estimated place pressure in `r plan_year`
@@ -216,7 +245,49 @@ Estimated percentage of spare `r str_to_lower(params$input_phase_choice)` places
 \end{tcolorbox}
 }
 
-``` {r quantity_b, echo = FALSE, fig.show="hold", out.width = "100%",crop=TRUE}
+\makebox[1.0\linewidth]{
+\centering
+
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.49\linewidth,
+ boxrule=0pt,
+ equal height group=introbox
+ ]
+£`r ifelse(params$input_la_choice== "England",paste0(total_funding, "billion"),paste0(total_funding, "million"))`
+\tcblower
+Total primary and secondary basic need funding `r funding_year`
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.49\linewidth,
+ boxrule=0pt,
+ equal height group=introbox
+ ]
+`r format_perc(anticipated_growth_perc,output = "latex")`
+\tcblower
+Anticipated change in `r str_to_lower(params$input_phase_choice)` pupil numbers `r next_year` to `r plan_year`
+\end{tcolorbox}
+
+}
+
+
+
+
+``` {r quantity_b, echo = FALSE, warning = FALSE, fig.show="hold", out.width = "100%",crop=TRUE}
 places_chart_data <- dfScorecardArea %>%
   filter(name %in% c("QuanIn", "QuanPP", "QuanRP")) %>%
   select(LA_name, name, value) %>%
@@ -228,14 +299,14 @@ plot_ly(
   x = ~LA_name, y = ~QuanIn,
   marker = list(color = c("#08519c")),
   type = "bar", name = paste0("Total places created between 2009/10 and ", this_year),
-  text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF")
+  text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF", width = 0.2)
 ) %>%
-  add_trace(y = ~QuanPP, marker = list(color = c("#3182bd")), name = paste0("New places already planned for delivery between ", this_year, " and ", plan_year), text = ~ scales::comma(QuanPP), textposition = "inside") %>%
-  add_trace(y = ~QuanRP, marker = list(color = c("#6baed6")), name = paste0("Estimated additional places still needed to meet demand in ", plan_year), text = ~ scales::comma(QuanRP), textposition = "inside") %>%
+  add_trace(y = ~QuanPP, marker = list(color = c("#3182bd")), name = paste0("New places already planned for delivery between ", this_year, " and ", plan_year), text = ~ scales::comma(QuanPP), textposition = "outside", cliponaxis = FALSE, textfont = list(color = "#000"), width = 0.2) %>%
+  add_trace(y = ~QuanRP, marker = list(color = c("#6baed6")), name = paste0("Estimated additional places still needed to meet demand in ", plan_year), text = ~ scales::comma(QuanRP), textposition = "outside", cliponaxis = FALSE, textfont = list(color = "#000"), width = 0.2) %>%
   layout(
     yaxis = list(title = ""),
     xaxis = list(title = ""),
-    barmode = "stack",
+    barmode = "bar",
     uniformtext = list(minsize = 12, mode = "hide"),
     legend = list(orientation = "h"),
     title = list(
@@ -245,7 +316,6 @@ plot_ly(
   ) %>%
   config(displayModeBar = FALSE)
 ```
-
 \newpage
   
 ## Forecast Accuracy
@@ -262,8 +332,8 @@ summary_stats_1yr <- forecast_summary_stats(
   dfScorecardsAll, 1,
   params$input_phase_choice
 )
-summary_stats_3yr <- forecast_summary_stats(
-  dfScorecardsAll, 3,
+summary_stats_2yr <- forecast_summary_stats(
+  dfScorecardsAll, 2,
   params$input_phase_choice
 )
 ```
@@ -287,21 +357,21 @@ oneyearlabel <-
     paste0("<b>One year ahead: ")
   }
 
-forecast_accuracy_3yr <- dfScorecardArea %>%
-  filter(name == "For_3") %>%
+forecast_accuracy_2yr <- dfScorecardArea %>%
+  filter(name == "For_2") %>%
   pull(value) %>%
-  roundFiveUp(., 3) #* 100
+  roundFiveUp(., 2) #* 100
 
-label_desc_3yr <- forecast_accuracy_desclabel(
-  forecast_accuracy_3yr,
+label_desc_2yr <- forecast_accuracy_desclabel(
+  forecast_accuracy_2yr,
   params$input_la_choice,
-  summary_stats_3yr
+  summary_stats_2yr
 )
 threeyearlabel <-
-  if (label_desc_3yr != "accurate") {
-    paste0("Three years ahead: ", format_perc(forecast_accuracy_3yr, output = "latex"))
+  if (label_desc_2yr != "accurate") {
+    paste0("Two years ahead: ", format_perc(forecast_accuracy_2yr, output = "latex"))
   } else {
-    paste0("<b>Three years ahead: ")
+    paste0("<b>Two years ahead: ")
   }
 ```
 
@@ -315,7 +385,7 @@ cat(threeyearlabel)
 cat("\\ \\\\")
 cat(label_desc_1yr)
 cat("&")
-cat(label_desc_3yr)
+cat(label_desc_2yr)
 cat(" \\\\")
 cat("\\end{tabular}")
 ```
@@ -332,7 +402,7 @@ plot_forecast(
   dfScorecardArea,
   dfScorecardsAll,
   params$input_la_choice,
-  params$input_phase_choice, 3
+  params$input_phase_choice, 2
 )
 ```
 
@@ -342,8 +412,8 @@ facc_table1 <- as.data.frame(
   summary_stats_1yr %>% mutate(accuracy = format_perc(accuracy)) %>%
     pivot_wider(names_from = quantile, values_from = accuracy)
 )
-facc_table3 <- as.data.frame(
-  summary_stats_3yr %>% mutate(accuracy = format_perc(accuracy)) %>%
+facc_table2 <- as.data.frame(
+  summary_stats_2yr %>% mutate(accuracy = format_perc(accuracy)) %>%
     pivot_wider(names_from = quantile, values_from = accuracy)
 )
 
@@ -354,30 +424,31 @@ print(knitr::kable(facc_table1, "latex", booktabs = T))
 cat("&")
 cat("\\footnotesize ")
 cat("\\centering ")
-print(knitr::kable(facc_table3, "latex", booktabs = T))
+print(knitr::kable(facc_table2, "latex", booktabs = T))
 cat("\\end{tabular}")
 ```
+
+
 
 \newpage
 
 ## Preference
+### Proportion of applicants who received an offer of one of their top three preference schools for September `r preference_next_year` entry
 
-### Proportion of applicants who received an offer of one of their top three preference schools for September `r preference_year` entry
-
-```{r preference_text, echo = FALSE, message=FALSE}
+```{r preference_text_NY, echo = FALSE, message=FALSE}
 dfScorecardArea_all_la <- scorecards_data_pivot %>% filter(Phase == params$input_phase_choice)
 
 
 # Take filtered data, search for growth rate, pull the value and tidy the number up
-PrefT3_E <- dfScorecardArea_all_la %>%
-  filter(name == "PrefT3") %>%
+PrefT3_NY_E <- dfScorecardArea_all_la %>%
+  filter(name == "PrefT3_NY") %>%
   filter(LA_name == "England") %>%
   pull(value) %>%
   roundFiveUp(., 1)
 
 # Take filtered data, search for growth rate, pull the value and tidy the number up
-PrefT3 <- dfScorecardArea %>%
-  filter(name == "PrefT3") %>%
+PrefT3_NY <- dfScorecardArea %>%
+  filter(name == "PrefT3_NY") %>%
   pull(value) %>%
   roundFiveUp(., 1)
 ```
@@ -396,7 +467,7 @@ PrefT3 <- dfScorecardArea %>%
  boxrule=0pt ,
  equal height group=prefbox
  ]
-`r PrefT3_E`\%
+`r PrefT3_NY_E`\%
 \tcblower
 Percentage of applicants who received an offer of one of their top three preferred `r str_to_lower(params$input_phase_choice)` schools in England
 \end{tcolorbox}
@@ -415,7 +486,72 @@ if (params$input_la_choice != "England") {
  boxrule=0pt,
  equal height group=prefbox
  ]
-", PrefT3, "\\%
+", PrefT3_NY, "\\%
+\\tcblower
+Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(params$input_phase_choice), " schools in ", params$input_la_choice, "
+\\end{tcolorbox}
+}
+"))
+} else {
+  cat("
+}
+")
+}
+```
+### Proportion of applicants who received an offer of one of their top three preference schools for September `r preference_current_year` entry
+
+```{r preference_text_CY, echo = FALSE, message=FALSE}
+dfScorecardArea_all_la <- scorecards_data_pivot %>% filter(Phase == params$input_phase_choice)
+
+
+# Take filtered data, search for growth rate, pull the value and tidy the number up
+PrefT3_CY_E <- dfScorecardArea_all_la %>%
+  filter(name == "PrefT3_CY") %>%
+  filter(LA_name == "England") %>%
+  pull(value) %>%
+  roundFiveUp(., 1)
+
+# Take filtered data, search for growth rate, pull the value and tidy the number up
+PrefT3_CY <- dfScorecardArea %>%
+  filter(name == "PrefT3_CY") %>%
+  pull(value) %>%
+  roundFiveUp(., 1)
+```
+
+\makebox[1.0\linewidth]{
+\centering
+\begin{tcolorbox}[colback=gssmidblue, 
+ leftright skip=0.1cm,
+ coltext=white, 
+ halign=left, 
+ fontupper={\Huge \bfseries},
+ fontlower={\large \bfseries},
+ sharp corners, 
+ colframe=gssmidblue,
+ width=0.49\linewidth,
+ boxrule=0pt ,
+ equal height group=prefbox
+ ]
+`r PrefT3_CY_E`\%
+\tcblower
+Percentage of applicants who received an offer of one of their top three preferred `r str_to_lower(params$input_phase_choice)` schools in England
+\end{tcolorbox}
+
+``` {r echo = FALSE, warning = FALSE, message=FALSE, results='asis'}
+if (params$input_la_choice != "England") {
+  cat(paste0("\\begin{tcolorbox}[colback=gssmidblue,
+ leftright skip=0.1cm,
+ coltext=white,
+ halign=left,
+ fontupper={\\Huge \\bfseries},
+ fontlower={\\large \\bfseries},
+ sharp corners,
+ colframe=gssmidblue,
+ width=0.49\\linewidth,
+ boxrule=0pt,
+ equal height group=prefbox
+ ]
+", PrefT3_CY, "\\%
 \\tcblower
 Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(params$input_phase_choice), " schools in ", params$input_la_choice, "
 \\end{tcolorbox}
@@ -428,7 +564,7 @@ Percentage of applicants who received an offer of one of their top three preferr
 }
 ```
 
-```{r preference_barchart, echo = FALSE, message=FALSE, out.width="100%", crop=TRUE}
+```{r preference_barchart, echo = FALSE, message=FALSE, fig.width=8, fig.height=4.2, crop=TRUE}
 # Scorecard data, filtered on user input AND including England as a comparison
 dfScorecardArea_england_comp <- scorecards_data_pivot %>%
   filter(
@@ -445,7 +581,15 @@ dfScorecardArea_england_comp <- scorecards_data_pivot %>%
 # reshape the data so it plots neatly!
 preference_data <- dfScorecardArea_england_comp %>%
   # select only preference values
-  filter(name %in% c("Pref1", "Pref2", "Pref3")) %>%
+  filter(name %in% c(
+    "Pref1_CY", "Pref2_CY", "Pref3_CY",
+    "Pref1_NY", "Pref2_NY", "Pref3_NY"
+  )) %>%
+  # Create groups for "current year" and "next year" places based on names
+  mutate(preference_year = case_when(
+    str_detect(name, "CY") ~ preference_current_year,
+    str_detect(name, "NY") ~ preference_next_year
+  )) %>%
   # Create ratings out of the names
   mutate(rating = case_when(
     str_detect(name, "1") ~ "First choice",
@@ -455,7 +599,7 @@ preference_data <- dfScorecardArea_england_comp %>%
 
 # Get % not getting 1st 2nd or 3rd preference
 preference_data_sum <- preference_data %>%
-  group_by(LA_name, LANumber, Phase) %>%
+  group_by(preference_year, LA_name, LANumber, Phase) %>%
   summarise(value = 100 - sum(value)) %>%
   mutate(rating = "Other")
 
@@ -473,9 +617,9 @@ preference_data <- preference_data %>%
 
 
 # create charts
-preference_p <- preference_data %>%
+preference_data %>%
   ggplot(aes(
-    y = value, x = "",
+    y = value, x = preference_year,
     fill = factor(rating),
     text = paste(rating, ": ", value, "%")
   )) +
@@ -493,24 +637,9 @@ preference_p <- preference_data %>%
   theme_minimal() +
   theme(
     legend.position = "bottom",
-    text = element_text(size = 14, family = "Arial"),
-    strip.text.x = element_text(size = 20)
+    text = element_text(size = 12),
+    strip.text.x = element_text(size = 16)
   )
-ggplotly(preference_p,
-  width = 960, height = 480
-) %>%
-  layout(
-    uniformtext = list(minsize = 12, mode = "hide"),
-    xaxis = list(showticklabels = TRUE),
-    legend = list(
-      orientation = "h",
-      y = -0.1, x = 0.
-    ),
-    title = list(
-      font = list(color = "#ffffff")
-    )
-  ) %>%
-  config(displayModeBar = FALSE)
 ```
 
 \newpage
@@ -719,7 +848,7 @@ LA Rank out of ", LA_denom, " LAs that created new places between ", last_year, 
 }
 
 
-``` {r quality_chart, out.width="92%", crop=TRUE}           
+``` {r quality_chart, fig.width=8, fig.height=4.2, crop=TRUE}           
 # Scorecard data, filtered on user input AND including England as a comparison
 dfScorecardArea_england_comp <- scorecards_data_pivot %>%
   filter(
@@ -784,7 +913,7 @@ ofsted_p <- ofsted_data %>%
   theme_minimal() +
   theme(
     legend.position = "bottom",
-    text = element_text(size = 14, family = "Arial"),
+    text = element_text(size = 14),
     strip.text.x = element_text(size = 20)
   )
 
@@ -852,7 +981,7 @@ progress_8_p <- progress_8_data %>%
   theme_minimal() +
   theme(
     legend.position = "bottom",
-    text = element_text(size = 14, family = "Arial")
+    text = element_text(size = 14)
   )
 
 if (params$input_la_choice == "England" & params$input_quality_chart == "Progress 8") {
@@ -917,7 +1046,7 @@ progress_reading_p <- progress_reading_data %>%
   theme_minimal() +
   theme(
     legend.position = "bottom",
-    text = element_text(size = 14, family = "Arial")
+    text = element_text(size = 14)
   )
 
 
@@ -983,7 +1112,7 @@ progress_maths_p <- progress_maths_data %>%
   theme_minimal() +
   theme(
     legend.position = "bottom",
-    text = element_text(size = 14, family = "Arial")
+    text = element_text(size = 14)
   )
 
 if (params$input_la_choice == "England" & params$input_quality_chart == "Maths Progress") {
@@ -1014,22 +1143,7 @@ if (params$input_quality_chart == "Ofsted") {
 }
 
 
-ggplotly(quality_chart_choice,
-  width = 900, height = 480,
-) %>%
-  layout(
-    xaxis = list(showticklabels = TRUE),
-    scale_y_continuous(labels = scales::percent_format(accuracy = 1)),
-    legend = list(
-      orientation = "h",
-      y = -0.1, x = 0.2
-    ),
-    title = list(
-      text = "Chart showing the quality of new and existing school places, by Local Authority compared to England",
-      font = list(color = "#ffffff")
-    )
-  ) %>%
-  config(displayModeBar = FALSE)
+quality_chart_choice
 ```
 
 New places with no rating =  `r scales::comma(no_rating)` 

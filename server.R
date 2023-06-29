@@ -155,6 +155,23 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     as.factor() %>%
     relevel("England")
 
+
+  La_data_benchmark <- scorecards_data %>%
+    filter(LA_name != c("England"))
+
+  # La_data_benchmark2 <- reactive({
+  # scorecards_data %>%
+  # filter (LA_name != input$LA_choice)
+  # })
+
+  LA_benchmark_options <- sort(unique(La_data_benchmark$LA_name)) %>%
+    factor()
+
+  LA_benchmark_options_pref <-
+    sort(unique(scorecards_data$LA_name)) %>%
+    as.factor() %>%
+    relevel("England")
+
   # Scorecard data, filtered on user input
   live_scorecard_data <- reactive({
     scorecards_data_pivot %>% filter(
@@ -164,6 +181,44 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   })
 
   # Scorecard data, filtered on user input AND including England as a comparison
+  live_scorecard_data_england_comp_pref <- reactive({
+    scorecards_data_pivot %>%
+      filter(
+        case_when(
+          input$LA_choice != "England" ~ LA_name %in% c(input$LA_choice, input$selectBenchLAspref),
+          TRUE ~ LA_name %in% c(input$LA_choice)
+        ),
+        Phase == input$phase_choice
+      ) %>%
+      mutate(
+        # This step just makes sure that the LA is FIRST when it comes to plots/tables
+        LA_name = factor(LA_name) %>% relevel(input$LA_choice)
+      )
+  })
+
+  # Scorecard data, filtered on user input AND including England as a comparison
+  live_scorecard_data_england_comp_quality <- reactive({
+    scorecards_data_pivot %>%
+      filter(
+        case_when(
+          input$LA_choice != "England" ~ LA_name %in% c(input$LA_choice, input$selectBenchLAsquality),
+          TRUE ~ LA_name %in% c(input$LA_choice)
+        ),
+        Phase == input$phase_choice
+      ) %>%
+      mutate(
+        # This step just makes sure that the LA is FIRST when it comes to plots/tables
+        LA_name = factor(LA_name) %>% relevel(input$LA_choice)
+      )
+  })
+
+
+  # Scorecard data for ALL LAs, filtered only on phase choice
+  live_scorecard_data_all_la <- reactive({
+    scorecards_data_pivot %>% filter(Phase == input$phase_choice)
+  })
+
+  # Scorecard data, filtered on user input AND including England as a comparison for cost data
   live_scorecard_data_england_comp <- reactive({
     scorecards_data_pivot %>%
       filter(
@@ -178,11 +233,15 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       )
   })
 
-  # Scorecard data for ALL LAs, filtered only on phase choice
-  live_scorecard_data_all_la <- reactive({
-    scorecards_data_pivot %>% filter(Phase == input$phase_choice)
+  ## scorecard data, filtered on user input and benchmarking choice Las as a comparison
+  live_scorecard_data_reactive_benchmark <- reactive({
+    scorecards_data_pivot %>%
+      filter(
+        LA_name %in% c(input$LA_choice, input$selectBenchLAs),
+        Phase == input$phase_choice
+      ) %>%
+      mutate(LA_name = factor(LA_name, levels = c(input$LA_choice, input$selectBenchLAs)))
   })
-
   # Options for chart choice - dependent on phase choice
 
   # chart_options <- reactive({
@@ -211,12 +270,26 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     paste0("Data for ", str_to_lower(input$phase_choice), " state-funded school places in ", input$LA_choice)
   })
 
+  output$quantitysubtitle <- renderText({
+    paste0("Estimated future school place demand for ", input$LA_choice)
+  })
+
 
 
   ## create quality heading
   output$quality_description <- renderText({
     paste0("Quality of school places created between ", last_year, " and ", this_year, " based on ", chart_choice)
   })
+
+
+  # Quantity ----------------------------------------------------------------
+
+
+  ## create quantity
+  output$pupil_subtitle <- renderText({
+    paste0("Pupils in places in ", input$LA_choice)
+  })
+
 
 
   ## Total funding
@@ -253,42 +326,79 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     }
   })
 
-  ## Growth in pupil numbers
+  ## Growth in pupil numbers (actual)
 
   output$pupil_growth <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     growth_perc <- live_scorecard_data() %>%
       filter(name == "Bangro") %>%
-      pull(value) %>%
-      roundFiveUp(., 3) * 100
+      pull(value) # %>%
+    # roundFiveUp(., 3) * 100
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
-      paste0(growth_perc, "%"),
-      paste0("Anticipated growth in ", str_to_lower(input$phase_choice), " pupil numbers 2009/10 to ", plan_year),
+      format_perc(growth_perc),
+      paste0("Actual change in ", str_to_lower(input$phase_choice), " pupil numbers 2009/10 to ", next_year),
+      # icon = icon("fas fa-chart-line"),
+      color = "blue"
+    )
+  })
+
+  # Anticipated pupil growth
+
+  output$pupil_anticipated_growth <- renderValueBox({
+    # Take filtered data, search for growth rate, pull the value and tidy the number up
+    anticipated_growth_perc <- live_scorecard_data() %>%
+      filter(name == "Angro") %>%
+      pull(value) # %>%
+    # roundFiveUp(., 3) * 100
+
+    # Put value into box to plug into app
+    shinydashboard::valueBox(
+      format_perc(anticipated_growth_perc),
+      paste0("Anticipated change in ", str_to_lower(input$phase_choice), " pupil numbers ", next_year, " to ", plan_year),
       # icon = icon("fas fa-chart-line"),
       color = "blue"
     )
   })
 
 
-  # Quantity ----------------------------------------------------------------
-
   ## Estimated additional places - use QUAN_P_RP and QUAN_S_RP
 
-  ## Caveats for BCP and Dorset
+  ## Caveats for BCP and Dorset and Northamptonshire
   output$quantity.bartext <- renderUI({
-    if (input$LA_choice == "Dorset") {
+    if (input$LA_choice %in% c("Dorset", "Bournemouth, Christchurch and Poole")) {
       paste0("2009/10 data is not comparable because of 2019 boundary changes.
-             Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for Dorset.")
-    } else if (input$LA_choice == "Bournemouth, Christchurch and Poole") {
-      paste0("2009/10 data is not comparable because of 2019 boundary changes.
-             Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for Bournemouth, Christchurch and Poole .")
+             Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for this LA.")
+    } else if (input$LA_choice %in% c("West Northamptonshire", "North Northamptonshire")) {
+      paste0("2009/10 data is not comparable because of 2021 boundary changes.
+             Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for this LA.")
+    } else if (input$LA_choice %in% c("Kent")) {
+      paste0("Caution should be taken with Kent's estimated additional places needed to meet demand in 2024/25 and estimated percentage of spare places in 2024/25 as at the time of the 2022 School Capacity publication, planning area level forecasts for Kent were yet to be signed off and were subject to change.")
     }
+  })
+  # Current unfilled places
+
+  output$current_unfilled_places <- renderValueBox({
+    # Take filtered data, search for growth rate, pull the value and tidy the number up
+    unfilled_places_perc <- live_scorecard_data() %>%
+      filter(name == "QuanUP") %>%
+      pull(value) %>%
+      roundFiveUp(., 1)
+
+    # Put value into box to plug into app
+    shinydashboard::valueBox(
+      paste0(unfilled_places_perc, "%"),
+      paste0("Current percentage of unfilled ", str_to_lower(input$phase_choice), " places ", this_year),
+      # icon = icon("fas fa-signal"),
+      color = "blue"
+    )
   })
 
 
-  # Box to go here (use pupil growth as template)
+
+
+  # Estimatd additional places
 
   output$estimated_additional_places <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
@@ -307,7 +417,6 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
 
   ## Estimated spare places
 
-  # Box to go here (use pupil growth as template)
 
   output$estimated_spare_places <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
@@ -325,18 +434,99 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     )
   })
 
-  ## Places stacked bar
+  # Stop users being able to select chosen LA as benchmark LA for quantity chart
+  observeEvent(input$LA_choice, {
+    updateSelectizeInput(
+      session,
+      "selectBenchLAs",
+      choices = levels(LA_benchmark_options %>% droplevels(exclude = input$LA_choice))
+    )
+  })
+  # Stop users being able to select chosen LA as benchmark LA for quality chart
+  observeEvent(input$LA_choice, {
+    updateSelectizeInput(
+      session,
+      "selectBenchLAsquality",
+      choices = levels(
+        LA_benchmark_options_pref %>% droplevels(exclude = input$LA_choice)
+      )
+    )
+  })
+
+  # Stop users being able to select chosen LA as benchmark LA for preference chart
+  observeEvent(input$LA_choice, {
+    updateSelectizeInput(
+      session,
+      "selectBenchLAspref",
+      choices = levels(LA_benchmark_options_pref %>% droplevels(exclude = input$LA_choice))
+    )
+  })
+
+  ## Places bar
 
   output$places_chart <- renderPlotly({
     # Take filtered data, filter for the variables we want to plot and pivot data round
-    places_chart_data <- live_scorecard_data() %>%
+    places_chart_data <- live_scorecard_data_reactive_benchmark() %>%
+      filter(name %in% c("QuanIn", "QuanPP", "QuanRP")) %>%
+      select(LA_name, name, value) %>%
+      pivot_wider() %>%
+      mutate(LA_name = factor(LA_name) %>% relevel(input$LA_choice))
+
+    # create interactive  bar chart
+    p <- plot_ly(
+      places_chart_data,
+      type = "bar",
+      hoverinfo = "text"
+    ) %>%
+      add_trace(
+        x = ~LA_name, y = ~QuanIn, marker = list(color = c("#08519c")),
+        name = paste0("Total places created between 2009/10 and ", this_year),
+        text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF"),
+        width = 0.2
+      ) %>%
+      add_trace(
+        x = ~LA_name, y = ~QuanPP, marker = list(color = c("#3182bd")),
+        name = paste0("New places planned for delivery between ", this_year, " and ", plan_year),
+        text = ~ scales::comma(QuanPP), textposition = "outside", cliponaxis = FALSE, textfont = list(color = "#000"),
+        width = 0.2
+      ) %>%
+      add_trace(
+        x = ~LA_name, y = ~QuanRP, marker = list(color = c("#6baed6")),
+        name = paste0("Estimated additional places still needed to meet demand in ", plan_year),
+        text = ~ scales::comma(QuanRP), textposition = "outside", cliponaxis = FALSE, textfont = list(color = "#000"),
+        width = 0.2
+      ) %>%
+      layout(
+        yaxis = list(title = ""),
+        xaxis = list(
+          title = "",
+          categoryorder = "array",
+          categoryarray = c(input$LA_choice, input$selectBenchLAs)
+        ),
+        barmode = "bar",
+        uniformtext = list(minsize = 12, mode = "hide"),
+        legend = list(orientation = "h"),
+        font = font_choice,
+        title = list(
+          text = "Chart showing total places created, new places planned for delivery and estimated additional places needed to meet demand, by Local Authority compared to England",
+          font = list(color = "#ffffff")
+        )
+      ) %>%
+      config(displayModeBar = FALSE)
+  })
+
+  ## Places bar
+
+  output$places_chart_england <- renderPlotly({
+    # Take filtered data, filter for the variables we want to plot and pivot data round
+    places_chart_England_data <- live_scorecard_data() %>%
       filter(name %in% c("QuanIn", "QuanPP", "QuanRP")) %>%
       select(LA_name, name, value) %>%
       pivot_wider()
 
-    # create interactive stacked bar chart
+    # create interactive  bar chart
     p <- plot_ly(
-      places_chart_data,
+      places_chart_England_data,
       type = "bar",
       hoverinfo = "text"
     ) %>%
@@ -372,8 +562,6 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       ) %>%
       config(displayModeBar = FALSE)
   })
-
-
 
 
   ## Forecast accuracy labels
@@ -419,25 +607,25 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   })
 
 
-  output$label_estimate_y3 <- renderText({
+  output$label_estimate_y2 <- renderText({
     forecast_accuracy <- live_scorecard_data() %>%
-      filter(name == "For_3") %>%
+      filter(name == "For_2") %>%
       pull(value) %>%
       roundFiveUp(., 3)
 
-    Foracc3year <- scorecards_data_pivot %>%
+    Foracc2year <- scorecards_data_pivot %>%
       filter(
-        name == "For_3",
+        name == "For_2",
         Phase == input$phase_choice
       ) %>%
       pull(value) %>%
       roundFiveUp(., 3)
 
-    medianaccuracy2 <- median(Foracc3year, na.rm = TRUE)
+    medianaccuracy2 <- median(Foracc2year, na.rm = TRUE)
 
-    Twentyfifthpercentile2 <- quantile(Foracc3year, 0.25, na.rm = TRUE)
+    Twentyfifthpercentile2 <- quantile(Foracc2year, 0.25, na.rm = TRUE)
 
-    Seventyfifthpercentile2 <- quantile(Foracc3year, 0.75, na.rm = TRUE)
+    Seventyfifthpercentile2 <- quantile(Foracc2year, 0.75, na.rm = TRUE)
 
     label <- case_when(
       input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy > Seventyfifthpercentile2 ~ "Overestimate of pupil numbers, larger overestimate than at least 75% of local authorities",
@@ -452,9 +640,9 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     )
 
     if (label != "accurate") {
-      paste0("<h1>Three years ahead: ", format_perc(forecast_accuracy), "</h1> ", label)
+      paste0("<h1>Two years ahead: ", format_perc(forecast_accuracy), "</h1> ", label)
     } else {
-      paste("<b>Three years ahead: </b>", label)
+      paste("<b>Two years ahead: </b>", label)
     }
   })
 
@@ -492,11 +680,11 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     )
   )
 
-  output$for3year_table <- renderDataTable(
+  output$for2year_table <- renderDataTable(
     {
       scorecards_data_pivot %>%
         filter(
-          name == "For_3",
+          name == "For_2",
           Phase == input$phase_choice
         ) %>%
         mutate(
@@ -527,7 +715,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   )
 
 
-  ## Forecast accuracy three years ahead
+  ## Forecast accuracy two years ahead
 
   # Code to go here using above template
 
@@ -559,12 +747,12 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       config(displayModeBar = FALSE)
   })
 
-  output$forecast_3y_bar <- renderPlotly({
+  output$forecast_2y_bar <- renderPlotly({
     p <- plot_forecast(
       live_scorecard_data(),
       scorecards_data_pivot,
       input$LA_choice,
-      input$phase_choice, 3
+      input$phase_choice, 2
     )
     ggplotly(p, tooltip = c("text")) %>%
       layout(font = font_choice) %>%
@@ -576,38 +764,74 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
 
   # to fill in here - use the output$pupil_growth as a template :)
 
-  # Box for England % preference
+  # Box for England % preference current year
 
-  output$prefT3_ENG <- renderValueBox({
+  output$prefT3_CY_ENG <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
-    PrefT3_E <- live_scorecard_data_all_la() %>%
-      filter(name == "PrefT3") %>%
+    PrefT3_CY_E <- live_scorecard_data_all_la() %>%
+      filter(name == "PrefT3_CY") %>%
       filter(LA_name == "England") %>%
       pull(value) %>%
       roundFiveUp(., 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
-      paste0(PrefT3_E, "%"),
-      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England"),
+      paste0(PrefT3_CY_E, "%"),
+      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England for ", preference_current_year),
       # icon = icon("fas fa-chart-line"),
       color = "blue"
     )
   })
 
-  # Box for LA % preference
-
-  output$PrefT3_LA <- renderValueBox({
+  # Box for England % preference next year
+  output$prefT3_NY_ENG <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
-    PrefT3 <- live_scorecard_data() %>%
-      filter(name == "PrefT3") %>%
+    PrefT3_NY_E <- live_scorecard_data_all_la() %>%
+      filter(name == "PrefT3_NY") %>%
+      filter(LA_name == "England") %>%
       pull(value) %>%
       roundFiveUp(., 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
-      paste0(PrefT3, "%"),
-      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in ", (input$LA_choice)),
+      paste0(PrefT3_NY_E, "%"),
+      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England for ", preference_next_year),
+      # icon = icon("fas fa-chart-line"),
+      color = "blue"
+    )
+  })
+
+  # Box for LA % preference current year
+
+  output$PrefT3_CY_LA <- renderValueBox({
+    # Take filtered data, search for growth rate, pull the value and tidy the number up
+    PrefT3_CY <- live_scorecard_data() %>%
+      filter(name == "PrefT3_CY") %>%
+      pull(value) %>%
+      roundFiveUp(., 1)
+
+    # Put value into box to plug into app
+    shinydashboard::valueBox(
+      paste0(PrefT3_CY, "%"),
+      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in ", (input$LA_choice), " for ", preference_current_year),
+      # icon = icon("fas fa-sort-amount-up"),
+      color = "blue"
+    )
+  })
+
+  # Box for LA % preference next year
+
+  output$PrefT3_NY_LA <- renderValueBox({
+    # Take filtered data, search for growth rate, pull the value and tidy the number up
+    PrefT3_NY <- live_scorecard_data() %>%
+      filter(name == "PrefT3_NY") %>%
+      pull(value) %>%
+      roundFiveUp(., 1)
+
+    # Put value into box to plug into app
+    shinydashboard::valueBox(
+      paste0(PrefT3_NY, "%"),
+      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in ", (input$LA_choice), " for ", preference_next_year),
       # icon = icon("fas fa-sort-amount-up"),
       color = "blue"
     )
@@ -617,9 +841,17 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   # Easier for users to interpret
   output$preference_p <- renderPlotly({
     # reshape the data so it plots neatly!
-    preference_data <- live_scorecard_data_england_comp() %>%
+    preference_data <- live_scorecard_data_england_comp_pref() %>%
       # select only preference values
-      filter(name %in% c("Pref1", "Pref2", "Pref3")) %>%
+      filter(name %in% c(
+        "Pref1_CY", "Pref2_CY", "Pref3_CY",
+        "Pref1_NY", "Pref2_NY", "Pref3_NY"
+      )) %>%
+      # Create groups for "current year" and "next year" places based on names
+      mutate(preference_year = case_when(
+        str_detect(name, "CY") ~ preference_current_year,
+        str_detect(name, "NY") ~ preference_next_year
+      )) %>%
       # Create ratings out of the names
       mutate(rating = case_when(
         str_detect(name, "1") ~ "First",
@@ -629,7 +861,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
 
     # Get % not getting 1st 2nd or 3rd preference
     preference_data_sum <- preference_data %>%
-      group_by(LA_name, LANumber, Phase) %>%
+      group_by(preference_year, LA_name, LANumber, Phase) %>%
       summarise(value = 100 - sum(value)) %>%
       mutate(rating = "Other")
 
@@ -648,8 +880,9 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
 
 
     preference_p <- preference_data %>%
+      mutate(LA_name = factor(LA_name) %>% relevel(input$LA_choice)) %>%
       ggplot(aes(
-        y = value, x = "",
+        y = value, x = preference_year,
         fill = factor(rating),
         text = paste(rating, ": ", value, "%")
       )) +
@@ -909,7 +1142,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     # Bar chart comparison - Ofsted
 
     # reshape the data so it plots neatly!
-    ofsted_data <- live_scorecard_data_england_comp() %>%
+    ofsted_data <- live_scorecard_data_england_comp_quality() %>%
       # select only the ofsted values
       filter(name %in% c(
         "Qual1_N", "Qual2_N", "Qual3_N", "Qual4_N", "Qual0_N",
@@ -1502,12 +1735,18 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   observe({
     if (input$LA_choice == "England") {
       shinyjs::hide("LA_GO_places")
+      shinyjs::hide("places_chart")
+      shinyjs::show("places_chart_england")
       shinyjs::hide("LA_GO_ran")
-      shinyjs::hide("PrefT3_LA")
+      shinyjs::hide("PrefT3_CY_LA")
+      shinyjs::hide("PrefT3_NY_LA")
     } else {
       shinyjs::show("LA_GO_places")
       shinyjs::show("LA_GO_ran")
-      shinyjs::show("PrefT3_LA")
+      shinyjs::show("places_chart")
+      shinyjs::hide("places_chart_england")
+      shinyjs::show("PrefT3_CY_LA")
+      shinyjs::show("PrefT3_NY_LA")
     }
   })
 
