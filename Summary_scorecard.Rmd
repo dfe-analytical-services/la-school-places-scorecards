@@ -360,7 +360,7 @@ oneyearlabel <-
 forecast_accuracy_2yr <- dfScorecardArea %>%
   filter(name == "For_2") %>%
   pull(value) %>%
-  roundFiveUp(., 2) #* 100
+  roundFiveUp(., 3) #* 100
 
 label_desc_2yr <- forecast_accuracy_desclabel(
   forecast_accuracy_2yr,
