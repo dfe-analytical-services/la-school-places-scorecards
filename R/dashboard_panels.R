@@ -2,6 +2,7 @@ panel_homepage <- function() {
   tabPanel(
     "Homepage",
     h2("Local authority school places scorecards: academic year 2020/21"),
+    h4("Please note this is not the latest release. The latest scorecards can be found at:", a(href = "https://department-for-education.shinyapps.io/la-school-places-scorecards", "https://department-for-education.shinyapps.io/la-school-places-scorecards")),
     br("Scorecards display a snapshot of the progress each local authority across England is making towards ensuring there are sufficient, good quality, school places."),
     br("You can view the progress for England as a whole or for an individual local authority.
          To do this click on", actionLink("linklascorecardsTab", "LA scorecards"), "after reading all the information on this homepage.
@@ -108,6 +109,7 @@ panel_scorecard <- function() {
     title = "LA scorecards",
     # Sidebar---------------------------------------------------------------------
     gov_main_layout(
+      h4("Please note this is not the latest release. The latest scorecards can be found at:", a(href = "https://department-for-education.shinyapps.io/la-school-places-scorecards", "https://department-for-education.shinyapps.io/la-school-places-scorecards")),
       gov_row(
         column(
           width = 12,
