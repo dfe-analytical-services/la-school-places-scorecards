@@ -3,6 +3,7 @@ on:
     branches:
       - main
       - development
+      - la-school-places-scorecard-2022
 
 name: deployShinyApps
 
@@ -19,6 +20,10 @@ jobs:
         with: 
          r-version: '4.2.1'
          
+      - name: Set env vars (prod_2022)
+        if: endsWith(github.ref, '/la-school-places-scorecard-2022')
+        run: |
+          echo "SHINYAPP_NAME='la-school-places-scorecards-2022'" >> $GITHUB_ENV
       - name: Set env vars (dev)
         if: endsWith(github.ref, '/development')
         run: |
