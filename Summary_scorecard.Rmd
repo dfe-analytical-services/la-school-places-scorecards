@@ -1190,7 +1190,7 @@ dfScorecardArea_england_comp <-
 
 # Comparison boxes - number of projects
 
-perm_fig <- dfScorecardArea %>%
+perm_fig <- dfScorecardArea_all_la %>%
   # Filter for Cost, places and project data
   filter(str_detect(name, "Cost|Places|Projects")) %>%
   # Create new column called data_type, based on the name of the data
@@ -1205,13 +1205,13 @@ perm_fig <- dfScorecardArea %>%
     str_detect(name, "NS") ~ "New school"
   )) %>%
   select(LA_name, data_type, exp_type, value) %>%
-  filter(data_type == "Project" & exp_type == "Permanent") %>%
+  filter(LA_name == "England" & data_type == "Project" & exp_type == "Permanent") %>%
   pull(value)
 
 
 
 
-temp_fig <- dfScorecardArea %>%
+temp_fig <- dfScorecardArea_all_la %>%
   # Filter for Cost, places and project data
   filter(str_detect(name, "Cost|Places|Projects")) %>%
   # Create new column called data_type, based on the name of the data
@@ -1226,14 +1226,14 @@ temp_fig <- dfScorecardArea %>%
     str_detect(name, "NS") ~ "New school"
   )) %>%
   select(LA_name, data_type, exp_type, value) %>%
-  filter(data_type == "Project" & exp_type == "Temporary") %>%
+  filter(LA_name == "England" & data_type == "Project" & exp_type == "Temporary") %>%
   pull(value)
 
 
 
 
 
-new_fig <- dfScorecardArea %>%
+new_fig <- dfScorecardArea_all_la %>%
   # Filter for Cost, places and project data
   filter(str_detect(name, "Cost|Places|Projects")) %>%
   # Create new column called data_type, based on the name of the data
@@ -1248,7 +1248,7 @@ new_fig <- dfScorecardArea %>%
     str_detect(name, "NS") ~ "New school"
   )) %>%
   select(LA_name, data_type, exp_type, value) %>%
-  filter(data_type == "Project" & exp_type == "New school") %>%
+  filter(LA_name == "England" & data_type == "Project" & exp_type == "New school") %>%
   pull(value)
 ```
 
