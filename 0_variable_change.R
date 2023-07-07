@@ -1,6 +1,7 @@
 # Update variables in this script each year to update text in the app.
 this_year <- "2021/22"
 SCAP_ref <- "2022"
+plannedplaces_ref <- "2024"
 last_year <- "2020/21"
 next_year <- "2022/23"
 plan_year <- "2024/25"

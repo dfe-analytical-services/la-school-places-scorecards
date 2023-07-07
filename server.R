@@ -486,7 +486,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       ) %>%
       add_trace(
         x = ~LA_name, y = ~QuanPP, marker = list(color = c("#3182bd")),
-        name = paste0("New places planned for delivery between ", this_year, " and ", plan_year),
+        name = paste0("New places planned for delivery between May ", SCAP_ref, " and September ", plannedplaces_ref),
         text = ~ scales::comma(QuanPP), textposition = "outside", cliponaxis = FALSE, textfont = list(color = "#000"),
         width = 0.2
       ) %>%
@@ -538,7 +538,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       ) %>%
       add_trace(
         x = ~LA_name, y = ~QuanPP, marker = list(color = c("#3182bd")),
-        name = paste0("New places planned for delivery between ", this_year, " and ", plan_year),
+        name = paste0("New places planned for delivery between May ", SCAP_ref, " and September ", plannedplaces_ref),
         text = ~ scales::comma(QuanPP), textposition = "outside", textfont = list(color = "#000"),
         width = 0.2
       ) %>%
