@@ -2,7 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-data/scorecards_data_2022.csv
 file*.log
 hc.*
 Summary_scorecard.aux
