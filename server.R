@@ -1557,7 +1557,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
 
   # Comparison boxes - number of projects
   output$perm_box <- renderValueBox({
-    perm_fig <- live_scorecard_data() %>%
+    perm_fig <- live_scorecard_data_all_la() %>%
       # Filter for Cost, places and project data
       filter(str_detect(name, "Cost|Places|Projects")) %>%
       # Create new column called data_type, based on the name of the data
@@ -1572,7 +1572,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         str_detect(name, "NS") ~ "New school"
       )) %>%
       select(LA_name, data_type, exp_type, value) %>%
-      filter(data_type == "Project" & exp_type == "Permanent") %>%
+      filter(LA_name == "England" & data_type == "Project" & exp_type == "Permanent") %>%
       pull(value)
 
 
@@ -1585,7 +1585,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   })
 
   output$temp_box <- renderValueBox({
-    temp_fig <- live_scorecard_data() %>%
+    temp_fig <- live_scorecard_data_all_la() %>%
       # Filter for Cost, places and project data
       filter(str_detect(name, "Cost|Places|Projects")) %>%
       # Create new column called data_type, based on the name of the data
@@ -1600,7 +1600,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         str_detect(name, "NS") ~ "New school"
       )) %>%
       select(LA_name, data_type, exp_type, value) %>%
-      filter(data_type == "Project" & exp_type == "Temporary") %>%
+      filter(LA_name == "England" & data_type == "Project" & exp_type == "Temporary") %>%
       pull(value)
 
 
@@ -1614,7 +1614,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
 
 
   output$new_box <- renderValueBox({
-    new_fig <- live_scorecard_data() %>%
+    new_fig <- live_scorecard_data_all_la() %>%
       # Filter for Cost, places and project data
       filter(str_detect(name, "Cost|Places|Projects")) %>%
       # Create new column called data_type, based on the name of the data
@@ -1629,7 +1629,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         str_detect(name, "NS") ~ "New school"
       )) %>%
       select(LA_name, data_type, exp_type, value) %>%
-      filter(data_type == "Project" & exp_type == "New school") %>%
+      filter(LA_name == "England" & data_type == "Project" & exp_type == "New school") %>%
       pull(value)
 
 
