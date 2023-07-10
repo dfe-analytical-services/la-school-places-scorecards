@@ -480,7 +480,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     ) %>%
       add_trace(
         x = ~LA_name, y = ~QuanIn, marker = list(color = c("#08519c")),
-        name = paste0("Total places created between 2009/10 and ", this_year),
+        name = paste0("Total places created between May 2010 and May ", SCAP_ref),
         text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF"),
         width = 0.2
       ) %>%
@@ -532,7 +532,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     ) %>%
       add_trace(
         x = ~LA_name, y = ~QuanIn, marker = list(color = c("#08519c")),
-        name = paste0("Total places created between 2009/10 and ", this_year),
+        name = paste0("Total places created between May 2010 and May ", SCAP_ref),
         text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF"),
         width = 0.2
       ) %>%
