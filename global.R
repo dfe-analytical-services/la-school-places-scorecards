@@ -33,8 +33,11 @@ shhh(library(checkmate))
 shhh(library(dfeshiny))
 shhh(library(shinytest2))
 shhh(library(diffviewer))
+
 # Phantom js needed for pdf compile to work. Note this works even on the shinyapps server.
-shhh(webshot::install_phantomjs(force = FALSE))
+if (!webshot::is_phantomjs_installed()) {
+  webshot::install_phantomjs(force = FALSE)
+}
 
 # tidy_code_function -------------------------------------------------------------------------------
 
