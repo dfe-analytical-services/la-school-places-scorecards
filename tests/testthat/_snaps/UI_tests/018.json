@@ -6,7 +6,7 @@
     "tabs": "cost"
   },
   "output": {
-    "cost_table": "<table  class = 'table shiny-table table- spacing-s' style = 'width:auto;'>\n<thead> <tr> <th style='text-align: right;'> Type <\/th> <th style='text-align: right;'> England <\/th>  <\/tr> <\/thead> <tbody>\n  <tr> <td align=\"right\"> Permanent Expansion <\/td> <td align=\"right\"> £25,003 <\/td> <\/tr>\n  <tr> <td align=\"right\"> Temporary Expansion <\/td> <td align=\"right\"> £9,467 <\/td> <\/tr>\n  <tr> <td align=\"right\"> New School <\/td> <td align=\"right\"> £26,105 <\/td> <\/tr>\n   <\/tbody> <\/table>",
+    "cost_table": "<table  class = 'table shiny-table table- spacing-s' style = 'width:auto;'>\n<thead> <tr> <th style='text-align: right;'> Type <\/th> <th style='text-align: right;'> England <\/th>  <\/tr> <\/thead> <tbody>\n  <tr> <td align=\"right\"> New School <\/td> <td align=\"right\"> £28,096 <\/td> <\/tr>\n  <tr> <td align=\"right\"> Permanent Expansion <\/td> <td align=\"right\"> £26,717 <\/td> <\/tr>\n  <tr> <td align=\"right\"> Temporary Expansion <\/td> <td align=\"right\"> £10,310 <\/td> <\/tr>\n   <\/tbody> <\/table>",
     "new_box": {
       "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>12<\/h3>\n    <p>New secondary schools projects in England<\/p>\n  <\/div>\n<\/div>",
       "deps": [

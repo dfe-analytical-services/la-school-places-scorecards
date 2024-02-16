@@ -7,13 +7,13 @@
   },
   "output": {
     "LA_GO_places": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>74%<\/h3>\n    <p>Percentage of new places created in good and outstanding primary schools in Cheshire East<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>100%<\/h3>\n    <p>Percentage of new places created in good and outstanding primary schools in Cheshire East<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "LA_GO_ran": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>106<\/h3>\n    <p>LA Rank out of 125 LAs that created new places between 2018/19 and 2020/21 (ranks can be tied)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>1<\/h3>\n    <p>LA Rank out of 77 LAs that created new places between 2020/21 and 2021/22 (ranks can be tied)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
@@ -25,8 +25,8 @@
           {
             "orientation": "h",
             "width": [
-              0.9,
-              0.9
+              0.90000000000000013,
+              0.89999999999999991
             ],
             "base": [
               0,
@@ -34,7 +34,7 @@
             ],
             "x": [
               0,
-              0.218822335669214
+              0.21463275221491854
             ],
             "y": [
               2,
@@ -42,7 +42,7 @@
             ],
             "text": [
               "Outstanding :  NA  places",
-              "Outstanding :  6901  places"
+              "Outstanding :  6759  places"
             ],
             "type": "bar",
             "textposition": "none",
@@ -50,7 +50,7 @@
               "autocolorscale": false,
               "color": "rgba(8,81,156,1)",
               "line": {
-                "width": 1.88976377952756,
+                "width": 1.8897637795275593,
                 "color": "transparent"
               }
             },
@@ -65,64 +65,24 @@
           {
             "orientation": "h",
             "width": [
-              0.9,
-              0.9
+              0.90000000000000013,
+              0.89999999999999991
             ],
             "base": [
               0,
-              0
+              0.21463275221491854
             ],
             "x": [
-              0.177226493585695,
-              0.178483158938611
+              1,
+              0.70455050649391893
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "Outstanding :  8137  places",
-              "Outstanding :  851488  places"
-            ],
-            "type": "bar",
-            "textposition": "none",
-            "marker": {
-              "autocolorscale": false,
-              "color": "rgba(8,81,156,1)",
-              "line": {
-                "width": 1.88976377952756,
-                "color": "transparent"
-              }
-            },
-            "name": "Outstanding",
-            "legendgroup": "Outstanding",
-            "showlegend": false,
-            "xaxis": "x",
-            "yaxis": "y2",
-            "hoverinfo": "text",
-            "frame": null
-          },
-          {
-            "orientation": "h",
-            "width": [
-              0.9,
-              0.9
-            ],
-            "base": [
-              0,
-              0.218822335669214
-            ],
-            "x": [
-              0.739583333333333,
-              0.692393062117513
-            ],
-            "y": [
-              2,
-              1
-            ],
-            "text": [
-              "Good :  71  places",
-              "Good :  21836  places"
+              "Good :  125  places",
+              "Good :  22187  places"
             ],
             "type": "bar",
             "textposition": "none",
@@ -130,7 +90,7 @@
               "autocolorscale": false,
               "color": "rgba(49,130,189,1)",
               "line": {
-                "width": 1.88976377952756,
+                "width": 1.8897637795275593,
                 "color": "transparent"
               }
             },
@@ -145,136 +105,56 @@
           {
             "orientation": "h",
             "width": [
-              0.9,
-              0.9
-            ],
-            "base": [
-              0.177226493585695,
-              0.178483158938611
-            ],
-            "x": [
-              0.713937229107225,
-              0.719641661973077
-            ],
-            "y": [
-              2,
-              1
-            ],
-            "text": [
-              "Good :  32779  places",
-              "Good :  3433188  places"
-            ],
-            "type": "bar",
-            "textposition": "none",
-            "marker": {
-              "autocolorscale": false,
-              "color": "rgba(49,130,189,1)",
-              "line": {
-                "width": 1.88976377952756,
-                "color": "transparent"
-              }
-            },
-            "name": "Good",
-            "legendgroup": "Good",
-            "showlegend": false,
-            "xaxis": "x",
-            "yaxis": "y2",
-            "hoverinfo": "text",
-            "frame": null
-          },
-          {
-            "orientation": "h",
-            "width": [
-              0.9,
-              0.9
-            ],
-            "base": [
-              0.739583333333333,
-              0.911215397786727
-            ],
-            "x": [
-              0.260416666666667,
-              0.0621492215492914
-            ],
-            "y": [
-              2,
-              1
-            ],
-            "text": [
-              "Requires Improvement :  25  places",
-              "Requires Improvement :  1960  places"
-            ],
-            "type": "bar",
-            "textposition": "none",
-            "marker": {
-              "autocolorscale": false,
-              "color": "rgba(107,174,214,1)",
-              "line": {
-                "width": 1.88976377952756,
-                "color": "transparent"
-              }
-            },
-            "name": "Requires Improvement",
-            "legendgroup": "Requires Improvement",
-            "showlegend": true,
-            "xaxis": "x",
-            "yaxis": "y",
-            "hoverinfo": "text",
-            "frame": null
-          },
-          {
-            "orientation": "h",
-            "width": [
-              0.9,
-              0.9
-            ],
-            "base": [
-              0.891163722692919,
-              0.898124820911688
-            ],
-            "x": [
-              0.105438546816806,
-              0.0955065000017817
-            ],
-            "y": [
-              2,
-              1
-            ],
-            "text": [
-              "Requires Improvement :  4841  places",
-              "Requires Improvement :  455632  places"
-            ],
-            "type": "bar",
-            "textposition": "none",
-            "marker": {
-              "autocolorscale": false,
-              "color": "rgba(107,174,214,1)",
-              "line": {
-                "width": 1.88976377952756,
-                "color": "transparent"
-              }
-            },
-            "name": "Requires Improvement",
-            "legendgroup": "Requires Improvement",
-            "showlegend": false,
-            "xaxis": "x",
-            "yaxis": "y2",
-            "hoverinfo": "text",
-            "frame": null
-          },
-          {
-            "orientation": "h",
-            "width": [
-              0.9,
-              0.9
+              0.90000000000000013,
+              0.89999999999999991
             ],
             "base": [
               1,
-              0.973364619336018
+              0.91918325870883744
             ],
             "x": [
               0,
-              0.026635380663982
+              0.05747673938585629
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Requires Improvement :  NA  places",
+              "Requires Improvement :  1810  places"
+            ],
+            "type": "bar",
+            "textposition": "none",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(107,174,214,1)",
+              "line": {
+                "width": 1.8897637795275593,
+                "color": "transparent"
+              }
+            },
+            "name": "Requires Improvement",
+            "legendgroup": "Requires Improvement",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": [
+              0.90000000000000013,
+              0.89999999999999991
+            ],
+            "base": [
+              1,
+              0.97665999809469373
+            ],
+            "x": [
+              0,
+              0.023340001905306273
             ],
             "y": [
               2,
@@ -282,7 +162,7 @@
             ],
             "text": [
               "Inadequate :  NA  places",
-              "Inadequate :  840  places"
+              "Inadequate :  735  places"
             ],
             "type": "bar",
             "textposition": "none",
@@ -290,7 +170,7 @@
               "autocolorscale": false,
               "color": "rgba(158,202,225,1)",
               "line": {
-                "width": 1.88976377952756,
+                "width": 1.8897637795275593,
                 "color": "transparent"
               }
             },
@@ -303,49 +183,9 @@
             "frame": null
           },
           {
-            "orientation": "h",
-            "width": [
-              0.9,
-              0.9
-            ],
-            "base": [
-              0.996602269509725,
-              0.993631320913469
-            ],
-            "x": [
-              0.00339773049027503,
-              0.0063686790865306
-            ],
-            "y": [
-              2,
-              1
-            ],
-            "text": [
-              "Inadequate :  156  places",
-              "Inadequate :  30383  places"
-            ],
-            "type": "bar",
-            "textposition": "none",
-            "marker": {
-              "autocolorscale": false,
-              "color": "rgba(158,202,225,1)",
-              "line": {
-                "width": 1.88976377952756,
-                "color": "transparent"
-              }
-            },
-            "name": "Inadequate",
-            "legendgroup": "Inadequate",
-            "showlegend": false,
-            "xaxis": "x",
-            "yaxis": "y2",
-            "hoverinfo": "text",
-            "frame": null
-          },
-          {
             "x": [
               0,
-              0.109411167834607
+              0.10731637610745927
             ],
             "y": [
               2,
@@ -353,14 +193,14 @@
             ],
             "text": [
               null,
-              "6,901"
+              "6,759"
             ],
             "hovertext": [
               "Outstanding :  NA  places",
-              "Outstanding :  6901  places"
+              "Outstanding :  6759  places"
             ],
             "textfont": {
-              "size": 15.1181102362205,
+              "size": 15.118110236220474,
               "color": "rgba(255,255,255,1)"
             },
             "type": "scatter",
@@ -376,55 +216,23 @@
           },
           {
             "x": [
-              0.0886132467928473,
-              0.0892415794693054
+              0.5,
+              0.56690800546187803
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "8,137",
-              "851,488"
+              "125",
+              "22,187"
             ],
             "hovertext": [
-              "Outstanding :  8137  places",
-              "Outstanding :  851488  places"
+              "Good :  125  places",
+              "Good :  22187  places"
             ],
             "textfont": {
-              "size": 15.1181102362205,
-              "color": "rgba(255,255,255,1)"
-            },
-            "type": "scatter",
-            "mode": "text",
-            "hoveron": "points",
-            "name": "Outstanding",
-            "legendgroup": "Outstanding",
-            "showlegend": false,
-            "xaxis": "x",
-            "yaxis": "y2",
-            "hoverinfo": "text",
-            "frame": null
-          },
-          {
-            "x": [
-              0.369791666666667,
-              0.56501886672797
-            ],
-            "y": [
-              2,
-              1
-            ],
-            "text": [
-              "71",
-              "21,836"
-            ],
-            "hovertext": [
-              "Good :  71  places",
-              "Good :  21836  places"
-            ],
-            "textfont": {
-              "size": 15.1181102362205,
+              "size": 15.118110236220474,
               "color": "rgba(255,255,255,1)"
             },
             "type": "scatter",
@@ -435,109 +243,45 @@
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
-            "hoverinfo": "text",
-            "frame": null
-          },
-          {
-            "x": [
-              0.534195108139307,
-              0.538303989925149
-            ],
-            "y": [
-              2,
-              1
-            ],
-            "text": [
-              "32,779",
-              "3,433,188"
-            ],
-            "hovertext": [
-              "Good :  32779  places",
-              "Good :  3433188  places"
-            ],
-            "textfont": {
-              "size": 15.1181102362205,
-              "color": "rgba(255,255,255,1)"
-            },
-            "type": "scatter",
-            "mode": "text",
-            "hoveron": "points",
-            "name": "Good",
-            "legendgroup": "Good",
-            "showlegend": false,
-            "xaxis": "x",
-            "yaxis": "y2",
-            "hoverinfo": "text",
-            "frame": null
-          },
-          {
-            "x": [
-              0.869791666666667,
-              0.942290008561372
-            ],
-            "y": [
-              2,
-              1
-            ],
-            "text": [
-              "25",
-              "1,960"
-            ],
-            "hovertext": [
-              "Requires Improvement :  25  places",
-              "Requires Improvement :  1960  places"
-            ],
-            "textfont": {
-              "size": 15.1181102362205,
-              "color": "rgba(255,255,255,1)"
-            },
-            "type": "scatter",
-            "mode": "text",
-            "hoveron": "points",
-            "name": "Requires Improvement",
-            "legendgroup": "Requires Improvement",
-            "showlegend": false,
-            "xaxis": "x",
-            "yaxis": "y",
-            "hoverinfo": "text",
-            "frame": null
-          },
-          {
-            "x": [
-              0.943882996101322,
-              0.945878070912578
-            ],
-            "y": [
-              2,
-              1
-            ],
-            "text": [
-              "4,841",
-              "455,632"
-            ],
-            "hovertext": [
-              "Requires Improvement :  4841  places",
-              "Requires Improvement :  455632  places"
-            ],
-            "textfont": {
-              "size": 15.1181102362205,
-              "color": "rgba(255,255,255,1)"
-            },
-            "type": "scatter",
-            "mode": "text",
-            "hoveron": "points",
-            "name": "Requires Improvement",
-            "legendgroup": "Requires Improvement",
-            "showlegend": false,
-            "xaxis": "x",
-            "yaxis": "y2",
             "hoverinfo": "text",
             "frame": null
           },
           {
             "x": [
               1,
-              0.986682309668009
+              0.94792162840176553
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              null,
+              "1,810"
+            ],
+            "hovertext": [
+              "Requires Improvement :  NA  places",
+              "Requires Improvement :  1810  places"
+            ],
+            "textfont": {
+              "size": 15.118110236220474,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Requires Improvement",
+            "legendgroup": "Requires Improvement",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              1,
+              0.98832999904734686
             ],
             "y": [
               2,
@@ -549,10 +293,10 @@
             ],
             "hovertext": [
               "Inadequate :  NA  places",
-              "Inadequate :  840  places"
+              "Inadequate :  735  places"
             ],
             "textfont": {
-              "size": 15.1181102362205,
+              "size": 15.118110236220474,
               "color": "rgba(255,255,255,1)"
             },
             "type": "scatter",
@@ -563,53 +307,21 @@
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
-            "hoverinfo": "text",
-            "frame": null
-          },
-          {
-            "x": [
-              0.998301134754862,
-              0.996815660456735
-            ],
-            "y": [
-              2,
-              1
-            ],
-            "text": [
-              null,
-              null
-            ],
-            "hovertext": [
-              "Inadequate :  156  places",
-              "Inadequate :  30383  places"
-            ],
-            "textfont": {
-              "size": 15.1181102362205,
-              "color": "rgba(255,255,255,1)"
-            },
-            "type": "scatter",
-            "mode": "text",
-            "hoveron": "points",
-            "name": "Inadequate",
-            "legendgroup": "Inadequate",
-            "showlegend": false,
-            "xaxis": "x",
-            "yaxis": "y2",
             "hoverinfo": "text",
             "frame": null
           }
         ],
         "layout": {
           "margin": {
-            "t": 52.3082883630829,
-            "r": 7.30593607305936,
-            "b": 28.2717586827176,
-            "l": 70.4690743046907
+            "t": 52.30828836308288,
+            "r": 7.3059360730593621,
+            "b": 28.271758682717589,
+            "l": 70.46907430469075
           },
           "font": {
             "color": "rgba(0,0,0,1)",
             "family": "Arial",
-            "size": 18.5969281859693
+            "size": 18.596928185969279
           },
           "xaxis": {
             "domain": [
@@ -620,7 +332,7 @@
             "type": "linear",
             "autorange": false,
             "range": [
-              -0.05,
+              -0.050000000000000003,
               1.05
             ],
             "tickmode": "array",
@@ -649,13 +361,13 @@
             "nticks": null,
             "ticks": "",
             "tickcolor": null,
-            "ticklen": 3.65296803652968,
+            "ticklen": 3.6529680365296811,
             "tickwidth": 0,
             "showticklabels": true,
             "tickfont": {
               "color": "rgba(77,77,77,1)",
               "family": "Arial",
-              "size": 14.8775425487754
+              "size": 14.877542548775427
             },
             "tickangle": 0,
             "showline": false,
@@ -663,23 +375,23 @@
             "linewidth": 0,
             "showgrid": true,
             "gridcolor": "rgba(235,235,235,1)",
-            "gridwidth": 0.66417600664176,
+            "gridwidth": 0.66417600664176002,
             "zeroline": false,
-            "anchor": "y2",
+            "anchor": "y",
             "title": "",
             "hoverformat": ".2f"
           },
           "yaxis": {
             "domain": [
-              0.552926525529265,
+              0,
               1
             ],
             "automargin": true,
             "type": "linear",
             "autorange": false,
             "range": [
-              0.4,
-              2.6
+              0.40000000000000002,
+              2.6000000000000001
             ],
             "tickmode": "array",
             "ticktext": [
@@ -698,13 +410,13 @@
             "nticks": null,
             "ticks": "",
             "tickcolor": null,
-            "ticklen": 3.65296803652968,
+            "ticklen": 3.6529680365296811,
             "tickwidth": 0,
             "showticklabels": true,
             "tickfont": {
               "color": "rgba(77,77,77,1)",
               "family": "Arial",
-              "size": 14.8775425487754
+              "size": 14.877542548775427
             },
             "tickangle": 0,
             "showline": false,
@@ -712,7 +424,7 @@
             "linewidth": 0,
             "showgrid": true,
             "gridcolor": "rgba(235,235,235,1)",
-            "gridwidth": 0.66417600664176,
+            "gridwidth": 0.66417600664176002,
             "zeroline": false,
             "anchor": "x",
             "title": "",
@@ -733,7 +445,7 @@
               "xref": "paper",
               "x0": 0,
               "x1": 1,
-              "y0": 0.552926525529265,
+              "y0": 0,
               "y1": 1
             },
             {
@@ -751,44 +463,8 @@
               "x0": 0,
               "x1": 1,
               "y0": 0,
-              "y1": 38.2565379825654,
+              "y1": 38.256537982565391,
               "yanchor": 1,
-              "ysizemode": "pixel"
-            },
-            {
-              "type": "rect",
-              "fillcolor": null,
-              "line": {
-                "color": null,
-                "width": 0,
-                "linetype": [
-
-                ]
-              },
-              "yref": "paper",
-              "xref": "paper",
-              "x0": 0,
-              "x1": 1,
-              "y0": 0,
-              "y1": 0.447073474470735
-            },
-            {
-              "type": "rect",
-              "fillcolor": null,
-              "line": {
-                "color": null,
-                "width": 0,
-                "linetype": [
-
-                ]
-              },
-              "yref": "paper",
-              "xref": "paper",
-              "x0": 0,
-              "x1": 1,
-              "y0": 0,
-              "y1": 38.2565379825654,
-              "yanchor": 0.447073474470735,
               "ysizemode": "pixel"
             }
           ],
@@ -803,25 +479,7 @@
               "font": {
                 "color": "rgba(26,26,26,1)",
                 "family": "Arial",
-                "size": 26.5670402656704
-              },
-              "xref": "paper",
-              "yref": "paper",
-              "textangle": 0,
-              "xanchor": "center",
-              "yanchor": "bottom"
-            },
-            {
-              "text": "England",
-              "x": 0.5,
-              "y": 0.447073474470735,
-              "showarrow": false,
-              "ax": 0,
-              "ay": 0,
-              "font": {
-                "color": "rgba(26,26,26,1)",
-                "family": "Arial",
-                "size": 26.5670402656704
+                "size": 26.567040265670396
               },
               "xref": "paper",
               "yref": "paper",
@@ -830,54 +488,6 @@
               "yanchor": "bottom"
             }
           ],
-          "yaxis2": {
-            "type": "linear",
-            "autorange": false,
-            "range": [
-              0.4,
-              2.6
-            ],
-            "tickmode": "array",
-            "ticktext": [
-              "Existing",
-              "New"
-            ],
-            "tickvals": [
-              1,
-              2
-            ],
-            "categoryorder": "array",
-            "categoryarray": [
-              "Existing",
-              "New"
-            ],
-            "nticks": null,
-            "ticks": "",
-            "tickcolor": null,
-            "ticklen": 3.65296803652968,
-            "tickwidth": 0,
-            "showticklabels": true,
-            "tickfont": {
-              "color": "rgba(77,77,77,1)",
-              "family": "Arial",
-              "size": 14.8775425487754
-            },
-            "tickangle": 0,
-            "showline": false,
-            "linecolor": null,
-            "linewidth": 0,
-            "showgrid": true,
-            "domain": [
-              0,
-              0.447073474470735
-            ],
-            "gridcolor": "rgba(235,235,235,1)",
-            "gridwidth": 0.66417600664176,
-            "zeroline": false,
-            "anchor": "x",
-            "title": "",
-            "hoverformat": ".2f"
-          },
           "showlegend": true,
           "legend": {
             "bgcolor": null,
@@ -890,8 +500,8 @@
             },
             "title": "",
             "orientation": "h",
-            "y": -0.1,
-            "x": 0.2
+            "y": -0.10000000000000001,
+            "x": 0.20000000000000001
           },
           "hovermode": "closest",
           "barmode": "relative",
@@ -917,7 +527,7 @@
           "persistent": false,
           "dynamic": false,
           "selectize": false,
-          "opacityDim": 0.2,
+          "opacityDim": 0.20000000000000001,
           "selected": {
             "opacity": 1
           },
@@ -986,9 +596,9 @@
         },
         {
           "name": "crosstalk",
-          "version": "1.2.0",
+          "version": "1.2.1",
           "src": {
-            "href": "crosstalk-1.2.0"
+            "href": "crosstalk-1.2.1"
           },
           "meta": null,
           "script": "js/crosstalk.min.js",

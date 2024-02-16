@@ -1,3 +1,6 @@
+shhh <- suppressPackageStartupMessages # It's a library, so shhh!
+
+
 # ---------------------------------------------------------------------------
 # Library calls
 # ----------------------------------------------------------------------------
@@ -28,9 +31,10 @@ shhh(library(bit64))
 shhh(library(webshot))
 shhh(library(checkmate))
 shhh(library(dfeshiny))
-
+shhh(library(shinytest2))
+shhh(library(diffviewer))
 # Phantom js needed for pdf compile to work. Note this works even on the shinyapps server.
-webshot::install_phantomjs(force = FALSE)
+shhh(webshot::install_phantomjs(force = FALSE))
 
 # tidy_code_function -------------------------------------------------------------------------------
 

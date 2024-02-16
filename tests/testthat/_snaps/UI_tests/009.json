@@ -2,7 +2,7 @@
   "input": {
     "LA_choice": "England",
     "navlistPanel": "la_scorecards",
-    "phase_choice": "Secondary",
+    "phase_choice": "Primary",
     "tabs": "preference"
   },
   "output": {
@@ -11,18 +11,33 @@
         "data": [
           {
             "orientation": "h",
-            "width": 0.9,
-            "base": 0,
-            "x": 0.811,
-            "y": 1,
-            "text": "First :  81.1 %",
+            "width": [
+              0.89999999999999991,
+              0.90000000000000013
+            ],
+            "base": [
+              0,
+              0
+            ],
+            "x": [
+              0.92200000000000004,
+              0.92500000000000004
+            ],
+            "y": [
+              1,
+              2
+            ],
+            "text": [
+              "First :  92.2 %",
+              "First :  92.5 %"
+            ],
             "type": "bar",
             "textposition": "none",
             "marker": {
               "autocolorscale": false,
               "color": "rgba(8,81,156,1)",
               "line": {
-                "width": 1.88976377952756,
+                "width": 1.8897637795275593,
                 "color": "transparent"
               }
             },
@@ -36,18 +51,33 @@
           },
           {
             "orientation": "h",
-            "width": 0.9,
-            "base": 0.811,
-            "x": 0.09,
-            "y": 1,
-            "text": "Second :  9 %",
+            "width": [
+              0.89999999999999991,
+              0.90000000000000013
+            ],
+            "base": [
+              0.92200000000000004,
+              0.92500000000000004
+            ],
+            "x": [
+              0.047999999999999932,
+              0.046999999999999931
+            ],
+            "y": [
+              1,
+              2
+            ],
+            "text": [
+              "Second :  4.8 %",
+              "Second :  4.7 %"
+            ],
             "type": "bar",
             "textposition": "none",
             "marker": {
               "autocolorscale": false,
               "color": "rgba(49,130,189,1)",
               "line": {
-                "width": 1.88976377952756,
+                "width": 1.8897637795275593,
                 "color": "transparent"
               }
             },
@@ -61,18 +91,30 @@
           },
           {
             "orientation": "h",
-            "width": 0.9,
-            "base": 0.901,
-            "x": 0.033,
-            "y": 1,
-            "text": "Third :  3.3 %",
+            "width": [
+              0.89999999999999991,
+              0.90000000000000013
+            ],
+            "base": [
+              0.96999999999999997,
+              0.97199999999999998
+            ],
+            "x": [
+              0.011000000000000121,
+              0.01100000000000001
+            ],
+            "y": [
+              1,
+              2
+            ],
+            "text": "Third :  1.1 %",
             "type": "bar",
             "textposition": "none",
             "marker": {
               "autocolorscale": false,
               "color": "rgba(107,174,214,1)",
               "line": {
-                "width": 1.88976377952756,
+                "width": 1.8897637795275593,
                 "color": "transparent"
               }
             },
@@ -86,18 +128,33 @@
           },
           {
             "orientation": "h",
-            "width": 0.9,
-            "base": 0.934,
-            "x": 0.0660000000000001,
-            "y": 1,
-            "text": "Other :  6.6 %",
+            "width": [
+              0.89999999999999991,
+              0.90000000000000013
+            ],
+            "base": [
+              0.98100000000000009,
+              0.98299999999999998
+            ],
+            "x": [
+              0.018999999999999906,
+              0.017000000000000015
+            ],
+            "y": [
+              1,
+              2
+            ],
+            "text": [
+              "Other :  1.9 %",
+              "Other :  1.7 %"
+            ],
             "type": "bar",
             "textposition": "none",
             "marker": {
               "autocolorscale": false,
               "color": "rgba(158,202,225,1)",
               "line": {
-                "width": 1.88976377952756,
+                "width": 1.8897637795275593,
                 "color": "transparent"
               }
             },
@@ -110,12 +167,24 @@
             "frame": null
           },
           {
-            "x": 0.4055,
-            "y": 1,
-            "text": "81.1%",
-            "hovertext": "First :  81.1 %",
+            "x": [
+              0.46100000000000002,
+              0.46250000000000002
+            ],
+            "y": [
+              1,
+              2
+            ],
+            "text": [
+              "92.2%",
+              "92.5%"
+            ],
+            "hovertext": [
+              "First :  92.2 %",
+              "First :  92.5 %"
+            ],
             "textfont": {
-              "size": 15.1181102362205,
+              "size": 15.118110236220474,
               "color": "rgba(255,255,255,1)"
             },
             "type": "scatter",
@@ -130,12 +199,24 @@
             "frame": null
           },
           {
-            "x": 0.856,
-            "y": 1,
-            "text": "9%",
-            "hovertext": "Second :  9 %",
+            "x": [
+              0.94599999999999995,
+              0.94850000000000001
+            ],
+            "y": [
+              1,
+              2
+            ],
+            "text": [
+              "4.8%",
+              "4.7%"
+            ],
+            "hovertext": [
+              "Second :  4.8 %",
+              "Second :  4.7 %"
+            ],
             "textfont": {
-              "size": 15.1181102362205,
+              "size": 15.118110236220474,
               "color": "rgba(255,255,255,1)"
             },
             "type": "scatter",
@@ -150,12 +231,24 @@
             "frame": null
           },
           {
-            "x": 0.9175,
-            "y": 1,
-            "text": "3.3%",
-            "hovertext": "Third :  3.3 %",
+            "x": [
+              0.97550000000000003,
+              0.97750000000000004
+            ],
+            "y": [
+              1,
+              2
+            ],
+            "text": [
+              null,
+              null
+            ],
+            "hovertext": [
+              "Third :  1.1 %",
+              "Third :  1.1 %"
+            ],
             "textfont": {
-              "size": 15.1181102362205,
+              "size": 15.118110236220474,
               "color": "rgba(255,255,255,1)"
             },
             "type": "scatter",
@@ -170,12 +263,24 @@
             "frame": null
           },
           {
-            "x": 0.967,
-            "y": 1,
-            "text": "6.6%",
-            "hovertext": "Other :  6.6 %",
+            "x": [
+              0.99050000000000005,
+              0.99150000000000005
+            ],
+            "y": [
+              1,
+              2
+            ],
+            "text": [
+              null,
+              null
+            ],
+            "hovertext": [
+              "Other :  1.9 %",
+              "Other :  1.7 %"
+            ],
             "textfont": {
-              "size": 15.1181102362205,
+              "size": 15.118110236220474,
               "color": "rgba(255,255,255,1)"
             },
             "type": "scatter",
@@ -192,15 +297,15 @@
         ],
         "layout": {
           "margin": {
-            "t": 52.3082883630829,
-            "r": 7.30593607305936,
-            "b": 28.2717586827176,
-            "l": 10.958904109589
+            "t": 52.30828836308288,
+            "r": 7.3059360730593621,
+            "b": 28.271758682717589,
+            "l": 40.713989207139896
           },
           "font": {
             "color": "rgba(0,0,0,1)",
             "family": "Arial",
-            "size": 18.5969281859693
+            "size": 18.596928185969279
           },
           "xaxis": {
             "domain": [
@@ -211,7 +316,7 @@
             "type": "linear",
             "autorange": false,
             "range": [
-              -0.05,
+              -0.050000000000000003,
               1.05
             ],
             "tickmode": "array",
@@ -240,13 +345,13 @@
             "nticks": null,
             "ticks": "",
             "tickcolor": null,
-            "ticklen": 3.65296803652968,
+            "ticklen": 3.6529680365296811,
             "tickwidth": 0,
             "showticklabels": true,
             "tickfont": {
               "color": "rgba(77,77,77,1)",
               "family": "Arial",
-              "size": 14.8775425487754
+              "size": 14.877542548775427
             },
             "tickangle": 0,
             "showline": false,
@@ -254,7 +359,7 @@
             "linewidth": 0,
             "showgrid": true,
             "gridcolor": "rgba(235,235,235,1)",
-            "gridwidth": 0.66417600664176,
+            "gridwidth": 0.66417600664176002,
             "zeroline": false,
             "anchor": "y",
             "title": "",
@@ -269,24 +374,33 @@
             "type": "linear",
             "autorange": false,
             "range": [
-              0.4,
-              1.6
+              0.40000000000000002,
+              2.6000000000000001
             ],
             "tickmode": "array",
-            "ticktext": "",
-            "tickvals": 1,
+            "ticktext": [
+              "2022",
+              "2023"
+            ],
+            "tickvals": [
+              1,
+              2
+            ],
             "categoryorder": "array",
-            "categoryarray": "",
+            "categoryarray": [
+              "2022",
+              "2023"
+            ],
             "nticks": null,
             "ticks": "",
             "tickcolor": null,
-            "ticklen": 3.65296803652968,
+            "ticklen": 3.6529680365296811,
             "tickwidth": 0,
             "showticklabels": true,
             "tickfont": {
               "color": "rgba(77,77,77,1)",
               "family": "Arial",
-              "size": 14.8775425487754
+              "size": 14.877542548775427
             },
             "tickangle": 0,
             "showline": false,
@@ -294,7 +408,7 @@
             "linewidth": 0,
             "showgrid": true,
             "gridcolor": "rgba(235,235,235,1)",
-            "gridwidth": 0.66417600664176,
+            "gridwidth": 0.66417600664176002,
             "zeroline": false,
             "anchor": "x",
             "title": "",
@@ -333,7 +447,7 @@
               "x0": 0,
               "x1": 1,
               "y0": 0,
-              "y1": 38.2565379825654,
+              "y1": 38.256537982565391,
               "yanchor": 1,
               "ysizemode": "pixel"
             }
@@ -349,7 +463,7 @@
               "font": {
                 "color": "rgba(26,26,26,1)",
                 "family": "Arial",
-                "size": 26.5670402656704
+                "size": 26.567040265670396
               },
               "xref": "paper",
               "yref": "paper",
@@ -370,8 +484,8 @@
             },
             "title": "Preference",
             "orientation": "h",
-            "y": -0.1,
-            "x": 0.33
+            "y": -0.10000000000000001,
+            "x": 0.33000000000000002
           },
           "hovermode": "closest",
           "barmode": "relative",
@@ -401,7 +515,7 @@
           "persistent": false,
           "dynamic": false,
           "selectize": false,
-          "opacityDim": 0.2,
+          "opacityDim": 0.20000000000000001,
           "selected": {
             "opacity": 1
           },
@@ -470,9 +584,9 @@
         },
         {
           "name": "crosstalk",
-          "version": "1.2.0",
+          "version": "1.2.1",
           "src": {
-            "href": "crosstalk-1.2.0"
+            "href": "crosstalk-1.2.1"
           },
           "meta": null,
           "script": "js/crosstalk.min.js",
@@ -507,18 +621,6 @@
           "attachment": null,
           "all_files": false
         }
-      ]
-    },
-    "prefT3_ENG": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>93.4%<\/h3>\n    <p>Percentage of applicants who received an offer of one of their top three preferred secondary schools in England<\/p>\n  <\/div>\n<\/div>",
-      "deps": [
-
-      ]
-    },
-    "PrefT3_LA": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>93.4%<\/h3>\n    <p>Percentage of applicants who received an offer of one of their top three preferred secondary schools in England<\/p>\n  <\/div>\n<\/div>",
-      "deps": [
-
       ]
     }
   }

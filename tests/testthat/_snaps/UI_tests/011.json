@@ -7,36 +7,36 @@
   },
   "output": {
     "England_GO_places": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>87.7%<\/h3>\n    <p>Percentage of new places created in good and outstanding secondary schools in England<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>87.5%<\/h3>\n    <p>Percentage of new places created in good and outstanding secondary schools in England<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
-    "no_rating_line": "New places with no rating = 33,585",
+    "no_rating_line": "New places with no rating = 19,370",
     "quality_chart": {
       "x": {
         "data": [
           {
             "orientation": "h",
             "width": [
-              0.9,
-              0.9
+              0.90000000000000013,
+              0.89999999999999991
             ],
             "base": [
               0,
               0
             ],
             "x": [
-              0.321402244246048,
-              0.232763787899839
+              0.20107567465559539,
+              0.20483782083829483
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "Outstanding :  23544  places",
-              "Outstanding :  815882  places"
+              "Outstanding :  6393  places",
+              "Outstanding :  746750  places"
             ],
             "type": "bar",
             "textposition": "none",
@@ -44,7 +44,7 @@
               "autocolorscale": false,
               "color": "rgba(8,81,156,1)",
               "line": {
-                "width": 1.88976377952756,
+                "width": 1.8897637795275593,
                 "color": "transparent"
               }
             },
@@ -59,24 +59,24 @@
           {
             "orientation": "h",
             "width": [
-              0.9,
-              0.9
+              0.90000000000000013,
+              0.89999999999999991
             ],
             "base": [
-              0.321402244246048,
-              0.232763787899839
+              0.20107567465559539,
+              0.20483782083829483
             ],
             "x": [
-              0.5553553389576,
-              0.580622807360394
+              0.67383783103730266,
+              0.63155882198845892
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "Good :  40682  places",
-              "Good :  2035195  places"
+              "Good :  21424  places",
+              "Good :  2302390  places"
             ],
             "type": "bar",
             "textposition": "none",
@@ -84,7 +84,7 @@
               "autocolorscale": false,
               "color": "rgba(49,130,189,1)",
               "line": {
-                "width": 1.88976377952756,
+                "width": 1.8897637795275593,
                 "color": "transparent"
               }
             },
@@ -99,24 +99,24 @@
           {
             "orientation": "h",
             "width": [
-              0.9,
-              0.9
+              0.90000000000000013,
+              0.89999999999999991
             ],
             "base": [
-              0.876757583203648,
-              0.813386595260232
+              0.87491350569289805,
+              0.83639664282675374
             ],
             "x": [
-              0.111693559396074,
-              0.1583059763043
+              0.10354154871988419,
+              0.13228093188247525
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "Requires Improvement :  8182  places",
-              "Requires Improvement :  554893  places"
+              "Requires Improvement :  3292  places",
+              "Requires Improvement :  482239  places"
             ],
             "type": "bar",
             "textposition": "none",
@@ -124,7 +124,7 @@
               "autocolorscale": false,
               "color": "rgba(107,174,214,1)",
               "line": {
-                "width": 1.88976377952756,
+                "width": 1.8897637795275593,
                 "color": "transparent"
               }
             },
@@ -139,24 +139,24 @@
           {
             "orientation": "h",
             "width": [
-              0.9,
-              0.9
+              0.90000000000000013,
+              0.89999999999999991
             ],
             "base": [
-              0.988451142599722,
-              0.971692571564533
+              0.97845505441278224,
+              0.96867757470922899
             ],
             "x": [
-              0.0115488574002784,
-              0.0283074284354671
+              0.021544945587217756,
+              0.031322425290771005
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "Inadequate :  846  places",
-              "Inadequate :  99223  places"
+              "Inadequate :  685  places",
+              "Inadequate :  114188  places"
             ],
             "type": "bar",
             "textposition": "none",
@@ -164,7 +164,7 @@
               "autocolorscale": false,
               "color": "rgba(158,202,225,1)",
               "line": {
-                "width": 1.88976377952756,
+                "width": 1.8897637795275593,
                 "color": "transparent"
               }
             },
@@ -178,23 +178,23 @@
           },
           {
             "x": [
-              0.160701122123024,
-              0.116381893949919
+              0.1005378373277977,
+              0.10241891041914741
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "23,544",
-              "815,882"
+              "6,393",
+              "746,750"
             ],
             "hovertext": [
-              "Outstanding :  23544  places",
-              "Outstanding :  815882  places"
+              "Outstanding :  6393  places",
+              "Outstanding :  746750  places"
             ],
             "textfont": {
-              "size": 15.1181102362205,
+              "size": 15.118110236220474,
               "color": "rgba(255,255,255,1)"
             },
             "type": "scatter",
@@ -210,23 +210,23 @@
           },
           {
             "x": [
-              0.599079913724848,
-              0.523075191580036
+              0.53799459017424667,
+              0.52061723183252429
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "40,682",
-              "2,035,195"
+              "21,424",
+              "2,302,390"
             ],
             "hovertext": [
-              "Good :  40682  places",
-              "Good :  2035195  places"
+              "Good :  21424  places",
+              "Good :  2302390  places"
             ],
             "textfont": {
-              "size": 15.1181102362205,
+              "size": 15.118110236220474,
               "color": "rgba(255,255,255,1)"
             },
             "type": "scatter",
@@ -242,23 +242,23 @@
           },
           {
             "x": [
-              0.932604362901685,
-              0.892539583412383
+              0.92668428005284009,
+              0.90253710876799143
             ],
             "y": [
               2,
               1
             ],
             "text": [
-              "8,182",
-              "554,893"
+              "3,292",
+              "482,239"
             ],
             "hovertext": [
-              "Requires Improvement :  8182  places",
-              "Requires Improvement :  554893  places"
+              "Requires Improvement :  3292  places",
+              "Requires Improvement :  482239  places"
             ],
             "textfont": {
-              "size": 15.1181102362205,
+              "size": 15.118110236220474,
               "color": "rgba(255,255,255,1)"
             },
             "type": "scatter",
@@ -274,8 +274,8 @@
           },
           {
             "x": [
-              0.994225571299861,
-              0.985846285782267
+              0.98922752720639107,
+              0.98433878735461455
             ],
             "y": [
               2,
@@ -286,11 +286,11 @@
               null
             ],
             "hovertext": [
-              "Inadequate :  846  places",
-              "Inadequate :  99223  places"
+              "Inadequate :  685  places",
+              "Inadequate :  114188  places"
             ],
             "textfont": {
-              "size": 15.1181102362205,
+              "size": 15.118110236220474,
               "color": "rgba(255,255,255,1)"
             },
             "type": "scatter",
@@ -307,15 +307,15 @@
         ],
         "layout": {
           "margin": {
-            "t": 52.3082883630829,
-            "r": 7.30593607305936,
-            "b": 28.2717586827176,
-            "l": 70.4690743046907
+            "t": 52.30828836308288,
+            "r": 7.3059360730593621,
+            "b": 28.271758682717589,
+            "l": 70.46907430469075
           },
           "font": {
             "color": "rgba(0,0,0,1)",
             "family": "Arial",
-            "size": 18.5969281859693
+            "size": 18.596928185969279
           },
           "xaxis": {
             "domain": [
@@ -326,7 +326,7 @@
             "type": "linear",
             "autorange": false,
             "range": [
-              -0.05,
+              -0.050000000000000003,
               1.05
             ],
             "tickmode": "array",
@@ -355,13 +355,13 @@
             "nticks": null,
             "ticks": "",
             "tickcolor": null,
-            "ticklen": 3.65296803652968,
+            "ticklen": 3.6529680365296811,
             "tickwidth": 0,
             "showticklabels": true,
             "tickfont": {
               "color": "rgba(77,77,77,1)",
               "family": "Arial",
-              "size": 14.8775425487754
+              "size": 14.877542548775427
             },
             "tickangle": 0,
             "showline": false,
@@ -369,7 +369,7 @@
             "linewidth": 0,
             "showgrid": true,
             "gridcolor": "rgba(235,235,235,1)",
-            "gridwidth": 0.66417600664176,
+            "gridwidth": 0.66417600664176002,
             "zeroline": false,
             "anchor": "y",
             "title": "",
@@ -384,8 +384,8 @@
             "type": "linear",
             "autorange": false,
             "range": [
-              0.4,
-              2.6
+              0.40000000000000002,
+              2.6000000000000001
             ],
             "tickmode": "array",
             "ticktext": [
@@ -404,13 +404,13 @@
             "nticks": null,
             "ticks": "",
             "tickcolor": null,
-            "ticklen": 3.65296803652968,
+            "ticklen": 3.6529680365296811,
             "tickwidth": 0,
             "showticklabels": true,
             "tickfont": {
               "color": "rgba(77,77,77,1)",
               "family": "Arial",
-              "size": 14.8775425487754
+              "size": 14.877542548775427
             },
             "tickangle": 0,
             "showline": false,
@@ -418,7 +418,7 @@
             "linewidth": 0,
             "showgrid": true,
             "gridcolor": "rgba(235,235,235,1)",
-            "gridwidth": 0.66417600664176,
+            "gridwidth": 0.66417600664176002,
             "zeroline": false,
             "anchor": "x",
             "title": "",
@@ -457,7 +457,7 @@
               "x0": 0,
               "x1": 1,
               "y0": 0,
-              "y1": 38.2565379825654,
+              "y1": 38.256537982565391,
               "yanchor": 1,
               "ysizemode": "pixel"
             }
@@ -473,7 +473,7 @@
               "font": {
                 "color": "rgba(26,26,26,1)",
                 "family": "Arial",
-                "size": 26.5670402656704
+                "size": 26.567040265670396
               },
               "xref": "paper",
               "yref": "paper",
@@ -494,8 +494,8 @@
             },
             "title": "",
             "orientation": "h",
-            "y": -0.1,
-            "x": 0.2
+            "y": -0.10000000000000001,
+            "x": 0.20000000000000001
           },
           "hovermode": "closest",
           "barmode": "relative",
@@ -521,7 +521,7 @@
           "persistent": false,
           "dynamic": false,
           "selectize": false,
-          "opacityDim": 0.2,
+          "opacityDim": 0.20000000000000001,
           "selected": {
             "opacity": 1
           },
@@ -590,9 +590,9 @@
         },
         {
           "name": "crosstalk",
-          "version": "1.2.0",
+          "version": "1.2.1",
           "src": {
-            "href": "crosstalk-1.2.0"
+            "href": "crosstalk-1.2.1"
           },
           "meta": null,
           "script": "js/crosstalk.min.js",

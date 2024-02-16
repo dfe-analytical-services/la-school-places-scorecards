@@ -3,31 +3,53 @@
     "LA_choice": "England",
     "navlistPanel": "la_scorecards",
     "phase_choice": "Primary",
-    "tabs": "preference"
+    "tabs": "quality"
   },
   "output": {
-    "preference_p": {
+    "England_GO_places": {
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>94.7%<\/h3>\n    <p>Percentage of new places created in good and outstanding primary schools in England<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "no_rating_line": "New places with no rating = 6,480",
+    "quality_chart": {
       "x": {
         "data": [
           {
             "orientation": "h",
-            "width": 0.9,
-            "base": 0,
-            "x": 0.918918918918919,
-            "y": 1,
-            "text": "First :  91.8 %",
+            "width": [
+              0.90000000000000013,
+              0.89999999999999991
+            ],
+            "base": [
+              0,
+              0
+            ],
+            "x": [
+              0.20337639692478401,
+              0.16579111768837801
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Outstanding :  2566  places",
+              "Outstanding :  806502  places"
+            ],
             "type": "bar",
             "textposition": "none",
             "marker": {
               "autocolorscale": false,
               "color": "rgba(8,81,156,1)",
               "line": {
-                "width": 1.88976377952756,
+                "width": 1.8897637795275593,
                 "color": "transparent"
               }
             },
-            "name": "First",
-            "legendgroup": "First",
+            "name": "Outstanding",
+            "legendgroup": "Outstanding",
             "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
@@ -36,23 +58,38 @@
           },
           {
             "orientation": "h",
-            "width": 0.9,
-            "base": 0.918918918918919,
-            "x": 0.0490490490490491,
-            "y": 1,
-            "text": "Second :  4.9 %",
+            "width": [
+              0.90000000000000013,
+              0.89999999999999991
+            ],
+            "base": [
+              0.20337639692478401,
+              0.16579111768837801
+            ],
+            "x": [
+              0.74375842117777602,
+              0.7464530758852741
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Good :  9384  places",
+              "Good :  3631171  places"
+            ],
             "type": "bar",
             "textposition": "none",
             "marker": {
               "autocolorscale": false,
               "color": "rgba(49,130,189,1)",
               "line": {
-                "width": 1.88976377952756,
+                "width": 1.8897637795275593,
                 "color": "transparent"
               }
             },
-            "name": "Second",
-            "legendgroup": "Second",
+            "name": "Good",
+            "legendgroup": "Good",
             "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
@@ -61,23 +98,38 @@
           },
           {
             "orientation": "h",
-            "width": 0.9,
-            "base": 0.967967967967968,
-            "x": 0.012012012012012,
-            "y": 1,
-            "text": "Third :  1.2 %",
+            "width": [
+              0.90000000000000013,
+              0.89999999999999991
+            ],
+            "base": [
+              0.94713481810256006,
+              0.91224419357365205
+            ],
+            "x": [
+              0.03828168344297378,
+              0.079963129298044389
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Requires Improvement :  483  places",
+              "Requires Improvement :  388986  places"
+            ],
             "type": "bar",
             "textposition": "none",
             "marker": {
               "autocolorscale": false,
               "color": "rgba(107,174,214,1)",
               "line": {
-                "width": 1.88976377952756,
+                "width": 1.8897637795275593,
                 "color": "transparent"
               }
             },
-            "name": "Third",
-            "legendgroup": "Third",
+            "name": "Requires Improvement",
+            "legendgroup": "Requires Improvement",
             "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
@@ -86,23 +138,38 @@
           },
           {
             "orientation": "h",
-            "width": 0.9,
-            "base": 0.97997997997998,
-            "x": 0.02002002002002,
-            "y": 1,
-            "text": "Other :  2 %",
+            "width": [
+              0.90000000000000013,
+              0.89999999999999991
+            ],
+            "base": [
+              0.98541650154553384,
+              0.99220732287169644
+            ],
+            "x": [
+              0.014583498454466159,
+              0.0077926771283035601
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Inadequate :  184  places",
+              "Inadequate :  37908  places"
+            ],
             "type": "bar",
             "textposition": "none",
             "marker": {
               "autocolorscale": false,
               "color": "rgba(158,202,225,1)",
               "line": {
-                "width": 1.88976377952756,
+                "width": 1.8897637795275593,
                 "color": "transparent"
               }
             },
-            "name": "Other",
-            "legendgroup": "Other",
+            "name": "Inadequate",
+            "legendgroup": "Inadequate",
             "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
@@ -110,19 +177,31 @@
             "frame": null
           },
           {
-            "x": 0.459459459459459,
-            "y": 1,
-            "text": "91.8%",
-            "hovertext": "First :  91.8 %",
+            "x": [
+              0.10168819846239201,
+              0.082895558844189005
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "2,566",
+              "806,502"
+            ],
+            "hovertext": [
+              "Outstanding :  2566  places",
+              "Outstanding :  806502  places"
+            ],
             "textfont": {
-              "size": 15.1181102362205,
+              "size": 15.118110236220474,
               "color": "rgba(255,255,255,1)"
             },
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
-            "name": "First",
-            "legendgroup": "First",
+            "name": "Outstanding",
+            "legendgroup": "Outstanding",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -130,19 +209,31 @@
             "frame": null
           },
           {
-            "x": 0.943443443443444,
-            "y": 1,
-            "text": "4.9%",
-            "hovertext": "Second :  4.9 %",
+            "x": [
+              0.575255607513672,
+              0.539017655631015
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "9,384",
+              "3,631,171"
+            ],
+            "hovertext": [
+              "Good :  9384  places",
+              "Good :  3631171  places"
+            ],
             "textfont": {
-              "size": 15.1181102362205,
+              "size": 15.118110236220474,
               "color": "rgba(255,255,255,1)"
             },
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
-            "name": "Second",
-            "legendgroup": "Second",
+            "name": "Good",
+            "legendgroup": "Good",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -150,19 +241,31 @@
             "frame": null
           },
           {
-            "x": 0.973973973973974,
-            "y": 1,
-            "text": null,
-            "hovertext": "Third :  1.2 %",
+            "x": [
+              0.96627565982404695,
+              0.9522257582226743
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              null,
+              "388,986"
+            ],
+            "hovertext": [
+              "Requires Improvement :  483  places",
+              "Requires Improvement :  388986  places"
+            ],
             "textfont": {
-              "size": 15.1181102362205,
+              "size": 15.118110236220474,
               "color": "rgba(255,255,255,1)"
             },
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
-            "name": "Third",
-            "legendgroup": "Third",
+            "name": "Requires Improvement",
+            "legendgroup": "Requires Improvement",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -170,19 +273,31 @@
             "frame": null
           },
           {
-            "x": 0.98998998998999,
-            "y": 1,
-            "text": null,
-            "hovertext": "Other :  2 %",
+            "x": [
+              0.99270825077276692,
+              0.99610366143584828
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              null,
+              null
+            ],
+            "hovertext": [
+              "Inadequate :  184  places",
+              "Inadequate :  37908  places"
+            ],
             "textfont": {
-              "size": 15.1181102362205,
+              "size": 15.118110236220474,
               "color": "rgba(255,255,255,1)"
             },
             "type": "scatter",
             "mode": "text",
             "hoveron": "points",
-            "name": "Other",
-            "legendgroup": "Other",
+            "name": "Inadequate",
+            "legendgroup": "Inadequate",
             "showlegend": false,
             "xaxis": "x",
             "yaxis": "y",
@@ -192,15 +307,15 @@
         ],
         "layout": {
           "margin": {
-            "t": 52.3082883630829,
-            "r": 7.30593607305936,
-            "b": 28.2717586827176,
-            "l": 10.958904109589
+            "t": 52.30828836308288,
+            "r": 7.3059360730593621,
+            "b": 28.271758682717589,
+            "l": 70.46907430469075
           },
           "font": {
             "color": "rgba(0,0,0,1)",
             "family": "Arial",
-            "size": 18.5969281859693
+            "size": 18.596928185969279
           },
           "xaxis": {
             "domain": [
@@ -211,7 +326,7 @@
             "type": "linear",
             "autorange": false,
             "range": [
-              -0.05,
+              -0.050000000000000003,
               1.05
             ],
             "tickmode": "array",
@@ -240,13 +355,13 @@
             "nticks": null,
             "ticks": "",
             "tickcolor": null,
-            "ticklen": 3.65296803652968,
+            "ticklen": 3.6529680365296811,
             "tickwidth": 0,
             "showticklabels": true,
             "tickfont": {
               "color": "rgba(77,77,77,1)",
               "family": "Arial",
-              "size": 14.8775425487754
+              "size": 14.877542548775427
             },
             "tickangle": 0,
             "showline": false,
@@ -254,7 +369,7 @@
             "linewidth": 0,
             "showgrid": true,
             "gridcolor": "rgba(235,235,235,1)",
-            "gridwidth": 0.66417600664176,
+            "gridwidth": 0.66417600664176002,
             "zeroline": false,
             "anchor": "y",
             "title": "",
@@ -269,24 +384,33 @@
             "type": "linear",
             "autorange": false,
             "range": [
-              0.4,
-              1.6
+              0.40000000000000002,
+              2.6000000000000001
             ],
             "tickmode": "array",
-            "ticktext": "",
-            "tickvals": 1,
+            "ticktext": [
+              "Existing",
+              "New"
+            ],
+            "tickvals": [
+              1,
+              2
+            ],
             "categoryorder": "array",
-            "categoryarray": "",
+            "categoryarray": [
+              "Existing",
+              "New"
+            ],
             "nticks": null,
             "ticks": "",
             "tickcolor": null,
-            "ticklen": 3.65296803652968,
+            "ticklen": 3.6529680365296811,
             "tickwidth": 0,
             "showticklabels": true,
             "tickfont": {
               "color": "rgba(77,77,77,1)",
               "family": "Arial",
-              "size": 14.8775425487754
+              "size": 14.877542548775427
             },
             "tickangle": 0,
             "showline": false,
@@ -294,7 +418,7 @@
             "linewidth": 0,
             "showgrid": true,
             "gridcolor": "rgba(235,235,235,1)",
-            "gridwidth": 0.66417600664176,
+            "gridwidth": 0.66417600664176002,
             "zeroline": false,
             "anchor": "x",
             "title": "",
@@ -333,7 +457,7 @@
               "x0": 0,
               "x1": 1,
               "y0": 0,
-              "y1": 38.2565379825654,
+              "y1": 38.256537982565391,
               "yanchor": 1,
               "ysizemode": "pixel"
             }
@@ -349,7 +473,7 @@
               "font": {
                 "color": "rgba(26,26,26,1)",
                 "family": "Arial",
-                "size": 26.5670402656704
+                "size": 26.567040265670396
               },
               "xref": "paper",
               "yref": "paper",
@@ -368,19 +492,15 @@
               "family": "Arial",
               "size": 14
             },
-            "title": "Preference",
+            "title": "",
             "orientation": "h",
-            "y": -0.1,
-            "x": 0.33
+            "y": -0.10000000000000001,
+            "x": 0.20000000000000001
           },
           "hovermode": "closest",
           "barmode": "relative",
-          "uniformtext": {
-            "minsize": 12,
-            "mode": "hide"
-          },
           "title": {
-            "text": "Chart showing percentage of pupils recieving an offer from their first, second, third or other place schools, by Local Authority compared to England",
+            "text": "Chart showing the quality of new and existing school places and estimated additional places, by Local Authority compared to England",
             "font": {
               "color": "#ffffff"
             }
@@ -401,7 +521,7 @@
           "persistent": false,
           "dynamic": false,
           "selectize": false,
-          "opacityDim": 0.2,
+          "opacityDim": 0.20000000000000001,
           "selected": {
             "opacity": 1
           },
@@ -470,9 +590,9 @@
         },
         {
           "name": "crosstalk",
-          "version": "1.2.0",
+          "version": "1.2.1",
           "src": {
-            "href": "crosstalk-1.2.0"
+            "href": "crosstalk-1.2.1"
           },
           "meta": null,
           "script": "js/crosstalk.min.js",
@@ -507,18 +627,6 @@
           "attachment": null,
           "all_files": false
         }
-      ]
-    },
-    "prefT3_ENG": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>98%<\/h3>\n    <p>Percentage of applicants who received an offer of one of their top three preferred primary schools in England<\/p>\n  <\/div>\n<\/div>",
-      "deps": [
-
-      ]
-    },
-    "PrefT3_LA": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>93.4%<\/h3>\n    <p>Percentage of applicants who received an offer of one of their top three preferred secondary schools in England<\/p>\n  <\/div>\n<\/div>",
-      "deps": [
-
       ]
     }
   }
