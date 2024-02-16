@@ -107,13 +107,15 @@ function(input, output, session) {
     scorecards_data_pivot %>%
       filter(
         case_when(
-          input$LA_choice != "England" ~ LA_name %in% c(input$LA_choice, input$selectBenchLAspref),
+          input$LA_choice != "England" ~
+            LA_name %in% c(input$LA_choice, input$selectBenchLAspref),
           TRUE ~ LA_name %in% c(input$LA_choice)
         ),
         Phase == input$phase_choice
       ) %>%
       mutate(
-        # This step just makes sure that the LA is FIRST when it comes to plots/tables
+        # This step just makes sure that the LA is FIRST when it comes to
+        # plots / tables
         LA_name = factor(LA_name) %>% relevel(input$LA_choice)
       )
   })
@@ -123,13 +125,15 @@ function(input, output, session) {
     scorecards_data_pivot %>%
       filter(
         case_when(
-          input$LA_choice != "England" ~ LA_name %in% c(input$LA_choice, input$selectBenchLAsquality),
+          input$LA_choice != "England" ~
+            LA_name %in% c(input$LA_choice, input$selectBenchLAsquality),
           TRUE ~ LA_name %in% c(input$LA_choice)
         ),
         Phase == input$phase_choice
       ) %>%
       mutate(
-        # This step just makes sure that the LA is FIRST when it comes to plots/tables
+        # This step just makes sure that the LA is FIRST when it comes to
+        # plots / tables
         LA_name = factor(LA_name) %>% relevel(input$LA_choice)
       )
   })
@@ -140,7 +144,8 @@ function(input, output, session) {
     scorecards_data_pivot %>% filter(Phase == input$phase_choice)
   })
 
-  # Scorecard data, filtered on user input AND including England as a comparison for cost data
+  # Scorecard data, filtered on user input AND including England as a comparison
+  # for cost data
   live_scorecard_data_england_comp <- reactive({
     scorecards_data_pivot %>%
       filter(
@@ -149,41 +154,25 @@ function(input, output, session) {
       ) %>%
       mutate(
         LA_name = as.factor(LA_name),
-        # This step just makes sure that the LA is FIRST when it comes to plots/tables
+        # This step just makes sure that the LA is FIRST when it comes to
+        # plots / tables
         LA_name = relevel(LA_name, "England"),
         LA_name = factor(LA_name, levels = rev(levels(LA_name)))
       )
   })
 
-  ## scorecard data, filtered on user input and benchmarking choice Las as a comparison
+  # scorecard data, filtered on user input and benchmarking choice Las as a
+  # comparison
   live_scorecard_data_reactive_benchmark <- reactive({
     scorecards_data_pivot %>%
       filter(
         LA_name %in% c(input$LA_choice, input$selectBenchLAs),
         Phase == input$phase_choice
       ) %>%
-      mutate(LA_name = factor(LA_name, levels = c(input$LA_choice, input$selectBenchLAs)))
+      mutate(LA_name = factor(LA_name,
+        levels = c(input$LA_choice, input$selectBenchLAs)
+      ))
   })
-  # Options for chart choice - dependent on phase choice
-
-  # chart_options <- reactive({
-  # if (input$phase_choice == "Primary") {
-  #  c("Ofsted Rating", "Reading Progress", "Maths Progress")
-  # } else {
-  #  c("Ofsted Rating", "Progress 8")
-  # }
-  #  })
-
-  # observe({
-  #  updateSelectInput(session, "chart_choice",
-  #  choices = chart_options(),
-  # selected = "Ofsted Rating"
-  # )
-  # })
-
-
-
-
 
   # Top lines -------------------------
   ## create header so users know what the data is showing
@@ -223,26 +212,31 @@ function(input, output, session) {
       select(Funding) %>%
       mutate(
         Funding =
-          ifelse(input$LA_choice == "England", roundFiveUp(Funding / 1000000000, 2),
-            roundFiveUp(Funding / 1000000, 0)
+          ifelse(input$LA_choice == "England",
+            round_half_up(Funding / 1000000000, 2),
+            round_half_up(Funding / 1000000, 0)
           )
       ) %>%
       as.numeric()
 
-    # Create the actual output here. Use if statement so we display "bn" if it's England, "mm" if not.
+    # Create the actual output here. Use if statement so we display "bn" if it's
+    # England, "mm" if not.
     if (input$LA_choice == "England") {
       shinydashboard::valueBox(
         paste0("£", total_funding, "bn"),
-        paste0("Total primary and secondary basic need funding to create new places ", funding_year),
-        # get different icons for background here: https://fontawesome.com/v5.15/icons?d=gallery&p=2
-        # icon = icon("fas fa-pound-sign"),
+        paste(
+          "Total primary and secondary basic need funding to create new places",
+          funding_year
+        ),
         color = "blue"
       )
     } else {
       shinydashboard::valueBox(
         paste0("£", total_funding, "m"),
-        paste0("Total primary and secondary basic need funding to create new places ", funding_year),
-        # icon = icon("fas fa-pound-sign"),
+        paste(
+          "Total primary and secondary basic need funding to create new places",
+          funding_year
+        ),
         color = "blue"
       )
     }
@@ -255,7 +249,7 @@ function(input, output, session) {
     growth_perc <- live_scorecard_data() %>%
       filter(name == "Bangro") %>%
       pull(value) # %>%
-    # roundFiveUp(., 3) * 100
+    # round_half_up(., 3) * 100
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -273,13 +267,16 @@ function(input, output, session) {
     anticipated_growth_perc <- live_scorecard_data() %>%
       filter(name == "Angro") %>%
       pull(value) # %>%
-    # roundFiveUp(., 3) * 100
+    # round_half_up(., 3) * 100
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
       format_perc(anticipated_growth_perc),
-      paste0("Anticipated change in ", str_to_lower(input$phase_choice), " pupil numbers ", next_year, " to ", plan_year),
-      # icon = icon("fas fa-chart-line"),
+      paste0(
+        "Anticipated change in ",
+        str_to_lower(input$phase_choice),
+        " pupil numbers ", next_year, " to ", plan_year
+      ),
       color = "blue"
     )
   })
@@ -306,7 +303,7 @@ function(input, output, session) {
     unfilled_places_perc <- live_scorecard_data() %>%
       filter(name == "QuanUP") %>%
       pull(value) %>%
-      roundFiveUp(., 1)
+      round_half_up(., 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -345,7 +342,7 @@ function(input, output, session) {
     spare_places_per <- live_scorecard_data() %>%
       filter(name == "QuanSu") %>%
       pull(value) %>%
-      roundFiveUp(., 3) * 100
+      round_half_up(., 3) * 100
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -492,7 +489,7 @@ function(input, output, session) {
     forecast_accuracy <- live_scorecard_data() %>%
       filter(name == "For_1") %>%
       pull(value) %>%
-      roundFiveUp(., 3)
+      round_half_up(., 3)
 
 
     Foracc1year <- scorecards_data_pivot %>%
@@ -501,7 +498,7 @@ function(input, output, session) {
         Phase == input$phase_choice
       ) %>%
       pull(value) %>%
-      roundFiveUp(., 3)
+      round_half_up(., 3)
 
     medianaccuracy1 <- median(Foracc1year, na.rm = TRUE)
 
@@ -533,7 +530,7 @@ function(input, output, session) {
     forecast_accuracy <- live_scorecard_data() %>%
       filter(name == "For_2") %>%
       pull(value) %>%
-      roundFiveUp(., 3)
+      round_half_up(., 3)
 
     Foracc2year <- scorecards_data_pivot %>%
       filter(
@@ -541,7 +538,7 @@ function(input, output, session) {
         Phase == input$phase_choice
       ) %>%
       pull(value) %>%
-      roundFiveUp(., 3)
+      round_half_up(., 3)
 
     medianaccuracy2 <- median(Foracc2year, na.rm = TRUE)
 
@@ -694,7 +691,7 @@ function(input, output, session) {
       filter(name == "PrefT3_CY") %>%
       filter(LA_name == "England") %>%
       pull(value) %>%
-      roundFiveUp(., 1)
+      round_half_up(., 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -712,7 +709,7 @@ function(input, output, session) {
       filter(name == "PrefT3_NY") %>%
       filter(LA_name == "England") %>%
       pull(value) %>%
-      roundFiveUp(., 1)
+      round_half_up(., 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -730,7 +727,7 @@ function(input, output, session) {
     PrefT3_CY <- live_scorecard_data() %>%
       filter(name == "PrefT3_CY") %>%
       pull(value) %>%
-      roundFiveUp(., 1)
+      round_half_up(., 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -748,7 +745,7 @@ function(input, output, session) {
     PrefT3_NY <- live_scorecard_data() %>%
       filter(name == "PrefT3_NY") %>%
       pull(value) %>%
-      roundFiveUp(., 1)
+      round_half_up(., 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -795,7 +792,7 @@ function(input, output, session) {
       mutate(
         rating = factor(rating, levels = c("First", "Second", "Third", "Other")),
         # Neaten up percs
-        value = as.numeric(roundFiveUp(value, 1)),
+        value = as.numeric(round_half_up(value, 1)),
         value_label = if_else(value > 3, paste0(value, "%"), NA_character_)
       )
 
@@ -860,22 +857,22 @@ function(input, output, session) {
       live_scorecard_data() %>%
         filter(name == "QualProp") %>%
         pull(value) %>%
-        roundFiveUp(., 3) * 100
+        round_half_up(., 3) * 100
     } else if (chart_choice == "Progress 8") {
       live_scorecard_data() %>%
         filter(name == "Qual_KS4_Prop") %>%
         pull(value) %>%
-        roundFiveUp(., 3) * 100
+        round_half_up(., 3) * 100
     } else if (chart_choice == "Reading Progress") {
       live_scorecard_data() %>%
         filter(name == "Qual_KS2Read_Prop") %>%
         pull(value) %>%
-        roundFiveUp(., 3) * 100
+        round_half_up(., 3) * 100
     } else if (chart_choice == "Maths Progress") {
       live_scorecard_data() %>%
         filter(name == "Qual_KS2Mat_Prop") %>%
         pull(value) %>%
-        roundFiveUp(., 3) * 100
+        round_half_up(., 3) * 100
     }
   })
 
@@ -908,7 +905,7 @@ function(input, output, session) {
         as.numeric()
 
       # calculate percentage
-      roundFiveUp(numerator / denominator * 100, 1)
+      round_half_up(numerator / denominator * 100, 1)
     } else if (chart_choice == "Progress 8") {
       numerator <- live_scorecard_data_all_la() %>%
         filter(LA_name == "England" &
@@ -923,7 +920,7 @@ function(input, output, session) {
         as.numeric()
 
       # calculate percentage
-      roundFiveUp(numerator / denominator * 100, 1)
+      round_half_up(numerator / denominator * 100, 1)
     } else if (chart_choice == "Reading Progress") {
       numerator <- live_scorecard_data_all_la() %>%
         filter(LA_name == "England" &
@@ -938,7 +935,7 @@ function(input, output, session) {
         as.numeric()
 
       # calculate percentage
-      roundFiveUp(numerator / denominator * 100, 1)
+      round_half_up(numerator / denominator * 100, 1)
     } else if (chart_choice == "Maths Progress") {
       numerator <- live_scorecard_data_all_la() %>%
         filter(LA_name == "England" &
@@ -953,7 +950,7 @@ function(input, output, session) {
         as.numeric()
 
       # calculate percentage
-      roundFiveUp(numerator / denominator * 100, 1)
+      round_half_up(numerator / denominator * 100, 1)
     }
   })
 
@@ -1085,7 +1082,7 @@ function(input, output, session) {
       )) %>%
       # Create new variable called places, replace 0s with NAs so it plots neatly
       mutate(
-        places = if_else(value == 0, NA_integer_, as.integer(roundFiveUp(value, 0)))
+        places = if_else(value == 0, NA_integer_, as.integer(round_half_up(value, 0)))
       ) %>%
       # Give NA for label if it's too small
       group_by(LA_name, place_type) %>%
@@ -1153,7 +1150,7 @@ function(input, output, session) {
       )) %>%
       mutate(rating = factor(rating, levels = c("Well above average", "Above average", "Average", "Below average", "Well below average", "No rating"))) %>%
       # Create new variable called places, replace 0s with NAs so it plots neatly
-      mutate(places = if_else(value == 0, NA_integer_, as.integer(roundFiveUp(value, 0)))) %>%
+      mutate(places = if_else(value == 0, NA_integer_, as.integer(round_half_up(value, 0)))) %>%
       # Give NA for label if it's too small
       group_by(LA_name, place_type) %>%
       mutate(
@@ -1218,7 +1215,7 @@ function(input, output, session) {
       )) %>%
       mutate(rating = factor(rating, levels = c("Well above average", "Above average", "Average", "Below average", "Well below average", "No rating"))) %>%
       # Create new variable called places, replace 0s with NAs so it plots neatly
-      mutate(places = if_else(value == 0, NA_integer_, as.integer(roundFiveUp(value, 0)))) %>%
+      mutate(places = if_else(value == 0, NA_integer_, as.integer(round_half_up(value, 0)))) %>%
       # Give NA for label if it's too small
       group_by(LA_name, place_type) %>%
       mutate(
@@ -1283,7 +1280,7 @@ function(input, output, session) {
       )) %>%
       mutate(rating = factor(rating, levels = c("Well above average", "Above average", "Average", "Below average", "Well below average", "No rating"))) %>%
       # Create new variable called places, replace 0s with NAs so it plots neatly
-      mutate(places = if_else(value == 0, NA_integer_, as.integer(roundFiveUp(value, 0)))) %>%
+      mutate(places = if_else(value == 0, NA_integer_, as.integer(round_half_up(value, 0)))) %>%
       # Give NA for label if it's too small
       group_by(LA_name, place_type) %>%
       mutate(
@@ -1373,7 +1370,7 @@ function(input, output, session) {
         pivot_wider(names_from = data_type, values_from = value) %>%
         # calculate cost per place
         mutate(
-          cost_per_place = roundFiveUp(Cost / Place, 0),
+          cost_per_place = round_half_up(Cost / Place, 0),
           # format it nicely with £ sign
           cost_per_place = paste0("£", cs_num(cost_per_place)),
           # Nicely format any NA
@@ -1406,7 +1403,7 @@ function(input, output, session) {
       select(LA_name, data_type, exp_type, value) %>%
       pivot_wider(names_from = data_type, values_from = value) %>%
       mutate(
-        cost_per_place = roundFiveUp(Cost / Place, 0),
+        cost_per_place = round_half_up(Cost / Place, 0),
         grouping = case_when(
           !LA_name %in% c("England", input$LA_choice) ~ "Other LA",
           TRUE ~ as.character(LA_name)

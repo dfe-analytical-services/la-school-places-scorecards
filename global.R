@@ -33,27 +33,11 @@ shhh(library(checkmate))
 shhh(library(dfeshiny))
 shhh(library(shinytest2))
 shhh(library(diffviewer))
+shhh(library(janitor))
 
 # Phantom js needed for pdf compile to work. Note this works even on the shinyapps server.
 if (!webshot::is_phantomjs_installed()) {
   webshot::install_phantomjs(force = FALSE)
-}
-
-# tidy_code_function -------------------------------------------------------------------------------
-
-tidy_code_function <- function() {
-  message("----------------------------------------")
-  message("App scripts")
-  message("----------------------------------------")
-  app_scripts <- eval(styler::style_dir(recursive = FALSE)$changed)
-  message("R scripts")
-  message("----------------------------------------")
-  r_scripts <- eval(styler::style_dir("R/")$changed)
-  message("Test scripts")
-  message("----------------------------------------")
-  test_scripts <- eval(styler::style_dir("tests/", filetype = "r")$changed)
-  script_changes <- c(app_scripts, r_scripts, test_scripts)
-  return(script_changes)
 }
 
 source("0_variable_change.R")
@@ -157,17 +141,6 @@ LA_benchmark_options_quality <-
 
 
 # Functions ---------------------------------------------------------------
-
-# Create rounding function as baseR one rounds fives down
-
-roundFiveUp <- function(x, n) {
-  z <- abs(x) * 10^n
-  z <- z + 0.5 + sqrt(.Machine$double.eps)
-  z <- trunc(z)
-  z <- z / 10^n
-  positiveNegative <- sign(x)
-  return(z * positiveNegative)
-}
 
 # Comma separating
 
