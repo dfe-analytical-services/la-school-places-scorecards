@@ -14,7 +14,7 @@ function(input, output, session) {
     parent_session = session,
     google_analytics_key = google_analytics_key
   )
-  
+
   # Dashboard control -------------------------------------------------------
 
 
