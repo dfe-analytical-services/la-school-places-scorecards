@@ -65,9 +65,9 @@ ui <- function(input, output, session) {
       panel_accessibility(),
       dfeshiny::support_panel(
         team_email = "scap.ppp@education.gov.uk",
-        repo_name = "la-school-places-scorecards",
+        repo_name = "https://github.com/dfe-analytical-services/la-school-places-scorecards",
         publication_name = "Local authority school places scorecards",
-        publication_stub = "local-authority-school-places-scorecards",
+        publication_slug = "local-authority-school-places-scorecards",
         form_url = "https://forms.office.com/r/wEWr5KCrTQ"
       )
     ),

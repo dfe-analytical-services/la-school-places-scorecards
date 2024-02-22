@@ -273,7 +273,7 @@
     },
     "callr": {
       "Package": "callr",
-      "Version": "3.7.3",
+      "Version": "3.7.5",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -282,7 +282,7 @@
         "processx",
         "utils"
       ],
-      "Hash": "9b2191ede20fa29828139b9900922e51"
+      "Hash": "9f0e4fae4963ba775a5e5c520838c87b"
     },
     "checkmate": {
       "Package": "checkmate",
@@ -446,14 +446,15 @@
       "RemoteUsername": "dfe-analytical-services",
       "RemoteRepo": "dfeshiny",
       "RemoteRef": "main",
-      "RemoteSha": "f3c9fd1f7fdc9e13afec7b52504e0d89abc1e9f3",
+      "RemoteSha": "d22732b2303b94f0ef26b4887013ee570e0f8e0a",
       "RemoteHost": "api.github.com",
       "Requirements": [
         "shiny",
         "shinyGovstyle",
+        "shinyjs",
         "styler"
       ],
-      "Hash": "a1ec0cfdbfaa1e10e2bf4be68f07655e"
+      "Hash": "14d7f0cc430795d3d2a4efe37f118e48"
     },
     "diffobj": {
       "Package": "diffobj",
@@ -1306,13 +1307,13 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "1.0.3",
+      "Version": "1.0.4",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "utils"
       ],
-      "Hash": "41b847654f567341725473431dd0d5ab"
+      "Hash": "11abaf7c540ff33f94514d50f929bfd1"
     },
     "rlang": {
       "Package": "rlang",
