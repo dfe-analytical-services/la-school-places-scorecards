@@ -446,7 +446,7 @@
       "RemoteUsername": "dfe-analytical-services",
       "RemoteRepo": "dfeshiny",
       "RemoteRef": "main",
-      "RemoteSha": "fb8d0ba9cc606cf7aea787c2b688e702bb3d12d3",
+      "RemoteSha": "d22732b2303b94f0ef26b4887013ee570e0f8e0a",
       "RemoteHost": "api.github.com",
       "Requirements": [
         "shiny",
@@ -454,7 +454,7 @@
         "shinyjs",
         "styler"
       ],
-      "Hash": "4a30dfdf144fb47cab6a34d40d708bde"
+      "Hash": "14d7f0cc430795d3d2a4efe37f118e48"
     },
     "diffobj": {
       "Package": "diffobj",
