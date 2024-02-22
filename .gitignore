@@ -3,8 +3,10 @@
 .RData
 .Ruserdata
 file*.log
+texput.log
 hc.*
 Summary_scorecard.aux
 Summary_scorecard.log
 Summary_scorecard.tex
 Summary_scorecard.pdf
+rsconnect

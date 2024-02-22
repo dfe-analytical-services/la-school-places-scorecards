@@ -1,0 +1,312 @@
+{
+  "input": {
+    "LA_choice": "Hertfordshire",
+    "navlistPanel": "la_scorecards",
+    "phase_choice": "Secondary",
+    "tabs": "quantity"
+  },
+  "output": {
+    "data_description": "Data for secondary state-funded school places in Hertfordshire",
+    "estimated_additional_places": {
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>600<\/h3>\n    <p>Estimated additional secondary places needed to meet demand in 2024/25<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "estimated_spare_places": {
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>9.4%<\/h3>\n    <p>Estimated percentage of spare secondary places in 2024/25<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "places_chart": {
+      "x": {
+        "layout": {
+          "margin": {
+            "b": 40,
+            "l": 60,
+            "t": 25,
+            "r": 10
+          },
+          "yaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "title": ""
+          },
+          "xaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "title": "",
+            "categoryorder": "array",
+            "categoryarray": "Hertfordshire"
+          },
+          "barmode": "bar",
+          "uniformtext": {
+            "minsize": 12,
+            "mode": "hide"
+          },
+          "legend": {
+            "orientation": "h"
+          },
+          "font": {
+            "family": "Arial",
+            "size": 14
+          },
+          "title": {
+            "text": "Chart showing total places created, new places planned for delivery and estimated additional places needed to meet demand, by Local Authority compared to England",
+            "font": {
+              "color": "#ffffff"
+            }
+          },
+          "hovermode": "closest",
+          "showlegend": true
+        },
+        "source": "A",
+        "config": {
+          "modeBarButtonsToAdd": [
+            "hoverclosest",
+            "hovercompare"
+          ],
+          "showSendToCloud": false,
+          "displayModeBar": false
+        },
+        "data": [
+          {
+            "hoverinfo": "text",
+            "type": "bar",
+            "marker": {
+              "color": "rgba(31,119,180,1)",
+              "line": {
+                "color": "rgba(31,119,180,1)"
+              }
+            },
+            "error_y": {
+              "color": "rgba(31,119,180,1)"
+            },
+            "error_x": {
+              "color": "rgba(31,119,180,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          },
+          {
+            "hoverinfo": "text",
+            "type": "bar",
+            "x": "Hertfordshire",
+            "y": 15090,
+            "marker": {
+              "color": "#08519c",
+              "line": {
+                "color": "rgba(255,127,14,1)"
+              }
+            },
+            "name": "Total places created between May 2010 and May 2022",
+            "text": "15,090",
+            "textposition": "inside",
+            "textfont": {
+              "color": "#FFF"
+            },
+            "width": 0.20000000000000001,
+            "error_y": {
+              "color": "rgba(255,127,14,1)"
+            },
+            "error_x": {
+              "color": "rgba(255,127,14,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          },
+          {
+            "hoverinfo": "text",
+            "type": "bar",
+            "x": "Hertfordshire",
+            "y": 1490,
+            "marker": {
+              "color": "#3182bd",
+              "line": {
+                "color": "rgba(44,160,44,1)"
+              }
+            },
+            "name": "New places planned for delivery between May 2022 and September 2024",
+            "text": "1,490",
+            "textposition": "outside",
+            "cliponaxis": false,
+            "textfont": {
+              "color": "#000"
+            },
+            "width": 0.20000000000000001,
+            "error_y": {
+              "color": "rgba(44,160,44,1)"
+            },
+            "error_x": {
+              "color": "rgba(44,160,44,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          },
+          {
+            "hoverinfo": "text",
+            "type": "bar",
+            "x": "Hertfordshire",
+            "y": 600,
+            "marker": {
+              "color": "#6baed6",
+              "line": {
+                "color": "rgba(214,39,40,1)"
+              }
+            },
+            "name": "Estimated additional places still needed to meet demand in 2024/25",
+            "text": "600",
+            "textposition": "outside",
+            "cliponaxis": false,
+            "textfont": {
+              "color": "#000"
+            },
+            "width": 0.20000000000000001,
+            "error_y": {
+              "color": "rgba(214,39,40,1)"
+            },
+            "error_x": {
+              "color": "rgba(214,39,40,1)"
+            },
+            "xaxis": "x",
+            "yaxis": "y",
+            "frame": null
+          }
+        ],
+        "highlight": {
+          "on": "plotly_click",
+          "persistent": false,
+          "dynamic": false,
+          "selectize": false,
+          "opacityDim": 0.20000000000000001,
+          "selected": {
+            "opacity": 1
+          },
+          "debounce": 0
+        },
+        "shinyEvents": [
+          "plotly_hover",
+          "plotly_click",
+          "plotly_selected",
+          "plotly_relayout",
+          "plotly_brushed",
+          "plotly_brushing",
+          "plotly_clickannotation",
+          "plotly_doubleclick",
+          "plotly_deselect",
+          "plotly_afterplot",
+          "plotly_sunburstclick"
+        ],
+        "base_url": "https://plot.ly"
+      },
+      "evals": [
+
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "setprototypeof",
+          "version": "0.1",
+          "src": {
+            "href": "setprototypeof-0.1"
+          },
+          "meta": null,
+          "script": "setprototypeof.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "typedarray",
+          "version": "0.1",
+          "src": {
+            "href": "typedarray-0.1"
+          },
+          "meta": null,
+          "script": "typedarray.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "3.5.1",
+          "src": {
+            "href": "jquery-3.5.1"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.2.1",
+          "src": {
+            "href": "crosstalk-1.2.1"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.min.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "plotly-htmlwidgets-css",
+          "version": "2.11.1",
+          "src": {
+            "href": "plotly-htmlwidgets-css-2.11.1"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "plotly-htmlwidgets.css",
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "plotly-main",
+          "version": "2.11.1",
+          "src": {
+            "href": "plotly-main-2.11.1"
+          },
+          "meta": null,
+          "script": "plotly-latest.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        }
+      ]
+    },
+    "pupil_growth": {
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>+16.1%<\/h3>\n    <p>Actual change in secondary pupil numbers 2009/10 to 2022/23<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "total_funding_box": {
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>£319m<\/h3>\n    <p>Total primary and secondary basic need funding to create new places 2011 to 2024<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    }
+  }
+}
