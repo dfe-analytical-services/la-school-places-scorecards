@@ -41,3 +41,22 @@ forecast_accuracy_desclabel <- function(forecast_accuracy, la, summary_stats) {
     TRUE ~ "No overestimate/underestimate therefore accurate"
   )
 }
+
+
+roundFiveUp <- function(number, dp = 0) {
+  if (!is.numeric(number) && !is.numeric(dp)) {
+    stop("both input arguments must be numeric")
+  }
+  if (!is.numeric(number)) {
+    stop("the input number to be rounded must be numeric")
+  }
+  if (!is.numeric(dp)) {
+    stop("the decimal places input must be numeric")
+  }
+  
+  z <- abs(number) * 10^dp
+  z <- z + 0.5 + sqrt(.Machine$double.eps)
+  z <- trunc(z)
+  z <- z / 10^dp
+  return(z * sign(number))
+}

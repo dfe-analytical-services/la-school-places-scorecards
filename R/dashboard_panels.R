@@ -284,6 +284,12 @@ panel_scorecard <- function() {
                 gov_row(
                   column(
                     width = 12,
+                    selectInput("chart_choice",
+                                label = p(strong("Choose a quality measure")),
+                                choices = c("Ofsted Rating","Progress 8","Reading Progress","Maths Progress"),
+                                selected = "Ofsted Rating"
+                    ),
+                    br(),
                     strong(textOutput("quality_description")),
                     br(),
                     valueBoxOutput("England_GO_places", width = 4),

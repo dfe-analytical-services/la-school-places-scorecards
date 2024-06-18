@@ -82,6 +82,7 @@ This document presents school places figures for `r params$input_la_choice` cove
 total_funding <- scorecards_data %>%
   filter(LA_name == params$input_la_choice) %>%
   select(Funding) %>%
+  mutate(Funding = as.numeric(Funding)) %>%
   mutate(
     Funding =
       ifelse(params$input_la_choice == "England", roundFiveUp(Funding / 1000000000, 2),
@@ -332,8 +333,8 @@ summary_stats_1yr <- forecast_summary_stats(
   dfScorecardsAll, 1,
   params$input_phase_choice
 )
-summary_stats_2yr <- forecast_summary_stats(
-  dfScorecardsAll, 2,
+summary_stats_3yr <- forecast_summary_stats(
+  dfScorecardsAll, 3,
   params$input_phase_choice
 )
 ```
@@ -357,21 +358,21 @@ oneyearlabel <-
     paste0("<b>One year ahead: ")
   }
 
-forecast_accuracy_2yr <- dfScorecardArea %>%
-  filter(name == "For_2") %>%
+forecast_accuracy_3yr <- dfScorecardArea %>%
+  filter(name == "For_3") %>%
   pull(value) %>%
   roundFiveUp(., 3) #* 100
 
-label_desc_2yr <- forecast_accuracy_desclabel(
-  forecast_accuracy_2yr,
+label_desc_3yr <- forecast_accuracy_desclabel(
+  forecast_accuracy_3yr,
   params$input_la_choice,
-  summary_stats_2yr
+  summary_stats_3yr
 )
 threeyearlabel <-
-  if (label_desc_2yr != "accurate") {
-    paste0("Two years ahead: ", format_perc(forecast_accuracy_2yr, output = "latex"))
+  if (label_desc_3yr != "accurate") {
+    paste0("Three years ahead: ", format_perc(forecast_accuracy_3yr, output = "latex"))
   } else {
-    paste0("<b>Two years ahead: ")
+    paste0("<b>Three years ahead: ")
   }
 ```
 
@@ -385,7 +386,7 @@ cat(threeyearlabel)
 cat("\\ \\\\")
 cat(label_desc_1yr)
 cat("&")
-cat(label_desc_2yr)
+cat(label_desc_3yr)
 cat(" \\\\")
 cat("\\end{tabular}")
 ```
@@ -402,7 +403,7 @@ plot_forecast(
   dfScorecardArea,
   dfScorecardsAll,
   params$input_la_choice,
-  params$input_phase_choice, 2
+  params$input_phase_choice, 3
 )
 ```
 
@@ -413,7 +414,7 @@ facc_table1 <- as.data.frame(
     pivot_wider(names_from = quantile, values_from = accuracy)
 )
 facc_table2 <- as.data.frame(
-  summary_stats_2yr %>% mutate(accuracy = format_perc(accuracy)) %>%
+  summary_stats_3yr %>% mutate(accuracy = format_perc(accuracy)) %>%
     pivot_wider(names_from = quantile, values_from = accuracy)
 )
 

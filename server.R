@@ -173,6 +173,21 @@ function(input, output, session) {
         levels = c(input$LA_choice, input$selectBenchLAs)
       ))
   })
+  
+  # Options for chart choice - dependent on phase choice
+  chart_options <- reactive({
+    if (input$phase_choice == "Primary") {
+      c("Ofsted Rating", "Reading Progress", "Maths Progress")
+    } else {
+      c("Ofsted Rating", "Progress 8")
+    }
+  })
+  observe({
+    updateSelectInput(session, "chart_choice",
+                      choices = chart_options(),
+                      selected = "Ofsted Rating"
+    )
+  })
 
   # Top lines -------------------------
   ## create header so users know what the data is showing
@@ -210,6 +225,7 @@ function(input, output, session) {
     total_funding <- scorecards_data %>%
       filter(LA_name == input$LA_choice) %>%
       select(Funding) %>%
+      mutate(Funding = as.numeric(Funding)) %>%
       mutate(
         Funding =
           ifelse(input$LA_choice == "England",
@@ -844,7 +860,7 @@ function(input, output, session) {
 
   # Change name of what "better than average" is depending on chart choice:
   school_description <- reactive({
-    if (chart_choice == "Ofsted Rating") {
+    if (input$chart_choice == "Ofsted Rating") {
       "good and outstanding "
     } else {
       "well above and above average "
@@ -853,22 +869,22 @@ function(input, output, session) {
 
   # Calculate LA % depending on chart choice:
   LA_comp <- reactive({
-    if (chart_choice == "Ofsted Rating") {
+    if (input$chart_choice == "Ofsted Rating") {
       live_scorecard_data() %>%
         filter(name == "QualProp") %>%
         pull(value) %>%
         round_half_up(., 3) * 100
-    } else if (chart_choice == "Progress 8") {
+    } else if (input$chart_choice == "Progress 8") {
       live_scorecard_data() %>%
         filter(name == "Qual_KS4_Prop") %>%
         pull(value) %>%
         round_half_up(., 3) * 100
-    } else if (chart_choice == "Reading Progress") {
+    } else if (input$chart_choice == "Reading Progress") {
       live_scorecard_data() %>%
         filter(name == "Qual_KS2Read_Prop") %>%
         pull(value) %>%
         round_half_up(., 3) * 100
-    } else if (chart_choice == "Maths Progress") {
+    } else if (input$chart_choice == "Maths Progress") {
       live_scorecard_data() %>%
         filter(name == "Qual_KS2Mat_Prop") %>%
         pull(value) %>%
@@ -891,7 +907,7 @@ function(input, output, session) {
 
   # Calculate England comparator depending on chart choice:
   england_comp <- reactive({
-    if (chart_choice == "Ofsted Rating") {
+    if (input$chart_choice == "Ofsted Rating") {
       numerator <- live_scorecard_data_all_la() %>%
         filter(LA_name == "England" &
           name %in% c("Qual1_N", "Qual2_N")) %>%
@@ -906,7 +922,7 @@ function(input, output, session) {
 
       # calculate percentage
       round_half_up(numerator / denominator * 100, 1)
-    } else if (chart_choice == "Progress 8") {
+    } else if (input$chart_choice == "Progress 8") {
       numerator <- live_scorecard_data_all_la() %>%
         filter(LA_name == "England" &
           name %in% c("KS4_WAA_N", "KS4_AA_N")) %>%
@@ -921,7 +937,7 @@ function(input, output, session) {
 
       # calculate percentage
       round_half_up(numerator / denominator * 100, 1)
-    } else if (chart_choice == "Reading Progress") {
+    } else if (input$chart_choice == "Reading Progress") {
       numerator <- live_scorecard_data_all_la() %>%
         filter(LA_name == "England" &
           name %in% c("KS2Read_WAA_N", "KS2Read_AA_N")) %>%
@@ -936,7 +952,7 @@ function(input, output, session) {
 
       # calculate percentage
       round_half_up(numerator / denominator * 100, 1)
-    } else if (chart_choice == "Maths Progress") {
+    } else if (input$chart_choice == "Maths Progress") {
       numerator <- live_scorecard_data_all_la() %>%
         filter(LA_name == "England" &
           name %in% c("KS2Mat_WAA_N", "KS2Mat_AA_N")) %>%
@@ -970,19 +986,19 @@ function(input, output, session) {
 
   # Calculate % ranking depending on chart choice:
   LA_ranking <- reactive({
-    if (chart_choice == "Ofsted Rating") {
+    if (input$chart_choice == "Ofsted Rating") {
       live_scorecard_data() %>%
         filter(name == "QualPropranks") %>%
         pull(value)
-    } else if (chart_choice == "Progress 8") {
+    } else if (input$chart_choice == "Progress 8") {
       live_scorecard_data() %>%
         filter(name == "Qual_KS4_Propranks") %>%
         pull(value)
-    } else if (chart_choice == "Reading Progress") {
+    } else if (input$chart_choice == "Reading Progress") {
       live_scorecard_data() %>%
         filter(name == "Qual_KS2Read_Propranks") %>%
         pull(value)
-    } else if (chart_choice == "Maths Progress") {
+    } else if (input$chart_choice == "Maths Progress") {
       live_scorecard_data() %>%
         filter(name == "Qual_KS2Mat_Propranks") %>%
         pull(value)
@@ -993,19 +1009,19 @@ function(input, output, session) {
 
   # Calculate ranking denominator depending on chart choice:
   LA_denom <- reactive({
-    if (chart_choice == "Ofsted Rating") {
+    if (input$chart_choice == "Ofsted Rating") {
       live_scorecard_data_all_la() %>%
         filter(name == "QualPropranks" & !is.na(value)) %>%
         nrow()
-    } else if (chart_choice == "Progress 8") {
+    } else if (input$chart_choice == "Progress 8") {
       live_scorecard_data_all_la() %>%
         filter(name == "Qual_KS4_Propranks" & !is.na(value)) %>%
         nrow()
-    } else if (chart_choice == "Reading Progress") {
+    } else if (input$chart_choice == "Reading Progress") {
       live_scorecard_data_all_la() %>%
         filter(name == "Qual_KS2Read_Propranks" & !is.na(value)) %>%
         nrow()
-    } else if (chart_choice == "Maths Progress") {
+    } else if (input$chart_choice == "Maths Progress") {
       live_scorecard_data_all_la() %>%
         filter(name == "Qual_KS2Mat_Propranks" & !is.na(value)) %>%
         nrow()
@@ -1115,11 +1131,11 @@ function(input, output, session) {
         strip.text.x = element_text(size = 20)
       )
 
-    if (input$LA_choice == "England" & chart_choice == "Ofsted Rating") {
+    if (input$LA_choice == "England" & input$chart_choice == "Ofsted Rating") {
       ofsted_no_rating <- ofsted_data %>%
         filter(rating == "No rating" & place_type == "New") %>%
         pull(places)
-    } else if (chart_choice == "Ofsted Rating") {
+    } else if (input$chart_choice == "Ofsted Rating") {
       ofsted_no_rating <- ofsted_data %>%
         filter(LA_name != "England" & rating == "No rating" & place_type == "New") %>%
         pull(places)
@@ -1128,7 +1144,7 @@ function(input, output, session) {
     # Bar chart comparison - Progress 8
 
     # reshape the data so it plots neatly!
-    progress_8_data <- live_scorecard_data_england_comp() %>%
+    progress_8_data <- live_scorecard_data_england_comp_quality() %>%
       # select only the progress 8 values
       filter(name %in% c(
         "KS4_WAA_N", "KS4_AA_N", "KS4_A_N", "KS4_BA_N", "KS4_WBA_N", "KS4_NR_N",
@@ -1173,18 +1189,19 @@ function(input, output, session) {
       facet_wrap(~LA_name, nrow = 2) +
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
-      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1")) +
+      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1","#F46A25")) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
-        text = element_text(size = 14, family = "Arial")
+        text = element_text(size = 14, family = "Arial"),
+        strip.text.x = element_text(size = 20)
       )
 
-    if (input$LA_choice == "England" & chart_choice == "Progress 8") {
+    if (input$LA_choice == "England" & input$chart_choice == "Progress 8") {
       progress_8_no_rating <- progress_8_data %>%
         filter(rating == "No rating" & place_type == "New") %>%
         pull(places)
-    } else if (chart_choice == "Progress 8") {
+    } else if (input$chart_choice == "Progress 8") {
       progress_8_no_rating <- progress_8_data %>%
         filter(LA_name != "England" & rating == "No rating" & place_type == "New") %>%
         pull(places)
@@ -1193,7 +1210,7 @@ function(input, output, session) {
     # Bar chart comparison - Progress Reading
 
     # reshape the data so it plots neatly!
-    progress_reading_data <- live_scorecard_data_england_comp() %>%
+    progress_reading_data <- live_scorecard_data_england_comp_quality() %>%
       # select only the reading values
       filter(name %in% c(
         "KS2Read_WAA_N", "KS2Read_AA_N", "KS2Read_A_N", "KS2Read_BA_N", "KS2Read_WBA_N", "KS2Read_NR_N",
@@ -1237,19 +1254,20 @@ function(input, output, session) {
       facet_wrap(~LA_name, nrow = 2) +
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
-      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1")) +
+      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1","#F46A25")) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
-        text = element_text(size = 14, family = "Arial")
+        text = element_text(size = 14, family = "Arial"),
+        strip.text.x = element_text(size = 20)
       )
 
 
-    if (input$LA_choice == "England" & chart_choice == "Reading Progress") {
+    if (input$LA_choice == "England" & input$chart_choice == "Reading Progress") {
       progress_reading_no_rating <- progress_reading_data %>%
         filter(rating == "No rating" & place_type == "New") %>%
         pull(places)
-    } else if (chart_choice == "Reading Progress") {
+    } else if (input$chart_choice == "Reading Progress") {
       progress_reading_no_rating <- progress_reading_data %>%
         filter(LA_name != "England" & rating == "No rating" & place_type == "New") %>%
         pull(places)
@@ -1258,7 +1276,7 @@ function(input, output, session) {
     # Bar chart comparison - Progress Maths
 
     # reshape the data so it plots neatly!
-    progress_maths_data <- live_scorecard_data_england_comp() %>%
+    progress_maths_data <- live_scorecard_data_england_comp_quality() %>%
       # select only the maths values
       filter(name %in% c(
         "KS2Mat_WAA_N", "KS2Mat_AA_N", "KS2Mat_A_N", "KS2Mat_BA_N", "KS2Mat_WBA_N", "KS2Mat_NR_N",
@@ -1302,34 +1320,35 @@ function(input, output, session) {
       facet_wrap(~LA_name, nrow = 2) +
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
-      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1")) +
+      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1","#F46A25")) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
-        text = element_text(size = 14, family = "Arial")
+        text = element_text(size = 14, family = "Arial"),
+        strip.text.x = element_text(size = 20)
       )
 
-    if (input$LA_choice == "England" & chart_choice == "Maths Progress") {
+    if (input$LA_choice == "England" & input$chart_choice == "Maths Progress") {
       progress_maths_no_rating <- progress_maths_data %>%
         filter(rating == "No rating" & place_type == "New") %>%
         pull(places)
-    } else if (chart_choice == "Maths Progress") {
+    } else if (input$chart_choice == "Maths Progress") {
       progress_maths_no_rating <- progress_maths_data %>%
         filter(LA_name != "England" & rating == "No rating" & place_type == "New") %>%
         pull(places)
     }
 
     # Pick chart to plot based on user input
-    if (chart_choice == "Ofsted Rating") {
+    if (input$chart_choice == "Ofsted Rating") {
       rv$quality_chart_choice <- ofsted_p
       rv$no_rating <- ofsted_no_rating
-    } else if (chart_choice == "Reading Progress") {
+    } else if (input$chart_choice == "Reading Progress") {
       rv$quality_chart_choice <- progress_reading_p
       rv$no_rating <- progress_reading_no_rating
-    } else if (chart_choice == "Maths Progress") {
+    } else if (input$chart_choice == "Maths Progress") {
       rv$quality_chart_choice <- progress_maths_p
       rv$no_rating <- progress_maths_no_rating
-    } else if (chart_choice == "Progress 8") {
+    } else if (input$chart_choice == "Progress 8") {
       rv$quality_chart_choice <- progress_8_p
       rv$no_rating <- progress_8_no_rating
     }
