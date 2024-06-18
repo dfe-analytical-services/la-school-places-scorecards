@@ -173,7 +173,7 @@ function(input, output, session) {
         levels = c(input$LA_choice, input$selectBenchLAs)
       ))
   })
-  
+
   # Options for chart choice - dependent on phase choice
   chart_options <- reactive({
     if (input$phase_choice == "Primary") {
@@ -184,8 +184,8 @@ function(input, output, session) {
   })
   observe({
     updateSelectInput(session, "chart_choice",
-                      choices = chart_options(),
-                      selected = "Ofsted Rating"
+      choices = chart_options(),
+      selected = "Ofsted Rating"
     )
   })
 
@@ -1189,7 +1189,7 @@ function(input, output, session) {
       facet_wrap(~LA_name, nrow = 2) +
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
-      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1","#F46A25")) +
+      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1", "#F46A25")) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
@@ -1254,7 +1254,7 @@ function(input, output, session) {
       facet_wrap(~LA_name, nrow = 2) +
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
-      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1","#F46A25")) +
+      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1", "#F46A25")) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
@@ -1320,7 +1320,7 @@ function(input, output, session) {
       facet_wrap(~LA_name, nrow = 2) +
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
-      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1","#F46A25")) +
+      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1", "#F46A25")) +
       theme_minimal() +
       theme(
         legend.position = "bottom",

@@ -285,9 +285,9 @@ panel_scorecard <- function() {
                   column(
                     width = 12,
                     selectInput("chart_choice",
-                                label = p(strong("Choose a quality measure")),
-                                choices = c("Ofsted Rating","Progress 8","Reading Progress","Maths Progress"),
-                                selected = "Ofsted Rating"
+                      label = p(strong("Choose a quality measure")),
+                      choices = c("Ofsted Rating", "Progress 8", "Reading Progress", "Maths Progress"),
+                      selected = "Ofsted Rating"
                     ),
                     br(),
                     strong(textOutput("quality_description")),

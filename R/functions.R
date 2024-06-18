@@ -53,7 +53,7 @@ roundFiveUp <- function(number, dp = 0) {
   if (!is.numeric(dp)) {
     stop("the decimal places input must be numeric")
   }
-  
+
   z <- abs(number) * 10^dp
   z <- z + 0.5 + sqrt(.Machine$double.eps)
   z <- trunc(z)
