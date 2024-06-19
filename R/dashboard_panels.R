@@ -1,16 +1,24 @@
 panel_homepage <- function() {
   tabPanel(
     "Homepage",
-    h2("Local authority school places scorecards: academic year 2021/22"),
-    br("Scorecards display a snapshot of the progress each local authority across England is making towards ensuring there are sufficient, good quality, school places."),
-    br("You can view the progress for England as a whole or for an individual local authority.
-         To do this click on", actionLink("linklascorecardsTab", "LA scorecards"), "after reading all the information on this homepage.
-         Use the drop-down list, or type in the box, to select England or your chosen local authority. "),
-    br("You can view primary or secondary places by using the adjacent drop down. The figures and charts in the scorecard will automatically update when these drop downs are changed."),
-    br("You can download a PDF version of the complete scorecard, by clicking the ‘download report’. Use the ‘download data’ button to
-         download underlying data for all local authorities and England."),
-    br("There are five scorecard metrics and more information on each metric can be found below. Each scorecard metric is shown on a different tab within 'LA scorecards'
-        and can be selected by clicking on the name of the metric."),
+    h2("Local authority school places scorecards: academic year 2022/23"),
+    br(
+      "You can view the scorecard for England as a whole or for an individual
+       local authority. To do this click on", actionLink("linklascorecardsTab", "LA scorecards"),
+      "after reading all the information on this homepage. Use the drop-down list,
+       or type in the box, to select England or your chosen local authority."
+    ),
+    br("You can view primary or secondary places by using the middle drop down.
+       The figures and charts in the scorecard will automatically update when these drop downs are changed."),
+    br("To select which quality measure you want to use click on the right drop down.
+       The figures and charts in the scorecard will automatically update when these
+       drop downs are changed."),
+    br("You can download a PDF version of the complete scorecard, by clicking the
+    ‘download report’. Use the ‘download data’ button to download underlying data
+       for all local authorities and England."),
+    br("There are five scorecard metrics and more information on each metric can
+    be found below. Each scorecard metric is shown on a different tab within 'LA scorecards'
+    and can be selected by clicking on the name of the metric."),
     br(),
     div(
       class = "panel panel-info",
@@ -24,62 +32,93 @@ panel_homepage <- function() {
         h3("School Place Metrics Included"),
         br(),
         h4(actionLink("linkQuantityTab", "Quantity")),
-        #  h4("Quantity"),
-        br("This measure shows how much progress the chosen local authority is making in providing sufficient school places for academic year 2024/25. This is based on published
-             ", a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/school-capacity", "school capacity data"), "as collected in the 2022 the School Capacity Survey (SCAP22)."),
+        br("This measure shows how many places the chosen local authority has provided
+        up to 2022/23 and has plans to provide for academic year 2025/26.  This is based on published
+           ", a(
+          href = "https://explore-education-statistics.service.gov.uk/find-statistics/school-capacity",
+          "school capacity data"
+        ), "as collected in the 2023 the School Capacity Survey (SCAP23)."),
         br("The chart shows the:"),
         br("•places already added since the academic year 2009/10;"),
-        "•additional places planned to be added up to the 2024/25 academic year; and",
-        br("•estimated number of additional places still needed to meet demand in 2024/25, based on the local authority’s forecast demand."),
+        "•additional places planned to be added up to the 2025/26 academic year; and",
+        br("•estimated number of additional places still needed to meet demand in 2025/26,
+           based on the local authority’s forecast demand."),
         br("The ‘pupils in place’s headline boxes show the:"),
-        br("•the percentage change in pupil numbers in primary or secondary state-funded mainstream provision between 2009/10 to 2022/23; and"),
-        p("•the percentage of unfilled places in 2021/22; based on reported school capacity and pupil number on roll."),
-        br("The ‘estimated future school place demand’ headline boxes are based on the local authority’s forecast demand. They show the:"),
-        br(" •	estimated number of additional places still needed to meet demand in 2024/25 (same figure shown in the chart);"),
-        " •	estimated percentage of spare places in 2024/25. It is common for a local authority to have both a need for additional places and spare capacity,
+        br("•the percentage change in pupil numbers in primary or secondary state-funded
+           mainstream provision between 2009/10 to 2023/24; and"),
+        p("•the percentage of unfilled places in 2022/23; based on reported school
+          capacity and pupil number on roll."),
+        br("The ‘estimated future school place demand’ headline boxes are based on
+           the local authority’s forecast demand. They show the:"),
+        br(" •	estimated number of additional places still needed to meet demand
+           in 2025/26 (same figure shown in the chart);"),
+        " •	estimated percentage of spare places in 2025/26. It is common for a local
+        authority to have both a need for additional places and spare capacity,
              reflecting pockets of localised need for places or pockets of localised spare places;",
-        br(" •	the total amount of", a(href = "https://www.gov.uk/government/publications/basic-need-allocations", "basic need capital funding"), "allocated to each local authority to create new places from 2011 to 2024; and"),
-        " •	the anticipated percentage change in pupil numbers in primary or secondary state-funded mainstream provision between 2022/23 to 2024/25.",
+        br(" •	the total amount of", a(
+          href = "https://www.gov.uk/government/publications/basic-need-allocations",
+          "basic need capital funding"
+        ), "allocated to each local authority to create
+           new places from 2011 to 2025; and"),
+        " •	the anticipated percentage change in pupil numbers in primary or secondary
+        state-funded mainstream provision between 2023/24 to 2025/26.",
         br(),
-        br("In the box above the chart, users can select up to two additional local authorities to view their data in the chart, alongside their chosen local authority.
-           Please note the headline boxes will not change when selecting local authorities to benchmark against. Users may wish to benchmark local authorities against their statistical neighbours found in the", a(href = "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/975117/Childrens_services_statistical_neighbour_benchmarking_tool_-_LGR_Version__April_2021_.xlsx", "Children's services statistical neighbour benchmarking tool.")),
+        br("In the box above the chart, users can select up to two additional
+        local authorities to view their data in the chart, alongside their chosen local authority.
+        Please note the headline boxes will not change when selecting local authorities to benchmark against.
+        Users may wish to benchmark local authorities against their statistical neighbours found in the", a(href = "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/975117/Childrens_services_statistical_neighbour_benchmarking_tool_-_LGR_Version__April_2021_.xlsx", "Children's services statistical neighbour benchmarking tool.")),
         # br(),
         br("It is important to take care when making comparisons using the quantity measure. Local authorities vary in size and population and therefore vary in the number of schools and school places. Some local authorities have long-standing place pressure,
            whereas for others it has emerged more recently. Those experiencing long-standing place pressures will have had more chance to demonstrate that they can add large quantities of places."),
         # br(),
         br("Local authorities with relatively fewer places still needed are making good progress in delivering the places they anticipate are needed, however they may be good reasons for a local authority showing a significant number of places still needed to be created.
-           For example, places from the department’s centrally funded free schools due to open in September 2024 onwards are not included in the calculations. Projects to add school places would not have been included in these calculations if they were only recently planned and/or confirmed. "),
+           For example, places from the department’s centrally funded free schools due to open in September 2025 onwards are not included in the calculations. Projects to add school places would not have been included in these calculations if they were only recently planned and/or confirmed. "),
         # br(),
         br("Unfilled places can be evidence of local authorities having planned ahead for future need. Unfilled places can also be attributed to the building of whole new schools, which fill up from the bottom, leaving space in the upper years until those year groups work their way through.
            In some areas, low or declining need for places will also contribute to the number of unfilled places."),
         br(),
         h4(actionLink("linkForecastTab", "Forecast Accuracy")),
-        br("Estimating place pressure in future years relies on the forecasts of pupil numbers made by local authorities, as provided in the annual school capacity survey. The scorecard illustrates the forecasting accuracy of the selected local authority for forecasts made one year ago and provided in SCAP22,
-           and two years ago in SCAP21. These pupil forecasts have been compared with pupils on roll from the January 2023 school census numbers to produce a forecast accuracy score for one and two years ahead. A negative forecast accuracy score indicates an underestimation of pupils,
+        br("Estimating place pressure in future years relies on the forecasts of pupil numbers made by local authorities, as provided in the annual school capacity survey. The scorecard illustrates the forecasting accuracy of the selected local authority for forecasts made one year ago and provided in SCAP23,
+           and three years ago in SCAP21. These pupil forecasts have been compared with pupils on roll from the January 2024 school census numbers to produce a forecast accuracy score for one and three years ahead. A negative forecast accuracy score indicates an underestimation of pupils,
            a positive score indicates an overestimation."),
         br(),
         h4(actionLink("linkPreferenceTab", "Preference")),
         br(
           "You can use the scorecard to see how well the chosen local authority is able to meet parental preference,
              based on published", a(href = "https://explore-education-statistics.service.gov.uk/find-statistics/secondary-and-primary-school-applications-and-offers", "school applications and offers data."),
-          "The headline box shows the percentage of applicants, in the local authority, who received an offer of a place in one of their top three preferences.
+          "The headline box shows the percentage of applicants, in the local authority, who received an offer of a place in one of their top three preferences for September 2023 and 2024 entry.
              The adjacent headline box shows the same percentage for England."
         ),
-        br("The chart breaks this down further into to those who received an offer of their first, second or third preferences.
+        br("The chart breaks this down further into to those who received an offer of their first, second or third preferences for September 2023 and 2024 entry.
              ‘Other’ offers include pupils who received an offer of a lower preference (where a local authority allows four or more preferences) or did not receive a preferred offer.
              The latter can include applicants who were made an alternative offer and those who were not made any offer."),
         br("In the box above the chart, users can select England or another local authority to view their data in the chart, alongside their chosen local authority. Please note the headline boxes will not change when selecting a local authority to benchmark against."),
         br(),
         h4(actionLink("linkQualityTab", "Quality")),
-        br("You can use this measure to see the quality of the schools where the chosen local authority has added school places, based on the change between the 2020/21 and the 2021/22 published school capacity data and", a(href = "https://www.gov.uk/government/statistics/state-funded-schools-inspections-and-outcomes-as-at-31-august-2022", "published school Ofsted rating."), ),
-        br("The chart shows the number of new places added in the local authority, between May 2021 and May 2022, according to the Ofsted rating of the school in which they have been added. There are 4 possible Ofsted ratings: outstanding, good, requires improvement and inadequate."),
+        br("The quality measures you can choose from are Ofsted rating, key stage 2 reading and maths progress or Progress 8."),
+        br(),
+        br("Ofsted rating:"),
+        br("You can use this measure to see the quality of the schools where the chosen local authority has added school places, based on the change between the 2021/22 and the 2022/23 published school capacity data and", a(href = "https://www.gov.uk/government/statistics/state-funded-schools-inspections-and-outcomes-as-at-31-august-2022", "published school Ofsted rating."), ),
+        br("The chart shows the number of new places added in the local authority, between May 2022 and May 2023, according to the Ofsted rating of the school in which they have been added. There are 4 possible Ofsted ratings: outstanding, good, requires improvement and inadequate."),
         br("It is important to take care when making comparisons using the quality measure as:"),
         br("•	many Ofsted inspections have been delayed due to the pandemic, therefore local authorities may use other data/own local knowledge when deciding which schools to expand;"),
         "•	the starting position for local authorities is different and some have more good or outstanding schools to add places to; which is why the overall distribution of existing school places by Ofsted rating in the local authority chosen is shown;",
         br("•	when deciding upon which schools to expand, some good or outstanding schools may be on sites that are not suitable for expansion;"),
-        "•	the Ofsted rating used was available at 31 August 2022 and places may have been added before or after that rating was given: ",
+        "•	the Ofsted rating used was available at 31 August 2023 and places may have been added before or after that rating was given: ",
         br(),
         br("In the box above the chart, users can select England or another local authority to view their data in the chart, alongside their chosen local authority. Please note the headline boxes will not change when selecting a local authority to benchmark against."),
+        br(),
+        br("Progress 8:"),
+        br(
+          "For secondary you can also change the view to look at the number of new places added according to", a(href = "https://www.compare-school-performance.service.gov.uk/", "key stage 4 Progress 8 performance."),
+          "There are 5 possible Progress 8 bandings: well above average, above average, average, below average and well below average."
+        ),
+        br(),
+        br("Key stage 2 reading and maths progress:"),
+        br(
+          "For primary you can also change the view to look at the number of new places added according to either", a(href = "https://www.compare-school-performance.service.gov.uk/", "key stage 2 reading or key stage 2 maths progress."),
+          "The 5 possible progress bandings are the same as listed above for Progress 8."
+        ),
         br(),
         h4(actionLink("linkCostTab", "Cost")),
         br("The Capital Spend Survey that replaced the SCAP Capital Spend Data now collects data on project costs, however due to incomplete coverage it has not yet been incorporated into the scorecard.  The cost data used in the scorecard remains the Capital Spend Data from SCAP18. This was used in the 2018, 2019 and 2021 scorecards; there has been no change in the sample of projects. As done in 2021, for the 2022 Scorecard, the data has been adjusted for inflation (uprated to 1st quarter 2023 prices)."),
