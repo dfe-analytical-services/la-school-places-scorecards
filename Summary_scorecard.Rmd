@@ -392,7 +392,7 @@ cat("\\end{tabular}")
 ```
  
 
-``` {r forecast22,echo = FALSE, warning = FALSE, message=FALSE, results='asis', fig.height=1,fig.show="hold", out.width="50%"}
+``` {r forecast23,echo = FALSE, warning = FALSE, message=FALSE, results='asis', fig.height=1,fig.show="hold", out.width="50%"}
 plot_forecast(
   dfScorecardArea,
   dfScorecardsAll,
@@ -413,7 +413,10 @@ facc_table1 <- as.data.frame(
   summary_stats_1yr %>% mutate(accuracy = format_perc(accuracy)) %>%
     pivot_wider(names_from = quantile, values_from = accuracy)
 )
-facc_table2 <- as.data.frame(
+
+
+facc_table3 <- as.data.frame(
+
   summary_stats_3yr %>% mutate(accuracy = format_perc(accuracy)) %>%
     pivot_wider(names_from = quantile, values_from = accuracy)
 )
@@ -425,7 +428,7 @@ print(knitr::kable(facc_table1, "latex", booktabs = T))
 cat("&")
 cat("\\footnotesize ")
 cat("\\centering ")
-print(knitr::kable(facc_table2, "latex", booktabs = T))
+print(knitr::kable(facc_table3, "latex", booktabs = T))
 cat("\\end{tabular}")
 ```
 

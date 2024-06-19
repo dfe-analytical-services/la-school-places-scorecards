@@ -542,25 +542,25 @@ function(input, output, session) {
   })
 
 
-  output$label_estimate_y2 <- renderText({
+  output$label_estimate_y3 <- renderText({
     forecast_accuracy <- live_scorecard_data() %>%
-      filter(name == "For_2") %>%
+      filter(name == "For_3") %>%
       pull(value) %>%
       round_half_up(., 3)
 
-    Foracc2year <- scorecards_data_pivot %>%
+    Foracc3year <- scorecards_data_pivot %>%
       filter(
-        name == "For_2",
+        name == "For_3",
         Phase == input$phase_choice
       ) %>%
       pull(value) %>%
       round_half_up(., 3)
 
-    medianaccuracy2 <- median(Foracc2year, na.rm = TRUE)
+    medianaccuracy3 <- median(Foracc3year, na.rm = TRUE)
 
-    Twentyfifthpercentile2 <- quantile(Foracc2year, 0.25, na.rm = TRUE)
+    Twentyfifthpercentile2 <- quantile(Foracc3year, 0.25, na.rm = TRUE)
 
-    Seventyfifthpercentile2 <- quantile(Foracc2year, 0.75, na.rm = TRUE)
+    Seventyfifthpercentile2 <- quantile(Foracc3year, 0.75, na.rm = TRUE)
 
     label <- case_when(
       input$LA_choice != "England" & forecast_accuracy > 0 & forecast_accuracy > Seventyfifthpercentile2 ~ "Overestimate of pupil numbers, larger overestimate than at least 75% of local authorities",
@@ -575,9 +575,9 @@ function(input, output, session) {
     )
 
     if (label != "accurate") {
-      paste0("<h1>Two years ahead: ", format_perc(forecast_accuracy), "</h1> ", label)
+      paste0("<h1>Three years ahead: ", format_perc(forecast_accuracy), "</h1> ", label)
     } else {
-      paste("<b>Two years ahead: </b>", label)
+      paste("<b>Three years ahead: </b>", label)
     }
   })
 
@@ -615,11 +615,11 @@ function(input, output, session) {
     )
   )
 
-  output$for2year_table <- renderDataTable(
+  output$for3year_table <- renderDataTable(
     {
       scorecards_data_pivot %>%
         filter(
-          name == "For_2",
+          name == "For_3",
           Phase == input$phase_choice
         ) %>%
         mutate(
@@ -650,7 +650,7 @@ function(input, output, session) {
   )
 
 
-  ## Forecast accuracy two years ahead
+  ## Forecast accuracy three years ahead
 
   # Code to go here using above template
 
@@ -682,12 +682,12 @@ function(input, output, session) {
       config(displayModeBar = FALSE)
   })
 
-  output$forecast_2y_bar <- renderPlotly({
+  output$forecast_3y_bar <- renderPlotly({
     p <- plot_forecast(
       live_scorecard_data(),
       scorecards_data_pivot,
       input$LA_choice,
-      input$phase_choice, 2
+      input$phase_choice, 3
     )
     ggplotly(p, tooltip = c("text")) %>%
       layout(font = font_choice) %>%
