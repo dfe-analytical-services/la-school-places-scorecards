@@ -82,6 +82,7 @@ This document presents school places figures for `r params$input_la_choice` cove
 total_funding <- scorecards_data %>%
   filter(LA_name == params$input_la_choice) %>%
   select(Funding) %>%
+  mutate(Funding = as.numeric(Funding)) %>%
   mutate(
     Funding =
       ifelse(params$input_la_choice == "England", roundFiveUp(Funding / 1000000000, 2),
@@ -412,6 +413,8 @@ facc_table1 <- as.data.frame(
   summary_stats_1yr %>% mutate(accuracy = format_perc(accuracy)) %>%
     pivot_wider(names_from = quantile, values_from = accuracy)
 )
+
+
 facc_table3 <- as.data.frame(
   summary_stats_3yr %>% mutate(accuracy = format_perc(accuracy)) %>%
     pivot_wider(names_from = quantile, values_from = accuracy)
