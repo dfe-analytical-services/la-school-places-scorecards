@@ -176,15 +176,15 @@ panel_scorecard <- function() {
                   "download_ud",
                   "Download data"
                 )
-              ),
-              column(
-                width = 6,
-                p(strong("Download summary pdf for chosen local authority", style = "color:white")),
-                myDownloadButton(
-                  "pdfDownload",
-                  "Download report"
-                )
               )
+              # column(
+              #  width = 6,
+              #  p(strong("Download summary pdf for chosen local authority", style = "color:white")),
+              #  myDownloadButton(
+              #    "pdfDownload",
+              #    "Download report"
+              #  )
+              # )
             )
           )
         )

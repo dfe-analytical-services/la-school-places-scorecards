@@ -204,7 +204,7 @@ function(input, output, session) {
 
   ## create quality heading
   output$quality_description <- renderText({
-    paste0("Quality of school places created between ", last_year, " and ", this_year, " based on ", chart_choice)
+    paste0("Quality of school places created between ", last_year, " and ", this_year, " based on ", input$chart_choice)
   })
 
 
@@ -324,7 +324,7 @@ function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(unfilled_places_perc, "%"),
-      paste0("Current percentage of unfilled ", str_to_lower(input$phase_choice), " places ", this_year),
+      paste0("Percentage of unfilled ", str_to_lower(input$phase_choice), " places ", this_year),
       # icon = icon("fas fa-signal"),
       color = "blue"
     )
@@ -1189,7 +1189,7 @@ function(input, output, session) {
       facet_wrap(~LA_name, nrow = 2) +
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
-      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1", "#F46A25")) +
+      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1", "#BFBFBF")) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
@@ -1254,7 +1254,7 @@ function(input, output, session) {
       facet_wrap(~LA_name, nrow = 2) +
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
-      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1", "#F46A25")) +
+      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1", "#BFBFBF")) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
@@ -1320,7 +1320,7 @@ function(input, output, session) {
       facet_wrap(~LA_name, nrow = 2) +
       geom_text(aes(label = scales::comma(value_label)), size = 4, colour = "#FFFFFF", position = position_fill(reverse = TRUE, vjust = 0.5)) +
       labs(x = "", y = "") +
-      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1", "#F46A25")) +
+      scale_fill_manual(values = c("#08519c", "#3182bd", "#6baed6", "#9ecae1", "#BFBFBF")) +
       theme_minimal() +
       theme(
         legend.position = "bottom",
