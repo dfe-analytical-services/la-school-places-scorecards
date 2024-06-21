@@ -84,8 +84,8 @@ total_funding <- scorecards_data %>%
   select(Funding) %>%
   mutate(
     Funding =
-      ifelse(params$input_la_choice == "England", roundFiveUp(Funding / 1000000000, 2),
-        roundFiveUp(Funding / 1000000, 0)
+      ifelse(params$input_la_choice == "England", round_five_up(Funding / 1000000000, 2),
+        round_five_up(Funding / 1000000, 0)
       )
   ) %>%
   as.numeric()
@@ -110,12 +110,12 @@ colnames(dfTopLine) <- c(
 growth_perc <- dfScorecardArea %>%
   filter(name == "Bangro") %>%
   pull(value) # %>%
-# roundFiveUp(., 3) * 100
+# round_five_up(., 3) * 100
 
 anticipated_growth_perc <- dfScorecardArea %>%
   filter(name == "Angro") %>%
   pull(value) # %>%
-# roundFiveUp(., 3) * 100
+# round_five_up(., 3) * 100
 
 anticipated_growth_perc1 <- format_perc(anticipated_growth_perc)
 
@@ -132,7 +132,7 @@ textTopLineAnticipatedGrowth <- paste0("Anticipated growth in ", str_to_lower(pa
 unfilled_places_perc <- dfScorecardArea %>%
   filter(name == "QuanUP") %>%
   pull(value) %>%
-  roundFiveUp(., 1)
+  round_five_up(., 1)
 
 textTopLineunfilledplaces <- paste0("Current percentage of unfilled ", str_to_lower(params$input_phase_choice), " places ", this_year, ": ", unfilled_places_perc, "%")
 ```
@@ -206,7 +206,7 @@ x <- paste0("Estimated additional ", str_to_lower(params$input_phase_choice), " 
 spare_places_per <- dfScorecardArea %>%
   filter(name == "QuanSu") %>%
   pull(value) %>%
-  roundFiveUp(., 3) * 100
+  round_five_up(., 3) * 100
 ```            
 
 \makebox[1.0\linewidth]{
@@ -343,7 +343,7 @@ summary_stats_2yr <- forecast_summary_stats(
 forecast_accuracy_1yr <- dfScorecardArea %>%
   filter(name == "For_1") %>%
   pull(value) %>%
-  roundFiveUp(., 3) #* 100
+  round_five_up(., 3) #* 100
 
 label_desc_1yr <- forecast_accuracy_desclabel(
   forecast_accuracy_1yr,
@@ -360,7 +360,7 @@ oneyearlabel <-
 forecast_accuracy_2yr <- dfScorecardArea %>%
   filter(name == "For_2") %>%
   pull(value) %>%
-  roundFiveUp(., 3) #* 100
+  round_five_up(., 3) #* 100
 
 label_desc_2yr <- forecast_accuracy_desclabel(
   forecast_accuracy_2yr,
@@ -444,13 +444,13 @@ PrefT3_NY_E <- dfScorecardArea_all_la %>%
   filter(name == "PrefT3_NY") %>%
   filter(LA_name == "England") %>%
   pull(value) %>%
-  roundFiveUp(., 1)
+  round_five_up(., 1)
 
 # Take filtered data, search for growth rate, pull the value and tidy the number up
 PrefT3_NY <- dfScorecardArea %>%
   filter(name == "PrefT3_NY") %>%
   pull(value) %>%
-  roundFiveUp(., 1)
+  round_five_up(., 1)
 ```
 
 \makebox[1.0\linewidth]{
@@ -509,13 +509,13 @@ PrefT3_CY_E <- dfScorecardArea_all_la %>%
   filter(name == "PrefT3_CY") %>%
   filter(LA_name == "England") %>%
   pull(value) %>%
-  roundFiveUp(., 1)
+  round_five_up(., 1)
 
 # Take filtered data, search for growth rate, pull the value and tidy the number up
 PrefT3_CY <- dfScorecardArea %>%
   filter(name == "PrefT3_CY") %>%
   pull(value) %>%
-  roundFiveUp(., 1)
+  round_five_up(., 1)
 ```
 
 \makebox[1.0\linewidth]{
@@ -611,7 +611,7 @@ preference_data <- preference_data %>%
   mutate(
     rating = factor(rating, levels = c("First choice", "Second choice", "Third choice", "Other")),
     # Neaten up percs
-    value = as.numeric(roundFiveUp(value, 1)),
+    value = as.numeric(round_five_up(value, 1)),
     value_label = if_else(value > 3, paste0(value, "%"), NA_character_)
   )
 
@@ -663,22 +663,22 @@ LA_comp <-
     dfScorecardArea %>%
       filter(name == "QualProp") %>%
       pull(value) %>%
-      roundFiveUp(., 3) * 100
+      round_five_up(., 3) * 100
   } else if (params$input_quality_chart == "Progress 8") {
     dfScorecardArea %>%
       filter(name == "Qual_KS4_Prop") %>%
       pull(value) %>%
-      roundFiveUp(., 3) * 100
+      round_five_up(., 3) * 100
   } else if (params$input_quality_chart == "Reading Progress") {
     dfScorecardArea %>%
       filter(name == "Qual_KS2Read_Prop") %>%
       pull(value) %>%
-      roundFiveUp(., 3) * 100
+      round_five_up(., 3) * 100
   } else if (params$input_quality_chart == "Maths Progress") {
     dfScorecardArea %>%
       filter(name == "Qual_KS2Mat_Prop") %>%
       pull(value) %>%
-      roundFiveUp(., 3) * 100
+      round_five_up(., 3) * 100
   }
 
 # Scorecard data for ALL LAs, filtered only on phase choice
@@ -701,7 +701,7 @@ england_comp <-
       as.numeric()
 
     # calculate percentage
-    roundFiveUp(numerator / denominator * 100, 1)
+    round_five_up(numerator / denominator * 100, 1)
   } else if (params$input_quality_chart == "Progress 8") {
     numerator <- dfScorecardArea_all_la %>%
       filter(LA_name == "England" &
@@ -716,7 +716,7 @@ england_comp <-
       as.numeric()
 
     # calculate percentage
-    roundFiveUp(numerator / denominator * 100, 1)
+    round_five_up(numerator / denominator * 100, 1)
   } else if (params$input_quality_chart == "Reading Progress") {
     numerator <- dfScorecardArea_all_la %>%
       filter(LA_name == "England" &
@@ -731,7 +731,7 @@ england_comp <-
       as.numeric()
 
     # calculate percentage
-    roundFiveUp(numerator / denominator * 100, 1)
+    round_five_up(numerator / denominator * 100, 1)
   } else if (params$input_quality_chart == "Maths Progress") {
     numerator <- dfScorecardArea_all_la %>%
       filter(LA_name == "England" &
@@ -746,7 +746,7 @@ england_comp <-
       as.numeric()
 
     # calculate percentage
-    roundFiveUp(numerator / denominator * 100, 1)
+    round_five_up(numerator / denominator * 100, 1)
   }
 
 # Calculate % ranking depending on chart choice:
@@ -886,7 +886,7 @@ ofsted_data <- dfScorecardArea_england_comp %>%
   )) %>%
   # Create new variable called places, replace 0s with NAs so it plots neatly
   mutate(
-    places = if_else(value == 0, NA_integer_, as.integer(roundFiveUp(value, 0)))
+    places = if_else(value == 0, NA_integer_, as.integer(round_five_up(value, 0)))
   ) %>%
   # Give NA for label if it's too small
   group_by(LA_name, place_type) %>%
@@ -953,7 +953,7 @@ progress_8_data <- dfScorecardArea_england_comp %>%
   )) %>%
   mutate(rating = factor(rating, levels = c("Well above average", "Above average", "Average", "Below average", "Well below average", "No rating"))) %>%
   # Create new variable called places, replace 0s with NAs so it plots neatly
-  mutate(places = if_else(value == 0, NA_integer_, as.integer(roundFiveUp(value, 0)))) %>%
+  mutate(places = if_else(value == 0, NA_integer_, as.integer(round_five_up(value, 0)))) %>%
   # Give NA for label if it's too small
   group_by(LA_name, place_type) %>%
   mutate(
@@ -1019,7 +1019,7 @@ progress_reading_data <- dfScorecardArea_england_comp %>%
   )) %>%
   mutate(rating = factor(rating, levels = c("Well above average", "Above average", "Average", "Below average", "Well below average", "No rating"))) %>%
   # Create new variable called places, replace 0s with NAs so it plots neatly
-  mutate(places = if_else(value == 0, NA_integer_, as.integer(roundFiveUp(value, 0)))) %>%
+  mutate(places = if_else(value == 0, NA_integer_, as.integer(round_five_up(value, 0)))) %>%
   # Give NA for label if it's too small
   group_by(LA_name, place_type) %>%
   mutate(
@@ -1085,7 +1085,7 @@ progress_maths_data <- dfScorecardArea_england_comp %>%
   )) %>%
   mutate(rating = factor(rating, levels = c("Well above average", "Above average", "Average", "Below average", "Well below average", "No rating"))) %>%
   # Create new variable called places, replace 0s with NAs so it plots neatly
-  mutate(places = if_else(value == 0, NA_integer_, as.integer(roundFiveUp(value, 0)))) %>%
+  mutate(places = if_else(value == 0, NA_integer_, as.integer(round_five_up(value, 0)))) %>%
   # Give NA for label if it's too small
   group_by(LA_name, place_type) %>%
   mutate(
@@ -1343,7 +1343,7 @@ cost_table <-
   pivot_wider(names_from = data_type, values_from = value) %>%
   # calculate cost per place
   mutate(
-    cost_per_place = roundFiveUp(Cost / Place, 0),
+    cost_per_place = round_five_up(Cost / Place, 0),
     # format it nicely with £ sign
     cost_per_place = paste0("£", cs_num(cost_per_place)),
     # Nicely format any NA
