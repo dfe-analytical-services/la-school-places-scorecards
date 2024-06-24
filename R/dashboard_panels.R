@@ -97,7 +97,7 @@ panel_homepage <- function() {
         br("The quality measures you can choose from are Ofsted rating, key stage 2 reading and maths progress or Progress 8."),
         br(),
         br("Ofsted rating:"),
-        br("You can use this measure to see the quality of the schools where the chosen local authority has added school places, based on the change between the 2021/22 and the 2022/23 published school capacity data and", a(href = "https://www.gov.uk/government/statistics/state-funded-schools-inspections-and-outcomes-as-at-31-august-2022", "published school Ofsted rating."), ),
+        br("You can use this measure to see the quality of the schools where the chosen local authority has added school places, based on the change between the 2021/22 and the 2022/23 published school capacity data and", a(href = "https://www.gov.uk/government/statistics/state-funded-schools-inspections-and-outcomes-as-at-31-august-2023", "published school Ofsted rating."), ),
         br("The chart shows the number of new places added in the local authority, between May 2022 and May 2023, according to the Ofsted rating of the school in which they have been added. There are 4 possible Ofsted ratings: outstanding, good, requires improvement and inadequate."),
         br("It is important to take care when making comparisons using the quality measure as:"),
         br("•	many Ofsted inspections have been delayed due to the pandemic, therefore local authorities may use other data/own local knowledge when deciding which schools to expand;"),
