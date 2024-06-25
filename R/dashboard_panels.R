@@ -256,6 +256,7 @@ panel_scorecard <- function() {
                     width = 12,
                     p(strong("Forecast accuracy of pupil projections for", forecast_year, ", made one year and three years previously")),
                     uiOutput("forecasting.bartext"),
+                    p("The tables show forecast accuracy measures for all Local Authorities. Of these, only the 25th and 75th percentiles are shown in the charts."),
                     column(
                       6,
 
