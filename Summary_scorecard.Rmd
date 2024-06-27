@@ -298,10 +298,10 @@ plot_ly(
   width = 520, height = 560,
   x = ~LA_name, y = ~QuanIn,
   marker = list(color = c("#08519c")),
-  type = "bar", name = paste0("Total places created between 2009/10 and ", this_year),
+  type = "bar", name = paste0("Total places created between May 2010 and May ", SCAP_ref),
   text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF", width = 0.2)
 ) %>%
-  add_trace(y = ~QuanPP, marker = list(color = c("#3182bd")), name = paste0("New places already planned for delivery between ", this_year, " and ", plan_year), text = ~ scales::comma(QuanPP), textposition = "outside", cliponaxis = FALSE, textfont = list(color = "#000"), width = 0.2) %>%
+  add_trace(y = ~QuanPP, marker = list(color = c("#3182bd")), name = paste0("New places planned for delivery between May ", SCAP_ref, " and September ", plannedplaces_ref), text = ~ scales::comma(QuanPP), textposition = "outside", cliponaxis = FALSE, textfont = list(color = "#000"), width = 0.2) %>%
   add_trace(y = ~QuanRP, marker = list(color = c("#6baed6")), name = paste0("Estimated additional places still needed to meet demand in ", plan_year), text = ~ scales::comma(QuanRP), textposition = "outside", cliponaxis = FALSE, textfont = list(color = "#000"), width = 0.2) %>%
   layout(
     yaxis = list(title = ""),
@@ -1190,7 +1190,7 @@ dfScorecardArea_england_comp <-
 
 # Comparison boxes - number of projects
 
-perm_fig <- dfScorecardArea %>%
+perm_fig <- dfScorecardArea_all_la %>%
   # Filter for Cost, places and project data
   filter(str_detect(name, "Cost|Places|Projects")) %>%
   # Create new column called data_type, based on the name of the data
@@ -1205,13 +1205,13 @@ perm_fig <- dfScorecardArea %>%
     str_detect(name, "NS") ~ "New school"
   )) %>%
   select(LA_name, data_type, exp_type, value) %>%
-  filter(data_type == "Project" & exp_type == "Permanent") %>%
+  filter(LA_name == "England" & data_type == "Project" & exp_type == "Permanent") %>%
   pull(value)
 
 
 
 
-temp_fig <- dfScorecardArea %>%
+temp_fig <- dfScorecardArea_all_la %>%
   # Filter for Cost, places and project data
   filter(str_detect(name, "Cost|Places|Projects")) %>%
   # Create new column called data_type, based on the name of the data
@@ -1226,14 +1226,14 @@ temp_fig <- dfScorecardArea %>%
     str_detect(name, "NS") ~ "New school"
   )) %>%
   select(LA_name, data_type, exp_type, value) %>%
-  filter(data_type == "Project" & exp_type == "Temporary") %>%
+  filter(LA_name == "England" & data_type == "Project" & exp_type == "Temporary") %>%
   pull(value)
 
 
 
 
 
-new_fig <- dfScorecardArea %>%
+new_fig <- dfScorecardArea_all_la %>%
   # Filter for Cost, places and project data
   filter(str_detect(name, "Cost|Places|Projects")) %>%
   # Create new column called data_type, based on the name of the data
@@ -1248,7 +1248,7 @@ new_fig <- dfScorecardArea %>%
     str_detect(name, "NS") ~ "New school"
   )) %>%
   select(LA_name, data_type, exp_type, value) %>%
-  filter(data_type == "Project" & exp_type == "New school") %>%
+  filter(LA_name == "England" & data_type == "Project" & exp_type == "New school") %>%
   pull(value)
 ```
 

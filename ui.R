@@ -1,4 +1,4 @@
-renui <- function(input, output, session) {
+ui <- function(input, output, session) {
   fluidPage(
     #    use_tota11y(),
     title = tags$head(
@@ -25,16 +25,12 @@ renui <- function(input, output, session) {
     customDisconnectMessage(),
     useShinydashboard(),
     # Setting up cookie consent based on a cookie recording the consent:
-    # https://book.javascript-for-r.com/shiny-cookies.html
-    tags$head(
-      tags$script(
-        src = paste0(
-          "https://cdn.jsdelivr.net/npm/js-cookie@rc/",
-          "dist/js.cookie.min.js"
-        )
-      ),
-      tags$script(src = "cookie-consent.js")
+    dfe_cookie_script(),
+    cookie_banner_ui(
+      "cookies",
+      name = "Local authority school places scorecards"
     ),
+    # Adding google analytics script
     tags$head(includeHTML(("google-analytics.html"))),
     tags$head(
       tags$link(
@@ -67,7 +63,13 @@ renui <- function(input, output, session) {
       panel_scorecard(),
       panel_technical(),
       panel_accessibility(),
-      panel_support()
+      dfeshiny::support_panel(
+        team_email = "scap.ppp@education.gov.uk",
+        repo_name = "https://github.com/dfe-analytical-services/la-school-places-scorecards",
+        publication_name = "Local authority school places scorecards",
+        publication_slug = "local-authority-school-places-scorecards",
+        form_url = "https://forms.office.com/r/wEWr5KCrTQ"
+      )
     ),
     footer(full = TRUE)
   )

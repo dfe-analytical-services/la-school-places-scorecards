@@ -7,91 +7,13 @@ function(input, output, session) {
 
 
   # Cookie control ----------------------------------------------------------
-
-  # output if cookie is unspecified
-  observeEvent(input$cookies, {
-    if (!is.null(input$cookies)) {
-      if (!("dfe_analytics" %in% names(input$cookies))) {
-        shinyalert(
-          inputId = "cookie_consent",
-          title = "Cookie consent",
-          text = "This site uses cookies to record traffic flow using Google Analytics",
-          size = "s",
-          closeOnEsc = TRUE,
-          closeOnClickOutside = FALSE,
-          html = FALSE,
-          type = "",
-          showConfirmButton = TRUE,
-          showCancelButton = TRUE,
-          confirmButtonText = "Accept",
-          confirmButtonCol = "#AEDEF4",
-          timer = 0,
-          imageUrl = "",
-          animation = TRUE
-        )
-      } else {
-        msg <- list(
-          name = "dfe_analytics",
-          value = input$cookies$dfe_analytics
-        )
-        session$sendCustomMessage("analytics-consent", msg)
-        if ("cookies" %in% names(input)) {
-          if ("dfe_analytics" %in% names(input$cookies)) {
-            if (input$cookies$dfe_analytics == "denied") {
-              ga_msg <- list(name = paste0("_ga_", google_analytics_key))
-              session$sendCustomMessage("cookie-remove", ga_msg)
-            }
-          }
-        }
-      }
-    }
-  })
-
-  observeEvent(input$cookie_consent, {
-    msg <- list(
-      name = "dfe_analytics",
-      value = ifelse(input$cookie_consent, "granted", "denied")
-    )
-    session$sendCustomMessage("cookie-set", msg)
-    session$sendCustomMessage("analytics-consent", msg)
-    if ("cookies" %in% names(input)) {
-      if ("dfe_analytics" %in% names(input$cookies)) {
-        if (input$cookies$dfe_analytics == "denied") {
-          ga_msg <- list(name = paste0("_ga_", google_analytics_key))
-          session$sendCustomMessage("cookie-remove", ga_msg)
-        }
-      }
-    }
-  })
-
-  observeEvent(input$remove, {
-    msg <- list(name = "dfe_analytics", value = "denied")
-    session$sendCustomMessage("cookie-remove", msg)
-    session$sendCustomMessage("analytics-consent", msg)
-  })
-
-  cookies_data <- reactive({
-    input$cookies
-  })
-
-  output$cookie_status <- renderText({
-    cookie_text_stem <- "To better understand the reach of our dashboard tools, this site uses cookies to
-identify numbers of unique users as part of Google Analytics. You have chosen to"
-    cookie_text_tail <- "the use of cookies on this website."
-    if ("cookies" %in% names(input)) {
-      if ("dfe_analytics" %in% names(input$cookies)) {
-        if (input$cookies$dfe_analytics == "granted") {
-          paste(cookie_text_stem, "accept", cookie_text_tail)
-        } else {
-          paste(cookie_text_stem, "reject", cookie_text_tail)
-        }
-      }
-    } else {
-      "Cookies consent has not been confirmed."
-    }
-  })
-
-
+  output$cookie_status <- dfeshiny::cookie_banner_server(
+    "cookies",
+    input_cookies = reactive(input$cookies),
+    input_clear = reactive(input$cookie_consent_clear),
+    parent_session = session,
+    google_analytics_key = google_analytics_key
+  )
 
   # Dashboard control -------------------------------------------------------
 
@@ -185,13 +107,15 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     scorecards_data_pivot %>%
       filter(
         case_when(
-          input$LA_choice != "England" ~ LA_name %in% c(input$LA_choice, input$selectBenchLAspref),
+          input$LA_choice != "England" ~
+            LA_name %in% c(input$LA_choice, input$selectBenchLAspref),
           TRUE ~ LA_name %in% c(input$LA_choice)
         ),
         Phase == input$phase_choice
       ) %>%
       mutate(
-        # This step just makes sure that the LA is FIRST when it comes to plots/tables
+        # This step just makes sure that the LA is FIRST when it comes to
+        # plots / tables
         LA_name = factor(LA_name) %>% relevel(input$LA_choice)
       )
   })
@@ -201,13 +125,15 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     scorecards_data_pivot %>%
       filter(
         case_when(
-          input$LA_choice != "England" ~ LA_name %in% c(input$LA_choice, input$selectBenchLAsquality),
+          input$LA_choice != "England" ~
+            LA_name %in% c(input$LA_choice, input$selectBenchLAsquality),
           TRUE ~ LA_name %in% c(input$LA_choice)
         ),
         Phase == input$phase_choice
       ) %>%
       mutate(
-        # This step just makes sure that the LA is FIRST when it comes to plots/tables
+        # This step just makes sure that the LA is FIRST when it comes to
+        # plots / tables
         LA_name = factor(LA_name) %>% relevel(input$LA_choice)
       )
   })
@@ -218,7 +144,8 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     scorecards_data_pivot %>% filter(Phase == input$phase_choice)
   })
 
-  # Scorecard data, filtered on user input AND including England as a comparison for cost data
+  # Scorecard data, filtered on user input AND including England as a comparison
+  # for cost data
   live_scorecard_data_england_comp <- reactive({
     scorecards_data_pivot %>%
       filter(
@@ -227,41 +154,25 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       ) %>%
       mutate(
         LA_name = as.factor(LA_name),
-        # This step just makes sure that the LA is FIRST when it comes to plots/tables
+        # This step just makes sure that the LA is FIRST when it comes to
+        # plots / tables
         LA_name = relevel(LA_name, "England"),
         LA_name = factor(LA_name, levels = rev(levels(LA_name)))
       )
   })
 
-  ## scorecard data, filtered on user input and benchmarking choice Las as a comparison
+  # scorecard data, filtered on user input and benchmarking choice Las as a
+  # comparison
   live_scorecard_data_reactive_benchmark <- reactive({
     scorecards_data_pivot %>%
       filter(
         LA_name %in% c(input$LA_choice, input$selectBenchLAs),
         Phase == input$phase_choice
       ) %>%
-      mutate(LA_name = factor(LA_name, levels = c(input$LA_choice, input$selectBenchLAs)))
+      mutate(LA_name = factor(LA_name,
+        levels = c(input$LA_choice, input$selectBenchLAs)
+      ))
   })
-  # Options for chart choice - dependent on phase choice
-
-  # chart_options <- reactive({
-  # if (input$phase_choice == "Primary") {
-  #  c("Ofsted Rating", "Reading Progress", "Maths Progress")
-  # } else {
-  #  c("Ofsted Rating", "Progress 8")
-  # }
-  #  })
-
-  # observe({
-  #  updateSelectInput(session, "chart_choice",
-  #  choices = chart_options(),
-  # selected = "Ofsted Rating"
-  # )
-  # })
-
-
-
-
 
   # Top lines -------------------------
   ## create header so users know what the data is showing
@@ -301,26 +212,31 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       select(Funding) %>%
       mutate(
         Funding =
-          ifelse(input$LA_choice == "England", roundFiveUp(Funding / 1000000000, 2),
-            roundFiveUp(Funding / 1000000, 0)
+          ifelse(input$LA_choice == "England",
+            round_half_up(Funding / 1000000000, 2),
+            round_half_up(Funding / 1000000, 0)
           )
       ) %>%
       as.numeric()
 
-    # Create the actual output here. Use if statement so we display "bn" if it's England, "mm" if not.
+    # Create the actual output here. Use if statement so we display "bn" if it's
+    # England, "mm" if not.
     if (input$LA_choice == "England") {
       shinydashboard::valueBox(
         paste0("£", total_funding, "bn"),
-        paste0("Total primary and secondary basic need funding to create new places ", funding_year),
-        # get different icons for background here: https://fontawesome.com/v5.15/icons?d=gallery&p=2
-        # icon = icon("fas fa-pound-sign"),
+        paste(
+          "Total primary and secondary basic need funding to create new places",
+          funding_year
+        ),
         color = "blue"
       )
     } else {
       shinydashboard::valueBox(
         paste0("£", total_funding, "m"),
-        paste0("Total primary and secondary basic need funding to create new places ", funding_year),
-        # icon = icon("fas fa-pound-sign"),
+        paste(
+          "Total primary and secondary basic need funding to create new places",
+          funding_year
+        ),
         color = "blue"
       )
     }
@@ -333,7 +249,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     growth_perc <- live_scorecard_data() %>%
       filter(name == "Bangro") %>%
       pull(value) # %>%
-    # roundFiveUp(., 3) * 100
+    # round_half_up(., 3) * 100
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -351,13 +267,16 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     anticipated_growth_perc <- live_scorecard_data() %>%
       filter(name == "Angro") %>%
       pull(value) # %>%
-    # roundFiveUp(., 3) * 100
+    # round_half_up(., 3) * 100
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
       format_perc(anticipated_growth_perc),
-      paste0("Anticipated change in ", str_to_lower(input$phase_choice), " pupil numbers ", next_year, " to ", plan_year),
-      # icon = icon("fas fa-chart-line"),
+      paste0(
+        "Anticipated change in ",
+        str_to_lower(input$phase_choice),
+        " pupil numbers ", next_year, " to ", plan_year
+      ),
       color = "blue"
     )
   })
@@ -384,7 +303,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     unfilled_places_perc <- live_scorecard_data() %>%
       filter(name == "QuanUP") %>%
       pull(value) %>%
-      roundFiveUp(., 1)
+      round_half_up(., 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -423,7 +342,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     spare_places_per <- live_scorecard_data() %>%
       filter(name == "QuanSu") %>%
       pull(value) %>%
-      roundFiveUp(., 3) * 100
+      round_half_up(., 3) * 100
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -480,13 +399,13 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     ) %>%
       add_trace(
         x = ~LA_name, y = ~QuanIn, marker = list(color = c("#08519c")),
-        name = paste0("Total places created between 2009/10 and ", this_year),
+        name = paste0("Total places created between May 2010 and May ", SCAP_ref),
         text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF"),
         width = 0.2
       ) %>%
       add_trace(
         x = ~LA_name, y = ~QuanPP, marker = list(color = c("#3182bd")),
-        name = paste0("New places planned for delivery between ", this_year, " and ", plan_year),
+        name = paste0("New places planned for delivery between May ", SCAP_ref, " and September ", plannedplaces_ref),
         text = ~ scales::comma(QuanPP), textposition = "outside", cliponaxis = FALSE, textfont = list(color = "#000"),
         width = 0.2
       ) %>%
@@ -532,13 +451,13 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     ) %>%
       add_trace(
         x = ~LA_name, y = ~QuanIn, marker = list(color = c("#08519c")),
-        name = paste0("Total places created between 2009/10 and ", this_year),
+        name = paste0("Total places created between May 2010 and May ", SCAP_ref),
         text = ~ scales::comma(QuanIn), textposition = "inside", textfont = list(color = "#FFF"),
         width = 0.2
       ) %>%
       add_trace(
         x = ~LA_name, y = ~QuanPP, marker = list(color = c("#3182bd")),
-        name = paste0("New places planned for delivery between ", this_year, " and ", plan_year),
+        name = paste0("New places planned for delivery between May ", SCAP_ref, " and September ", plannedplaces_ref),
         text = ~ scales::comma(QuanPP), textposition = "outside", textfont = list(color = "#000"),
         width = 0.2
       ) %>%
@@ -570,7 +489,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     forecast_accuracy <- live_scorecard_data() %>%
       filter(name == "For_1") %>%
       pull(value) %>%
-      roundFiveUp(., 3)
+      round_half_up(., 3)
 
 
     Foracc1year <- scorecards_data_pivot %>%
@@ -579,7 +498,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         Phase == input$phase_choice
       ) %>%
       pull(value) %>%
-      roundFiveUp(., 3)
+      round_half_up(., 3)
 
     medianaccuracy1 <- median(Foracc1year, na.rm = TRUE)
 
@@ -611,7 +530,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     forecast_accuracy <- live_scorecard_data() %>%
       filter(name == "For_2") %>%
       pull(value) %>%
-      roundFiveUp(., 3)
+      round_half_up(., 3)
 
     Foracc2year <- scorecards_data_pivot %>%
       filter(
@@ -619,7 +538,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         Phase == input$phase_choice
       ) %>%
       pull(value) %>%
-      roundFiveUp(., 3)
+      round_half_up(., 3)
 
     medianaccuracy2 <- median(Foracc2year, na.rm = TRUE)
 
@@ -772,7 +691,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       filter(name == "PrefT3_CY") %>%
       filter(LA_name == "England") %>%
       pull(value) %>%
-      roundFiveUp(., 1)
+      round_half_up(., 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -790,7 +709,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       filter(name == "PrefT3_NY") %>%
       filter(LA_name == "England") %>%
       pull(value) %>%
-      roundFiveUp(., 1)
+      round_half_up(., 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -808,7 +727,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     PrefT3_CY <- live_scorecard_data() %>%
       filter(name == "PrefT3_CY") %>%
       pull(value) %>%
-      roundFiveUp(., 1)
+      round_half_up(., 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -826,7 +745,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
     PrefT3_NY <- live_scorecard_data() %>%
       filter(name == "PrefT3_NY") %>%
       pull(value) %>%
-      roundFiveUp(., 1)
+      round_half_up(., 1)
 
     # Put value into box to plug into app
     shinydashboard::valueBox(
@@ -873,7 +792,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       mutate(
         rating = factor(rating, levels = c("First", "Second", "Third", "Other")),
         # Neaten up percs
-        value = as.numeric(roundFiveUp(value, 1)),
+        value = as.numeric(round_half_up(value, 1)),
         value_label = if_else(value > 3, paste0(value, "%"), NA_character_)
       )
 
@@ -938,22 +857,22 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       live_scorecard_data() %>%
         filter(name == "QualProp") %>%
         pull(value) %>%
-        roundFiveUp(., 3) * 100
+        round_half_up(., 3) * 100
     } else if (chart_choice == "Progress 8") {
       live_scorecard_data() %>%
         filter(name == "Qual_KS4_Prop") %>%
         pull(value) %>%
-        roundFiveUp(., 3) * 100
+        round_half_up(., 3) * 100
     } else if (chart_choice == "Reading Progress") {
       live_scorecard_data() %>%
         filter(name == "Qual_KS2Read_Prop") %>%
         pull(value) %>%
-        roundFiveUp(., 3) * 100
+        round_half_up(., 3) * 100
     } else if (chart_choice == "Maths Progress") {
       live_scorecard_data() %>%
         filter(name == "Qual_KS2Mat_Prop") %>%
         pull(value) %>%
-        roundFiveUp(., 3) * 100
+        round_half_up(., 3) * 100
     }
   })
 
@@ -986,7 +905,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         as.numeric()
 
       # calculate percentage
-      roundFiveUp(numerator / denominator * 100, 1)
+      round_half_up(numerator / denominator * 100, 1)
     } else if (chart_choice == "Progress 8") {
       numerator <- live_scorecard_data_all_la() %>%
         filter(LA_name == "England" &
@@ -1001,7 +920,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         as.numeric()
 
       # calculate percentage
-      roundFiveUp(numerator / denominator * 100, 1)
+      round_half_up(numerator / denominator * 100, 1)
     } else if (chart_choice == "Reading Progress") {
       numerator <- live_scorecard_data_all_la() %>%
         filter(LA_name == "England" &
@@ -1016,7 +935,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         as.numeric()
 
       # calculate percentage
-      roundFiveUp(numerator / denominator * 100, 1)
+      round_half_up(numerator / denominator * 100, 1)
     } else if (chart_choice == "Maths Progress") {
       numerator <- live_scorecard_data_all_la() %>%
         filter(LA_name == "England" &
@@ -1031,7 +950,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         as.numeric()
 
       # calculate percentage
-      roundFiveUp(numerator / denominator * 100, 1)
+      round_half_up(numerator / denominator * 100, 1)
     }
   })
 
@@ -1163,7 +1082,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       )) %>%
       # Create new variable called places, replace 0s with NAs so it plots neatly
       mutate(
-        places = if_else(value == 0, NA_integer_, as.integer(roundFiveUp(value, 0)))
+        places = if_else(value == 0, NA_integer_, as.integer(round_half_up(value, 0)))
       ) %>%
       # Give NA for label if it's too small
       group_by(LA_name, place_type) %>%
@@ -1231,7 +1150,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       )) %>%
       mutate(rating = factor(rating, levels = c("Well above average", "Above average", "Average", "Below average", "Well below average", "No rating"))) %>%
       # Create new variable called places, replace 0s with NAs so it plots neatly
-      mutate(places = if_else(value == 0, NA_integer_, as.integer(roundFiveUp(value, 0)))) %>%
+      mutate(places = if_else(value == 0, NA_integer_, as.integer(round_half_up(value, 0)))) %>%
       # Give NA for label if it's too small
       group_by(LA_name, place_type) %>%
       mutate(
@@ -1296,7 +1215,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       )) %>%
       mutate(rating = factor(rating, levels = c("Well above average", "Above average", "Average", "Below average", "Well below average", "No rating"))) %>%
       # Create new variable called places, replace 0s with NAs so it plots neatly
-      mutate(places = if_else(value == 0, NA_integer_, as.integer(roundFiveUp(value, 0)))) %>%
+      mutate(places = if_else(value == 0, NA_integer_, as.integer(round_half_up(value, 0)))) %>%
       # Give NA for label if it's too small
       group_by(LA_name, place_type) %>%
       mutate(
@@ -1361,7 +1280,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       )) %>%
       mutate(rating = factor(rating, levels = c("Well above average", "Above average", "Average", "Below average", "Well below average", "No rating"))) %>%
       # Create new variable called places, replace 0s with NAs so it plots neatly
-      mutate(places = if_else(value == 0, NA_integer_, as.integer(roundFiveUp(value, 0)))) %>%
+      mutate(places = if_else(value == 0, NA_integer_, as.integer(round_half_up(value, 0)))) %>%
       # Give NA for label if it's too small
       group_by(LA_name, place_type) %>%
       mutate(
@@ -1451,7 +1370,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         pivot_wider(names_from = data_type, values_from = value) %>%
         # calculate cost per place
         mutate(
-          cost_per_place = roundFiveUp(Cost / Place, 0),
+          cost_per_place = round_half_up(Cost / Place, 0),
           # format it nicely with £ sign
           cost_per_place = paste0("£", cs_num(cost_per_place)),
           # Nicely format any NA
@@ -1484,7 +1403,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
       select(LA_name, data_type, exp_type, value) %>%
       pivot_wider(names_from = data_type, values_from = value) %>%
       mutate(
-        cost_per_place = roundFiveUp(Cost / Place, 0),
+        cost_per_place = round_half_up(Cost / Place, 0),
         grouping = case_when(
           !LA_name %in% c("England", input$LA_choice) ~ "Other LA",
           TRUE ~ as.character(LA_name)
@@ -1557,7 +1476,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
 
   # Comparison boxes - number of projects
   output$perm_box <- renderValueBox({
-    perm_fig <- live_scorecard_data() %>%
+    perm_fig <- live_scorecard_data_all_la() %>%
       # Filter for Cost, places and project data
       filter(str_detect(name, "Cost|Places|Projects")) %>%
       # Create new column called data_type, based on the name of the data
@@ -1572,7 +1491,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         str_detect(name, "NS") ~ "New school"
       )) %>%
       select(LA_name, data_type, exp_type, value) %>%
-      filter(data_type == "Project" & exp_type == "Permanent") %>%
+      filter(LA_name == "England" & data_type == "Project" & exp_type == "Permanent") %>%
       pull(value)
 
 
@@ -1585,7 +1504,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
   })
 
   output$temp_box <- renderValueBox({
-    temp_fig <- live_scorecard_data() %>%
+    temp_fig <- live_scorecard_data_all_la() %>%
       # Filter for Cost, places and project data
       filter(str_detect(name, "Cost|Places|Projects")) %>%
       # Create new column called data_type, based on the name of the data
@@ -1600,7 +1519,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         str_detect(name, "NS") ~ "New school"
       )) %>%
       select(LA_name, data_type, exp_type, value) %>%
-      filter(data_type == "Project" & exp_type == "Temporary") %>%
+      filter(LA_name == "England" & data_type == "Project" & exp_type == "Temporary") %>%
       pull(value)
 
 
@@ -1614,7 +1533,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
 
 
   output$new_box <- renderValueBox({
-    new_fig <- live_scorecard_data() %>%
+    new_fig <- live_scorecard_data_all_la() %>%
       # Filter for Cost, places and project data
       filter(str_detect(name, "Cost|Places|Projects")) %>%
       # Create new column called data_type, based on the name of the data
@@ -1629,7 +1548,7 @@ identify numbers of unique users as part of Google Analytics. You have chosen to
         str_detect(name, "NS") ~ "New school"
       )) %>%
       select(LA_name, data_type, exp_type, value) %>%
-      filter(data_type == "Project" & exp_type == "New school") %>%
+      filter(LA_name == "England" & data_type == "Project" & exp_type == "New school") %>%
       pull(value)
 
 

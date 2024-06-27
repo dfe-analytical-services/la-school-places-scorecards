@@ -1,0 +1,639 @@
+{
+  "input": {
+    "LA_choice": "Cheshire East",
+    "navlistPanel": "la_scorecards",
+    "phase_choice": "Primary",
+    "tabs": "quality"
+  },
+  "output": {
+    "LA_GO_places": {
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>100%<\/h3>\n    <p>Percentage of new places created in good and outstanding primary schools in Cheshire East<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "LA_GO_ran": {
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>1<\/h3>\n    <p>LA Rank out of 77 LAs that created new places between 2020/21 and 2021/22 (ranks can be tied)<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "no_rating_line": "New places with no rating = NA",
+    "quality_chart": {
+      "x": {
+        "data": [
+          {
+            "orientation": "h",
+            "width": [
+              0.90000000000000013,
+              0.89999999999999991
+            ],
+            "base": [
+              0,
+              0
+            ],
+            "x": [
+              0,
+              0.21463275221491854
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Outstanding :  NA  places",
+              "Outstanding :  6759  places"
+            ],
+            "type": "bar",
+            "textposition": "none",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(8,81,156,1)",
+              "line": {
+                "width": 1.8897637795275593,
+                "color": "transparent"
+              }
+            },
+            "name": "Outstanding",
+            "legendgroup": "Outstanding",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": [
+              0.90000000000000013,
+              0.89999999999999991
+            ],
+            "base": [
+              0,
+              0.21463275221491854
+            ],
+            "x": [
+              1,
+              0.70455050649391893
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Good :  125  places",
+              "Good :  22187  places"
+            ],
+            "type": "bar",
+            "textposition": "none",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(49,130,189,1)",
+              "line": {
+                "width": 1.8897637795275593,
+                "color": "transparent"
+              }
+            },
+            "name": "Good",
+            "legendgroup": "Good",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": [
+              0.90000000000000013,
+              0.89999999999999991
+            ],
+            "base": [
+              1,
+              0.91918325870883744
+            ],
+            "x": [
+              0,
+              0.05747673938585629
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Requires Improvement :  NA  places",
+              "Requires Improvement :  1810  places"
+            ],
+            "type": "bar",
+            "textposition": "none",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(107,174,214,1)",
+              "line": {
+                "width": 1.8897637795275593,
+                "color": "transparent"
+              }
+            },
+            "name": "Requires Improvement",
+            "legendgroup": "Requires Improvement",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "h",
+            "width": [
+              0.90000000000000013,
+              0.89999999999999991
+            ],
+            "base": [
+              1,
+              0.97665999809469373
+            ],
+            "x": [
+              0,
+              0.023340001905306273
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "Inadequate :  NA  places",
+              "Inadequate :  735  places"
+            ],
+            "type": "bar",
+            "textposition": "none",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(158,202,225,1)",
+              "line": {
+                "width": 1.8897637795275593,
+                "color": "transparent"
+              }
+            },
+            "name": "Inadequate",
+            "legendgroup": "Inadequate",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              0,
+              0.10731637610745927
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              null,
+              "6,759"
+            ],
+            "hovertext": [
+              "Outstanding :  NA  places",
+              "Outstanding :  6759  places"
+            ],
+            "textfont": {
+              "size": 15.118110236220474,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Outstanding",
+            "legendgroup": "Outstanding",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              0.5,
+              0.56690800546187803
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              "125",
+              "22,187"
+            ],
+            "hovertext": [
+              "Good :  125  places",
+              "Good :  22187  places"
+            ],
+            "textfont": {
+              "size": 15.118110236220474,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Good",
+            "legendgroup": "Good",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              1,
+              0.94792162840176553
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              null,
+              "1,810"
+            ],
+            "hovertext": [
+              "Requires Improvement :  NA  places",
+              "Requires Improvement :  1810  places"
+            ],
+            "textfont": {
+              "size": 15.118110236220474,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Requires Improvement",
+            "legendgroup": "Requires Improvement",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              1,
+              0.98832999904734686
+            ],
+            "y": [
+              2,
+              1
+            ],
+            "text": [
+              null,
+              null
+            ],
+            "hovertext": [
+              "Inadequate :  NA  places",
+              "Inadequate :  735  places"
+            ],
+            "textfont": {
+              "size": 15.118110236220474,
+              "color": "rgba(255,255,255,1)"
+            },
+            "type": "scatter",
+            "mode": "text",
+            "hoveron": "points",
+            "name": "Inadequate",
+            "legendgroup": "Inadequate",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          }
+        ],
+        "layout": {
+          "margin": {
+            "t": 52.30828836308288,
+            "r": 7.3059360730593621,
+            "b": 28.271758682717589,
+            "l": 70.46907430469075
+          },
+          "font": {
+            "color": "rgba(0,0,0,1)",
+            "family": "Arial",
+            "size": 18.596928185969279
+          },
+          "xaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "type": "linear",
+            "autorange": false,
+            "range": [
+              -0.050000000000000003,
+              1.05
+            ],
+            "tickmode": "array",
+            "ticktext": [
+              "0%",
+              "25%",
+              "50%",
+              "75%",
+              "100%"
+            ],
+            "tickvals": [
+              0,
+              0.25,
+              0.5,
+              0.75,
+              1
+            ],
+            "categoryorder": "array",
+            "categoryarray": [
+              "0%",
+              "25%",
+              "50%",
+              "75%",
+              "100%"
+            ],
+            "nticks": null,
+            "ticks": "",
+            "tickcolor": null,
+            "ticklen": 3.6529680365296811,
+            "tickwidth": 0,
+            "showticklabels": true,
+            "tickfont": {
+              "color": "rgba(77,77,77,1)",
+              "family": "Arial",
+              "size": 14.877542548775427
+            },
+            "tickangle": 0,
+            "showline": false,
+            "linecolor": null,
+            "linewidth": 0,
+            "showgrid": true,
+            "gridcolor": "rgba(235,235,235,1)",
+            "gridwidth": 0.66417600664176002,
+            "zeroline": false,
+            "anchor": "y",
+            "title": "",
+            "hoverformat": ".2f"
+          },
+          "yaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "type": "linear",
+            "autorange": false,
+            "range": [
+              0.40000000000000002,
+              2.6000000000000001
+            ],
+            "tickmode": "array",
+            "ticktext": [
+              "Existing",
+              "New"
+            ],
+            "tickvals": [
+              1,
+              2
+            ],
+            "categoryorder": "array",
+            "categoryarray": [
+              "Existing",
+              "New"
+            ],
+            "nticks": null,
+            "ticks": "",
+            "tickcolor": null,
+            "ticklen": 3.6529680365296811,
+            "tickwidth": 0,
+            "showticklabels": true,
+            "tickfont": {
+              "color": "rgba(77,77,77,1)",
+              "family": "Arial",
+              "size": 14.877542548775427
+            },
+            "tickangle": 0,
+            "showline": false,
+            "linecolor": null,
+            "linewidth": 0,
+            "showgrid": true,
+            "gridcolor": "rgba(235,235,235,1)",
+            "gridwidth": 0.66417600664176002,
+            "zeroline": false,
+            "anchor": "x",
+            "title": "",
+            "hoverformat": ".2f"
+          },
+          "shapes": [
+            {
+              "type": "rect",
+              "fillcolor": null,
+              "line": {
+                "color": null,
+                "width": 0,
+                "linetype": [
+
+                ]
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0,
+              "x1": 1,
+              "y0": 0,
+              "y1": 1
+            },
+            {
+              "type": "rect",
+              "fillcolor": null,
+              "line": {
+                "color": null,
+                "width": 0,
+                "linetype": [
+
+                ]
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0,
+              "x1": 1,
+              "y0": 0,
+              "y1": 38.256537982565391,
+              "yanchor": 1,
+              "ysizemode": "pixel"
+            }
+          ],
+          "annotations": [
+            {
+              "text": "Cheshire East",
+              "x": 0.5,
+              "y": 1,
+              "showarrow": false,
+              "ax": 0,
+              "ay": 0,
+              "font": {
+                "color": "rgba(26,26,26,1)",
+                "family": "Arial",
+                "size": 26.567040265670396
+              },
+              "xref": "paper",
+              "yref": "paper",
+              "textangle": 0,
+              "xanchor": "center",
+              "yanchor": "bottom"
+            }
+          ],
+          "showlegend": true,
+          "legend": {
+            "bgcolor": null,
+            "bordercolor": null,
+            "borderwidth": 0,
+            "font": {
+              "color": "rgba(0,0,0,1)",
+              "family": "Arial",
+              "size": 14
+            },
+            "title": "",
+            "orientation": "h",
+            "y": -0.10000000000000001,
+            "x": 0.20000000000000001
+          },
+          "hovermode": "closest",
+          "barmode": "relative",
+          "title": {
+            "text": "Chart showing the quality of new and existing school places and estimated additional places, by Local Authority compared to England",
+            "font": {
+              "color": "#ffffff"
+            }
+          }
+        },
+        "config": {
+          "doubleClick": "reset",
+          "modeBarButtonsToAdd": [
+            "hoverclosest",
+            "hovercompare"
+          ],
+          "showSendToCloud": false,
+          "displayModeBar": false
+        },
+        "source": "A",
+        "highlight": {
+          "on": "plotly_click",
+          "persistent": false,
+          "dynamic": false,
+          "selectize": false,
+          "opacityDim": 0.20000000000000001,
+          "selected": {
+            "opacity": 1
+          },
+          "debounce": 0
+        },
+        "shinyEvents": [
+          "plotly_hover",
+          "plotly_click",
+          "plotly_selected",
+          "plotly_relayout",
+          "plotly_brushed",
+          "plotly_brushing",
+          "plotly_clickannotation",
+          "plotly_doubleclick",
+          "plotly_deselect",
+          "plotly_afterplot",
+          "plotly_sunburstclick"
+        ],
+        "base_url": "https://plot.ly"
+      },
+      "evals": [
+
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "setprototypeof",
+          "version": "0.1",
+          "src": {
+            "href": "setprototypeof-0.1"
+          },
+          "meta": null,
+          "script": "setprototypeof.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "typedarray",
+          "version": "0.1",
+          "src": {
+            "href": "typedarray-0.1"
+          },
+          "meta": null,
+          "script": "typedarray.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "3.5.1",
+          "src": {
+            "href": "jquery-3.5.1"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.2.1",
+          "src": {
+            "href": "crosstalk-1.2.1"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.min.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "plotly-htmlwidgets-css",
+          "version": "2.11.1",
+          "src": {
+            "href": "plotly-htmlwidgets-css-2.11.1"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "plotly-htmlwidgets.css",
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "plotly-main",
+          "version": "2.11.1",
+          "src": {
+            "href": "plotly-main-2.11.1"
+          },
+          "meta": null,
+          "script": "plotly-latest.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        }
+      ]
+    }
+  }
+}

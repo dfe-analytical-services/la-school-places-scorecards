@@ -1,0 +1,29 @@
+{
+  "input": {
+    "LA_choice": "England",
+    "navlistPanel": "la_scorecards",
+    "phase_choice": "Primary",
+    "tabs": "cost"
+  },
+  "output": {
+    "cost_table": "<table  class = 'table shiny-table table- spacing-s' style = 'width:auto;'>\n<thead> <tr> <th style='text-align: right;'> Type <\/th> <th style='text-align: right;'> England <\/th>  <\/tr> <\/thead> <tbody>\n  <tr> <td align=\"right\"> New School <\/td> <td align=\"right\"> £23,192 <\/td> <\/tr>\n  <tr> <td align=\"right\"> Permanent Expansion <\/td> <td align=\"right\"> £19,425 <\/td> <\/tr>\n  <tr> <td align=\"right\"> Temporary Expansion <\/td> <td align=\"right\"> £9,184 <\/td> <\/tr>\n   <\/tbody> <\/table>",
+    "new_box": {
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>70<\/h3>\n    <p>New primary schools projects in England<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "perm_box": {
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>1,204<\/h3>\n    <p>Permanent primary expansion projects in England<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "temp_box": {
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>616<\/h3>\n    <p>Temporary primary expansion projects in England <\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    }
+  }
+}

@@ -22,7 +22,7 @@ plot_forecast <- function(dfScorecards, dfScorecardsPivot, la_choice, phase, yea
   # Now grab the actual data point (note that this has already been filtered for phase and LA).
   forecast_accuracy <- dfScorecards %>%
     filter(name == forecast)
-  forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3)
+  forecast_accuracy$value <- forecast_accuracy$value %>% round_half_up(., 3)
 
   p <- ggplot(
     forecast_accuracy,
@@ -52,8 +52,8 @@ plot_forecast <- function(dfScorecards, dfScorecardsPivot, la_choice, phase, yea
       text = element_text(size = 12)
     ) +
     geom_hline(aes(yintercept = 0), color = "black", size = 0.2) +
-    geom_hline(aes(yintercept = percentiles$accuracy[1], text = "25th percentile"), linetype = "dashed", color = "Grey") +
-    geom_hline(aes(yintercept = percentiles$accuracy[2], text = "75th percentile"), linetype = "dashed", color = "Grey") +
+    geom_hline(aes(yintercept = percentiles$accuracy[1]), text = "25th percentile", linetype = "dashed", color = "Grey") +
+    geom_hline(aes(yintercept = percentiles$accuracy[2]), text = "75th percentile", linetype = "dashed", color = "Grey") +
     geom_hline(yintercept = forecast_accuracy$value, size = 1.) +
     labs(x = "", y = "Accuracy") +
     coord_flip()
