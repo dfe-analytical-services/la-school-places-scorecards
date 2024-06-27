@@ -90,7 +90,7 @@ enableBookmarking(store = "url")
 # ----------------------------------------------------------------------------
 
 
-scorecards_data <- fread("data/scorecards_data_2022.csv")
+scorecards_data <- fread("data/scorecards_data_2023.csv")
 
 
 # pivot data around to long format
@@ -100,7 +100,7 @@ scorecards_data_pivot <- scorecards_data %>%
   # assign phase based on names of columns
   mutate(
     Phase = ifelse(
-      str_detect(name, "_S_") | str_detect(name, "KS4") | name %in% c("For_2_S", "For_1_S"), "Secondary", "Primary"
+      str_detect(name, "_S_") | str_detect(name, "KS4") | name %in% c("For_3_S", "For_1_S"), "Secondary", "Primary"
     ),
     # remove the _S_, _P_ name identifiers so we can instead use the phase column to get data
     name = str_replace_all(name, "_S_", ""),

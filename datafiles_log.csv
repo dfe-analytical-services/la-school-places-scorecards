@@ -1,9 +1,7 @@
 filename,status
-data/2019_School_Places_Scorecard.xlsx,published
 data/metadata.csv,reference
-data/scorecards_data.csv,published
 data/tech_guidance.xlsx,reference
 preamble.tex,reference
-data/scorecards_data_2022.csv,published
+data/scorecards_data_2023.csv,published
 Summary_scorecard.pdf,published
 Summary_scorecard.tex,published
