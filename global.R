@@ -90,7 +90,7 @@ enableBookmarking(store = "url")
 # ----------------------------------------------------------------------------
 
 
-scorecards_data <- fread("data/scorecards_data_2023_dummy.csv")
+scorecards_data <- fread("data/scorecards_data_2023.csv")
 
 
 # pivot data around to long format
