@@ -174,6 +174,19 @@ function(input, output, session) {
       ))
   })
 
+  # scorecard data, filtered on user input and benchmarking choice Las as a
+  # comparison
+  live_quantity_england_all_selected <- reactive({
+    scorecards_data_pivot %>%
+      filter(
+        LA_name %in% c(input$LA_choice, input$selectBenchLAs, "England"),
+        Phase == input$phase_choice
+      ) %>%
+      mutate(LA_name = factor(LA_name,
+        levels = c(input$LA_choice, input$selectBenchLAs)
+      ))
+  })
+
   # Options for chart choice - dependent on phase choice
   chart_options <- reactive({
     if (input$phase_choice == "Primary") {
@@ -204,7 +217,10 @@ function(input, output, session) {
 
   ## create quality heading
   output$quality_description <- renderText({
-    paste0("Quality of school places created between ", last_year, " and ", this_year, " based on ", input$chart_choice)
+    ifelse(input$chart_choice %in% c("Maths Progress", "Reading Progress"),
+      paste0("Quality of school places created between ", last_year, " and ", this_year, " based on ", input$chart_choice),
+      paste0("Quality of school places created between ", last_year, " and ", this_year, " based on ", input$chart_choice)
+    )
   })
 
 
@@ -214,6 +230,13 @@ function(input, output, session) {
   ## create quantity
   output$pupil_subtitle <- renderText({
     paste0("Pupils in places in ", input$LA_choice)
+  })
+
+  output$pupil_growth_breakpoint_text <- renderText({
+    ifelse(input$phase_choice == "Primary",
+      "In England, the number of primary pupils increased in each academic year between 2009/10 and 2018/19, before beginning to decrease after 2018/19.",
+      "In England, the number of secondary pupils decreased in each academic year between 2009/10 and 2014/15, before beginning to increase after 2014/15."
+    )
   })
 
 
@@ -276,6 +299,46 @@ function(input, output, session) {
     )
   })
 
+  ## Growth in pupil numbers (actual) 10 to 19
+  output$pupil_growth_10_to_break <- renderValueBox({
+    # Take filtered data, search for growth rate, pull the value and tidy the number up
+    growth_perc <- live_scorecard_data() %>%
+      filter(name == "NoR_10_to_breakpercent") %>%
+      pull(value) # %>%
+    # round_half_up(., 3) * 100
+
+    # Put value into box to plug into app
+    shinydashboard::valueBox(
+      format_perc(growth_perc),
+      ifelse(input$phase_choice == "Primary",
+        paste0("Actual change in ", str_to_lower(input$phase_choice), " pupil numbers 2009/10 to 2018/19"),
+        paste0("Actual change in ", str_to_lower(input$phase_choice), " pupil numbers 2009/10 to 2014/15")
+      ),
+      # icon = icon("fas fa-chart-line"),
+      color = "blue"
+    )
+  })
+
+  ## Growth in pupil numbers (actual) 19 to current
+  output$pupil_growth_break_to_current <- renderValueBox({
+    # Take filtered data, search for growth rate, pull the value and tidy the number up
+    growth_perc <- live_scorecard_data() %>%
+      filter(name == "NoR_break_to_currentpercent") %>%
+      pull(value) # %>%
+    # round_half_up(., 3) * 100
+
+    # Put value into box to plug into app
+    shinydashboard::valueBox(
+      format_perc(growth_perc),
+      ifelse(input$phase_choice == "Primary",
+        paste0("Actual change in ", str_to_lower(input$phase_choice), " pupil numbers 2018/19 to ", next_year),
+        paste0("Actual change in ", str_to_lower(input$phase_choice), " pupil numbers 2014/15 to ", next_year)
+      ),
+      # icon = icon("fas fa-chart-line"),
+      color = "blue"
+    )
+  })
+
   # Anticipated pupil growth
 
   output$pupil_anticipated_growth <- renderValueBox({
@@ -303,13 +366,18 @@ function(input, output, session) {
   ## Caveats for BCP and Dorset and Northamptonshire
   output$quantity.bartext <- renderUI({
     if (input$LA_choice %in% c("Dorset", "Bournemouth, Christchurch and Poole")) {
-      paste0("2009/10 data is not comparable because of 2019 boundary changes.
-             Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for this LA.")
+      paste0("Some historical data is not comparable because of 2019 boundary changes.
+             Therefore total places created growth in pupil numbers may not shown for this LA.")
     } else if (input$LA_choice %in% c("West Northamptonshire", "North Northamptonshire")) {
-      paste0("2009/10 data is not comparable because of 2021 boundary changes.
-             Therefore total places created since 2009/10 and growth in pupil numbers since 2009/10 are not shown for this LA.")
-    } else if (input$LA_choice %in% c("Kent")) {
-      paste0("Caution should be taken with Kent's estimated additional places needed to meet demand in 2024/25 and estimated percentage of spare places in 2024/25 as at the time of the 2022 School Capacity publication, planning area level forecasts for Kent were yet to be signed off and were subject to change.")
+      paste0("Some historical data is not comparable because of 2021 boundary changes.
+             Therefore total places created growth in pupil numbers may not shown for this LA.")
+    } else if (input$LA_choice %in% c("City of London") & input$phase_choice == "Secondary") {
+      paste0("City of London does not contain any secondary places")
+    } else if (input$LA_choice %in% c("Isles of Scilly") & input$phase_choice == "Primary") {
+      paste0("City of London does not contain any secondary places")
+    } else if (input$LA_choice %in% c("Cumberland", "Westmorland and Furness")) {
+      paste0("Some historical data is not comparable because of 2023 boundary changes.
+             Therefore total places created growth in pupil numbers may not shown for this LA.")
     }
   })
   # Current unfilled places
@@ -386,6 +454,10 @@ function(input, output, session) {
         LA_benchmark_options_pref %>% droplevels(exclude = input$LA_choice)
       )
     )
+  })
+
+  test_count <- reactive({
+    length(c(input$LA_choice, input$selectBenchLAs))
   })
 
   # Stop users being able to select chosen LA as benchmark LA for preference chart
@@ -496,6 +568,53 @@ function(input, output, session) {
         )
       ) %>%
       config(displayModeBar = FALSE)
+  })
+
+  # Comparison table - average cost of projects per place
+  output$quantity_table <- renderDataTable({
+    live_quantity_england_all_selected() %>%
+      filter(name %in% c("Bangro", "Angro", "QuanUP", "QuanRP", "QuanSu", "Funding", "NoR_10_to_breakpercent", "NoR_break_to_currentpercent")) %>%
+      select(LA_name, name, value) %>%
+      mutate(value = case_when(
+        name == "Bangro" ~ as.character(paste0(round(value * 100, 1), "%")),
+        name == "Angro" ~ as.character(paste0(round(value * 100, 1), "%")),
+        name == "NoR_10_to_breakpercent" ~ as.character(paste0(round(value * 100, 1), "%")),
+        name == "NoR_break_to_currentpercent" ~ as.character(paste0(round(value * 100, 1), "%")),
+        name == "QuanUP" ~ as.character(paste0(round(value, 1), "%")),
+        name == "QuanRP" ~ as.character(scales::comma(round(value, 0))),
+        name == "QuanSu" ~ as.character(paste0(round(value * 100, 1), "%")),
+        name == "Funding" ~ paste0(as.character(scales::comma(round(value / 1000000, 0)))),
+        TRUE ~ as.character(value)
+      )) %>%
+      mutate(
+        name = case_when(
+          name == "Bangro" ~ paste0("Actual change in ", str_to_lower(input$phase_choice), " pupil numbers 2009/10 to ", next_year),
+          name == "NoR_10_to_breakpercent" ~ paste0("Actual change in ", str_to_lower(input$phase_choice), " pupil numbers 2009/10 to 2018/19"),
+          name == "NoR_break_to_currentpercent" ~ paste0("Actual change in ", str_to_lower(input$phase_choice), " pupil numbers 2018/19 to ", next_year),
+          name == "Angro" ~ paste0("Anticipated change in ", str_to_lower(input$phase_choice), " pupil numbers ", next_year, " to ", plan_year),
+          name == "QuanUP" ~ paste0("Percentage of unfilled ", str_to_lower(input$phase_choice), " places ", this_year),
+          name == "QuanRP" ~ paste0("Estimated additional ", str_to_lower(input$phase_choice), " places needed to meet demand in ", plan_year),
+          name == "QuanSu" ~ paste0("Estimated percentage of spare ", str_to_lower(input$phase_choice), " places in ", plan_year),
+          name == "Funding" ~ paste0("Total primary and secondary basic need funding to create new places (£millions)"),
+          TRUE ~ name
+        ),
+        LA_name = case_when(
+          is.na(LA_name) ~ "England",
+          TRUE ~ LA_name
+        )
+      ) %>%
+      # pivot the data wider
+      pivot_wider(names_from = name, values_from = value) %>%
+      select(
+        LA_name,
+        starts_with("Actual"),
+        starts_with("Anticipated"),
+        starts_with("Percentage"),
+        starts_with("Estimated additional"),
+        starts_with("Estimated percentage"),
+        starts_with("Total")
+      ) %>%
+      arrange(LA_name)
   })
 
 
@@ -701,6 +820,17 @@ function(input, output, session) {
 
   # Box for England % preference current year
 
+  output$preference_eng_subtitle <- renderText({
+    paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England")
+  })
+
+  output$preference_la_subtitle <- renderText({
+    ifelse(input$LA_choice != "England",
+      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in ", (input$LA_choice)),
+      ""
+    )
+  })
+
   output$prefT3_CY_ENG <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     PrefT3_CY_E <- live_scorecard_data_all_la() %>%
@@ -712,7 +842,7 @@ function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(PrefT3_CY_E, "%"),
-      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England for ", preference_current_year),
+      paste0("in England for ", preference_current_year),
       # icon = icon("fas fa-chart-line"),
       color = "blue"
     )
@@ -730,13 +860,15 @@ function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(PrefT3_NY_E, "%"),
-      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in England for ", preference_next_year),
+      paste0("in England for ", preference_next_year),
       # icon = icon("fas fa-chart-line"),
       color = "blue"
     )
   })
 
   # Box for LA % preference current year
+
+
 
   output$PrefT3_CY_LA <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
@@ -748,7 +880,7 @@ function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(PrefT3_CY, "%"),
-      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in ", (input$LA_choice), " for ", preference_current_year),
+      paste0("in ", (input$LA_choice), " for ", preference_current_year),
       # icon = icon("fas fa-sort-amount-up"),
       color = "blue"
     )
@@ -766,7 +898,7 @@ function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(PrefT3_NY, "%"),
-      paste0("Percentage of applicants who received an offer of one of their top three preferred ", str_to_lower(input$phase_choice), " schools in ", (input$LA_choice), " for ", preference_next_year),
+      paste0("in ", (input$LA_choice), " for ", preference_next_year),
       # icon = icon("fas fa-sort-amount-up"),
       color = "blue"
     )
@@ -898,7 +1030,10 @@ function(input, output, session) {
   output$LA_GO_places <- renderValueBox({
     # Put value into box to plug into app
     shinydashboard::valueBox(
-      paste0(LA_comp(), "%"),
+      ifelse(is.na(LA_comp()),
+        "0 new places created",
+        paste0(LA_comp(), "%")
+      ),
       paste0("Percentage of new places created in ", school_description(), str_to_lower(input$phase_choice), " schools in ", input$LA_choice),
       # icon = icon("fas fa-boxes"),
       color = "blue"
@@ -1402,96 +1537,94 @@ function(input, output, session) {
   )
 
 
-
-
   # Comparison charts - average cost per place
 
-  output$cost_plot <- renderPlotly({
-    all_LA_cost <- live_scorecard_data_all_la() %>%
-      filter(str_detect(name, "Cost|Places|Projects")) %>%
-      mutate(data_type = case_when(
-        str_detect(name, "Cost") ~ "Cost",
-        str_detect(name, "Place") ~ "Place",
-        str_detect(name, "Project") ~ "Project"
-      )) %>%
-      mutate(exp_type = case_when(
-        str_detect(name, "EP") ~ "Permanent",
-        str_detect(name, "ET") ~ "Temporary",
-        str_detect(name, "NS") ~ "New School"
-      )) %>%
-      select(LA_name, data_type, exp_type, value) %>%
-      pivot_wider(names_from = data_type, values_from = value) %>%
-      mutate(
-        cost_per_place = round_half_up(Cost / Place, 0),
-        grouping = case_when(
-          !LA_name %in% c("England", input$LA_choice) ~ "Other LA",
-          TRUE ~ as.character(LA_name)
-        ),
-        x = 1,
-        group_higlight = if_else(grouping == "Other LA", 0, 1)
-      ) %>%
-      arrange(group_higlight)
-
-    p <- ggplot() +
-      geom_beeswarm(
-        data = all_LA_cost %>% filter(group_higlight == 0), mapping = aes(x, cost_per_place,
-          color = grouping,
-          text = paste(LA_name, ": £", scales::comma(cost_per_place), " per place")
-        ),
-        groupOnX = TRUE, na.rm = TRUE
-      ) +
-      scale_y_continuous(labels = comma) +
-      labs(x = "", y = "Cost per place (£)") +
-      geom_beeswarm(
-        data = all_LA_cost %>% filter(group_higlight == 1), aes(x, cost_per_place,
-          color = grouping,
-          text = paste(LA_name, ": £", scales::comma(cost_per_place), " per place")
-        ),
-        groupOnX = TRUE, na.rm = TRUE, size = 3.2
-      ) +
-      facet_grid(~ factor(exp_type, levels = c("Permanent", "Temporary", "New school"))) +
-      scale_fill_manual(
-        breaks = c("Other LA", input$LA_choice, "England"),
-        values = c("#BFBFBF", "#f47738", "#1d70b8")
-      ) +
-      scale_color_manual(
-        breaks = c(input$LA_choice, "England", "Other LA"),
-        values = c("#f2590d", "#1c6bb0", "#dcd9d6")
-      ) +
-      theme(
-        axis.line.y = element_line(color = "grey", size = 1),
-        axis.line.x = element_blank(),
-        axis.text.x = element_blank(),
-        axis.text.y = element_text(size = 8),
-        axis.ticks.x = element_blank(),
-        axis.title.x = element_blank(),
-        axis.title.y = element_text(margin = margin(r = 70)),
-        legend.title = element_blank(),
-        panel.background = element_blank(),
-        panel.border = element_rect(color = "grey", size = 1, fill = NA),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        plot.background = element_blank(),
-        text = element_text(size = 14, family = "Arial")
-      ) +
-      labs(y = "Cost per place (£)")
-
-
-
-    ggplotly(p, tooltip = c("text")) %>%
-      layout(
-        legend = list(
-          orientation = "h",
-          y = -0.1, x = 0.33,
-          font = font_choice
-        ),
-        title = list(
-          text = "Chart showing the cost of permanent, temporary and new school projects by local authority",
-          font = list(color = "#c8c8c8", size = 1)
-        )
-      ) %>%
-      config(displayModeBar = FALSE)
-  })
+  # output$cost_plot <- renderPlotly({
+  #   all_LA_cost <- live_scorecard_data_all_la() %>%
+  #     filter(str_detect(name, "Cost|Places|Projects")) %>%
+  #     mutate(data_type = case_when(
+  #       str_detect(name, "Cost") ~ "Cost",
+  #       str_detect(name, "Place") ~ "Place",
+  #       str_detect(name, "Project") ~ "Project"
+  #     )) %>%
+  #     mutate(exp_type = case_when(
+  #       str_detect(name, "EP") ~ "Permanent",
+  #       str_detect(name, "ET") ~ "Temporary",
+  #       str_detect(name, "NS") ~ "New School"
+  #     )) %>%
+  #     select(LA_name, data_type, exp_type, value) %>%
+  #     pivot_wider(names_from = data_type, values_from = value) %>%
+  #     mutate(
+  #       cost_per_place = round_half_up(Cost / Place, 0),
+  #       grouping = case_when(
+  #         !LA_name %in% c("England", input$LA_choice) ~ "Other LA",
+  #         TRUE ~ as.character(LA_name)
+  #       ),
+  #       x = 1,
+  #       group_higlight = if_else(grouping == "Other LA", 0, 1)
+  #     ) %>%
+  #     arrange(group_higlight)
+  #
+  #   p <- ggplot() +
+  #     geom_beeswarm(
+  #       data = all_LA_cost %>% filter(group_higlight == 0), mapping = aes(x, cost_per_place,
+  #         color = grouping,
+  #         text = paste(LA_name, ": £", scales::comma(cost_per_place), " per place")
+  #       ),
+  #       groupOnX = TRUE, na.rm = TRUE
+  #     ) +
+  #     scale_y_continuous(labels = comma) +
+  #     labs(x = "", y = "Cost per place (£)") +
+  #     geom_beeswarm(
+  #       data = all_LA_cost %>% filter(group_higlight == 1), aes(x, cost_per_place,
+  #         color = grouping,
+  #         text = paste(LA_name, ": £", scales::comma(cost_per_place), " per place")
+  #       ),
+  #       groupOnX = TRUE, na.rm = TRUE, size = 3.2
+  #     ) +
+  #     facet_grid(~ factor(exp_type, levels = c("Permanent", "Temporary", "New school"))) +
+  #     scale_fill_manual(
+  #       breaks = c("Other LA", input$LA_choice, "England"),
+  #       values = c("#BFBFBF", "#f47738", "#1d70b8")
+  #     ) +
+  #     scale_color_manual(
+  #       breaks = c(input$LA_choice, "England", "Other LA"),
+  #       values = c("#f2590d", "#1c6bb0", "#dcd9d6")
+  #     ) +
+  #     theme(
+  #       axis.line.y = element_line(color = "grey", size = 1),
+  #       axis.line.x = element_blank(),
+  #       axis.text.x = element_blank(),
+  #       axis.text.y = element_text(size = 8),
+  #       axis.ticks.x = element_blank(),
+  #       axis.title.x = element_blank(),
+  #       axis.title.y = element_text(margin = margin(r = 70)),
+  #       legend.title = element_blank(),
+  #       panel.background = element_blank(),
+  #       panel.border = element_rect(color = "grey", size = 1, fill = NA),
+  #       panel.grid.major = element_blank(),
+  #       panel.grid.minor = element_blank(),
+  #       plot.background = element_blank(),
+  #       text = element_text(size = 14, family = "Arial")
+  #     ) +
+  #     labs(y = "Cost per place (£)")
+  #
+  #
+  #
+  #   ggplotly(p, tooltip = c("text")) %>%
+  #     layout(
+  #       legend = list(
+  #         orientation = "h",
+  #         y = -0.1, x = 0.33,
+  #         font = font_choice
+  #       ),
+  #       title = list(
+  #         text = "Chart showing the cost of permanent, temporary and new school projects by local authority",
+  #         font = list(color = "#c8c8c8", size = 1)
+  #       )
+  #     ) %>%
+  #     config(displayModeBar = FALSE)
+  # })
 
   # Comparison boxes - number of projects
   output$perm_box <- renderValueBox({

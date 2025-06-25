@@ -92,7 +92,7 @@ CPP_S_EP,Secondary Permanent Expansion cost per place
 CPP_S_ET,Secondary Temporary Expansion cost per place
 CPP_S_NS,Secondary New School cost per place
 Projects_P_EP,Primary Number of Permanent Expansion
-Projects_P_Et,Primary Number of Temporary Expansion
+Projects_P_ET,Primary Number of Temporary Expansion
 Projects_P_NS,Primary Number of New Schools
 Projects_S_EP,Secondary Number of Permanent Expansion
 Projects_S_ET,Secondary Number of Temporary Expansion

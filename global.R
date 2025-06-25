@@ -34,6 +34,7 @@ shhh(library(dfeshiny))
 shhh(library(shinytest2))
 shhh(library(diffviewer))
 shhh(library(janitor))
+shhh(library(DT))
 
 # Phantom js needed for pdf compile to work. Note this works even on the shinyapps server.
 if (!webshot::is_phantomjs_installed()) {
@@ -90,13 +91,13 @@ enableBookmarking(store = "url")
 # ----------------------------------------------------------------------------
 
 
-scorecards_data <- fread("data/scorecards_data_2023.csv")
+scorecards_data <- fread("data/scorecards_data_2024.csv")
 
 
 # pivot data around to long format
 scorecards_data_pivot <- scorecards_data %>%
-  mutate_at(vars(-c("Region", "LA_name")), as.numeric) %>%
-  pivot_longer(cols = !starts_with(c("Region", "LA"))) %>%
+  mutate_at(vars(-c("geographic_level":"LA_name")), as.numeric) %>%
+  pivot_longer(cols = !c("geographic_level":"LA_name")) %>%
   # assign phase based on names of columns
   mutate(
     Phase = ifelse(
