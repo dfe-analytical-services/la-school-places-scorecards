@@ -30,8 +30,7 @@ ui <- function(input, output, session) {
       )
     ),
     shinyjs::useShinyjs(),
-    customDisconnectMessage(),
-    useShinydashboard(),
+    shinyWidgets::useShinydashboard(),
     # Setting up cookie consent based on a cookie recording the consent:
     dfe_cookies_script(),
     dfeshiny::cookies_banner_ui(
