@@ -35,7 +35,7 @@ shhh(library(shinytest2))
 shhh(library(diffviewer))
 shhh(library(janitor))
 shhh(library(DT))
-
+shhh(library(reactable))
 # Phantom js needed for pdf compile to work. Note this works even on the shinyapps server.
 if (!webshot::is_phantomjs_installed()) {
   webshot::install_phantomjs(force = FALSE)

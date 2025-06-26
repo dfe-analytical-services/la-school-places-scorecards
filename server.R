@@ -8,9 +8,13 @@ function(input, output, session) {
 
   # Cookie control ----------------------------------------------------------
   output$cookie_status <- dfeshiny::cookies_banner_server(
-    "cookies_banner",
     input_cookies = reactive(input$cookies),
     parent_session = session,
+    google_analytics_key = google_analytics_key
+  )
+
+  dfeshiny::cookies_panel_server(
+    input_cookies = shiny::reactive(input$cookies),
     google_analytics_key = google_analytics_key
   )
 
@@ -613,7 +617,17 @@ function(input, output, session) {
         starts_with("Estimated percentage"),
         starts_with("Total")
       ) %>%
-      arrange(LA_name)
+      arrange(LA_name) |>
+      datatable(
+        rownames = FALSE,
+        options = list(
+          scrollX = TRUE,
+          paging = FALSE,
+          searching = FALSE,
+          dom = "t",
+          style = "bootstrap"
+        )
+      )
   })
 
 
@@ -653,9 +667,9 @@ function(input, output, session) {
     )
 
     if (label != "accurate") {
-      paste0("<h1>One year ahead: ", format_perc(forecast_accuracy), "</h1> ", label)
+      paste0("<p><b>One year ahead: ", format_perc(forecast_accuracy), "</b></p><p>", label, "</p>")
     } else {
-      paste0("<b>One year ahead: ", label)
+      paste0("<p><b>One year ahead: ", "</b></p><p>", label, "</b></p>")
     }
   })
 
@@ -693,79 +707,79 @@ function(input, output, session) {
     )
 
     if (label != "accurate") {
-      paste0("<h1>Three years ahead: ", format_perc(forecast_accuracy), "</h1> ", label)
+      paste0("<p><b>Three years ahead: ", format_perc(forecast_accuracy), "</b></p><p>", label, "</p>")
     } else {
-      paste("<b>Three years ahead: </b>", label)
+      paste("<p><b>Three years ahead: </b></p><p>", label, "</p>")
     }
   })
 
-  output$for1year_table <- renderDataTable(
-    {
-      scorecards_data_pivot %>%
-        filter(
-          name == "For_1",
-          Phase == input$phase_choice
-        ) %>%
-        mutate(
-          Median = format_perc(median(value, na.rm = TRUE)),
-          Twentyfifthpercentile = format_perc(quantile(value, 0.25, na.rm = TRUE)),
-          Seventyfifthpercentile = format_perc(quantile(value, 0.75, na.rm = TRUE)),
-          Minimum = format_perc(min(value, na.rm = TRUE)),
-          Maximum = format_perc(max(value, na.rm = TRUE)),
-        ) %>%
-        filter(
-          LA_name == "England"
-        ) %>%
-        select(Minimum,
-          `25th percentile` = Twentyfifthpercentile,
-          Median,
-          `75th percentile` = Seventyfifthpercentile,
-          Maximum
+  output$for1year_table <- renderDataTable({
+    scorecards_data_pivot %>%
+      filter(
+        name == "For_1",
+        Phase == input$phase_choice
+      ) %>%
+      mutate(
+        Median = format_perc(median(value, na.rm = TRUE)),
+        Twentyfifthpercentile = format_perc(quantile(value, 0.25, na.rm = TRUE)),
+        Seventyfifthpercentile = format_perc(quantile(value, 0.75, na.rm = TRUE)),
+        Minimum = format_perc(min(value, na.rm = TRUE)),
+        Maximum = format_perc(max(value, na.rm = TRUE)),
+      ) %>%
+      filter(
+        LA_name == "England"
+      ) %>%
+      select(Minimum,
+        `25th percentile` = Twentyfifthpercentile,
+        Median,
+        `75th percentile` = Seventyfifthpercentile,
+        Maximum
+      ) |>
+      datatable(
+        rownames = FALSE,
+        options = list(
+          scrollX = TRUE,
+          paging = FALSE,
+          searching = FALSE,
+          dom = "t",
+          style = "bootstrap"
         )
-    },
-    options = list(
-      scrollX = TRUE,
-      paging = FALSE,
-      orderFixed = TRUE,
-      searching = FALSE,
-      dom = "t",
-      style = "bootstrap"
-    )
-  )
+      )
+  })
 
-  output$for3year_table <- renderDataTable(
-    {
-      scorecards_data_pivot %>%
-        filter(
-          name == "For_3",
-          Phase == input$phase_choice
-        ) %>%
-        mutate(
-          Median = format_perc(median(value, na.rm = TRUE)),
-          Twentyfifthpercentile = format_perc(quantile(value, 0.25, na.rm = TRUE)),
-          Seventyfifthpercentile = format_perc(quantile(value, 0.75, na.rm = TRUE)),
-          Minimum = format_perc(min(value, na.rm = TRUE)),
-          Maximum = format_perc(max(value, na.rm = TRUE)),
-        ) %>%
-        filter(
-          LA_name == "England"
-        ) %>%
-        select(Minimum,
-          `25th percentile` = Twentyfifthpercentile,
-          Median,
-          `75th percentile` = Seventyfifthpercentile,
-          Maximum
+  output$for3year_table <- renderDataTable({
+    scorecards_data_pivot %>%
+      filter(
+        name == "For_3",
+        Phase == input$phase_choice
+      ) %>%
+      mutate(
+        Median = format_perc(median(value, na.rm = TRUE)),
+        Twentyfifthpercentile = format_perc(quantile(value, 0.25, na.rm = TRUE)),
+        Seventyfifthpercentile = format_perc(quantile(value, 0.75, na.rm = TRUE)),
+        Minimum = format_perc(min(value, na.rm = TRUE)),
+        Maximum = format_perc(max(value, na.rm = TRUE)),
+      ) %>%
+      filter(
+        LA_name == "England"
+      ) %>%
+      select(Minimum,
+        `25th percentile` = Twentyfifthpercentile,
+        Median,
+        `75th percentile` = Seventyfifthpercentile,
+        Maximum
+      ) |>
+      datatable(
+        rownames = FALSE,
+        options = list(
+          scrollX = TRUE,
+          paging = FALSE,
+          searching = FALSE,
+          dom = "t",
+          style = "bootstrap"
         )
-    },
-    options = list(
-      scrollX = TRUE,
-      paging = FALSE,
-      orderFixed = TRUE,
-      searching = FALSE,
-      dom = "t",
-      style = "bootstrap"
-    )
-  )
+      )
+  })
 
 
   ## Forecast accuracy three years ahead
