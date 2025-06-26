@@ -60,3 +60,15 @@ roundFiveUp <- function(number, dp = 0) {
   z <- z / 10^dp
   return(z * sign(number))
 }
+
+vline <- function(x = 0, color = "black") {
+  list(
+    type = "line",
+    y0 = 0,
+    y1 = 1,
+    yref = "paper",
+    x0 = x,
+    x1 = x,
+    line = list(color = color, dash = "solid")
+  )
+}
