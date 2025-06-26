@@ -19,8 +19,8 @@
 
       ]
     },
-    "label_estimate_y1": "<h1>One year ahead: +0.6%<\/h1> Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
-    "label_estimate_y3": "<h1>Three years ahead: +2.1%<\/h1> Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores",
+    "label_estimate_y1": "<p><b>One year ahead: +0.6%<\/b><\/p><p>Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores<\/p>",
+    "label_estimate_y3": "<p><b>Three years ahead: +2.1%<\/b><\/p><p>Overestimate of pupil numbers, within the middle 25-75% of local authorities' forecast accuracy scores<\/p>",
     "places_chart": {
       "x": {
         "layout": {
