@@ -25,9 +25,9 @@ ui <- function(input, output, session) {
     customDisconnectMessage(),
     useShinydashboard(),
     # Setting up cookie consent based on a cookie recording the consent:
-    dfe_cookie_script(),
-    cookie_banner_ui(
-      "cookies",
+    dfe_cookies_script(),
+    cookies_banner_ui(
+      "cookies_banner",
       name = "Local authority school places scorecards"
     ),
     # Adding google analytics script

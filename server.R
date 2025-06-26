@@ -7,10 +7,9 @@ function(input, output, session) {
 
 
   # Cookie control ----------------------------------------------------------
-  output$cookie_status <- dfeshiny::cookie_banner_server(
-    "cookies",
+  output$cookie_status <- dfeshiny::cookies_banner_server(
+    "cookies_banner",
     input_cookies = reactive(input$cookies),
-    input_clear = reactive(input$cookie_consent_clear),
     parent_session = session,
     google_analytics_key = google_analytics_key
   )

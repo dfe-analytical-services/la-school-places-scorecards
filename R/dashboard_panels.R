@@ -175,10 +175,11 @@ panel_scorecard <- function() {
             gov_row(
               column(
                 width = 6,
-                p(strong("Download data for all local authorities", style = "color:white")),
-                myDownloadButton(
+                shinyGovstyle::download_button(
                   "download_ud",
-                  "Download data"
+                  "Download data for all LAs",
+                  file_type = "CSV",
+                  file_size = "72 KB"
                 )
               )
               # column(
