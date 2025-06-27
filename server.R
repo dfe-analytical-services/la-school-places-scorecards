@@ -194,6 +194,19 @@ function(input, output, session) {
       )
   })
 
+  # scorecard data, filtered on user input and benchmarking choice Las as a
+  # comparison
+  live_quantity_england_all_selected <- reactive({
+    scorecards_data_pivot %>%
+      filter(
+        LA_name %in% c(input$LA_choice, input$selectBenchLAs, "England"),
+        Phase == input$phase_choice
+      ) %>%
+      mutate(LA_name = factor(LA_name,
+        levels = c(input$LA_choice, input$selectBenchLAs)
+      ))
+  })
+
   # Options for chart choice - dependent on phase choice
   chart_options <- reactive({
     if (input$phase_choice == "Primary") {
@@ -382,6 +395,46 @@ function(input, output, session) {
           " pupil numbers 2014/15 to ",
           next_year
         )
+      ),
+      # icon = icon("fas fa-chart-line"),
+      color = "blue"
+    )
+  })
+
+  ## Growth in pupil numbers (actual) 10 to 19
+  output$pupil_growth_10_to_break <- renderValueBox({
+    # Take filtered data, search for growth rate, pull the value and tidy the number up
+    growth_perc <- live_scorecard_data() %>%
+      filter(name == "NoR_10_to_breakpercent") %>%
+      pull(value) # %>%
+    # round_half_up(., 3) * 100
+
+    # Put value into box to plug into app
+    shinydashboard::valueBox(
+      format_perc(growth_perc),
+      ifelse(input$phase_choice == "Primary",
+        paste0("Actual change in ", str_to_lower(input$phase_choice), " pupil numbers 2009/10 to 2018/19"),
+        paste0("Actual change in ", str_to_lower(input$phase_choice), " pupil numbers 2009/10 to 2014/15")
+      ),
+      # icon = icon("fas fa-chart-line"),
+      color = "blue"
+    )
+  })
+
+  ## Growth in pupil numbers (actual) 19 to current
+  output$pupil_growth_break_to_current <- renderValueBox({
+    # Take filtered data, search for growth rate, pull the value and tidy the number up
+    growth_perc <- live_scorecard_data() %>%
+      filter(name == "NoR_break_to_currentpercent") %>%
+      pull(value) # %>%
+    # round_half_up(., 3) * 100
+
+    # Put value into box to plug into app
+    shinydashboard::valueBox(
+      format_perc(growth_perc),
+      ifelse(input$phase_choice == "Primary",
+        paste0("Actual change in ", str_to_lower(input$phase_choice), " pupil numbers 2018/19 to ", next_year),
+        paste0("Actual change in ", str_to_lower(input$phase_choice), " pupil numbers 2014/15 to ", next_year)
       ),
       # icon = icon("fas fa-chart-line"),
       color = "blue"
@@ -1165,6 +1218,8 @@ function(input, output, session) {
   })
 
   # Box for LA % preference current year
+
+
 
   output$PrefT3_CY_LA <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up

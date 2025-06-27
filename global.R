@@ -28,7 +28,6 @@ shhh(library(shinytest2))
 shhh(library(diffviewer))
 shhh(library(janitor))
 shhh(library(DT))
-shhh(library(reactable))
 
 source("0_variable_change.R")
 source("R/functions.R")
