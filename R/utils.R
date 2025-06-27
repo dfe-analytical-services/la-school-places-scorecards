@@ -1,7 +1,8 @@
-customDisconnectMessage <- function(refresh = "Refresh page",
-                                    links = sites_list,
-                                    publication_name = ees_pub_name,
-                                    publication_link = ees_publication) {
+customDisconnectMessage <- function(
+    refresh = "Refresh page",
+    links = sites_list,
+    publication_name = ees_pub_name,
+    publication_link = ees_publication) {
   checkmate::assert_string(refresh)
   htmltools::tagList(
     htmltools::tags$script(
@@ -19,10 +20,13 @@ customDisconnectMessage <- function(refresh = "Refresh page",
       style = "display: none !important;",
       htmltools::tags$div(
         id = "ss-connect-refresh",
-        tags$p("You've lost connection to the dashboard server - please try refreshing the page:"),
+        tags$p(
+          "You've lost connection to the dashboard server - please try refreshing the page:"
+        ),
         tags$p(tags$a(
           id = "ss-reload-link",
-          href = "#", "Refresh page",
+          href = "#",
+          "Refresh page",
           onclick = "window.location.reload(true);"
         )),
         if (length(links) > 1) {
@@ -53,7 +57,10 @@ customDisconnectMessage <- function(refresh = "Refresh page",
         },
         tags$p(
           "Please contact",
-          tags$a(href = "mailto:statistics.development@education.gov.uk", "statistics.development@education.gov.uk"),
+          tags$a(
+            href = "mailto:statistics.development@education.gov.uk",
+            "statistics.development@education.gov.uk"
+          ),
           "with details of any problems with this resource."
         )
         #  ),
@@ -63,7 +70,8 @@ customDisconnectMessage <- function(refresh = "Refresh page",
     htmltools::tags$div(id = "ss-overlay", style = "display: none;"),
     htmltools::tags$head(htmltools::tags$style(
       glue::glue(
-        .open = "{{", .close = "}}",
+        .open = "{{",
+        .close = "}}",
         "#custom-disconnect-dialog a {
              display: {{ if (refresh == '') 'none' else 'inline' }} !important;
              color: #1d70b8 !important;

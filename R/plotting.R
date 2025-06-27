@@ -1,9 +1,17 @@
-plot_forecast <- function(dfScorecards, dfScorecardsPivot, la_choice, phase, years) {
+plot_forecast <- function(
+    dfScorecards,
+    dfScorecardsPivot,
+    la_choice,
+    phase,
+    years) {
   forecast <- paste0("For_", years)
   # Calculate the data range - for this we're using Primary and Seconday together.
   range_allphases <- dfScorecardsPivot %>%
     filter(name == forecast)
-  max_scale <- max(c(abs(min(range_allphases$value, na.rm = TRUE)), max(range_allphases$value, na.rm = TRUE)))
+  max_scale <- max(c(
+    abs(min(range_allphases$value, na.rm = TRUE)),
+    max(range_allphases$value, na.rm = TRUE)
+  ))
   max_scale <- ceiling(100. * max_scale) / 100.
 
   # Derive the tickmark positions based on the scale.
@@ -26,7 +34,9 @@ plot_forecast <- function(dfScorecards, dfScorecardsPivot, la_choice, phase, yea
 
   p <- ggplot(
     forecast_accuracy,
-    aes(name, value,
+    aes(
+      name,
+      value,
       fill = value,
       text = paste0(la_choice, ": ", format_perc(value))
     )
@@ -44,7 +54,8 @@ plot_forecast <- function(dfScorecards, dfScorecardsPivot, la_choice, phase, yea
     ) +
     theme_bw() +
     theme(
-      legend.position = "none", axis.text.y = element_blank(),
+      legend.position = "none",
+      axis.text.y = element_blank(),
       axis.ticks.y = element_blank(),
       plot.background = element_blank(),
       panel.grid.major = element_blank(),
@@ -52,8 +63,16 @@ plot_forecast <- function(dfScorecards, dfScorecardsPivot, la_choice, phase, yea
       text = element_text(size = 12)
     ) +
     geom_hline(aes(yintercept = 0), color = "black", size = 0.2) +
-    geom_hline(aes(yintercept = percentiles$accuracy[1], text = "25th percentile"), linetype = "dashed", color = "Grey") +
-    geom_hline(aes(yintercept = percentiles$accuracy[2], text = "75th percentile"), linetype = "dashed", color = "Grey") +
+    geom_hline(
+      aes(yintercept = percentiles$accuracy[1], text = "25th percentile"),
+      linetype = "dashed",
+      color = "Grey"
+    ) +
+    geom_hline(
+      aes(yintercept = percentiles$accuracy[2], text = "75th percentile"),
+      linetype = "dashed",
+      color = "Grey"
+    ) +
     geom_hline(yintercept = forecast_accuracy$value, size = 1.) +
     labs(x = "", y = "Accuracy") +
     coord_flip()
