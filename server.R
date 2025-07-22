@@ -72,6 +72,33 @@ function(input, output, session) {
     updateTabsetPanel(session, "navlistPanel", selected = "la_scorecards")
   })
 
+  # Technical section - reactive ----------------------
+  notes_quant <- reactive({
+    req(input$technical_year)
+    notesTableQuant
+  })
+
+  notes_foracc <- reactive({
+    req(input$technical_year)
+    notesTableforacc
+  })
+
+  notes_pref <- reactive({
+    req(input$technical_year)
+    notesTablePref
+  })
+
+  notes_qual <- reactive({
+    req(input$technical_year)
+    notesTableQual
+  })
+
+  notes_cost <- reactive({
+    req(input$technical_year)
+    notesTableCost
+  })
+
+
   # Data calculations - reactive --------------------------------------------
 
   # LA options - reordered
@@ -100,6 +127,7 @@ function(input, output, session) {
     scorecards_data_pivot %>%
       filter(
         LA_name == input$LA_choice,
+        Year == input$year_choice,
         Phase == input$phase_choice
       )
   })
@@ -113,7 +141,8 @@ function(input, output, session) {
             LA_name %in% c(input$LA_choice, input$selectBenchLAspref),
           TRUE ~ LA_name %in% c(input$LA_choice)
         ),
-        Phase == input$phase_choice
+        Phase == input$phase_choice,
+        Year == input$year_choice,
       ) %>%
       mutate(
         # This step just makes sure that the LA is FIRST when it comes to
@@ -131,7 +160,8 @@ function(input, output, session) {
             LA_name %in% c(input$LA_choice, input$selectBenchLAsquality),
           TRUE ~ LA_name %in% c(input$LA_choice)
         ),
-        Phase == input$phase_choice
+        Phase == input$phase_choice,
+        Year == input$year_choice
       ) %>%
       mutate(
         # This step just makes sure that the LA is FIRST when it comes to
@@ -140,9 +170,9 @@ function(input, output, session) {
       )
   })
 
-  # Scorecard data for ALL LAs, filtered only on phase choice
+  # Scorecard data for ALL LAs, filtered on phase and year choice
   live_scorecard_data_all_la <- reactive({
-    scorecards_data_pivot %>% filter(Phase == input$phase_choice)
+    scorecards_data_pivot %>% filter(Phase == input$phase_choice, Year == input$year_choice)
   })
 
   # Scorecard data, filtered on user input AND including England as a comparison
@@ -151,7 +181,8 @@ function(input, output, session) {
     scorecards_data_pivot %>%
       filter(
         LA_name %in% c(input$LA_choice, "England"),
-        Phase == input$phase_choice
+        Phase == input$phase_choice,
+        Year == input$year_choice
       ) %>%
       mutate(
         LA_name = as.factor(LA_name),
@@ -168,7 +199,8 @@ function(input, output, session) {
     scorecards_data_pivot %>%
       filter(
         LA_name %in% c(input$LA_choice, input$selectBenchLAs),
-        Phase == input$phase_choice
+        Phase == input$phase_choice,
+        Year == input$year_choice
       ) %>%
       mutate(
         LA_name = factor(
@@ -184,7 +216,8 @@ function(input, output, session) {
     scorecards_data_pivot %>%
       filter(
         LA_name %in% c(input$LA_choice, input$selectBenchLAs, "England"),
-        Phase == input$phase_choice
+        Phase == input$phase_choice,
+        Year == input$year_choice
       ) %>%
       mutate(
         LA_name = factor(
@@ -200,7 +233,8 @@ function(input, output, session) {
     scorecards_data_pivot %>%
       filter(
         LA_name %in% c(input$LA_choice, input$selectBenchLAs, "England"),
-        Phase == input$phase_choice
+        Phase == input$phase_choice,
+        Year == input$year_choice
       ) %>%
       mutate(LA_name = factor(LA_name,
         levels = c(input$LA_choice, input$selectBenchLAs)
@@ -221,6 +255,32 @@ function(input, output, session) {
       "chart_choice",
       choices = chart_options(),
       selected = "Ofsted Rating"
+    )
+  })
+
+  #  Reactive year variables
+  numeric_year <- function(academic_year) {
+    as.numeric(paste0("20", substr(academic_year, 6, 7)))
+  }
+  year_vars <- reactive({
+    selected_year <- input$year_choice
+    base_year <- numeric_year(selected_year)
+
+    list(
+      this_year = selected_year,
+      last_year = paste0(base_year - 2, "/", substr(base_year - 1, 3, 4)),
+      last_year_minus_1 = paste0(base_year - 3, "/", substr(base_year - 2, 3, 4)),
+      next_year = paste0(base_year, "/", substr(base_year + 1, 3, 4)),
+      plan_year = paste0(base_year + 2, "/", substr(base_year + 3, 3, 4)),
+      SCAP_ref = as.character(base_year),
+      plannedplaces_ref = as.character(base_year + 2),
+      funding_year = paste0("2011 to ", as.character(base_year + 2)),
+      cost_year_1 = "2015/16", # static
+      cost_year_2 = "2017/18", # static
+      preference_current_year = as.character(base_year),
+      preference_next_year = as.character(base_year + 1),
+      forecast_year = paste0(base_year, "/", substr(base_year + 1, 3, 4)),
+      chart_choice = "Ofsted Rating"
     )
   })
 
@@ -246,17 +306,17 @@ function(input, output, session) {
       input$chart_choice %in% c("Maths Progress", "Reading Progress"),
       paste0(
         "Quality of school places created between ",
-        last_year,
+        year_vars()$last_year,
         " and ",
-        this_year,
+        year_vars()$this_year,
         " based on ",
         input$chart_choice
       ),
       paste0(
         "Quality of school places created between ",
-        last_year,
+        year_vars()$last_year,
         " and ",
-        this_year,
+        year_vars()$this_year,
         " based on ",
         input$chart_choice
       )
@@ -266,6 +326,12 @@ function(input, output, session) {
   # Quantity ----------------------------------------------------------------
 
   ## create quantity
+  output$quantity_plot_title <- renderUI({
+    strong(
+      paste0("School places created, planned future places, additional places still needed, as at May ", year_vars()$SCAP_ref)
+    )
+  })
+
   output$pupil_subtitle <- renderText({
     paste0("Pupils in places in ", input$LA_choice)
   })
@@ -284,7 +350,9 @@ function(input, output, session) {
     # Take data, get total funding and divide by billion if it's England, million if it's not
     total_funding <- scorecards_data %>%
       filter(LA_name == input$LA_choice) %>%
+      filter(Year == input$year_choice) %>%
       select(Funding) %>%
+      mutate(Funding = unlist(Funding)) %>%
       mutate(Funding = as.numeric(Funding)) %>%
       mutate(
         Funding = ifelse(
@@ -293,7 +361,9 @@ function(input, output, session) {
           round_half_up(Funding / 1000000, 0)
         )
       ) %>%
-      as.numeric()
+      pull(Funding)
+
+    total_funding <- sum(total_funding, na.rm = TRUE)
 
     # Create the actual output here. Use if statement so we display "bn" if it's
     # England, "mm" if not.
@@ -302,7 +372,7 @@ function(input, output, session) {
         paste0("£", total_funding, "bn"),
         paste(
           "Total primary and secondary basic need funding to create new places",
-          funding_year
+          year_vars()$funding_year
         ),
         color = "blue"
       )
@@ -311,7 +381,7 @@ function(input, output, session) {
         paste0("£", total_funding, "m"),
         paste(
           "Total primary and secondary basic need funding to create new places",
-          funding_year
+          year_vars()$funding_year
         ),
         color = "blue"
       )
@@ -334,7 +404,7 @@ function(input, output, session) {
         "Actual change in ",
         str_to_lower(input$phase_choice),
         " pupil numbers 2009/10 to ",
-        next_year
+        year_vars()$next_year
       ),
       # icon = icon("fas fa-chart-line"),
       color = "blue"
@@ -387,13 +457,13 @@ function(input, output, session) {
           "Actual change in ",
           str_to_lower(input$phase_choice),
           " pupil numbers 2018/19 to ",
-          next_year
+          year_vars()$next_year
         ),
         paste0(
           "Actual change in ",
           str_to_lower(input$phase_choice),
           " pupil numbers 2014/15 to ",
-          next_year
+          year_vars()$next_year
         )
       ),
       # icon = icon("fas fa-chart-line"),
@@ -433,8 +503,8 @@ function(input, output, session) {
     shinydashboard::valueBox(
       format_perc(growth_perc),
       ifelse(input$phase_choice == "Primary",
-        paste0("Actual change in ", str_to_lower(input$phase_choice), " pupil numbers 2018/19 to ", next_year),
-        paste0("Actual change in ", str_to_lower(input$phase_choice), " pupil numbers 2014/15 to ", next_year)
+        paste0("Actual change in ", str_to_lower(input$phase_choice), " pupil numbers 2018/19 to ", year_vars()$next_year),
+        paste0("Actual change in ", str_to_lower(input$phase_choice), " pupil numbers 2014/15 to ", year_vars()$next_year)
       ),
       # icon = icon("fas fa-chart-line"),
       color = "blue"
@@ -457,9 +527,9 @@ function(input, output, session) {
         "Anticipated change in ",
         str_to_lower(input$phase_choice),
         " pupil numbers ",
-        next_year,
+        year_vars()$next_year,
         " to ",
-        plan_year
+        year_vars()$plan_year
       ),
       color = "blue"
     )
@@ -520,7 +590,7 @@ function(input, output, session) {
         "Percentage of unfilled ",
         str_to_lower(input$phase_choice),
         " places ",
-        this_year
+        year_vars()$this_year
       ),
       # icon = icon("fas fa-signal"),
       color = "blue"
@@ -542,7 +612,7 @@ function(input, output, session) {
         "Estimated additional ",
         str_to_lower(input$phase_choice),
         " places needed to meet demand in ",
-        plan_year
+        year_vars()$plan_year
       ),
       # icon = icon("fas fa-signal"),
       color = "blue"
@@ -566,7 +636,7 @@ function(input, output, session) {
         "Estimated percentage of spare ",
         str_to_lower(input$phase_choice),
         " places in ",
-        plan_year
+        year_vars()$plan_year
       ),
       # icon = icon("fas fa-school"),
       color = "blue"
@@ -631,7 +701,7 @@ function(input, output, session) {
         marker = list(color = c("#08519c")),
         name = paste0(
           "Total places created between May 2010 and May ",
-          SCAP_ref
+          year_vars()$SCAP_ref
         ),
         text = ~ scales::comma(QuanIn),
         textposition = "inside",
@@ -644,9 +714,9 @@ function(input, output, session) {
         marker = list(color = c("#3182bd")),
         name = paste0(
           "New places planned for delivery between May ",
-          SCAP_ref,
+          year_vars()$SCAP_ref,
           " and September ",
-          plannedplaces_ref
+          year_vars()$plannedplaces_ref
         ),
         text = ~ scales::comma(QuanPP),
         textposition = "outside",
@@ -660,7 +730,7 @@ function(input, output, session) {
         marker = list(color = c("#6baed6")),
         name = paste0(
           "Estimated additional places still needed to meet demand in ",
-          plan_year
+          year_vars()$plan_year
         ),
         text = ~ scales::comma(QuanRP),
         textposition = "outside",
@@ -708,7 +778,7 @@ function(input, output, session) {
         marker = list(color = c("#08519c")),
         name = paste0(
           "Total places created between May 2010 and May ",
-          SCAP_ref
+          year_vars()$SCAP_ref
         ),
         text = ~ scales::comma(QuanIn),
         textposition = "inside",
@@ -721,9 +791,9 @@ function(input, output, session) {
         marker = list(color = c("#3182bd")),
         name = paste0(
           "New places planned for delivery between May ",
-          SCAP_ref,
+          year_vars()$SCAP_ref,
           " and September ",
-          plannedplaces_ref
+          year_vars()$plannedplaces_ref
         ),
         text = ~ scales::comma(QuanPP),
         textposition = "outside",
@@ -736,7 +806,7 @@ function(input, output, session) {
         marker = list(color = c("#6baed6")),
         name = paste0(
           "Estimated additional places still needed to meet demand in ",
-          plan_year
+          year_vars()$plan_year
         ),
         text = ~ scales::comma(QuanRP),
         textposition = "outside",
@@ -798,7 +868,7 @@ function(input, output, session) {
               "Actual change in ",
               str_to_lower(input$phase_choice),
               " pupil numbers 2009/10 to ",
-              next_year
+              year_vars()$next_year
             ),
           name == "NoR_10_to_breakpercent" ~
             paste0(
@@ -811,37 +881,37 @@ function(input, output, session) {
               "Actual change in ",
               str_to_lower(input$phase_choice),
               " pupil numbers 2018/19 to ",
-              next_year
+              year_vars()$next_year
             ),
           name == "Angro" ~
             paste0(
               "Anticipated change in ",
               str_to_lower(input$phase_choice),
               " pupil numbers ",
-              next_year,
+              year_vars()$next_year,
               " to ",
-              plan_year
+              year_vars()$plan_year
             ),
           name == "QuanUP" ~
             paste0(
               "Percentage of unfilled ",
               str_to_lower(input$phase_choice),
               " places ",
-              this_year
+              year_vars()$this_year
             ),
           name == "QuanRP" ~
             paste0(
               "Estimated additional ",
               str_to_lower(input$phase_choice),
               " places needed to meet demand in ",
-              plan_year
+              year_vars()$plan_year
             ),
           name == "QuanSu" ~
             paste0(
               "Estimated percentage of spare ",
               str_to_lower(input$phase_choice),
               " places in ",
-              plan_year
+              year_vars()$plan_year
             ),
           name == "Funding" ~
             paste0(
@@ -879,6 +949,12 @@ function(input, output, session) {
   })
 
   ## Forecast accuracy labels
+  output$forecast_title <- renderUI({
+    strong(
+      paste0("Forecast accuracy of pupil projections for ", year_vars()$forecast_year, ", made one year and three years previously")
+    )
+  })
+
 
   output$label_estimate_y1 <- renderText({
     forecast_accuracy <- live_scorecard_data() %>%
@@ -889,7 +965,8 @@ function(input, output, session) {
     Foracc1year <- scorecards_data_pivot %>%
       filter(
         name == "For_1",
-        Phase == input$phase_choice
+        Phase == input$phase_choice,
+        Year == input$year_choice
       ) %>%
       pull(value) %>%
       round_half_up(., 3)
@@ -950,7 +1027,8 @@ function(input, output, session) {
     Foracc3year <- scorecards_data_pivot %>%
       filter(
         name == "For_3",
-        Phase == input$phase_choice
+        Phase == input$phase_choice,
+        Year == input$year_choice
       ) %>%
       pull(value) %>%
       round_half_up(., 3)
@@ -1006,7 +1084,8 @@ function(input, output, session) {
     scorecards_data_pivot %>%
       filter(
         name == "For_1",
-        Phase == input$phase_choice
+        Phase == input$phase_choice,
+        Year == input$year_choice
       ) %>%
       mutate(
         Median = format_perc(median(value, na.rm = TRUE)),
@@ -1049,7 +1128,8 @@ function(input, output, session) {
     scorecards_data_pivot %>%
       filter(
         name == "For_3",
-        Phase == input$phase_choice
+        Phase == input$phase_choice,
+        Year == input$year_choice
       ) %>%
       mutate(
         Median = format_perc(median(value, na.rm = TRUE)),
@@ -1193,7 +1273,7 @@ function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(PrefT3_CY_E, "%"),
-      paste0("in England for ", preference_current_year),
+      paste0("in England for ", year_vars()$preference_current_year),
       # icon = icon("fas fa-chart-line"),
       color = "blue"
     )
@@ -1211,7 +1291,7 @@ function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(PrefT3_NY_E, "%"),
-      paste0("in England for ", preference_next_year),
+      paste0("in England for ", year_vars()$preference_next_year),
       # icon = icon("fas fa-chart-line"),
       color = "blue"
     )
@@ -1231,7 +1311,7 @@ function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(PrefT3_CY, "%"),
-      paste0("in ", (input$LA_choice), " for ", preference_current_year),
+      paste0("in ", (input$LA_choice), " for ", year_vars()$preference_current_year),
       # icon = icon("fas fa-sort-amount-up"),
       color = "blue"
     )
@@ -1249,7 +1329,7 @@ function(input, output, session) {
     # Put value into box to plug into app
     shinydashboard::valueBox(
       paste0(PrefT3_NY, "%"),
-      paste0("in ", (input$LA_choice), " for ", preference_next_year),
+      paste0("in ", (input$LA_choice), " for ", year_vars()$preference_next_year),
       # icon = icon("fas fa-sort-amount-up"),
       color = "blue"
     )
@@ -1275,8 +1355,8 @@ function(input, output, session) {
       # Create groups for "current year" and "next year" places based on names
       mutate(
         preference_year = case_when(
-          str_detect(name, "CY") ~ preference_current_year,
-          str_detect(name, "NY") ~ preference_next_year
+          str_detect(name, "CY") ~ year_vars()$preference_current_year,
+          str_detect(name, "NY") ~ year_vars()$preference_next_year
         )
       ) %>%
       # Create ratings out of the names
@@ -1581,9 +1661,9 @@ function(input, output, session) {
         "LA Rank out of ",
         LA_denom(),
         " LAs that created new places between ",
-        last_year,
+        year_vars()$last_year,
         " and ",
-        this_year,
+        year_vars()$this_year,
         " (ranks can be tied)"
       ),
       # icon = icon("fas fa-bars"),
@@ -2068,6 +2148,9 @@ function(input, output, session) {
   })
 
   # Cost --------------------------------------------------------------------
+  output$cost_title <- renderText({
+    paste0("Based on local authority reported projects between ", year_vars()$cost_year_1, " and ", year_vars()$cost_year_2, ", adjusted for inflation and regional variation")
+  })
 
   output$cost.bartext <- renderUI({
     if (input$LA_choice != "England") {
@@ -2347,10 +2430,18 @@ function(input, output, session) {
 
   # Tech guidance tables ----------------------------------------------------
 
-  output$notesTableforacc <- function() {
-    notesTableforacc[is.na(notesTableforacc)] <- " "
+  output$notesTableforacc <- renderUI({
+    # require this condition
+    req(input$technical_year)
+    # filter only rows for chosen year
+    table_foracc <- notes_foracc() %>%
+      filter(Publication == input$technical_year)
+    # replace NAs with blanks
+    table_foracc[is.na(table_foracc)] <- " "
+    # remove publication column from being displayed
+    table_foracc <- table_foracc %>% select(-Publication)
 
-    kable(notesTableforacc, "html", align = "l", escape = FALSE) %>%
+    table_html_foracc <- kable(table_foracc, "html", align = "l", escape = FALSE) %>%
       kable_styling(full_width = F) %>%
       # collapse_rows(columns = 1:2) %>%
       column_spec(
@@ -2360,12 +2451,21 @@ function(input, output, session) {
         extra_css = "vertical-align: top !important;"
       ) %>%
       column_spec(2, width = "20em")
-  }
 
-  output$notesTableQuant <- function() {
-    notesTableQuant[is.na(notesTableQuant)] <- " "
+    HTML(table_html_foracc)
+  })
 
-    kable(notesTableQuant, "html", align = "l", escape = FALSE) %>%
+  output$notesTableQuant <- renderUI({
+    req(input$technical_year)
+
+    table_quant <- notes_quant() %>%
+      filter(Publication == input$technical_year)
+
+    table_quant[is.na(table_quant)] <- " "
+
+    table_quant <- table_quant %>% select(-Publication)
+
+    table_html_quant <- kable(table_quant, "html", align = "l", escape = FALSE) %>%
       kable_styling(full_width = F) %>%
       # collapse_rows(columns = 1:2) %>%
       column_spec(
@@ -2376,12 +2476,20 @@ function(input, output, session) {
       column_spec(2, width_max = "20em") %>%
       column_spec(3, width_max = "20em") %>%
       column_spec(5, width_max = "40em")
-  }
 
-  output$notesTablePref <- function() {
-    notesTablePref[is.na(notesTablePref)] <- " "
+    HTML(table_html_quant)
+  })
 
-    kable(notesTablePref, "html", align = "l", escape = FALSE) %>%
+  output$notesTablePref <- renderUI({
+    req(input$technical_year)
+
+    table_pref <- notes_pref() %>%
+      filter(Publication == input$technical_year)
+
+    table_pref[is.na(table_pref)] <- " "
+    table_pref <- table_pref %>% select(-Publication)
+
+    table_html_pref <- kable(table_pref, "html", align = "l", escape = FALSE) %>%
       kable_styling(full_width = F) %>%
       # collapse_rows(columns = 1:2) %>%
       column_spec(
@@ -2391,12 +2499,20 @@ function(input, output, session) {
         extra_css = "vertical-align: top !important;"
       ) %>%
       column_spec(2, width = "20em")
-  }
 
-  output$notesTableQual <- function() {
-    notesTableQual[is.na(notesTableQual)] <- " "
+    HTML(table_html_pref)
+  })
 
-    kable(notesTableQual, "html", align = "l", escape = FALSE) %>%
+  output$notesTableQual <- renderUI({
+    req(input$technical_year)
+
+    table_qual <- notes_qual() %>%
+      filter(Publication == input$technical_year)
+
+    table_qual[is.na(table_qual)] <- " "
+    table_qual <- table_qual %>% select(-Publication)
+
+    table_html_qual <- kable(table_qual, "html", align = "l", escape = FALSE) %>%
       kable_styling(full_width = F) %>%
       # collapse_rows(columns = 1:2) %>%
       column_spec(
@@ -2406,12 +2522,21 @@ function(input, output, session) {
         extra_css = "vertical-align: top !important;"
       ) %>%
       column_spec(2, width = "20em")
-  }
 
-  output$notesTableCost <- function() {
-    notesTableCost[is.na(notesTableCost)] <- " "
+    HTML(table_html_qual)
+  })
 
-    kable(notesTableCost, "html", align = "l", escape = FALSE) %>%
+  output$notesTableCost <- renderUI({
+    req(input$technical_year)
+
+    table_cost <- notes_cost() %>%
+      filter(Publication == input$technical_year)
+
+    table_cost[is.na(table_cost)] <- " "
+
+    table_cost <- table_cost %>% select(-Publication)
+
+    table_html_cost <- kable(table_cost, "html", align = "l", escape = FALSE) %>%
       kable_styling(full_width = F) %>%
       # collapse_rows(columns = 1:2) %>%
       column_spec(
@@ -2424,7 +2549,9 @@ function(input, output, session) {
       column_spec(3, width = "20em") %>%
       column_spec(4, width = "20em") %>%
       column_spec(5, width_max = "50em")
-  }
+
+    HTML(table_html_cost)
+  })
 
   # Hide details if Eng--------
   observe({

@@ -1,7 +1,7 @@
 panel_homepage <- function() {
   tabPanel(
     "Homepage",
-    h1("Local authority school places scorecards: academic year 2023/24"),
+    h1("Local authority school places scorecards"),
     br(
       "You can view the scorecard for England as a whole or for an individual
        local authority. To do this click on",
@@ -27,13 +27,16 @@ panel_homepage <- function() {
     be found below. Each scorecard metric is shown on a different tab within 'LA scorecards'
     and can be selected by clicking on the name of the metric."
     ),
+    br(strong("The scorecard now conatins a drop-down list allowing you to view 2022/23 or 2023/24 data.
+              The contents section below relates to the 2023/24 data, but would be applicable to the 2022/23 data if all stated dates and SCAP surveys were a year earlier.
+              If you have any questions about the content of the 2022/23 scorecard, please get in touch.")),
     br(),
     div(
       class = "panel panel-info",
       div(
         class = "panel-heading",
         style = "color: white;font-size: 18px;font-style: bold; background-color: #1d70b8;",
-        h2("Scorecard Contents"),
+        h2("Scorecard Contents (2023/24)"),
       ),
       div(
         class = "panel-body",
@@ -273,11 +276,21 @@ panel_scorecard <- function() {
             gov_row(
               column(
                 width = 6,
+                selectInput("year_choice",
+                  label = p(strong("Choose year")),
+                  choices = unique(scorecards_data$Year),
+                  selected = max(scorecards_data$Year)
+                )
+              )
+            ),
+            gov_row(
+              column(
+                width = 6,
                 shinyGovstyle::download_button(
                   "download_ud",
                   "Download data for all LAs",
                   file_type = "CSV",
-                  file_size = "72 KB"
+                  file_size = "155 KB"
                 )
               )
               # column(
@@ -314,10 +327,7 @@ panel_scorecard <- function() {
                 gov_row(
                   column(
                     6,
-                    p(strong(
-                      "School places created, planned future places, additional places still needed, as at May",
-                      SCAP_ref
-                    )),
+                    p(strong(uiOutput("quantity_plot_title"))),
                     conditionalPanel(
                       condition = "input.LA_choice != 'England'",
                       selectizeInput(
@@ -402,11 +412,7 @@ panel_scorecard <- function() {
                 gov_row(
                   column(
                     width = 12,
-                    p(strong(
-                      "Forecast accuracy of pupil projections for",
-                      forecast_year,
-                      ", made one year and three years previously"
-                    )),
+                    p(strong(uiOutput("forecast_title"))),
                     uiOutput("forecasting.bartext"),
                     p(
                       "The tables show forecast accuracy measures for all Local Authorities. Of these, only the 25th and 75th percentiles are shown in the charts."
@@ -545,13 +551,7 @@ panel_scorecard <- function() {
                     p(strong(
                       "Average cost of additional mainstream school places"
                     )),
-                    p(
-                      "Based on local authority reported projects between ",
-                      cost_year_1,
-                      " and ",
-                      cost_year_2,
-                      ", adjusted for inflation and regional variation"
-                    ),
+                    p(textOutput("cost_title")),
                     p(em(
                       "Local authority average costs are not shown due to incomplete coverage and completeness. Only national average costs and number of projects for England are shown."
                     ))
@@ -600,30 +600,31 @@ panel_technical <- function() {
       "All dates refer to the academic year, apart from basic need funding years which refer to the financial year."
     ),
     br(),
+    selectInput("technical_year", "Select Year:", choices = unique(notesTableQuant$Publication), selected = max(notesTableQuant$Publication)),
     tabBox(
       title = "",
       id = "tabs_tech_notes",
       width = "12",
       tabPanel(
         "Quantity",
-        tableOutput("notesTableQuant") # made in global.R file
+        uiOutput("notesTableQuant") # made in global.R file
       ), # end of tabPanel
       tabPanel(
         "Pupil forecast accuracy",
-        tableOutput("notesTableforacc") # made in global.R file
+        uiOutput("notesTableforacc") # made in global.R file
       ), # end of tabPanel
       tabPanel(
         "Preference",
-        tableOutput("notesTablePref") # made in global.R file
+        uiOutput("notesTablePref") # made in global.R file
       ), # end of tabPanel
       tabPanel(
         "Quality",
-        tableOutput("notesTableQual") # made in global.R file
+        uiOutput("notesTableQual") # made in global.R file
       ), # end of tabPanel
       tabPanel(
         value = "cost",
         title = "Cost",
-        tableOutput("notesTableCost") # made in global.R file
+        uiOutput("notesTableCost") # made in global.R file
       ) # end of tabPanel
     ) # end of tabBox
   )

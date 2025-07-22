@@ -79,13 +79,14 @@ enableBookmarking(store = "url")
 # ----------------------------------------------------------------------------
 
 
-scorecards_data <- fread("data/scorecards_data_2024.csv")
+scorecards_data <- fread("data/scorecard_data_2024_2023.csv")
+
 
 
 # pivot data around to long format
 scorecards_data_pivot <- scorecards_data %>%
-  mutate_at(vars(-c("geographic_level":"LA_name")), as.numeric) %>%
-  pivot_longer(cols = !c("geographic_level":"LA_name")) %>%
+  mutate_at(vars(-c("Year":"LA_name")), as.numeric) %>%
+  pivot_longer(cols = !c("Year":"LA_name")) %>%
   # assign phase based on names of columns
   mutate(
     Phase = ifelse(
@@ -189,11 +190,11 @@ scorecards_data_clean <- data.table::setnames(scorecards_data_clean, old = metad
 
 # Primary data
 primary_data_clean <- scorecards_data_clean %>%
-  select(`LA Name`, `LA Number`, contains(c("primary", "Primary")))
+  select(`LA Name`, `LA Number`, `Year`, contains(c("primary", "Primary")))
 
 # Secondary data
 secondary_data_clean <- scorecards_data_clean %>%
-  select(`LA Name`, `LA Number`, contains(c("secondary", "Secondary")))
+  select(`LA Name`, `LA Number`, `Year`, contains(c("secondary", "Secondary")))
 
 # Create download button without the icon
 myDownloadButton <- function(outputId, label = "Download") {
