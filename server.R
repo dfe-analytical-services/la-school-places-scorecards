@@ -1300,7 +1300,6 @@ function(input, output, session) {
   # Box for LA % preference current year
 
 
-
   output$PrefT3_CY_LA <- renderValueBox({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     PrefT3_CY <- live_scorecard_data() %>%

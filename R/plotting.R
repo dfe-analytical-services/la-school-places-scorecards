@@ -1,9 +1,10 @@
 plot_forecast <- function(
-    dfScorecards,
-    dfScorecardsPivot,
-    la_choice,
-    phase,
-    years) {
+  dfScorecards,
+  dfScorecardsPivot,
+  la_choice,
+  phase,
+  years
+) {
   forecast <- paste0("For_", years)
   # Calculate the data range - for this we're using Primary and Seconday together.
   range_allphases <- dfScorecardsPivot %>%

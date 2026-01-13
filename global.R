@@ -28,6 +28,7 @@ shhh(library(shinytest2))
 shhh(library(diffviewer))
 shhh(library(janitor))
 shhh(library(DT))
+shhh(library(rsconnect))
 
 source("0_variable_change.R")
 source("R/functions.R")
@@ -72,15 +73,12 @@ divergent_gradient <- c(seq_gradient, rev(seq_gradient))
 enableBookmarking(store = "url")
 
 
-
-
 # ----------------------------------------------------------------------------
 # Reading and manipulating data
 # ----------------------------------------------------------------------------
 
 
 scorecards_data <- fread("data/scorecard_data_2024_2023.csv")
-
 
 
 # pivot data around to long format

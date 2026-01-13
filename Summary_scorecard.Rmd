@@ -92,7 +92,6 @@ total_funding <- scorecards_data %>%
   as.numeric()
 
 
-
 dfTopLine <- data.frame(
   funding = ifelse(params$input_la_choice == "England",
     paste0(total_funding, "billion"),
@@ -198,7 +197,6 @@ additional_places_perc <- dfScorecardArea %>%
 
 # Display value
 x <- paste0("Estimated additional ", str_to_lower(params$input_phase_choice), " places still needed to meet demand in ", plan_year, ": ", scales::comma(additional_places_perc))
-
 
 
 ## Estimated spare places
@@ -965,7 +963,6 @@ progress_8_data <- dfScorecardArea_england_comp %>%
   )
 
 
-
 progress_8_p <- progress_8_data %>%
   filter(rating != "No rating") %>%
   ggplot(aes(
@@ -1129,7 +1126,6 @@ if (params$input_la_choice == "England" & params$input_quality_chart == "Maths P
 }
 
 
-
 # Pick chart to plot based on user input
 if (params$input_quality_chart == "Ofsted") {
   quality_chart_choice <- ofsted_p
@@ -1189,8 +1185,6 @@ dfScorecardArea_england_comp <-
   )
 
 
-
-
 # Comparison boxes - number of projects
 
 perm_fig <- dfScorecardArea_all_la %>%
@@ -1212,8 +1206,6 @@ perm_fig <- dfScorecardArea_all_la %>%
   pull(value)
 
 
-
-
 temp_fig <- dfScorecardArea_all_la %>%
   # Filter for Cost, places and project data
   filter(str_detect(name, "Cost|Places|Projects")) %>%
@@ -1231,9 +1223,6 @@ temp_fig <- dfScorecardArea_all_la %>%
   select(LA_name, data_type, exp_type, value) %>%
   filter(LA_name == "England" & data_type == "Project" & exp_type == "Temporary") %>%
   pull(value)
-
-
-
 
 
 new_fig <- dfScorecardArea_all_la %>%
