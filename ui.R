@@ -45,7 +45,7 @@ ui <- function(input, output, session) {
       "beta banner",
       "beta",
       paste0(
-        "This Dashboard is in beta phase and we are still reviewing performance and reliability. "
+        "This dashboard is provided as a test case on the explore education dashboards service."
       )
     ),
     shiny::navlistPanel(
