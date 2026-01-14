@@ -67,6 +67,7 @@ The function shinytest2::test_app() will run any unit and ui tests available in 
 ### Deployment
 
 - The app is deployed to the department's shinyapps.io subscription using GitHub actions, to [https://department-for-education.shinyapps.io/la-school-places-scorecards](https://department-for-education.shinyapps.io/la-school-places-scorecards). The yaml file for this can be found in the .github/workflows folder.
+- This branch is deployed to Explore education dashboards development as a test app
 
 ### Navigation
 
