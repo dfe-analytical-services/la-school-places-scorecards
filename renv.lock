@@ -966,7 +966,7 @@
     },
     "mgcv": {
       "Package": "mgcv",
-      "Version": "1.9-3",
+      "Version": "1.9-4",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -979,7 +979,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "51fcbccd59569cdad6da6b8e49cdf4f2"
+      "Hash": "347e906be9f134c45ee8ed36430cad5a"
     },
     "mime": {
       "Package": "mime",
