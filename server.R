@@ -6,6 +6,7 @@ function(input, output, session) {
   )
 
   # Cookie control ----------------------------------------------------------
+  # test comment
   output$cookie_status <- dfeshiny::cookies_banner_server(
     input_cookies = reactive(input$cookies),
     parent_session = session,
