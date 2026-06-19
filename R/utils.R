@@ -1,8 +1,9 @@
 customDisconnectMessage <- function(
-    refresh = "Refresh page",
-    links = sites_list,
-    publication_name = ees_pub_name,
-    publication_link = ees_publication) {
+  refresh = "Refresh page",
+  links = sites_list,
+  publication_name = ees_pub_name,
+  publication_link = ees_publication
+) {
   checkmate::assert_string(refresh)
   htmltools::tagList(
     htmltools::tags$script(

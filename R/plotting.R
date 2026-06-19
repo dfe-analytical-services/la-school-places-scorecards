@@ -1,9 +1,10 @@
 plot_forecast <- function(
-    dfScorecards,
-    dfScorecardsPivot,
-    la_choice,
-    phase,
-    years) {
+  dfScorecards,
+  dfScorecardsPivot,
+  la_choice,
+  phase,
+  years
+) {
   forecast <- paste0("For_", years)
   # Calculate the data range - for this we're using Primary and Seconday together.
   range_allphases <- dfScorecardsPivot %>%
@@ -20,17 +21,17 @@ plot_forecast <- function(
 
   # Now get the percentile values for plotting on the chart.
   percentiles <- dfScorecardsPivot %>%
-  filter(name == forecast, Phase == phase) %>%
-  summarise(
-    p25 = quantile(value, 0.25, na.rm = TRUE),
-    p75 = quantile(value, 0.75, na.rm = TRUE)
-  ) |>
+    filter(name == forecast, Phase == phase) %>%
+    summarise(
+      p25 = quantile(value, 0.25, na.rm = TRUE),
+      p75 = quantile(value, 0.75, na.rm = TRUE)
+    ) |>
     tidyr::pivot_longer(
       cols = c("p25", "p75"),
       names_to = "percentile",
       values_to = "accuracy"
     )
-  
+
   # Now grab the actual data point (note that this has already been filtered for phase and LA).
   forecast_accuracy <- dfScorecards %>%
     filter(name == forecast)

@@ -11,14 +11,14 @@ forecast_summary_stats <- function(data, years, phase) {
   summary_stats <- data %>%
     filter(name == forecast, Phase == phase, LA_name != "England") %>%
     summarise(
-    p0 = quantile(value, 0.0, na.rm = TRUE),
-    p25 = quantile(value, 0.25, na.rm = TRUE),
-    p50 = quantile(value, 0.5, na.rm = TRUE),
-    p75 = quantile(value, 0.75, na.rm = TRUE),
-    p100 = quantile(value, 1.0, na.rm = TRUE)
-  ) |>
+      p0 = quantile(value, 0.0, na.rm = TRUE),
+      p25 = quantile(value, 0.25, na.rm = TRUE),
+      p50 = quantile(value, 0.5, na.rm = TRUE),
+      p75 = quantile(value, 0.75, na.rm = TRUE),
+      p100 = quantile(value, 1.0, na.rm = TRUE)
+    ) |>
     tidyr::pivot_longer(
-      cols = c("p0","p25","p50","p75", "p100"),
+      cols = c("p0", "p25", "p50", "p75", "p100"),
       names_to = "percentile",
       values_to = "accuracy"
     ) |>
