@@ -20,13 +20,17 @@ plot_forecast <- function(
 
   # Now get the percentile values for plotting on the chart.
   percentiles <- dfScorecardsPivot %>%
-    filter(name == forecast, Phase == phase) %>%
-    summarise(
-      quantile = scales::percent(c(0.25, 0.75)),
-      accuracy = quantile(value, c(0.25, 0.75), na.rm = TRUE)
-    ) %>%
-    as.data.frame()
-
+  filter(name == forecast, Phase == phase) %>%
+  summarise(
+    p25 = quantile(value, 0.25, na.rm = TRUE),
+    p75 = quantile(value, 0.75, na.rm = TRUE)
+  ) |>
+    tidyr::pivot_longer(
+      cols = c("p25", "p75"),
+      names_to = "percentile",
+      values_to = "accuracy"
+    )
+  
   # Now grab the actual data point (note that this has already been filtered for phase and LA).
   forecast_accuracy <- dfScorecards %>%
     filter(name == forecast)
