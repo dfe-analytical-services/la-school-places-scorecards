@@ -72,15 +72,12 @@ divergent_gradient <- c(seq_gradient, rev(seq_gradient))
 enableBookmarking(store = "url")
 
 
-
-
 # ----------------------------------------------------------------------------
 # Reading and manipulating data
 # ----------------------------------------------------------------------------
 
 
 scorecards_data <- fread("data/scorecard_data_2024_2023.csv")
-
 
 
 # pivot data around to long format

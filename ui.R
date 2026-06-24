@@ -31,6 +31,7 @@ ui <- function(input, output, session) {
     ),
     shinyjs::useShinyjs(),
     shinyWidgets::useShinydashboard(),
+    shinyGovstyle::full_width_overrides(),
     # Setting up cookie consent based on a cookie recording the consent:
     dfe_cookies_script(),
     dfeshiny::cookies_banner_ui(
