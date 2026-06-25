@@ -6,7 +6,7 @@ plot_forecast <- function(
   years
 ) {
   forecast <- paste0("For_", years)
-  # Calculate the data range - for this we're using Primary and Seconday together.
+  # Calculate the data range - for this we're using Primary and Secondary together.
   range_allphases <- dfScorecardsPivot %>%
     filter(name == forecast)
   max_scale <- max(c(
@@ -43,10 +43,10 @@ plot_forecast <- function(
       name,
       value,
       fill = value,
-      text = paste0(la_choice, ": ", format_perc(value))
+      tooltip = paste0(la_choice, ": ", format_perc(value))
     )
   ) +
-    geom_bar(stat = "identity", width = 100) +
+    geom_col_interactive(stat = "identity", width = 100) +
     scale_fill_gradientn(
       colors = divergent_gradient,
       space = "Lab",
@@ -65,20 +65,26 @@ plot_forecast <- function(
       plot.background = element_blank(),
       panel.grid.major = element_blank(),
       panel.grid.minor = element_blank(),
-      text = element_text(size = 12)
+      plot.margin = margin(t = 10, r = 20, b = 10, l = 10),
+      text = element_text(size = 42)
+      # font size is scaled to the size of the container so this is set larger than standard
     ) +
-    geom_hline(aes(yintercept = 0), color = "black", size = 0.2) +
-    geom_hline(
-      aes(yintercept = percentiles$accuracy[1], text = "25th percentile"),
+    geom_hline(yintercept = 0, color = "black", size = 1.5) +
+    geom_hline_interactive(
+      yintercept = percentiles$accuracy[1],
       linetype = "dashed",
-      color = "Grey"
+      color = "Grey",
+      size = 1.5,
+      tooltip = "25th percentile"
     ) +
-    geom_hline(
-      aes(yintercept = percentiles$accuracy[2], text = "75th percentile"),
+    geom_hline_interactive(
+      yintercept = percentiles$accuracy[2],
       linetype = "dashed",
-      color = "Grey"
+      color = "Grey",
+      size = 1.5,
+      tooltip = "75th percentile"
     ) +
-    geom_hline(yintercept = forecast_accuracy$value, size = 1.) +
+    geom_hline(yintercept = forecast_accuracy$value, size = 2) +
     labs(x = "", y = "Accuracy") +
     coord_flip()
   return(p)

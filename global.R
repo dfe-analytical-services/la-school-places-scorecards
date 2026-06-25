@@ -13,8 +13,7 @@ shhh(library(shinycssloaders))
 shhh(library(tidyr))
 shhh(library(stringr))
 shhh(library(ggplot2))
-shhh(library(plotly))
-shhh(library(shinydashboard))
+shhh(library(ggiraph))
 shhh(library(scales))
 shhh(library(forcats))
 shhh(library(shinyjs))
@@ -77,7 +76,7 @@ enableBookmarking(store = "url")
 # ----------------------------------------------------------------------------
 
 
-scorecards_data <- fread("data/scorecard_data_2024_2023.csv")
+scorecards_data <- fread("data/scorecard_data_2025_2023.csv")
 
 
 # pivot data around to long format
