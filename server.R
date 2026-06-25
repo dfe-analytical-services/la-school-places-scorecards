@@ -1494,7 +1494,6 @@ function(input, output, session) {
   # Box for LA % preference current year
 
 
-
   output$PrefT3_CY_LA <- renderUI({
     # Take filtered data, search for growth rate, pull the value and tidy the number up
     PrefT3_CY <- live_scorecard_data() %>%
@@ -1811,7 +1810,6 @@ function(input, output, session) {
       theme = "primary"
     )
   })
-
 
 
   # Calculate England comparator depending on chart choice:

@@ -1,48 +1,136 @@
-programmer_friendly_names,user_friendly_names
+﻿programmer_friendly_names,user_friendly_names
 LANumber,LA Number
-Quan_P_In,Primary places created between 09/10 and 22/23
-Quan_S_In,Secondary places created between 09/10 and 22/23
-Quan_P_RP,Estimated number of primary places needed to meet demand in 25/26
-Quan_S_RP,Estimated number of secondary places needed to meet demand in 25/26
-Quan_P_Su,Estimated percentage of spare primary places in 25/26
-Quan_S_Su,Estimated percentage of spare secondary places in 25/26
-Quan_P_PP,New primary places planned for delivery for 25/26
-Quan_S_PP,New secondary places planned for delivery for 25/26
-Ban_P_gro,Primary actual change in pupil numbers 09/10 to 23/24
-Ban_S_gro,Secondary actual change in pupil numbers 09/10 to 23/24
-An_P_gro,Primary anticipated change in pupil numbers 22/23 to 25/26
-An_S_gro,Secondary anticipated change in pupil numbers 22/23 to 25/26
-Quan_P_UP,Percentage of unfilled primary places in 22/23
-Quan_S_UP,Percentage of unfilled secondary places in 22/23
-Funding,Total basic need allocation 2011 to 2025
+Quan_P_In,Primary places created from 2009/10 to SCAP year (2024/25)
+Quan_S_In,Secondary places created from 2009/10 to SCAP year (2024/25)
+Quan_P_RP,Estimated number of primary places needed to meet demand 3 years ahead (2027/28)
+Quan_S_RP,Estimated number of secondary places needed to meet demand 3 years ahead (2027/28)
+Quan_P_Su,Estimated percentage of spare primary places 3 years ahead (2027/28)
+Quan_S_Su,Estimated percentage of spare secondary places 3 years ahead (2027/28)
+Quan_P_PP,Planned primary places to be delivered 3 years ahead (2027/28)
+Quan_S_PP,Planned secondary places to be delivered 3 years ahead (2027/28)
+Ban_P_gro,Primary actual change in pupil numbers 09/10 to SCAP year (2024/25)
+Ban_S_gro,Secondary actual change in pupil numbers 09/10 to SCAP year (2024/25)
+An_P_gro,Primary anticipated change in pupil numbers from SCAP year (2024/25) to 3 years ahead (2027/28)
+An_S_gro,Secondary anticipated change in pupil numbers from SCAP year (2024/25) to 3 years ahead (2027/28)
+Quan_P_UP,Percentage of unfilled primary places in SCAP year (2024/25)
+Quan_S_UP,Percentage of unfilled secondary places in SCAP year (2024/25)
+Funding,Total basic need allocation
 For_3_P,Primary forecast accuracy 3yr ahead
 For_1_P,Primary forecast accuracy 1yr ahead
 For_3_S,Secondary forecast accuracy 3yr ahead
 For_1_S,Secondary forecast accuracy 1yr ahead
-Qual_P_1_N,Primary places added in Outstanding schools
-Qual_P_2_N,Primary places added in Good schools
-Qual_P_3_N,Primary places added in Requires improvement schools
-Qual_P_4_N,Primary places added in Inadequate schools
-Qual_P_0_N,Primary places added in schools with no rating
-Qual_P_1_E,Primary existing places in Outstanding schools
-Qual_P_2_E,Primary existing places in Good schools
-Qual_P_3_E,Primary existing places in Requires improvement schools
-Qual_P_4_E,Primary existing places in Inadequate schools
-Qual_P_0_E,Primary existing places in schools with no rating
-Qual_P_Prop,Primary percentage places added in Outstanding/good schools
-Qual_P_Propranks,LA Rank Primary percentage places added in Outstanding/good schools
-Qual_S_1_N,Secondary places added in Outstanding schools
-Qual_S_2_N,Secondary places added in Good schools
-Qual_S_3_N,Secondary places added in Requires improvement schools
-Qual_S_4_N,Secondary places added in Inadequate schools
-Qual_S_0_N,Secondary places added in schools with no rating
-Qual_S_1_E,Secondary existing places in Outstanding schools
-Qual_S_2_E,Secondary existing places in Good schools
-Qual_S_3_E,Secondary existing places in requires improvement schools
-Qual_S_4_E,Secondary existing places in inadequate schools
-Qual_S_0_E,Secondary existing places in schools with no rating
-Qual_S_Prop,Secondary percentage places added in Outstanding/good schools
-Qual_S_Propranks,LA Rank Secondary percentage places added in Outstanding/good schools
+Pref_P_1_CY,Primary Preference 1st choice for SCAP year (Sept 2025) entry
+Pref_P_2_CY,Primary Preference 2nd choice for SCAP year (Sept 2025) entry
+Pref_P_3_CY,Primary Preference 3rd choice for SCAP year (Sept 2025) entry
+Pref_S_1_CY,Secondary Preference 1st choice for SCAP year (Sept 2025) entry
+Pref_S_2_CY,Secondary Preference 2nd choice for SCAP year (Sept 2025) entry
+Pref_S_3_CY,Secondary Preference 3rd choice for SCAP year (Sept 2025) entry
+Pref_P_T3_CY,Primary Preference 1 to 3 choice total for SCAP year (Sept 2025) entry
+Pref_S_T3_CY,Secondary Preference 1 to 3 choice total for SCAP year (Sept 2025) entry
+Pref_P_1_NY,Primary Preference 1st choice for next SCAP year (Sept 2026) entry
+Pref_P_2_NY,Primary Preference 2nd choice for next SCAP year (Sept 2026) entry
+Pref_P_3_NY,Primary Preference 3rd choice for next SCAP year (Sept 2026) entry
+Pref_S_1_NY,Secondary Preference 1st choice for next SCAP year (Sept 2026) entry
+Pref_S_2_NY,Secondary Preference 2nd choice for next SCAP year (Sept 2026) entry
+Pref_S_3_NY,Secondary Preference 3rd choice for next SCAP year (Sept 2026) entry
+Pref_P_T3_NY,Primary Preference 1 to 3 choice total for next SCAP year (Sept 2026) entry
+Pref_S_T3_NY,Secondary Preference 1 to 3 choice for next SCAP year (Sept 2026) entry
+Qual_P_1_N_QE,Quality of education - Primary places added in Outstanding schools
+Qual_P_2_N_QE,Quality of education - Primary places added in Good schools
+Qual_P_3_N_QE,Quality of education - Primary places added in Requires improvement schools
+Qual_P_4_N_QE,Quality of education - Primary places added in Inadequate schools
+Qual_P_0_N_QE,Quality of education - Primary places added in schools with no rating
+Qual_P_1_E_QE,Quality of education - Primary existing places in Outstanding schools
+Qual_P_2_E_QE,Quality of education - Primary existing places in Good schools
+Qual_P_3_E_QE,Quality of education - Primary existing places in Requires improvement schools
+Qual_P_4_E_QE,Quality of education - Primary existing places in Inadequate schools
+Qual_P_0_E_QE,Quality of education - Primary existing places in schools with no rating
+Qual_P_Prop_QE,Quality of education - Primary percentage places added in Outstanding/good schools
+Qual_P_Propranks_QE,Quality of education - LA Rank Primary percentage places added in Outstanding/good schools
+Qual_S_1_N_QE,Quality of education - Secondary places added in Outstanding schools
+Qual_S_2_N_QE,Quality of education - Secondary places added in Good schools
+Qual_S_3_N_QE,Quality of education - Secondary places added in Requires improvement schools
+Qual_S_4_N_QE,Quality of education - Secondary places added in Inadequate schools
+Qual_S_0_N_QE,Quality of education - Secondary places added in schools with no rating
+Qual_S_1_E_QE,Quality of education - Secondary existing places in Outstanding schools
+Qual_S_2_E_QE,Quality of education - Secondary existing places in Good schools
+Qual_S_3_E_QE,Quality of education - Secondary existing places in requires improvement schools
+Qual_S_4_E_QE,Quality of education - Secondary existing places in inadequate schools
+Qual_S_0_E_QE,Quality of education - Secondary existing places in schools with no rating
+Qual_S_Prop_QE,Quality of education - Secondary percentage places added in Outstanding/good schools
+Qual_S_Propranks_QE,Quality of education - LA Rank Secondary percentage places added in Outstanding/good schools
+Qual_P_1_N_BA,Behaviour and attitudes - Primary places added in Outstanding schools
+Qual_P_2_N_BA,Behaviour and attitudes - Primary places added in Good schools
+Qual_P_3_N_BA,Behaviour and attitudes - Primary places added in Requires improvement schools
+Qual_P_4_N_BA,Behaviour and attitudes - Primary places added in Inadequate schools
+Qual_P_0_N_BA,Behaviour and attitudes - Primary places added in schools with no rating
+Qual_P_1_E_BA,Behaviour and attitudes - Primary existing places in Outstanding schools
+Qual_P_2_E_BA,Behaviour and attitudes - Primary existing places in Good schools
+Qual_P_3_E_BA,Behaviour and attitudes - Primary existing places in Requires improvement schools
+Qual_P_4_E_BA,Behaviour and attitudes - Primary existing places in Inadequate schools
+Qual_P_0_E_BA,Behaviour and attitudes - Primary existing places in schools with no rating
+Qual_P_Prop_BA,Behaviour and attitudes - Primary percentage places added in Outstanding/good schools
+Qual_P_Propranks_BA,Behaviour and attitudes - LA Rank Primary percentage places added in Outstanding/good schools
+Qual_S_1_N_BA,Behaviour and attitudes - Secondary places added in Outstanding schools
+Qual_S_2_N_BA,Behaviour and attitudes - Secondary places added in Good schools
+Qual_S_3_N_BA,Behaviour and attitudes - Secondary places added in Requires improvement schools
+Qual_S_4_N_BA,Behaviour and attitudes - Secondary places added in Inadequate schools
+Qual_S_0_N_BA,Behaviour and attitudes - Secondary places added in schools with no rating
+Qual_S_1_E_BA,Behaviour and attitudes - Secondary existing places in Outstanding schools
+Qual_S_2_E_BA,Behaviour and attitudes - Secondary existing places in Good schools
+Qual_S_3_E_BA,Behaviour and attitudes - Secondary existing places in requires improvement schools
+Qual_S_4_E_BA,Behaviour and attitudes - Secondary existing places in inadequate schools
+Qual_S_0_E_BA,Behaviour and attitudes - Secondary existing places in schools with no rating
+Qual_S_Prop_BA,Behaviour and attitudes - Secondary percentage places added in Outstanding/good schools
+Qual_S_Propranks_BA,Behaviour and attitudes - LA Rank Secondary percentage places added in Outstanding/good schools
+Qual_P_1_N_PD,Personal development - Primary places added in Outstanding schools
+Qual_P_2_N_PD,Personal development - Primary places added in Good schools
+Qual_P_3_N_PD,Personal development - Primary places added in Requires improvement schools
+Qual_P_4_N_PD,Personal development - Primary places added in Inadequate schools
+Qual_P_0_N_PD,Personal development - Primary places added in schools with no rating
+Qual_P_1_E_PD,Personal development - Primary existing places in Outstanding schools
+Qual_P_2_E_PD,Personal development - Primary existing places in Good schools
+Qual_P_3_E_PD,Personal development - Primary existing places in Requires improvement schools
+Qual_P_4_E_PD,Personal development - Primary existing places in Inadequate schools
+Qual_P_0_E_PD,Personal development - Primary existing places in schools with no rating
+Qual_P_Prop_PD,Personal development - Primary percentage places added in Outstanding/good schools
+Qual_P_Propranks_PD,Personal development - LA Rank Primary percentage places added in Outstanding/good schools
+Qual_S_1_N_PD,Personal development - Secondary places added in Outstanding schools
+Qual_S_2_N_PD,Personal development - Secondary places added in Good schools
+Qual_S_3_N_PD,Personal development - Secondary places added in Requires improvement schools
+Qual_S_4_N_PD,Personal development - Secondary places added in Inadequate schools
+Qual_S_0_N_PD,Personal development - Secondary places added in schools with no rating
+Qual_S_1_E_PD,Personal development - Secondary existing places in Outstanding schools
+Qual_S_2_E_PD,Personal development - Secondary existing places in Good schools
+Qual_S_3_E_PD,Personal development - Secondary existing places in requires improvement schools
+Qual_S_4_E_PD,Personal development - Secondary existing places in inadequate schools
+Qual_S_0_E_PD,Personal development - Secondary existing places in schools with no rating
+Qual_S_Prop_PD,Personal development - Secondary percentage places added in Outstanding/good schools
+Qual_S_Propranks_PD,Personal development - LA Rank Secondary percentage places added in Outstanding/good schools
+Qual_P_1_N_LM,Leadership and management - Primary places added in Outstanding schools
+Qual_P_2_N_LM,Leadership and management - Primary places added in Good schools
+Qual_P_3_N_LM,Leadership and management - Primary places added in Requires improvement schools
+Qual_P_4_N_LM,Leadership and management - Primary places added in Inadequate schools
+Qual_P_0_N_LM,Leadership and management - Primary places added in schools with no rating
+Qual_P_1_E_LM,Leadership and management - Primary existing places in Outstanding schools
+Qual_P_2_E_LM,Leadership and management - Primary existing places in Good schools
+Qual_P_3_E_LM,Leadership and management - Primary existing places in Requires improvement schools
+Qual_P_4_E_LM,Leadership and management - Primary existing places in Inadequate schools
+Qual_P_0_E_LM,Leadership and management - Primary existing places in schools with no rating
+Qual_P_Prop_LM,Leadership and management - Primary percentage places added in Outstanding/good schools
+Qual_P_Propranks_LM,Leadership and management - LA Rank Primary percentage places added in Outstanding/good schools
+Qual_S_1_N_LM,Leadership and management - Secondary places added in Outstanding schools
+Qual_S_2_N_LM,Leadership and management - Secondary places added in Good schools
+Qual_S_3_N_LM,Leadership and management - Secondary places added in Requires improvement schools
+Qual_S_4_N_LM,Leadership and management - Secondary places added in Inadequate schools
+Qual_S_0_N_LM,Leadership and management - Secondary places added in schools with no rating
+Qual_S_1_E_LM,Leadership and management - Secondary existing places in Outstanding schools
+Qual_S_2_E_LM,Leadership and management - Secondary existing places in Good schools
+Qual_S_3_E_LM,Leadership and management - Secondary existing places in requires improvement schools
+Qual_S_4_E_LM,Leadership and management - Secondary existing places in inadequate schools
+Qual_S_0_E_LM,Leadership and management - Secondary existing places in schools with no rating
+Qual_S_Prop_LM,Leadership and management - Secondary percentage places added in Outstanding/good schools
+Qual_S_Propranks_LM,Leadership and management - LA Rank Secondary percentage places added in Outstanding/good schools
 KS4_WAA_N,Secondary places added in Well Above Average Schools (Progress 8)
 KS4_AA_N,Secondary places added in Above Average Schools (Progress 8)
 KS4_A_N,Secondary places added in Average schools (Progress 8)
@@ -109,20 +197,28 @@ Cost_S_ET,Secondary Temporary Expansion total costs
 Places_S_ET,Secondary Temporary Expansion places created
 Cost_S_NS,Secondary New School total costs
 Places_S_NS,Secondary New Schools places created
-Pref_P_1_CY,Primary Preference 1st choice Sept 2023 entry
-Pref_P_2_CY,Primary Preference 2nd choice Sept 2023 entry
-Pref_P_3_CY,Primary Preference 3rd choice Sept 2023 entry
-Pref_S_1_CY,Secondary Preference 1st choice Sept 2023 entry
-Pref_S_2_CY,Secondary Preference 2nd choice Sept 2023 entry
-Pref_S_3_CY,Secondary Preference 3rd choice Sept 2023 entry
-Pref_P_T3_CY,Primary Preference 1 to 3 choice total Sept 2023 entry
-Pref_S_T3_CY,Secondary Preference 1 to 3 choice total Sept 2023 entry
-Pref_P_1_NY,Primary Preference 1st choice Sept 2024 entry
-Pref_P_2_NY,Primary Preference 2nd choice Sept 2024 entry
-Pref_P_3_NY,Primary Preference 3rd choice Sept 2024 entry
-Pref_S_1_NY,Secondary Preference 1st choice Sept 2024 entry
-Pref_S_2_NY,Secondary Preference 2nd choice Sept 2024 entry
-Pref_S_3_NY,Secondary Preference 3rd choice Sept 2024 entry
-Pref_P_T3_NY,Primary Preference 1 to 3 choice total Sept 2024 entry
-Pref_S_T3_NY,Secondary Preference 1 to 3 choice total Sept 2024 entry
+Qual_P_1_N,Primary places added in Outstanding schools
+Qual_P_2_N,Primary places added in Good schools
+Qual_P_3_N,Primary places added in Requires improvement schools
+Qual_P_4_N,Primary places added in Inadequate schools
+Qual_P_0_N,Primary places added in schools with no rating
+Qual_P_1_E,Primary existing places in Outstanding schools
+Qual_P_2_E,Primary existing places in Good schools
+Qual_P_3_E,Primary existing places in Requires improvement schools
+Qual_P_4_E,Primary existing places in Inadequate schools
+Qual_P_0_E,Primary existing places in schools with no rating
+Qual_P_Prop,Primary percentage places added in Outstanding/good schools
+Qual_P_Propranks,LA Rank Primary percentage places added in Outstanding/good schools
+Qual_S_1_N,Secondary places added in Outstanding schools
+Qual_S_2_N,Secondary places added in Good schools
+Qual_S_3_N,Secondary places added in Requires improvement schools
+Qual_S_4_N,Secondary places added in Inadequate schools
+Qual_S_0_N,Secondary places added in schools with no rating
+Qual_S_1_E,Secondary existing places in Outstanding schools
+Qual_S_2_E,Secondary existing places in Good schools
+Qual_S_3_E,Secondary existing places in requires improvement schools
+Qual_S_4_E,Secondary existing places in inadequate schools
+Qual_S_0_E,Secondary existing places in schools with no rating
+Qual_S_Prop,Secondary percentage places added in Outstanding/good schools
+Qual_S_Propranks,LA Rank Secondary percentage places added in Outstanding/good schools
 Year, Year
