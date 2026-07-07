@@ -1391,6 +1391,7 @@ function(input, output, session) {
       scorecards_data_pivot,
       input$LA_choice,
       input$phase_choice,
+      input$year_choice,
       1
     )
     girafe(
@@ -1412,6 +1413,7 @@ function(input, output, session) {
       scorecards_data_pivot,
       input$LA_choice,
       input$phase_choice,
+      input$year_choice,
       3
     )
     girafe(
