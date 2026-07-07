@@ -3,6 +3,7 @@ plot_forecast <- function(
   dfScorecardsPivot,
   la_choice,
   phase,
+  selected_year,
   years
 ) {
   forecast <- paste0("For_", years)
@@ -21,7 +22,7 @@ plot_forecast <- function(
 
   # Now get the percentile values for plotting on the chart.
   percentiles <- dfScorecardsPivot %>%
-    filter(name == forecast, Phase == phase) %>%
+    filter(name == forecast, Phase == phase, Year == selected_year) %>%
     summarise(
       p25 = quantile(value, 0.25, na.rm = TRUE),
       p75 = quantile(value, 0.75, na.rm = TRUE)
@@ -32,7 +33,7 @@ plot_forecast <- function(
       values_to = "accuracy"
     )
 
-  # Now grab the actual data point (note that this has already been filtered for phase and LA).
+  # Now grab the actual data point (note that this has already been filtered for phase, year and LA).
   forecast_accuracy <- dfScorecards %>%
     filter(name == forecast)
   forecast_accuracy$value <- forecast_accuracy$value %>% roundFiveUp(., 3)
